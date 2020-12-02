@@ -1,0 +1,23 @@
+{
+  "name": "business-accounting-cloud",
+  "version": "1.0.0",
+  "description": "Accounting app for small business",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kungfux/business-accounting-cloud.git"
+  },
+  "keywords": [
+    "business",
+    "accounting"
+  ],
+  "author": "kungfux",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/kungfux/business-accounting-cloud/issues"
+  },
+  "homepage": "https://github.com/kungfux/business-accounting-cloud#readme"
+}
