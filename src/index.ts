@@ -2,6 +2,7 @@ import * as dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import { db } from './app/models';
 
 dotenv.config();
 
@@ -16,8 +17,14 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
+db.sync({ alter: true })
+  .then(() => console.log('Connected to database.'))
+  .catch(() => {
+    throw 'Failed to connect to the database.';
+  });
+
 const server = app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
+  console.log(`Listening on port ${PORT}...`);
 });
 
 type ModuleId = string | number;
