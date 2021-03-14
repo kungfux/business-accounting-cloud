@@ -18,7 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 db.sync({ alter: true })
-  .then(() => console.log('Connected to database.'))
+  .then(() => console.log('Successfully connected to the database.'))
   .catch(() => {
     throw 'Failed to connect to the database.';
   });
