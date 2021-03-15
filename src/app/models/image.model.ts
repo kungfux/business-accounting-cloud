@@ -14,7 +14,7 @@ export type ImageStatic = typeof Model & {
   new (values?: object, options?: BuildOptions): ImageModel;
 };
 
-export function CompanyFactory(sequelize: Sequelize): ImageStatic {
+export function ImageFactory(sequelize: Sequelize): ImageStatic {
   return <ImageStatic>sequelize.define('images', {
     id: {
       type: DataTypes.INTEGER,

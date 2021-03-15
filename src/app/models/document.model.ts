@@ -16,8 +16,8 @@ export type DocumentStatic = typeof Model & {
   new (values?: object, options?: BuildOptions): DocumentModel;
 };
 
-export function CompanyFactory(sequelize: Sequelize): DocumentStatic {
-  return <DocumentStatic>sequelize.define('images', {
+export function DocumentFactory(sequelize: Sequelize): DocumentStatic {
+  return <DocumentStatic>sequelize.define('documents', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
