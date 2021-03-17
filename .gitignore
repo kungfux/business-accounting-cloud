@@ -105,3 +105,6 @@ dist
 
 # Database file
 bac.sqlite
+
+# npm
+package-lock.json
