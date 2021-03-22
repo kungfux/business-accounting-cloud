@@ -17,21 +17,28 @@ export type DocumentStatic = typeof Model & {
 };
 
 export function DocumentFactory(sequelize: Sequelize): DocumentStatic {
-  return <DocumentStatic>sequelize.define('documents', {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
+  return <DocumentStatic>sequelize.define(
+    'Document',
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      comment: {
+        type: DataTypes.STRING,
+      },
+      document: {
+        type: DataTypes.BLOB,
+        allowNull: false,
+      },
     },
-    title: {
-      type: DataTypes.STRING,
-    },
-    comment: {
-      type: DataTypes.STRING,
-    },
-    document: {
-      type: DataTypes.BLOB,
-      allowNull: false,
-    },
-  });
+    {
+      tableName: 'DOCUMENT_STORAGE',
+    }
+  );
 }

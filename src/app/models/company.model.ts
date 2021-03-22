@@ -1,9 +1,11 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
+import { Image } from './image.model';
 
 export interface CompanyAttributes {
   id: number;
   name: string;
-  logo: Blob;
+  logo: Image;
+  documents: Document[];
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -16,16 +18,25 @@ export type CompanyStatic = typeof Model & {
 };
 
 export function CompanyFactory(sequelize: Sequelize): CompanyStatic {
-  return <CompanyStatic>sequelize.define('companies', {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
+  return <CompanyStatic>sequelize.define(
+    'Company',
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      logo: {
+        type: DataTypes.INTEGER,
+      },
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-  });
+    {
+      tableName: 'COMPANY',
+    }
+  );
 }

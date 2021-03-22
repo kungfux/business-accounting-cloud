@@ -15,15 +15,21 @@ export type ImageStatic = typeof Model & {
 };
 
 export function ImageFactory(sequelize: Sequelize): ImageStatic {
-  return <ImageStatic>sequelize.define('images', {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
+  return <ImageStatic>sequelize.define(
+    'Image',
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      image: {
+        type: DataTypes.BLOB,
+        allowNull: false,
+      },
     },
-    image: {
-      type: DataTypes.BLOB,
-      allowNull: false,
-    },
-  });
+    {
+      tableName: 'IMAGE_STORAGE',
+    }
+  );
 }
