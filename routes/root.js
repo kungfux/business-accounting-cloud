@@ -3,9 +3,6 @@ async function routeRoot(fastify, options) {
         method: 'GET',
         url: '/',
         schema: {
-            querystring: {
-                name: { type: 'string' }
-            },
             response: {
                 200: {
                     type: 'object',
@@ -19,7 +16,9 @@ async function routeRoot(fastify, options) {
             // TODO: Add authentication
         },
         handler: async (request, reply) => {
-            return { server: 'Business Accounting Cloud 1.0.0' }
+            return {
+                server: 'Business Accounting Cloud 1.0.0'
+            }
         }
     })
 }

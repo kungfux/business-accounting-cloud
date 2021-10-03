@@ -3,6 +3,7 @@ const fastify = require('fastify')({
 });
 
 fastify.register(require('./routes/root'));
+fastify.register(require('./routes/company'));
 
 const start = async () => {
     try {
