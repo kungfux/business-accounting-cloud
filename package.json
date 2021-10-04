@@ -4,9 +4,11 @@
   "description": "Accounting cloud app for small businesses",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
-    "dev": "nodemon --watch ./",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "fastify start -l info index.js",
+    "dev": "fastify start -l info -P index.js",
+    "watch": "nodemon --exec npm run dev",
+    "lint": "standard --fix | snazzy",
+    "test": "tap --cov test/**/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -16,16 +18,26 @@
     "business",
     "accounting"
   ],
-  "author": "Alexander Fuks <mailto:alexander.v.fuks@gmail.com>",
-  "license": "Apache-2.0",
+  "author": "Alexander Fuks <alexander.v.fuks@gmail.com>",
   "bugs": {
     "url": "https://github.com/kungfux/business-accounting-cloud/issues"
   },
   "homepage": "https://github.com/kungfux/business-accounting-cloud#readme",
   "dependencies": {
-    "fastify": "^3.22.0"
+    "fastify": "^3.22.0",
+    "fastify-autoload": "^3.9.0",
+    "fastify-cli": "^2.13.0",
+    "fastify-cors": "^6.0.2",
+    "fastify-helmet": "^5.3.2",
+    "fastify-jwt": "^3.1.0",
+    "fastify-plugin": "^3.0.0",
+    "sequelize-fastify": "^1.0.9",
+    "sqlite3": "^5.0.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.13",
+    "snazzy": "^9.0.0",
+    "standard": "^16.0.4",
+    "tap": "^15.0.10"
   }
 }
