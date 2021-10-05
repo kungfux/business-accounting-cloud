@@ -1,6 +1,7 @@
 'use strict'
 
 const schemas = require('../schemas/company')
+const { QueryTypes } = require('sequelize');
 
 module.exports = async function (fastify, opts) {
     // fastify.addHook('onRequest', async (request, reply) => {
@@ -22,26 +23,34 @@ module.exports = async function (fastify, opts) {
         '/',
         { schema: schemas.findAll },
         async function (request, reply) {
-            const limit = parseInt(request.query.limit) || 0
+            const limit = parseInt(request.query.limit) || 10
             const offset = parseInt(request.query.offset) || 0
-            var res = await this.db.query('select * from company')
-            return JSON.stringify(res[0])
+            const items = await this.db.query('select * from company limit ? offset ?',
+                {
+                    replacements: [limit, offset],
+                    type: QueryTypes.SELECT
+                }
+            )
+            return JSON.stringify(items);
         }
     )
 
     fastify.get(
-        '/:name',
+        '/:id',
         { schema: schemas.findOne },
         async function (request, reply) {
-            const item = await this.mongo.db
-                .collection('todo')
-                .findOne({ name: request.params.name })
+            const item = await this.db.query('select * from company where id = ? limit 1',
+                {
+                    replacements: [request.params.id],
+                    type: QueryTypes.SELECT
+                }
+            )
 
-            if (item == null) {
+            if (item.length == 0) {
                 return reply.callNotFound()
             }
 
-            return item
+            return JSON.stringify(item)
         }
     )
 
@@ -49,35 +58,47 @@ module.exports = async function (fastify, opts) {
         '/',
         { schema: schemas.insertOne },
         async function (request, reply) {
-            return this.mongo.db.collection('todo').insertOne(
-                Object.assign(request.body, {
-                    timestamp: this.timestamp(),
-                    done: false
-                })
+            const [result, metadata] = await this.db.query('insert into company (name) values(?)',
+                {
+                    replacements: [request.body.name],
+                    type: QueryTypes.INSERT
+                }
             )
+            return {
+                message: 'OK',
+                id: result
+            }
         }
     )
 
     fastify.put(
-        '/:name',
+        '/:id',
         { schema: schemas.updateOne },
         async function (request, reply) {
-            return this.mongo.db
-                .collection('todo')
-                .findOneAndUpdate(
-                    { name: request.params.name },
-                    { $set: { done: request.body.done } }
-                )
+            const [result, metadata] = await this.db.query('update company set name=? where id=?',
+                {
+                    replacements: [request.body.name, request.params.id],
+                    type: QueryTypes.UPDATE
+                }
+            )
+            return {
+                message: 'OK',
+                name: request.body.name
+            }
         }
     )
 
     fastify.delete(
-        '/:name',
+        '/:id',
         { schema: schemas.deleteOne },
         async function (request, reply) {
-            return this.mongo.db
-                .collection('todo')
-                .deleteOne({ name: request.params.name })
+            await this.db.query('delete from company where id=?',
+                {
+                    replacements: [request.params.id],
+                    type: QueryTypes.DELETE
+                }
+            )
+            return { message: "OK" }
         }
     )
 }

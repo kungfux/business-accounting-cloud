@@ -22,7 +22,7 @@ const findOne = {
     200: {
       type: 'object',
       properties: {
-        name: { type: 'string' }
+        id: { type: 'string' }
       }
     },
     404: {
@@ -35,7 +35,7 @@ const findOne = {
   params: {
     type: 'object',
     properties: {
-      name: { type: 'string' }
+      id: { type: 'string' }
     }
   }
 }
@@ -59,7 +59,7 @@ const updateOne = {
   params: {
     type: 'object',
     properties: {
-      name: { type: 'string' }
+      id: { type: 'string' }
     }
   }
 }
@@ -68,7 +68,7 @@ const deleteOne = {
   params: {
     type: 'object',
     properties: {
-      name: { type: 'string' }
+      id: { type: 'string' }
     }
   }
 }
