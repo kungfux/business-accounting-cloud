@@ -28,20 +28,16 @@ module.exports = function (fastify, opts, next) {
           chalk.green('Database connection is successfully established')
         )
 
-        await fastify.db.query('CREATE TABLE IF NOT EXISTS company (id INTEGER PRIMARY KEY AUTOINCREMENT, name NVARCHAR(45) NOT NULL UNIQUE)');
-
-        // const fs = require('fs')
-        // fs.readFile('./storage/database-schema.sql', 'utf8', async function (err, data) {
-        //   if (err) {
-        //     console.error(
-        //       chalk.red('database-schema.sql not found')
-        //     )
-        //     throw err
-        //   }
-
-        //   await fastify.db.createSchema(data)
-        // })
-
+        var fs = require('fs')
+        var queries = fs.readFileSync('./storage/database-schema.sql', 'utf8').toString()
+          .replace(/(\r\n|\n|\r)/gm, " ")
+          .replace(/\s+/g, ' ')
+          .split(";")
+          .map(Function.prototype.call, String.prototype.trim)
+          .filter(function (el) { return el.length != 0 });
+        await queries.forEach(async function (query) {
+          await fastify.db.query(query)
+        })
       } catch (err) {
         console.log(
           chalk.red(`Connection could not established: ${err}`)
