@@ -1,5 +1,6 @@
 'use strict'
 
+// TODO: Replace by bcrypt
 const sha512 = require('js-sha512')
 const schemas = require('../schemas/auth')
 const { QueryTypes } = require('sequelize')
