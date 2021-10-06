@@ -5,6 +5,19 @@ const chalk = require('chalk')
 const AutoLoad = require('fastify-autoload')
 
 module.exports = function (fastify, opts, next) {
+  async function executeSqlFile(filename) {
+    var fs = require('fs')
+    var queries = fs.readFileSync(`./storage/${filename}.sql`, 'utf8').toString()
+      .replace(/(\r\n|\n|\r)/gm, " ")
+      .replace(/\s+/g, ' ')
+      .split(";")
+      .map(Function.prototype.call, String.prototype.trim)
+      .filter(function (el) { return el.length != 0 });
+    await queries.forEach(async function (query) {
+      await fastify.db.query(query)
+    })
+  }
+
   fastify
     .register(require('fastify-cors'))
     .register(require('fastify-helmet'))
@@ -28,22 +41,14 @@ module.exports = function (fastify, opts, next) {
           chalk.green('Database connection is successfully established')
         )
 
-        var fs = require('fs')
-        var queries = fs.readFileSync('./storage/database-schema.sql', 'utf8').toString()
-          .replace(/(\r\n|\n|\r)/gm, " ")
-          .replace(/\s+/g, ' ')
-          .split(";")
-          .map(Function.prototype.call, String.prototype.trim)
-          .filter(function (el) { return el.length != 0 });
-        await queries.forEach(async function (query) {
-          await fastify.db.query(query)
-        })
+        executeSqlFile('database-schema')
+        executeSqlFile('database-sample')
+
       } catch (err) {
         console.log(
           chalk.red(`Connection could not established: ${err}`)
         )
-      } finally {
-        // fastify.close()
+        fastify.close()
       }
     })
 

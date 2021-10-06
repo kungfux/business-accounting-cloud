@@ -102,4 +102,4 @@ module.exports = async function (fastify, opts) {
     )
 }
 
-module.exports.autoPrefix = '/company'
+module.exports.autoPrefix = '/companies'

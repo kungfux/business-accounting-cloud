@@ -1,0 +1,2 @@
+INSERT OR IGNORE INTO COMPANY (name) VALUES ('Sunny Slice Ltd.');
+INSERT OR IGNORE INTO COMPANY (name) VALUES ('Anomalos Co.');
