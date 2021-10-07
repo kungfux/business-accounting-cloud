@@ -31,7 +31,8 @@ module.exports = async function (fastify, opts) {
           type: QueryTypes.SELECT
         }
       )
-      return JSON.stringify(items)
+
+      return items
     }
   )
 
@@ -50,7 +51,7 @@ module.exports = async function (fastify, opts) {
         return reply.callNotFound()
       }
 
-      return JSON.stringify(item)
+      return item[0]
     }
   )
 
@@ -58,14 +59,14 @@ module.exports = async function (fastify, opts) {
     '/',
     { schema: schemas.insertOne },
     async function (request, reply) {
-      const result = await this.db.query('insert into company (name) values(?)',
+      const [result] = await this.db.query('insert into company (name) values(?)',
         {
           replacements: [request.body.name],
           type: QueryTypes.INSERT
         }
       )
+
       return {
-        message: 'OK',
         id: result
       }
     }
@@ -87,7 +88,6 @@ module.exports = async function (fastify, opts) {
       }
 
       return {
-        message: 'OK',
         name: request.body.name
       }
     }
@@ -103,7 +103,10 @@ module.exports = async function (fastify, opts) {
           type: QueryTypes.DELETE
         }
       )
-      return { message: 'OK' }
+
+      return {
+        id: request.params.id
+      }
     }
   )
 }

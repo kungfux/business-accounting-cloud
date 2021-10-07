@@ -1,4 +1,5 @@
 'use strict'
+
 const findAll = {
   response: {
     200: {
@@ -21,7 +22,7 @@ const findOne = {
     200: {
       type: 'object',
       properties: {
-        id: { type: 'string' }
+        name: { type: 'string' }
       }
     },
     404: {
@@ -47,11 +48,12 @@ const insertOne = {
     }
   }
 }
+
 const updateOne = {
   body: {
     type: 'object',
     properties: {
-      done: { type: 'boolean' }
+      name: { type: 'string' }
     }
   },
   params: {
@@ -61,6 +63,7 @@ const updateOne = {
     }
   }
 }
+
 const deleteOne = {
   params: {
     type: 'object',
@@ -69,4 +72,5 @@ const deleteOne = {
     }
   }
 }
+
 module.exports = { findAll, findOne, insertOne, updateOne, deleteOne }
