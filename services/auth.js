@@ -1,7 +1,5 @@
 'use strict'
 
-// TODO: Replace by bcrypt
-const sha512 = require('js-sha512')
 const schemas = require('../schemas/auth')
 const { QueryTypes } = require('sequelize')
 
@@ -9,7 +7,7 @@ module.exports = async function (fastify, opts) {
   fastify.post('/', { schema: schemas.token }, async function (request, reply) {
     const { username, password } = request.body
 
-    const credentials = await this.db.query('select password, salt from user where login = ?',
+    const credentials = await this.db.query('select password, salt from users where login = ?',
       {
         replacements: [username],
         type: QueryTypes.SELECT
@@ -23,9 +21,8 @@ module.exports = async function (fastify, opts) {
 
     const hash = credentials[0].password
     const salt = credentials[0].salt
-    const saltSuffix = '6510225325'
 
-    const comparativeHash = sha512(password + salt + saltSuffix)
+    const comparativeHash = this.getHash(password, salt)
 
     if (hash !== comparativeHash) {
       rejectAuthorization()
