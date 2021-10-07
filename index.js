@@ -24,6 +24,8 @@ module.exports = function (fastify, opts, next) {
     .register(require('fastify-jwt'), {
       secret: opts.auth ? opts.auth.secret : process.env.SECRET || '9005890b-1fcd-41d4-a58f-23bd4ca19750'
     })
+    .register(require('fastify-formbody'))
+    .register(require('fastify-multipart'))
     .register(require('sequelize-fastify'),
       {
         instance: 'db',
