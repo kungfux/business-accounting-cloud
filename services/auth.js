@@ -29,7 +29,7 @@ module.exports = async function (fastify, opts) {
     } else {
       const token = fastify.jwt.sign(
         { sub: username },
-        { expiresIn: '1h' }
+        { expiresIn: '12h' }
       )
       reply.send({ token })
     }
