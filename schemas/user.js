@@ -7,7 +7,7 @@ const findAll = {
       items: {
         properties: {
           id: { type: 'integer' },
-          name: { type: 'string' }
+          login: { type: 'string' }
         }
       }
     }
@@ -24,8 +24,7 @@ const findOne = {
       type: 'object',
       properties: {
         id: { type: 'integer' },
-        name: { type: 'string' },
-        picture_id: { type: 'integer' },
+        login: { type: 'string' },
         created: { type: 'string' }
       }
     },
@@ -48,9 +47,10 @@ const insertOne = {
   body: {
     type: 'object',
     properties: {
-      name: { type: 'string', minLength: 1 }
+      login: { type: 'string', minLength: 1 },
+      password: { type: 'string', minLength: 8 }
     },
-    required: ['name']
+    required: ['login', 'password']
   }
 }
 
@@ -58,9 +58,10 @@ const updateOne = {
   body: {
     type: 'object',
     properties: {
-      name: { type: 'string', minLength: 1 }
+      login: { type: 'string', minLength: 1 },
+      password: { type: 'string', minLength: 8 }
     },
-    required: ['name']
+    required: ['login', 'password']
   },
   params: {
     type: 'object',
