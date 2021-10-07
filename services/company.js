@@ -25,7 +25,7 @@ module.exports = async function (fastify, opts) {
     async function (request, reply) {
       const limit = parseInt(request.query.limit) || 10
       const offset = parseInt(request.query.offset) || 0
-      const items = await this.db.query('select * from company limit ? offset ?',
+      const items = await this.db.query('select * from companies limit ? offset ?',
         {
           replacements: [limit, offset],
           type: QueryTypes.SELECT
@@ -40,7 +40,7 @@ module.exports = async function (fastify, opts) {
     '/:id',
     { schema: schemas.findOne },
     async function (request, reply) {
-      const item = await this.db.query('select * from company where id = ? limit 1',
+      const item = await this.db.query('select * from companies where id = ? limit 1',
         {
           replacements: [request.params.id],
           type: QueryTypes.SELECT
@@ -59,7 +59,7 @@ module.exports = async function (fastify, opts) {
     '/',
     { schema: schemas.insertOne },
     async function (request, reply) {
-      const [result] = await this.db.query('insert into company (name) values(?)',
+      const [result] = await this.db.query('insert into companies (name) values(?)',
         {
           replacements: [request.body.name],
           type: QueryTypes.INSERT
@@ -76,7 +76,7 @@ module.exports = async function (fastify, opts) {
     '/:id',
     { schema: schemas.updateOne },
     async function (request, reply) {
-      const [, metadata] = await this.db.query('update company set name=? where id=?',
+      const [, metadata] = await this.db.query('update companies set name=? where id=?',
         {
           replacements: [request.body.name, request.params.id],
           type: QueryTypes.UPDATE
@@ -97,7 +97,7 @@ module.exports = async function (fastify, opts) {
     '/:id',
     { schema: schemas.deleteOne },
     async function (request, reply) {
-      await this.db.query('delete from company where id=?',
+      await this.db.query('delete from companies where id=?',
         {
           replacements: [request.params.id],
           type: QueryTypes.DELETE

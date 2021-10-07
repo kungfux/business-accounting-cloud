@@ -44,8 +44,9 @@ const insertOne = {
   body: {
     type: 'object',
     properties: {
-      name: { type: 'string' }
-    }
+      name: { type: 'string', minLength: 1 }
+    },
+    required: ['name']
   }
 }
 
@@ -53,8 +54,9 @@ const updateOne = {
   body: {
     type: 'object',
     properties: {
-      name: { type: 'string' }
-    }
+      name: { type: 'string', minLength: 1 }
+    },
+    required: ['name']
   },
   params: {
     type: 'object',
