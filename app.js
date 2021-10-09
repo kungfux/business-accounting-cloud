@@ -31,7 +31,8 @@ module.exports = function (fastify, opts, next) {
         instance: 'db',
         sequelizeOptions: {
           dialect: 'sqlite',
-          storage: './storage/bac.sqlite'
+          storage: './storage/bac.sqlite',
+          logging: false
         }
       }
     )
