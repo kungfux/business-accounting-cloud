@@ -1,0 +1,942 @@
+{
+	"info": {
+		"_postman_id": "414a8f10-bb88-4054-9800-800c13ea3e3c",
+		"name": "BusinessAccountingCloud",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Registered Users",
+			"item": [
+				{
+					"name": "Companies",
+					"item": [
+						{
+							"name": "Create company",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Id is not null\", function() {\r",
+											"    const item = pm.response.json();\r",
+											"    pm.expect(item.id).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.collectionVariables.set(\"CompanyId\", pm.response.json().id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Postman\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get company",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Name is not null\", function() {\r",
+											"    const item = pm.response.json();\r",
+											"    pm.expect(item.name).to.be.not.null;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{CompanyId}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}",
+										"{{CompanyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update company",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Name is not null\", function() {\r",
+											"    const item = pm.response.json();\r",
+											"    pm.expect(item.name).to.be.not.null;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Postman Edited\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{CompanyId}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}",
+										"{{CompanyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List all companies",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"List of items returned is greater than zero\", function() {\r",
+											"    const items = pm.response.json();\r",
+											"    pm.expect(items.length).to.be.greaterThan(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"All items contain a name\", function() {\r",
+											"    const items = pm.response.json();\r",
+											"    pm.expect(items.every(item => {\r",
+											"        return item.name !== undefined;\r",
+											"    })).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete company",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Id is not null\", function() {\r",
+											"    const item = pm.response.json();\r",
+											"    pm.expect(item.id).to.be.not.null;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{CompanyId}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}",
+										"{{CompanyId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.collectionVariables.set(\"COLLECTION_API_URL\", \"companies\");"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "Create user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Id is not null\", function() {\r",
+											"    const item = pm.response.json();\r",
+											"    pm.expect(item.id).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.collectionVariables.set(\"UserId\", pm.response.json().id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"login\": \"postman\",\r\n    \"password\": \"password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Login is not null\", function() {\r",
+											"    const item = pm.response.json();\r",
+											"    pm.expect(item.login).to.be.not.null;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{UserId}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}",
+										"{{UserId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Login is not null\", function() {\r",
+											"    const item = pm.response.json();\r",
+											"    pm.expect(item.login).to.be.not.null;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"login\": \"postman_edited\",\r\n    \"password\": \"password_edited\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{UserId}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}",
+										"{{UserId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List all users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"List of items returned is greater than zero\", function() {\r",
+											"    const items = pm.response.json();\r",
+											"    pm.expect(items.length).to.be.greaterThan(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"All items contain a login\", function() {\r",
+											"    const items = pm.response.json();\r",
+											"    pm.expect(items.every(item => {\r",
+											"        return item.login !== undefined;\r",
+											"    })).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Id is not null\", function() {\r",
+											"    const item = pm.response.json();\r",
+											"    pm.expect(item.id).to.be.not.null;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{UserId}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}",
+										"{{UserId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.collectionVariables.set(\"COLLECTION_API_URL\", \"users\");"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "[deprecated] Pictures",
+					"item": [
+						{
+							"name": "Create picture",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Id is not null\", function() {\r",
+											"    const item = pm.response.json();\r",
+											"    pm.expect(item.id).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.collectionVariables.set(\"PictureId\", pm.response.json().id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "picture",
+											"type": "file",
+											"src": "/C:/Users/kungfux/Pictures/403019_avatar_male_man_person_user_icon.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get picture",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Picture is not null\", function() {\r",
+											"    const item = pm.response.json();\r",
+											"    pm.expect(item.picture).to.be.not.null;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{PictureId}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}",
+										"{{PictureId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update picture",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Id is not null\", function() {\r",
+											"    const item = pm.response.json();\r",
+											"    pm.expect(item.id).to.be.not.null;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "picture",
+											"type": "file",
+											"src": "happy.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{PictureId}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}",
+										"{{PictureId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete picture",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Id is not null\", function() {\r",
+											"    const item = pm.response.json();\r",
+											"    pm.expect(item.id).to.be.not.null;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{PictureId}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}",
+										"{{PictureId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List all pictures",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"List of items returned is greater than zero\", function() {\r",
+											"    const items = pm.response.json();\r",
+											"    pm.expect(items.length).to.be.greaterThan(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"All items contain an id\", function() {\r",
+											"    const items = pm.response.json();\r",
+											"    pm.expect(items.every(item => {\r",
+											"        return item.id !== undefined;\r",
+											"    })).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.collectionVariables.set(\"COLLECTION_API_URL\", \"pictures\");"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"const HOST = pm.environment.get(\"HOST\");",
+							"const API_URL = pm.environment.get(\"API_URL\").replace(\"{{HOST}}\", HOST);",
+							"",
+							"const postRequest = {",
+							"    url: `${API_URL}/auth`,",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ \"username\": 'q', \"password\": 'q' })",
+							"    }",
+							"}",
+							"",
+							"// Authenticate and remember auth token",
+							"pm.sendRequest(postRequest, function (error, response) {",
+							"    const token = response.json().token;",
+							"    pm.variables.set(\"AUTH_TOKEN\", `Bearer ${token}`);",
+							"});",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Common",
+			"item": [
+				{
+					"name": "Root",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.sendRequest(\"http://{{URL}}\", function (err, response) {\r",
+									"    console.log(response);\r",
+									"});\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Business Accounting Cloud\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}",
+							"host": [
+								"{{HOST}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authorization",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"q\",\r\n    \"password\": \"q\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/auth",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "COLLECTION_API_URL",
+			"value": ""
+		},
+		{
+			"key": "AUTH_TOKEN",
+			"value": ""
+		},
+		{
+			"key": "CompanyId",
+			"value": ""
+		},
+		{
+			"key": "UserId",
+			"value": ""
+		},
+		{
+			"key": "PictureId",
+			"value": ""
+		}
+	]
+}
