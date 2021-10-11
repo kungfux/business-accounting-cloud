@@ -10,7 +10,7 @@
       </a>
       <a mat-list-item href="#">
         <mat-icon color="primary">people</mat-icon>
-        Контакты
+        Сотрудники
       </a>
       <a mat-list-item href="#">
         <mat-icon color="primary">pie_chart</mat-icon>
@@ -21,21 +21,18 @@
   <mat-sidenav-content>
     <mat-toolbar color="primary">
       <button
-        type="button"
         mat-icon-button
         (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
       <span>Business Accounting Cloud</span>
       <span class="spacer"></span>
-      <button mat-button="" class="mat-focus-indicator mat-tooltip-trigger mat-menu-trigger mat-button mat-button-base" aria-haspopup="true" aria-describedby="cdk-describedby-message-0" cdk-describedby-host="">
+      <button mat-button matTooltip="Наименование организации для управления (нажмите, чтобы сменить)" matTooltipShowDelay="1000">
+        <mat-icon>emoji_transportation</mat-icon>
         <span class="mat-button-wrapper">
-           Fox Parking Ltd.
-           <mat-icon role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font">arrow_drop_down</mat-icon>
-          </span>
-          <span matripple="" class="mat-ripple mat-button-ripple"></span>
-          <span class="mat-button-focus-overlay"></span>
-        </button>
+          Fox Parking Ltd.
+        </span>
+      </button>
     </mat-toolbar>
     <!-- Add Content Here -->
   </mat-sidenav-content>
