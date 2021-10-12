@@ -1,3 +1,4 @@
+import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
@@ -8,6 +9,7 @@ import { map, shareReplay } from 'rxjs/operators';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
 })
+
 export class NavigationComponent {
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -15,6 +17,10 @@ export class NavigationComponent {
       map(result => result.matches),
       shareReplay()
     );
+
+  @Input() title = '';
+  
+  company = { name: "Fox Parking Ltd.", logo: "emoji_transportation"};
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 
