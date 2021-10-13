@@ -1,0 +1,30 @@
+<mat-toolbar>
+    <span>Авторизация</span>
+</mat-toolbar>
+
+<div class="page-content">
+    <mat-card class="card">
+    <mat-card-content>
+        <div class="column-container">
+            <mat-form-field appearance="fill">
+                <mat-label>Логин</mat-label>
+                <input matInput [(ngModel)]="login" [disabled]="checkingCredentials" required>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Пароль</mat-label>
+                <input matInput [type]="hidePassword ? 'password' : 'text'" [(ngModel)]="password" [disabled]="checkingCredentials" required>
+                <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Скрыть пароль'" [attr.aria-pressed]="hidePassword">
+                    <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+    </mat-card-content>
+    <mat-divider inset></mat-divider>
+    <mat-card-actions class="display-flex">
+        <button class="margin-auto" mat-raised-button color="primary" [disabled]="login.length == 0 || password.length == 0 || checkingCredentials" (click)="onLoginClick()">Войти</button>
+    </mat-card-actions>
+    <mat-card-footer>
+        <mat-progress-bar mode="indeterminate" *ngIf="checkingCredentials"></mat-progress-bar>
+    </mat-card-footer>
+    </mat-card>
+</div>

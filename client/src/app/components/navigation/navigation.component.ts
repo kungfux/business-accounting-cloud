@@ -18,9 +18,9 @@ export class NavigationComponent {
       shareReplay()
     );
 
-  @Input() title = '';
+  @Input() title: string = '';
   
-  company = { name: "Fox Parking Ltd.", logo: "emoji_transportation"};
+  company = { name: 'Fox Parking Ltd.', logo: 'emoji_transportation' };
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 

@@ -1,0 +1,21 @@
+.column-container {
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-start; */
+}
+
+.display-flex {
+    display: flex;
+}
+
+.margin-auto {
+    margin: auto !important;
+}
+
+.card {
+  max-width: 400px;
+}
+
+.page-content {
+  margin: 30px;
+}
