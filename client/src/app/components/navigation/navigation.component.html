@@ -3,6 +3,7 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'push'">
     <mat-toolbar>Меню</mat-toolbar>
+    <mat-divider></mat-divider>
     <mat-nav-list>
       <a mat-list-item href="#">
         <mat-icon color="primary">payments</mat-icon>
@@ -20,18 +21,18 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button
-        mat-icon-button
-        (click)="drawer.toggle()">
+      <button mat-icon-button onclick="this.blur()" (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <span>{{ title }}</span>
+      <span *ngIf="!(isHandset$ | async)">{{ title }}</span>
       <span class="spacer"></span>
       <button mat-button matTooltip="Наименование организации для управления (нажмите, чтобы сменить)" matTooltipShowDelay="1000">
         <mat-icon>{{ company.logo }}</mat-icon>
         <span class="mat-button-wrapper">{{ company.name }}</span>
       </button>
     </mat-toolbar>
-    <!-- Add Content Here -->
+      <div>
+        <app-auth></app-auth>
+      </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
