@@ -15,6 +15,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDividerModule } from '@angular/material/divider';
 
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { AuthComponent } from './components/auth/auth.component';
@@ -26,6 +28,7 @@ import { AuthComponent } from './components/auth/auth.component';
     AuthComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
     LayoutModule,
