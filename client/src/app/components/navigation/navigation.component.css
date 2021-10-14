@@ -1,5 +1,6 @@
 .sidenav-container {
   height: 100%;
+  background-color: transparent;
 }
 
 .sidenav {
@@ -23,4 +24,16 @@
 
 mat-nav-list mat-icon {
   margin-right: 10px;
+}
+
+.color-green {
+    color: green;
+}
+
+.color-indianred {
+    color: indianred;
+}
+
+.color-darkgoldenrod {
+    color: darkgoldenrod;
 }
