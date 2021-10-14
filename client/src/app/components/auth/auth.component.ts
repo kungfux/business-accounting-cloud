@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -13,12 +14,21 @@ export class AuthComponent implements OnInit {
   hidePassword = true;
   checkingCredentials = false;
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    // TODO: CHeck if authenticated and navigate to dashboard
   }
 
   onLoginClick() {
     this.checkingCredentials = true;
+    this.authService.auth(this.login, this.password).subscribe(success => {
+      if (success){
+        // TODO: Navigate to dashboard
+        return;
+      }
+        // TODO: Show error
+        this.checkingCredentials = false;
+      });
   }
 }
