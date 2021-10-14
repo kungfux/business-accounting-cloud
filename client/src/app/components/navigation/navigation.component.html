@@ -1,20 +1,28 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'push'">
+      [mode]="(isHandset$ | async) ? 'over' : 'push'"
+      [autoFocus]="false">
     <mat-toolbar>Меню</mat-toolbar>
     <mat-divider></mat-divider>
     <mat-nav-list>
       <a mat-list-item href="#">
-        <mat-icon color="primary">payments</mat-icon>
+        <mat-icon color="primary">account_circle</mat-icon>
+        Авторизация
+      </a>
+    </mat-nav-list>
+    <mat-divider></mat-divider>
+    <mat-nav-list>
+      <a mat-list-item href="#">
+        <mat-icon class="color-green">monetization_on</mat-icon>
         Касса
       </a>
       <a mat-list-item href="#">
-        <mat-icon color="primary">people</mat-icon>
+        <mat-icon class="color-indianred">supervised_user_circle</mat-icon>
         Сотрудники
       </a>
       <a mat-list-item href="#">
-        <mat-icon color="primary">pie_chart</mat-icon>
+        <mat-icon class="color-darkgoldenrod">pie_chart</mat-icon>
         Отчеты
       </a>
     </mat-nav-list>
