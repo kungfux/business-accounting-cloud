@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/api/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -27,8 +27,8 @@ export class AuthComponent implements OnInit {
         // TODO: Navigate to dashboard
         return;
       }
-        // TODO: Show error
-        this.checkingCredentials = false;
-      });
+      // TODO: Show error
+      this.checkingCredentials = false;
+    });
   }
 }
