@@ -6,13 +6,13 @@ const fp = require('fastify-plugin')
 
 module.exports = fp(async (fastify, opts) => {
   fastify.decorate('getNewSalt', function () {
-    function createSalt (length) {
+    function createSalt(length) {
       let result = ''
       const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
       const charactersLength = characters.length
       for (let i = 0; i < length; i++) {
         result += characters.charAt(Math.floor(Math.random() *
-                    charactersLength))
+          charactersLength))
       }
       return result
     }
