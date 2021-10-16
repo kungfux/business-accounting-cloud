@@ -22,11 +22,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { AuthComponent } from './components/auth/auth.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavigationComponent,
-    AuthComponent
-  ],
+  declarations: [AppComponent, NavigationComponent, AuthComponent],
   imports: [
     HttpClientModule,
     BrowserModule,
@@ -44,9 +40,9 @@ import { AuthComponent } from './components/auth/auth.component';
     ReactiveFormsModule,
     MatCardModule,
     MatProgressBarModule,
-    MatDividerModule
+    MatDividerModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

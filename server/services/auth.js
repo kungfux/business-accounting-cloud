@@ -34,7 +34,7 @@ module.exports = async function (fastify, opts) {
       reply.send({ token })
     }
 
-    function rejectAuthorization () {
+    function rejectAuthorization() {
       reply.status(401).send({ message: 'Invalid username or password' })
     }
   })
