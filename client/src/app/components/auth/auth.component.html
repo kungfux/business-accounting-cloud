@@ -12,8 +12,7 @@
             matInput
             [(ngModel)]="login"
             [disabled]="checkingCredentials"
-            required
-          />
+            required />
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Пароль</mat-label>
@@ -22,17 +21,15 @@
             [type]="hidePassword ? 'password' : 'text'"
             [(ngModel)]="password"
             [disabled]="checkingCredentials"
-            required
-          />
+            required />
           <button
             mat-icon-button
             matSuffix
             (click)="hidePassword = !hidePassword"
             [attr.aria-label]="'Скрыть пароль'"
-            [attr.aria-pressed]="hidePassword"
-          >
+            [attr.aria-pressed]="hidePassword">
             <mat-icon>{{
-              hidePassword ? "visibility_off" : "visibility"
+              hidePassword ? 'visibility_off' : 'visibility'
             }}</mat-icon>
           </button>
         </mat-form-field>
@@ -47,16 +44,14 @@
         [disabled]="
           login.length == 0 || password.length == 0 || checkingCredentials
         "
-        (click)="onLoginClick()"
-      >
+        (click)="onLoginClick()">
         Войти
       </button>
     </mat-card-actions>
     <mat-card-footer>
       <mat-progress-bar
         mode="indeterminate"
-        *ngIf="checkingCredentials"
-      ></mat-progress-bar>
+        *ngIf="checkingCredentials"></mat-progress-bar>
     </mat-card-footer>
   </mat-card>
 </div>

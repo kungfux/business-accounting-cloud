@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: undefined,
+  apiUrl: 'https://bac-api.kungfux-stub.com',
 };

@@ -1,11 +1,12 @@
 'use strict'
 
+const path = require('path')
 require('dotenv').config()
 
-const Fastify = require('fastify')
+const fastify = require('fastify')
 const closeWithGrace = require('close-with-grace')
 
-const app = Fastify({
+const app = fastify({
   logger: true
 })
 
@@ -24,7 +25,7 @@ app.addHook('onClose', async (instance, done) => {
   done()
 })
 
-app.listen(process.env.PORT || 3000, (err) => {
+app.listen(process.env.BAC_PORT || 3000, '0.0.0.0', (err) => {
   if (err) {
     app.log.error(err)
     process.exit(1)

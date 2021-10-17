@@ -5,8 +5,7 @@
     fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'push'"
-    [autoFocus]="false"
-  >
+    [autoFocus]="false">
     <mat-toolbar>Меню</mat-toolbar>
     <mat-divider></mat-divider>
     <mat-nav-list>
@@ -41,8 +40,7 @@
       <button
         mat-button
         matTooltip="Наименование организации для управления (нажмите, чтобы сменить)"
-        matTooltipShowDelay="1000"
-      >
+        matTooltipShowDelay="1000">
         <mat-icon>{{ company.logo }}</mat-icon>
         <span class="mat-button-wrapper">{{ company.name }}</span>
       </button>
