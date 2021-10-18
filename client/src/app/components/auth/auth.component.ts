@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/api/auth.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class AuthComponent implements OnInit {
   hidePassword = true;
   checkingCredentials = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     // TODO: CHeck if authenticated and navigate to dashboard
@@ -23,6 +24,7 @@ export class AuthComponent implements OnInit {
     this.authService.auth(this.login, this.password).subscribe((success) => {
       if (success) {
         // TODO: Navigate to dashboard
+        this.router.navigate(['/users']);
         return;
       }
       // TODO: Show error

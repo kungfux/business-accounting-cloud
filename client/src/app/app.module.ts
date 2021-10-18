@@ -14,16 +14,30 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { HttpClientModule } from '@angular/common/http';
-
+import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { AuthComponent } from './components/auth/auth.component';
+import { UsersComponent } from './components/users/users/users.component';
+
+const routes: Routes = [
+  { path: '', component: AuthComponent },
+  { path: 'users', component: UsersComponent },
+];
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, AuthComponent],
+  declarations: [
+    AppComponent,
+    NavigationComponent,
+    AuthComponent,
+    UsersComponent,
+  ],
   imports: [
+    RouterModule.forRoot(routes, { enableTracing: false }),
     HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -41,6 +55,8 @@ import { AuthComponent } from './components/auth/auth.component';
     MatCardModule,
     MatProgressBarModule,
     MatDividerModule,
+    MatTableModule,
+    MatExpansionModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
