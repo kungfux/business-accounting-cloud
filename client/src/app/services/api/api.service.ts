@@ -9,18 +9,17 @@ import { catchError } from 'rxjs/operators';
 })
 export class ApiService {
   private url = `${environment.apiUrl}/api`;
-  private token = '';
 
   constructor(private http: HttpClient) {}
 
   private headers = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      Authentication: `Bearer ${this.token}`,
     }),
   };
 
   get<T>(api: string): Observable<T> {
+    console.log(JSON.stringify(this.headers.headers));
     return this.http
       .get<T>(`${this.url}${api}`, this.headers)
       .pipe(catchError(this.handleError));
@@ -33,7 +32,12 @@ export class ApiService {
   }
 
   setToken(token: string) {
-    this.token = token;
+    this.headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
   }
 
   handleError(error: any): ObservableInput<any> {
