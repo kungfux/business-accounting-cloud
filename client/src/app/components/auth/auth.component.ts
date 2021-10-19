@@ -23,8 +23,7 @@ export class AuthComponent implements OnInit {
       .authenticate(this.login, this.password)
       .subscribe((success) => {
         if (success) {
-          // TODO: Navigate to dashboard
-          this.router.navigate(['/users']);
+          this.router.navigate(['/dashboard']);
           return;
         }
         // TODO: Show error

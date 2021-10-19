@@ -41,7 +41,7 @@ export class NavigationComponent {
 
     if (this.authService.restoreAuthentication()) {
       // TODO: Navigate to dashboard
-      this.router.navigate(['/users']);
+      this.router.navigate(['/dashboard']);
     } else {
       this.router.navigate(['']);
     }

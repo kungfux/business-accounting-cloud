@@ -15,27 +15,33 @@
       </a>
     </mat-nav-list>
     <mat-nav-list *ngIf="user.login">
-      <a
-        mat-list-item
-        (click)="drawer.toggle()"
-        routerLink="/users"
-        *ngIf="user.isAdmin">
-        <mat-icon>manage_accounts</mat-icon>
-        Пользователи
+      <a mat-list-item (click)="drawer.toggle()" routerLink="/dashboard">
+        <mat-icon>dashboard</mat-icon>
+        Стартовая
       </a>
       <a mat-list-item (click)="drawer.toggle()" routerLink="/transactions">
-        <mat-icon class="color-green">monetization_on</mat-icon>
+        <mat-icon>monetization_on</mat-icon>
         Касса
       </a>
       <a mat-list-item (click)="drawer.toggle()" routerLink="/contacts">
-        <mat-icon class="color-indianred">supervised_user_circle</mat-icon>
+        <mat-icon>supervised_user_circle</mat-icon>
         Сотрудники
       </a>
       <a mat-list-item (click)="drawer.toggle()" routerLink="/reports">
-        <mat-icon class="color-darkgoldenrod">pie_chart</mat-icon>
+        <mat-icon>pie_chart</mat-icon>
         Отчеты
       </a>
     </mat-nav-list>
+    <div *ngIf="user.isAdmin">
+      <mat-toolbar>Управление</mat-toolbar>
+      <mat-divider></mat-divider>
+      <mat-nav-list>
+        <a mat-list-item (click)="drawer.toggle()" routerLink="/users">
+          <mat-icon>manage_accounts</mat-icon>
+          Пользователи
+        </a>
+      </mat-nav-list>
+    </div>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
