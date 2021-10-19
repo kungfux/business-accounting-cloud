@@ -8,7 +8,7 @@ module.exports = async function (fastify, opts) {
     const tokenHoursToLive = 12;
     const { username, password } = request.body
 
-    const credentials = await this.db.query('select password, salt from users where login = ?',
+    const credentials = await this.db.query('select id, password, salt from users where login = ? and enabled = 1',
       {
         replacements: [username],
         type: QueryTypes.SELECT
@@ -20,6 +20,7 @@ module.exports = async function (fastify, opts) {
       return
     }
 
+    const id = credentials[0].id
     const hash = credentials[0].password
     const salt = credentials[0].salt
 
@@ -34,7 +35,7 @@ module.exports = async function (fastify, opts) {
       )
       let expiration = new Date();
       expiration.setHours(new Date().getHours() + tokenHoursToLive);
-      reply.send({ token, expiration: expiration.toUTCString() })
+      reply.send({ id, token, expiration: expiration.toUTCString() })
     }
 
     function rejectAuthorization() {

@@ -3,4 +3,6 @@ export class User {
   login: string = '';
   password: string = '';
   admin: boolean = false;
+  enabled: boolean = false;
+  created: Date = new Date();
 }

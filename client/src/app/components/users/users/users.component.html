@@ -51,13 +51,38 @@
       <td mat-cell *matCellDef="let user">********</td>
     </ng-container>
 
+    <ng-container matColumnDef="admin">
+      <th mat-header-cell *matHeaderCellDef>Администратор</th>
+      <td mat-cell *matCellDef="let user">
+        <mat-checkbox [checked]="user.admin" disabled> </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="enabled">
+      <th mat-header-cell *matHeaderCellDef>Активен</th>
+      <td mat-cell *matCellDef="let user">
+        <mat-checkbox [checked]="user.enabled" disabled> </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="created">
+      <th mat-header-cell *matHeaderCellDef>Создан</th>
+      <td mat-cell *matCellDef="let user">{{ user.created }}</td>
+    </ng-container>
+
     <tr
       mat-header-row
-      *matHeaderRowDef="['id', 'login', 'password']; sticky: true"></tr>
+      *matHeaderRowDef="
+        ['id', 'login', 'password', 'admin', 'enabled', 'created'];
+        sticky: true
+      "></tr>
     <tr
       mat-row
       (click)="selectUser(row)"
       [class.selectedRow]="selectedUser == row"
-      *matRowDef="let row; columns: ['id', 'login', 'password']"></tr>
+      *matRowDef="
+        let row;
+        columns: ['id', 'login', 'password', 'admin', 'enabled', 'created']
+      "></tr>
   </table>
 </div>

@@ -38,6 +38,8 @@ export class UserComponent implements OnInit {
         .post<UserCreatedResponse>('/users', {
           login: this.user.login,
           password: this.user.password,
+          admin: this.user.admin,
+          enabled: this.user.enabled,
         })
         .subscribe({
           next: (data) => {
@@ -49,6 +51,8 @@ export class UserComponent implements OnInit {
         .put(`/users/${this.user.id}`, {
           login: this.user.login,
           password: this.user.password,
+          admin: this.user.admin,
+          enabled: this.user.enabled,
         })
         .subscribe({
           next: (data) => {

@@ -7,7 +7,8 @@ const findAll = {
       items: {
         properties: {
           id: { type: 'integer' },
-          name: { type: 'string' }
+          name: { type: 'string' },
+          enabled: { type: 'boolean' }
         }
       }
     }
@@ -25,6 +26,7 @@ const findOne = {
       properties: {
         id: { type: 'integer' },
         name: { type: 'string' },
+        enabled: { type: 'boolean' },
         picture_id: { type: 'integer' },
         created: { type: 'string' }
       }

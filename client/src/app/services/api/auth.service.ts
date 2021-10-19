@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { User } from 'src/app/loggedInUser';
+import { LoggedInUser } from 'src/app/loggedInUser';
 import { LocalStorageService } from '../local-storage.service';
 import { ApiService } from './api.service';
 
@@ -24,10 +24,16 @@ export class AuthService {
         })
         .subscribe({
           next: (data) => {
-            let user = new User(login, data.token, data.expiration);
+            let user = new LoggedInUser(
+              data.id,
+              login,
+              data.token,
+              data.expiration
+            );
             this.localStorage.set(
               'auth',
               JSON.stringify({
+                id: user.id,
                 login: user.login,
                 token: user.token,
                 expiration: user.tokenExpirationDate,
@@ -49,6 +55,7 @@ export class AuthService {
     let auth = this.localStorage.get('auth');
     if (auth !== null) {
       let json = JSON.parse(auth);
+      let id = json.id;
       let login = json.login;
       let token = json.token;
       let tokenExpirationDate = json.expiration;
@@ -59,7 +66,8 @@ export class AuthService {
             Date.parse(tokenExpirationDate) >
             Date.parse(new Date().toUTCString())
           ) {
-            let user = new User(
+            let user = new LoggedInUser(
+              id,
               login,
               token,
               new Date(Date.parse(tokenExpirationDate))
@@ -76,6 +84,7 @@ export class AuthService {
 }
 
 interface AuthResponse {
+  id: number;
   token: string;
   expiration: Date;
 }
