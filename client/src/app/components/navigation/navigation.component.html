@@ -32,7 +32,7 @@
         Отчеты
       </a>
     </mat-nav-list>
-    <div *ngIf="user.isAdmin">
+    <div *ngIf="user.login && user.isAdmin">
       <mat-toolbar>Управление</mat-toolbar>
       <mat-divider></mat-divider>
       <mat-nav-list>

@@ -8,6 +8,7 @@ import { ApiService } from 'src/app/services/api/api.service';
 })
 export class UsersComponent implements OnInit {
   users: any = [];
+  selectedUser?: User;
 
   constructor(private api: ApiService) {}
 
@@ -18,6 +19,17 @@ export class UsersComponent implements OnInit {
       },
     });
   }
+
+  selectUser(user: User) {
+    this.selectedUser = user;
+  }
+
+  onCreateClick() {}
+  onEditClick() {}
+  onDeleteClick() {}
 }
 
-class User {}
+export interface User {
+  id: number;
+  login: string;
+}

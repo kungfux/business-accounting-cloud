@@ -3,10 +3,59 @@
 </mat-toolbar>
 
 <div class="page-content">
-  <!-- <table mat-table [dataSource]="users">
+  <section>
+    <button
+      color="primary"
+      mat-flat-button
+      matTooltip=""
+      matTooltipShowDelay="1000"
+      (click)="onCreateClick()">
+      <mat-icon>add</mat-icon>
+      <span class="mat-button-wrapper">Создать</span>
+    </button>
+    <button
+      mat-flat-button
+      color="primary"
+      matTooltip=""
+      matTooltipShowDelay="1000"
+      (click)="onEditClick()">
+      <mat-icon>edit</mat-icon>
+      <span class="mat-button-wrapper">Редактировать</span>
+    </button>
+    <button
+      mat-flat-button
+      color="warn"
+      matTooltip=""
+      matTooltipShowDelay="1000"
+      (click)="onDeleteClick()">
+      <mat-icon>delete</mat-icon>
+      <span class="mat-button-wrapper">Удалить</span>
+    </button>
+  </section>
+
+  <table mat-table [dataSource]="users">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>Идентификатор</th>
+      <td mat-cell *matCellDef="let user">{{ user.id }}</td>
+    </ng-container>
+
     <ng-container matColumnDef="login">
-      <th mat-header-cell *matHeaderCellDef>No.</th>
+      <th mat-header-cell *matHeaderCellDef>Логин</th>
       <td mat-cell *matCellDef="let user">{{ user.login }}</td>
     </ng-container>
-  </table> -->
+
+    <ng-container matColumnDef="password">
+      <th mat-header-cell *matHeaderCellDef>Пароль</th>
+      <td mat-cell *matCellDef="let user">********</td>
+    </ng-container>
+
+    <tr
+      mat-header-row
+      *matHeaderRowDef="['id', 'login', 'password']; sticky: true"></tr>
+    <tr
+      mat-row
+      (click)="selectUser(row)"
+      [class.row-is-clicked]="selectedUser == row"
+      *matRowDef="let row; columns: ['id', 'login', 'password']"></tr>
+  </table>
 </div>
