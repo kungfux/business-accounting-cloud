@@ -1,22 +1,23 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatTableModule } from '@angular/material/table';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatGridListModule } from '@angular/material/grid-list';
+import { NgModule } from '@angular/core';
 
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
@@ -25,11 +26,14 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { AuthComponent } from './components/auth/auth.component';
 import { UsersComponent } from './components/users/users/users.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { UserComponent } from './components/users/user/user.component';
 
 const routes: Routes = [
   { path: '', component: AuthComponent },
   { path: 'users', component: UsersComponent },
+  { path: 'users/:id', component: UserComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: '**', redirectTo: '/' },
 ];
 
 @NgModule({
@@ -39,29 +43,31 @@ const routes: Routes = [
     AuthComponent,
     UsersComponent,
     DashboardComponent,
+    UserComponent,
   ],
   imports: [
-    RouterModule.forRoot(routes, { enableTracing: false }),
-    HttpClientModule,
-    BrowserModule,
     BrowserAnimationsModule,
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
     LayoutModule,
+    MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatProgressBarModule,
+    MatSidenavModule,
+    MatTableModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
     ReactiveFormsModule,
-    MatCardModule,
-    MatProgressBarModule,
-    MatDividerModule,
-    MatTableModule,
-    MatExpansionModule,
-    MatGridListModule,
+    RouterModule.forRoot(routes, { enableTracing: false }),
   ],
   providers: [],
   bootstrap: [AppComponent],

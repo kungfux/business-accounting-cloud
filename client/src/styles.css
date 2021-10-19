@@ -25,3 +25,11 @@ body {
   );
   background-size: 10px 10px;
 }
+
+.page-content {
+  margin: 30px;
+}
+
+.selectedRow {
+  background: aliceblue;
+}

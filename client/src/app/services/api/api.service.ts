@@ -3,7 +3,7 @@ import { Observable, ObservableInput, Subject, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
-import { User } from './user';
+import { User } from 'src/app/loggedInUser';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ import { User } from './user';
 export class ApiService {
   private url = `${environment.apiUrl}/api`;
   private currentUserSubject = new Subject<User>();
-  private currentUser: User = new User();
+  private loggedInUser: User = new User();
 
   get userSubject(): Subject<User> {
     return this.currentUserSubject;
@@ -19,8 +19,8 @@ export class ApiService {
 
   constructor(private http: HttpClient) {
     this.userSubject.subscribe((user) => {
-      this.currentUser = user;
-      this.setToken(this.currentUser.token);
+      this.loggedInUser = user;
+      this.setToken(this.loggedInUser.token);
     });
   }
 
@@ -43,6 +43,18 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
+  put<T>(api: string, payload: object): Observable<T> {
+    return this.http
+      .put<T>(`${this.url}${api}`, JSON.stringify(payload), this.headers)
+      .pipe(catchError(this.handleError));
+  }
+
+  delete<T>(api: string): Observable<T> {
+    return this.http
+      .delete<T>(`${this.url}${api}`, this.headers)
+      .pipe(catchError(this.handleError));
+  }
+
   setToken(token: string) {
     this.headers = {
       headers: new HttpHeaders({
@@ -61,8 +73,8 @@ export class ApiService {
         errorMessage =
           'Вы указали неверный логин/пароль или необходимо выполнить вход повторно.';
         // TODO: Cleanup auth token and route to login page
-        this.currentUser = new User();
-        this.currentUserSubject.next(this.currentUser);
+        this.loggedInUser = new User();
+        this.currentUserSubject.next(this.loggedInUser);
       } else {
         errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
       }

@@ -8,13 +8,13 @@
     [autoFocus]="false">
     <mat-toolbar>Меню</mat-toolbar>
     <mat-divider></mat-divider>
-    <mat-nav-list *ngIf="!user.login">
+    <mat-nav-list *ngIf="!loggedInUser.login">
       <a mat-list-item (click)="drawer.toggle()" routerLink="/">
         <mat-icon color="primary">account_circle</mat-icon>
         Авторизация
       </a>
     </mat-nav-list>
-    <mat-nav-list *ngIf="user.login">
+    <mat-nav-list *ngIf="loggedInUser.login">
       <a mat-list-item (click)="drawer.toggle()" routerLink="/dashboard">
         <mat-icon>dashboard</mat-icon>
         Стартовая
@@ -32,7 +32,7 @@
         Отчеты
       </a>
     </mat-nav-list>
-    <div *ngIf="user.login && user.isAdmin">
+    <div *ngIf="loggedInUser.login && loggedInUser.isAdmin">
       <mat-toolbar>Управление</mat-toolbar>
       <mat-divider></mat-divider>
       <mat-nav-list>
@@ -51,7 +51,7 @@
       <span *ngIf="!(isHandset$ | async)">{{ title }}</span>
       <span class="spacer"></span>
       <button
-        *ngIf="user.login"
+        *ngIf="loggedInUser.login"
         mat-button
         matTooltip="Наименование организации для управления (нажмите, чтобы сменить)"
         matTooltipShowDelay="1000">

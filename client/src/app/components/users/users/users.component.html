@@ -18,7 +18,8 @@
       color="primary"
       matTooltip=""
       matTooltipShowDelay="1000"
-      (click)="onEditClick()">
+      (click)="onEditClick()"
+      [disabled]="selectedUser === undefined">
       <mat-icon>edit</mat-icon>
       <span class="mat-button-wrapper">Редактировать</span>
     </button>
@@ -27,7 +28,8 @@
       color="warn"
       matTooltip=""
       matTooltipShowDelay="1000"
-      (click)="onDeleteClick()">
+      (click)="onDeleteClick()"
+      [disabled]="selectedUser === undefined">
       <mat-icon>delete</mat-icon>
       <span class="mat-button-wrapper">Удалить</span>
     </button>
@@ -55,7 +57,7 @@
     <tr
       mat-row
       (click)="selectUser(row)"
-      [class.row-is-clicked]="selectedUser == row"
+      [class.selectedRow]="selectedUser == row"
       *matRowDef="let row; columns: ['id', 'login', 'password']"></tr>
   </table>
 </div>
