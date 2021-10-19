@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api/api.service';
+import { User } from 'src/app/services/api/models/user';
 
 @Component({
   selector: 'app-users',
@@ -7,13 +9,13 @@ import { ApiService } from 'src/app/services/api/api.service';
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
-  users: any = [];
+  users: User[] = [];
   selectedUser?: User;
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService, private router: Router) {}
 
   ngOnInit(): void {
-    this.users = this.api.get<User[]>('/users').subscribe({
+    this.api.get<User[]>('/users').subscribe({
       next: (data) => {
         this.users = data;
       },
@@ -24,12 +26,19 @@ export class UsersComponent implements OnInit {
     this.selectedUser = user;
   }
 
-  onCreateClick() {}
-  onEditClick() {}
-  onDeleteClick() {}
-}
-
-export interface User {
-  id: number;
-  login: string;
+  onCreateClick() {
+    this.router.navigate(['users/0']);
+  }
+  onEditClick() {
+    this.router.navigate(['users/', this.selectedUser?.id]);
+  }
+  onDeleteClick() {
+    if (this.selectedUser) {
+      this.api.delete(`/users/${this.selectedUser.id}`).subscribe({
+        next: (data) => {
+          this.ngOnInit();
+        },
+      });
+    }
+  }
 }

@@ -4,9 +4,9 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subject } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/api/auth.service';
-import { User } from 'src/app/services/api/user';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api/api.service';
+import { User } from 'src/app/loggedInUser';
 
 @Component({
   selector: 'app-navigation',
@@ -21,7 +21,7 @@ export class NavigationComponent {
       shareReplay()
     );
 
-  user: User = new User();
+  loggedInUser: User = new User();
 
   @Input() title: string = '';
 
@@ -36,7 +36,7 @@ export class NavigationComponent {
 
   ngOnInit(): void {
     this.apiService.userSubject.subscribe((user) => {
-      this.user = user;
+      this.loggedInUser = user;
     });
 
     if (this.authService.restoreAuthentication()) {

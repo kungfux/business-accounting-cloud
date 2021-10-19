@@ -2,20 +2,22 @@ export class User {
   login: string;
   token: string;
   tokenExpirationDate: Date;
-  // TODO: Fethc from server
-  _isAdmin: boolean = true;
+  admin: boolean = false;
 
-  constructor(login?: string, token?: string, tokenExpirationDate?: Date) {
+  constructor(
+    login?: string,
+    token?: string,
+    tokenExpirationDate?: Date,
+    admin?: boolean
+  ) {
     this.login = login || '';
     this.token = token || '';
     this.tokenExpirationDate = tokenExpirationDate || new Date();
+    // TODO: Take from db
+    this.admin = admin || true;
   }
 
   get isAdmin() {
-    return this._isAdmin;
-  }
-
-  set isAdmin(isAdmin: boolean) {
-    this._isAdmin = isAdmin;
+    return this.admin;
   }
 }

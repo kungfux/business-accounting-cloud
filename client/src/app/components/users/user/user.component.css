@@ -1,5 +1,6 @@
-table {
-  width: 100%;
+.column-container {
+  display: flex;
+  flex-direction: column;
 }
 
 button {
