@@ -6,6 +6,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/api/auth.service';
 import { User } from 'src/app/services/api/user';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api/api.service';
 
 @Component({
   selector: 'app-navigation',
@@ -28,18 +29,21 @@ export class NavigationComponent {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
+    private apiService: ApiService,
     private authService: AuthService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.authService.user.subscribe((user) => {
+    this.apiService.userSubject.subscribe((user) => {
       this.user = user;
     });
 
     if (this.authService.restoreAuthentication()) {
       // TODO: Navigate to dashboard
       this.router.navigate(['/users']);
+    } else {
+      this.router.navigate(['']);
     }
   }
 }
