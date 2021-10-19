@@ -3,17 +3,17 @@ import { Observable, ObservableInput, Subject, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
-import { User } from 'src/app/loggedInUser';
+import { LoggedInUser } from 'src/app/loggedInUser';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
   private url = `${environment.apiUrl}/api`;
-  private currentUserSubject = new Subject<User>();
-  private loggedInUser: User = new User();
+  private currentUserSubject = new Subject<LoggedInUser>();
+  private loggedInUser: LoggedInUser = new LoggedInUser();
 
-  get userSubject(): Subject<User> {
+  get userSubject(): Subject<LoggedInUser> {
     return this.currentUserSubject;
   }
 
@@ -73,7 +73,7 @@ export class ApiService {
         errorMessage =
           'Вы указали неверный логин/пароль или необходимо выполнить вход повторно.';
         // TODO: Cleanup auth token and route to login page
-        this.loggedInUser = new User();
+        this.loggedInUser = new LoggedInUser();
         this.currentUserSubject.next(this.loggedInUser);
       } else {
         errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;

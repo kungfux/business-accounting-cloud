@@ -6,7 +6,8 @@ import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/api/auth.service';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api/api.service';
-import { User } from 'src/app/loggedInUser';
+import { LoggedInUser } from 'src/app/loggedInUser';
+import { User } from 'src/app/services/api/models/user';
 
 @Component({
   selector: 'app-navigation',
@@ -21,7 +22,7 @@ export class NavigationComponent {
       shareReplay()
     );
 
-  loggedInUser: User = new User();
+  loggedInUser: LoggedInUser = new LoggedInUser();
 
   @Input() title: string = '';
 
@@ -29,18 +30,25 @@ export class NavigationComponent {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private apiService: ApiService,
+    private api: ApiService,
     private authService: AuthService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.apiService.userSubject.subscribe((user) => {
+    this.api.userSubject.subscribe((user) => {
       this.loggedInUser = user;
+
+      if (this.loggedInUser.id !== 0) {
+        this.api.get<User>(`/users/${this.loggedInUser.id}`).subscribe({
+          next: (data) => {
+            this.loggedInUser.isAdmin = data.admin;
+          },
+        });
+      }
     });
 
     if (this.authService.restoreAuthentication()) {
-      // TODO: Navigate to dashboard
       if (this.router.url.endsWith('auth')) {
         this.router.navigate(['/dashboard']);
       }

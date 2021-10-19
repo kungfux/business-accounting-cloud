@@ -7,7 +7,10 @@ const findAll = {
       items: {
         properties: {
           id: { type: 'integer' },
-          login: { type: 'string' }
+          login: { type: 'string' },
+          admin: { type: 'boolean' },
+          enabled: { type: 'boolean' },
+          created: { type: 'string' }
         }
       }
     }
@@ -25,6 +28,8 @@ const findOne = {
       properties: {
         id: { type: 'integer' },
         login: { type: 'string' },
+        admin: { type: 'boolean' },
+        enabled: { type: 'boolean' },
         created: { type: 'string' }
       }
     },
@@ -48,9 +53,11 @@ const insertOne = {
     type: 'object',
     properties: {
       login: { type: 'string', minLength: 1 },
-      password: { type: 'string', minLength: 8 }
+      password: { type: 'string', minLength: 8 },
+      admin: { type: 'boolean' },
+      enabled: { type: 'boolean' }
     },
-    required: ['login', 'password']
+    required: ['login', 'password', 'admin', 'enabled']
   }
 }
 
@@ -59,9 +66,11 @@ const updateOne = {
     type: 'object',
     properties: {
       login: { type: 'string', minLength: 1 },
-      password: { type: 'string', minLength: 8 }
+      password: { type: 'string', minLength: 8 },
+      admin: { type: 'boolean' },
+      enabled: { type: 'boolean' }
     },
-    required: ['login', 'password']
+    required: ['login', 'password', 'admin', 'enabled']
   },
   params: {
     type: 'object',
