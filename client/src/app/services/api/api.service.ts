@@ -3,7 +3,6 @@ import { Observable, ObservableInput, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -49,6 +48,7 @@ export class ApiService {
       if (error.status === 401) {
         errorMessage =
           'Вы указали неверный логин/пароль или необходимо выполнить вход повторно.';
+        // TODO: Cleanup auth token and route to login page
       } else {
         errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
       }

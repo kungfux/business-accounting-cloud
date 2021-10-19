@@ -1,31 +1,43 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { LocalStorageService } from '../local-storage.service';
 import { ApiService } from './api.service';
-import { User } from './User';
+import { User } from './user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private userSubject = new Subject<User>();
-  private endpoint: string = '/auth';
+  private currentUserSubject = new Subject<User>();
+  private serviceEndpoint: string = '/auth';
 
   get user(): Subject<User> {
-    return this.userSubject;
+    return this.currentUserSubject;
   }
-  constructor(private api: ApiService) {}
+  constructor(
+    private api: ApiService,
+    private localStorage: LocalStorageService
+  ) {}
 
-  auth(login: string, password: string): Observable<boolean> {
+  authenticate(login: string, password: string): Observable<boolean> {
+    console.log('Sending request...');
     return new Observable<boolean>((subscriber) => {
       this.api
-        .post<AuthResponse>(this.endpoint, {
+        .post<AuthResponse>(this.serviceEndpoint, {
           username: login,
           password: password,
         })
         .subscribe({
           next: (data) => {
-            this.userSubject.next(new User(login, data.token));
-            this.api.setToken(data.token);
+            let user = new User(login, data.token, data.expiration);
+            this.api.setToken(user.token);
+            this.localStorage.set('login', user.login);
+            this.localStorage.set('token', user.token);
+            this.localStorage.set(
+              'tokenExpirationDate',
+              user.tokenExpirationDate.toString()
+            );
+            this.currentUserSubject.next(user);
             subscriber.next(true);
             subscriber.complete();
           },
@@ -35,6 +47,28 @@ export class AuthService {
           },
         });
     });
+  }
+
+  restoreAuthentication(): boolean {
+    console.log('Restore auth');
+    let login = this.localStorage.get('login');
+    let token = this.localStorage.get('token');
+    let tokenExpirationDate = this.localStorage.get('tokenExpirationDate');
+    if (login !== null && token !== null && tokenExpirationDate !== null) {
+      try {
+        if (Date.parse(tokenExpirationDate) > Date.now()) {
+          let user = new User(
+            login,
+            token,
+            new Date(Date.parse(tokenExpirationDate))
+          );
+          this.api.setToken(user.token);
+          this.currentUserSubject.next(user);
+          return true;
+        }
+      } catch {}
+    }
+    return false;
   }
 }
 

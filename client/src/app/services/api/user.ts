@@ -1,13 +1,13 @@
 export class User {
   login: string;
   token: string;
-  tokenExpiration: Date;
+  tokenExpirationDate: Date;
   _isAdmin: boolean = false;
 
-  constructor(login?: string, token?: string, expiration?: Date) {
+  constructor(login?: string, token?: string, tokenExpirationDate?: Date) {
     this.login = login || '';
     this.token = token || '';
-    this.tokenExpiration = expiration || new Date();
+    this.tokenExpirationDate = tokenExpirationDate || new Date();
   }
 
   get isAdmin() {
