@@ -14,8 +14,11 @@
 
 .card {
   max-width: 400px;
+  min-width: 300px;
 }
 
 .page-content {
   margin: 30px;
+  display: flex;
+  justify-content: center;
 }

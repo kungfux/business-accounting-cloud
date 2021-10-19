@@ -16,6 +16,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
@@ -57,6 +58,7 @@ const routes: Routes = [
     MatDividerModule,
     MatTableModule,
     MatExpansionModule,
+    MatGridListModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -45,7 +45,12 @@ export class ApiService {
     if (error.error instanceof ErrorEvent) {
       errorMessage = error.error.message;
     } else {
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      if (error.status === 401) {
+        errorMessage =
+          'Вы указали неверный логин/пароль или необходимо выполнить вход повторно.';
+      } else {
+        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      }
     }
     window.alert(errorMessage);
     return throwError(errorMessage);
