@@ -24,16 +24,5 @@
 
 mat-nav-list mat-icon {
   margin-right: 10px;
-}
-
-.color-green {
-  color: green;
-}
-
-.color-indianred {
-  color: indianred;
-}
-
-.color-darkgoldenrod {
-  color: darkgoldenrod;
+  color: #3f51b5;
 }

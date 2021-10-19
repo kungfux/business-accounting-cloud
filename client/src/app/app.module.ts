@@ -24,10 +24,12 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { UsersComponent } from './components/users/users/users.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', component: AuthComponent },
   { path: 'users', component: UsersComponent },
+  { path: 'dashboard', component: DashboardComponent },
 ];
 
 @NgModule({
@@ -36,6 +38,7 @@ const routes: Routes = [
     NavigationComponent,
     AuthComponent,
     UsersComponent,
+    DashboardComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { enableTracing: false }),
