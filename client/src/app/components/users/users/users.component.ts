@@ -23,7 +23,11 @@ export class UsersComponent implements OnInit {
   }
 
   selectUser(user: User) {
-    this.selectedUser = user;
+    if (this.selectedUser != user) {
+      this.selectedUser = user;
+    } else {
+      this.onEditClick();
+    }
   }
 
   onCreateClick() {
