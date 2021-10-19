@@ -5,7 +5,8 @@ const token = {
     200: {
       type: 'object',
       properties: {
-        token: { type: 'string' }
+        token: { type: 'string' },
+        expiration: { type: 'string' }
       }
     }
   },
