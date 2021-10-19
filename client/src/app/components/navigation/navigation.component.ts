@@ -4,7 +4,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subject } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/api/auth.service';
-import { User } from 'src/app/services/api/User';
+import { User } from 'src/app/services/api/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -27,12 +28,18 @@ export class NavigationComponent {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.authService.user.subscribe((user) => {
       this.user = user;
     });
+
+    if (this.authService.restoreAuthentication()) {
+      // TODO: Navigate to dashboard
+      this.router.navigate(['/users']);
+    }
   }
 }

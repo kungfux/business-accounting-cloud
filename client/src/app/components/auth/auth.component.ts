@@ -15,20 +15,20 @@ export class AuthComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {
-    // TODO: Check if authenticated and navigate to dashboard
-  }
+  ngOnInit(): void {}
 
   onLoginClick() {
     this.checkingCredentials = true;
-    this.authService.auth(this.login, this.password).subscribe((success) => {
-      if (success) {
-        // TODO: Navigate to dashboard
-        this.router.navigate(['/users']);
-        // return;
-      }
-      // TODO: Show error
-      this.checkingCredentials = false;
-    });
+    this.authService
+      .authenticate(this.login, this.password)
+      .subscribe((success) => {
+        if (success) {
+          // TODO: Navigate to dashboard
+          this.router.navigate(['/users']);
+          return;
+        }
+        // TODO: Show error
+        this.checkingCredentials = false;
+      });
   }
 }
