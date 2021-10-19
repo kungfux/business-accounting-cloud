@@ -19,7 +19,7 @@ export class NavigationComponent {
       shareReplay()
     );
 
-  user: User = new User('', '');
+  user: User = new User();
 
   @Input() title: string = '';
 

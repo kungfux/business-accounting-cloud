@@ -15,7 +15,11 @@
       </a>
     </mat-nav-list>
     <mat-nav-list *ngIf="user.login">
-      <a mat-list-item (click)="drawer.toggle()" routerLink="/users">
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="/users"
+        *ngIf="user.isAdmin">
         <mat-icon>manage_accounts</mat-icon>
         Пользователи
       </a>
