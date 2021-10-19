@@ -8,14 +8,17 @@
     [autoFocus]="false">
     <mat-toolbar>Меню</mat-toolbar>
     <mat-divider></mat-divider>
-    <mat-nav-list>
+    <mat-nav-list *ngIf="!user.login">
       <a mat-list-item (click)="drawer.toggle()" routerLink="/">
         <mat-icon color="primary">account_circle</mat-icon>
         Авторизация
       </a>
     </mat-nav-list>
-    <mat-divider></mat-divider>
-    <mat-nav-list>
+    <mat-nav-list *ngIf="user.login">
+      <a mat-list-item (click)="drawer.toggle()" routerLink="/users">
+        <mat-icon>manage_accounts</mat-icon>
+        Пользователи
+      </a>
       <a mat-list-item (click)="drawer.toggle()" routerLink="/transactions">
         <mat-icon class="color-green">monetization_on</mat-icon>
         Касса
@@ -29,13 +32,6 @@
         Отчеты
       </a>
     </mat-nav-list>
-    <mat-divider></mat-divider>
-    <mat-nav-list>
-      <a mat-list-item (click)="drawer.toggle()" routerLink="/users">
-        <mat-icon>group_add</mat-icon>
-        Пользователи
-      </a>
-    </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
@@ -45,6 +41,7 @@
       <span *ngIf="!(isHandset$ | async)">{{ title }}</span>
       <span class="spacer"></span>
       <button
+        *ngIf="user.login"
         mat-button
         matTooltip="Наименование организации для управления (нажмите, чтобы сменить)"
         matTooltipShowDelay="1000">

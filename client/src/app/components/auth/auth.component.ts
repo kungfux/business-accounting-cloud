@@ -16,7 +16,7 @@ export class AuthComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    // TODO: CHeck if authenticated and navigate to dashboard
+    // TODO: Check if authenticated and navigate to dashboard
   }
 
   onLoginClick() {
@@ -25,7 +25,7 @@ export class AuthComponent implements OnInit {
       if (success) {
         // TODO: Navigate to dashboard
         this.router.navigate(['/users']);
-        return;
+        // return;
       }
       // TODO: Show error
       this.checkingCredentials = false;
