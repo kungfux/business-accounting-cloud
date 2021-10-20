@@ -69,14 +69,21 @@ export class ApiService {
     if (error.error instanceof ErrorEvent) {
       errorMessage = error.error.message;
     } else {
-      if (error.status === 401) {
-        errorMessage =
-          'Вы указали неверный логин/пароль или необходимо выполнить вход повторно.';
-        // TODO: Cleanup auth token and route to login page
-        this.loggedInUser = new LoggedInUser();
-        this.currentUserSubject.next(this.loggedInUser);
-      } else {
-        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      switch (error.status) {
+        case 401:
+          errorMessage =
+            'Вы указали неверный логин/пароль или необходимо выполнить вход повторно';
+          // TODO: Cleanup auth token and route to login page
+          this.loggedInUser = new LoggedInUser();
+          this.currentUserSubject.next(this.loggedInUser);
+          break;
+        case 0:
+          errorMessage = 'Сервер недоступен';
+          break;
+        default:
+          errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+
+          break;
       }
     }
     window.alert(errorMessage);
