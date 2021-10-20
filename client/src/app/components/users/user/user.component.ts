@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api/api.service';
+import { ItemCreatedResponse } from 'src/app/services/api/itemCreatedResponse';
 import { User } from 'src/app/services/api/models/user';
 
 @Component({
@@ -14,6 +15,7 @@ export class UserComponent implements OnInit {
     private router: Router,
     private api: ApiService
   ) {}
+
   hidePassword = true;
   user: User = new User();
 
@@ -35,7 +37,7 @@ export class UserComponent implements OnInit {
   onSaveClick() {
     if (this.user.id == 0) {
       this.api
-        .post<UserCreatedResponse>('/users', {
+        .post<ItemCreatedResponse>('/users', {
           login: this.user.login,
           password: this.user.password,
           admin: this.user.admin,
@@ -61,8 +63,4 @@ export class UserComponent implements OnInit {
         });
     }
   }
-}
-
-interface UserCreatedResponse {
-  id: number;
 }

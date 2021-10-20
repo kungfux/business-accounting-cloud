@@ -1,5 +1,5 @@
 <mat-toolbar>
-  <span>Пользователи</span>
+  <span>Компании</span>
 </mat-toolbar>
 
 <div class="page-content">
@@ -19,7 +19,7 @@
       matTooltip=""
       matTooltipShowDelay="1000"
       (click)="onEditClick()"
-      [disabled]="selectedUser === undefined">
+      [disabled]="selectedCompany === undefined">
       <mat-icon>edit</mat-icon>
       <span class="mat-button-wrapper">Редактировать</span>
     </button>
@@ -29,61 +29,56 @@
       matTooltip=""
       matTooltipShowDelay="1000"
       (click)="onDeleteClick()"
-      [disabled]="selectedUser === undefined">
+      [disabled]="selectedCompany === undefined">
       <mat-icon>delete</mat-icon>
       <span class="mat-button-wrapper">Удалить</span>
     </button>
   </section>
 
   <div class="table-responsive">
-    <table mat-table [dataSource]="users">
+    <table mat-table [dataSource]="companies">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>Номер</th>
-        <td mat-cell *matCellDef="let user">{{ user.id }}</td>
+        <td mat-cell *matCellDef="let company">{{ company.id }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="login">
-        <th mat-header-cell *matHeaderCellDef>Логин</th>
-        <td mat-cell *matCellDef="let user">{{ user.login }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="password">
-        <th mat-header-cell *matHeaderCellDef>Пароль</th>
-        <td mat-cell *matCellDef="let user">********</td>
-      </ng-container>
-
-      <ng-container matColumnDef="admin">
-        <th mat-header-cell *matHeaderCellDef>Администратор</th>
-        <td mat-cell *matCellDef="let user">
-          <mat-checkbox [checked]="user.admin" disabled> </mat-checkbox>
+      <ng-container matColumnDef="picture">
+        <th mat-header-cell *matHeaderCellDef>Логотип</th>
+        <td mat-cell *matCellDef="let company">
+          <mat-icon>{{ company.picture }}</mat-icon>
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Название</th>
+        <td mat-cell *matCellDef="let company">{{ company.name }}</td>
+      </ng-container>
+
       <ng-container matColumnDef="enabled">
-        <th mat-header-cell *matHeaderCellDef>Вход разрешен</th>
-        <td mat-cell *matCellDef="let user">
-          <mat-checkbox [checked]="user.enabled" disabled> </mat-checkbox>
+        <th mat-header-cell *matHeaderCellDef>Активна</th>
+        <td mat-cell *matCellDef="let company">
+          <mat-checkbox [checked]="company.enabled" disabled> </mat-checkbox>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="created">
         <th mat-header-cell *matHeaderCellDef>Создан</th>
-        <td mat-cell *matCellDef="let user">{{ user.created }}</td>
+        <td mat-cell *matCellDef="let company">{{ company.created }}</td>
       </ng-container>
 
       <tr
         mat-header-row
         *matHeaderRowDef="
-          ['id', 'login', 'password', 'admin', 'enabled', 'created'];
+          ['id', 'picture', 'name', 'enabled', 'created'];
           sticky: true
         "></tr>
       <tr
         mat-row
-        (click)="selectUser(row)"
-        [class.selectedRow]="selectedUser == row"
+        (click)="selectCompany(row)"
+        [class.selectedRow]="selectedCompany == row"
         *matRowDef="
           let row;
-          columns: ['id', 'login', 'password', 'admin', 'enabled', 'created']
+          columns: ['id', 'picture', 'name', 'enabled', 'created']
         "></tr>
     </table>
   </div>

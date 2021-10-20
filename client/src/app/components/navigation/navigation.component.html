@@ -17,7 +17,7 @@
     <mat-nav-list *ngIf="loggedInUser.login">
       <a mat-list-item (click)="drawer.toggle()" routerLink="/dashboard">
         <mat-icon>dashboard</mat-icon>
-        Стартовая
+        Доска
       </a>
       <a mat-list-item (click)="drawer.toggle()" routerLink="/transactions">
         <mat-icon>monetization_on</mat-icon>
@@ -39,6 +39,12 @@
         <a mat-list-item (click)="drawer.toggle()" routerLink="/users">
           <mat-icon>manage_accounts</mat-icon>
           Пользователи
+        </a>
+      </mat-nav-list>
+      <mat-nav-list>
+        <a mat-list-item (click)="drawer.toggle()" routerLink="/companies">
+          <mat-icon>business</mat-icon>
+          Компании
         </a>
       </mat-nav-list>
     </div>
