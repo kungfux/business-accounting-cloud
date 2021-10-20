@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -26,9 +27,16 @@ export class ToolbarComponent implements OnInit {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private location: Location
+  ) {}
 
   ngOnInit(): void {}
+
+  goBack(): void {
+    this.location.back();
+  }
 
   onCreateClick() {
     this.createRequest.emit();
