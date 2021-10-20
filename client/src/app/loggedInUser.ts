@@ -3,7 +3,10 @@ export class LoggedInUser {
   login: string;
   token: string;
   tokenExpirationDate: Date;
-  admin: boolean = false;
+  _isAdmin: boolean = false;
+  _companyId: number = 0;
+  _companyLogo: string = '';
+  _companyName: string = '';
 
   constructor(
     id?: number,
@@ -18,10 +21,20 @@ export class LoggedInUser {
   }
 
   get isAdmin() {
-    return this.admin;
+    return this._isAdmin;
   }
 
   set isAdmin(admin: boolean) {
-    this.admin = admin;
+    this._isAdmin = admin;
+  }
+
+  get companyId() {
+    return this._companyId;
+  }
+
+  setCompany(id: number, logo: string, name: string): void {
+    this._companyId = id;
+    this._companyLogo = logo;
+    this._companyName = name;
   }
 }
