@@ -3,14 +3,6 @@
   flex-direction: column;
 }
 
-button {
-  margin: 8px 8px 8px 0;
-}
-
 mat-checkbox:nth-of-type(2) {
   margin-left: 16px;
-}
-
-mat-icon {
-  margin-right: 4px;
 }

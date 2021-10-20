@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ItemCreatedResponse } from 'src/app/services/api/itemCreatedResponse';
 import { Company } from 'src/app/services/api/models/company';
@@ -10,13 +11,16 @@ import { Company } from 'src/app/services/api/models/company';
   styleUrls: ['./company.component.css'],
 })
 export class CompanyComponent implements OnInit {
+  item: Company = new Company();
+  toolBarMode: ToolBarMode = ToolBarMode.Details;
+
+  private readonly apiEndpoint = '/companies';
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private api: ApiService
   ) {}
-
-  company: Company = new Company();
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -25,21 +29,21 @@ export class CompanyComponent implements OnInit {
     }
     const companyId = parseInt(id);
     if (companyId !== 0) {
-      this.api.get<Company>(`/companies/${id}`).subscribe({
+      this.api.get<Company>(`${this.apiEndpoint}/${id}`).subscribe({
         next: (company) => {
-          this.company = company;
+          this.item = company;
         },
       });
     }
   }
 
-  onSaveClick() {
-    if (this.company.id == 0) {
+  onSaveRequest() {
+    if (this.item.id == 0) {
       this.api
-        .post<ItemCreatedResponse>('/companies', {
-          name: this.company.name,
-          picture: this.company.picture,
-          enabled: this.company.enabled,
+        .post<ItemCreatedResponse>(this.apiEndpoint, {
+          name: this.item.name,
+          picture: this.item.picture,
+          enabled: this.item.enabled,
         })
         .subscribe({
           next: (data) => {
@@ -48,10 +52,10 @@ export class CompanyComponent implements OnInit {
         });
     } else {
       this.api
-        .put(`/companies/${this.company.id}`, {
-          name: this.company.name,
-          picture: this.company.picture,
-          enabled: this.company.enabled,
+        .put(`${this.apiEndpoint}/${this.item.id}`, {
+          name: this.item.name,
+          picture: this.item.picture,
+          enabled: this.item.enabled,
         })
         .subscribe({
           next: (data) => {
@@ -59,6 +63,14 @@ export class CompanyComponent implements OnInit {
           },
         });
     }
+  }
+
+  onDeleteRequest() {
+    this.api.delete(`${this.apiEndpoint}/${this.item.id}`).subscribe({
+      next: () => {
+        this.router.navigate(['companies']);
+      },
+    });
   }
 
   goToLink(url: string) {
