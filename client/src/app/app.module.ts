@@ -24,11 +24,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { AuthComponent } from './components/auth/auth.component';
-import { UsersComponent } from './components/users/users/users.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { UserComponent } from './components/users/user/user.component';
-import { CompaniesComponent } from './components/companies/companies/companies.component';
-import { CompanyComponent } from './components/companies/company/company.component';
+import { UsersComponent } from './components/pages/users/users/users.component';
+import { DashboardComponent } from './components/pages/dashboard/dashboard.component';
+import { UserComponent } from './components/pages/users/user/user.component';
+import { CompaniesComponent } from './components/pages/companies/companies/companies.component';
+import { CompanyComponent } from './components/pages/companies/company/company.component';
+import { ToolbarComponent } from './components/common/toolbar/toolbar.component';
 
 const routes: Routes = [
   { path: '', component: AuthComponent },
@@ -50,6 +51,7 @@ const routes: Routes = [
     UserComponent,
     CompaniesComponent,
     CompanyComponent,
+    ToolbarComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -1,0 +1,72 @@
+<mat-toolbar>
+  <span>{{ title }}</span>
+  <span class="toolbar-spacer"></span>
+  <section *ngIf="(isHandset$ | async) === false">
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="onEditClick()"
+      [disabled]="selectedItem === undefined"
+      *ngIf="mode === 0">
+      <mat-icon>edit</mat-icon>
+      <span class="mat-button-wrapper">Изменить</span>
+    </button>
+    <button
+      color="primary"
+      mat-flat-button
+      (click)="onCreateClick()"
+      *ngIf="mode === 0">
+      <mat-icon>add</mat-icon>
+      <span class="mat-button-wrapper">Создать</span>
+    </button>
+    <button
+      mat-flat-button
+      color="warn"
+      (click)="onDeleteClick()"
+      *ngIf="mode === 1 && deleteVisible">
+      <mat-icon>delete</mat-icon>
+      <span class="mat-button-wrapper">Удалить</span>
+    </button>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="onSaveClick()"
+      *ngIf="mode === 1"
+      [disabled]="!saveEnabled">
+      <mat-icon>save</mat-icon>
+      <span class="mat-button-wrapper">Сохранить</span>
+    </button>
+  </section>
+  <section *ngIf="(isHandset$ | async) === true">
+    <button
+      color="primary"
+      mat-mini-fab
+      (click)="onEditClick()"
+      [disabled]="selectedItem === undefined"
+      *ngIf="mode === 0">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button
+      color="primary"
+      mat-mini-fab
+      (click)="onCreateClick()"
+      *ngIf="mode === 0">
+      <mat-icon>add</mat-icon>
+    </button>
+    <button
+      color="warn"
+      mat-mini-fab
+      (click)="onDeleteClick()"
+      *ngIf="mode === 1 && deleteVisible">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <button
+      color="primary"
+      mat-mini-fab
+      (click)="onSaveClick()"
+      *ngIf="mode === 1"
+      [disabled]="!saveEnabled">
+      <mat-icon>save</mat-icon>
+    </button>
+  </section>
+</mat-toolbar>

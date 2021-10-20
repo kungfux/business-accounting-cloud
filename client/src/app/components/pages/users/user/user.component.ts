@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ItemCreatedResponse } from 'src/app/services/api/itemCreatedResponse';
 import { User } from 'src/app/services/api/models/user';
@@ -10,14 +11,17 @@ import { User } from 'src/app/services/api/models/user';
   styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
+  hidePassword = true;
+  item: User = new User();
+  toolBarMode: ToolBarMode = ToolBarMode.Details;
+
+  private readonly apiEndpoint = '/users';
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private api: ApiService
   ) {}
-
-  hidePassword = true;
-  user: User = new User();
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -26,41 +30,49 @@ export class UserComponent implements OnInit {
     }
     const userId = parseInt(id);
     if (userId !== 0) {
-      this.api.get<User>(`/users/${id}`).subscribe({
+      this.api.get<User>(`${this.apiEndpoint}/${id}`).subscribe({
         next: (user) => {
-          this.user = user;
+          this.item = user;
         },
       });
     }
   }
 
-  onSaveClick() {
-    if (this.user.id == 0) {
+  onSaveRequest() {
+    if (this.item.id == 0) {
       this.api
-        .post<ItemCreatedResponse>('/users', {
-          login: this.user.login,
-          password: this.user.password,
-          admin: this.user.admin,
-          enabled: this.user.enabled,
+        .post<ItemCreatedResponse>(this.apiEndpoint, {
+          login: this.item.login,
+          password: this.item.password,
+          admin: this.item.admin,
+          enabled: this.item.enabled,
         })
         .subscribe({
-          next: (data) => {
+          next: () => {
             this.router.navigate(['users']);
           },
         });
     } else {
       this.api
-        .put(`/users/${this.user.id}`, {
-          login: this.user.login,
-          password: this.user.password,
-          admin: this.user.admin,
-          enabled: this.user.enabled,
+        .put(`${this.apiEndpoint}/${this.item.id}`, {
+          login: this.item.login,
+          password: this.item.password,
+          admin: this.item.admin,
+          enabled: this.item.enabled,
         })
         .subscribe({
-          next: (data) => {
+          next: () => {
             this.router.navigate(['users']);
           },
         });
     }
+  }
+
+  onDeleteRequest() {
+    this.api.delete(`${this.apiEndpoint}/${this.item.id}`).subscribe({
+      next: () => {
+        this.router.navigate(['users']);
+      },
+    });
   }
 }

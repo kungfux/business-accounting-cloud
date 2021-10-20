@@ -1,34 +1,31 @@
-<mat-toolbar>
-  <span>{{ user?.login || 'Новый пользователь' }}</span>
-</mat-toolbar>
+<app-toolbar
+  [title]="item?.login || 'Новый пользователь'"
+  [mode]="toolBarMode"
+  [selectedItem]="item"
+  [deleteVisible]="!!item?.id"
+  [saveEnabled]="
+    !!item.login &&
+    !!item.password &&
+    item.login.length > 0 &&
+    item.password.length >= 8
+  "
+  (saveRequest)="onSaveRequest()"
+  (deleteRequest)="onDeleteRequest()"></app-toolbar>
 
 <div class="page-content">
-  <section>
-    <button
-      mat-flat-button
-      color="primary"
-      matTooltip=""
-      matTooltipShowDelay="1000"
-      (click)="onSaveClick()"
-      [disabled]="!user.login || !user.password || user.password.length < 8">
-      <mat-icon>save</mat-icon>
-      <span class="mat-button-wrapper">Сохранить</span>
-    </button>
-  </section>
-
   <mat-card class="card">
     <mat-card-content>
       <div class="column-container">
         <mat-form-field appearance="fill">
           <mat-label>Логин</mat-label>
-          <input matInput [(ngModel)]="user.login" required />
+          <input matInput [(ngModel)]="item.login" required />
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Пароль</mat-label>
           <input
             matInput
             [type]="hidePassword ? 'password' : 'text'"
-            [(ngModel)]="user.password"
+            [(ngModel)]="item.password"
             required />
           <button
             mat-icon-button
@@ -42,8 +39,8 @@
         </mat-form-field>
       </div>
       <section>
-        <mat-checkbox [(ngModel)]="user.admin">Администратор</mat-checkbox>
-        <mat-checkbox [(ngModel)]="user.enabled">Вход разрешен</mat-checkbox>
+        <mat-checkbox [(ngModel)]="item.admin">Администратор</mat-checkbox>
+        <mat-checkbox [(ngModel)]="item.enabled">Вход разрешен</mat-checkbox>
       </section>
     </mat-card-content>
   </mat-card>
