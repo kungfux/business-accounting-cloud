@@ -27,11 +27,15 @@ import { AuthComponent } from './components/auth/auth.component';
 import { UsersComponent } from './components/users/users/users.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserComponent } from './components/users/user/user.component';
+import { CompaniesComponent } from './components/companies/companies/companies.component';
+import { CompanyComponent } from './components/companies/company/company.component';
 
 const routes: Routes = [
   { path: '', component: AuthComponent },
   { path: 'users', component: UsersComponent },
   { path: 'users/:id', component: UserComponent },
+  { path: 'companies', component: CompaniesComponent },
+  { path: 'companies/:id', component: CompanyComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: '**', redirectTo: '/' },
 ];
@@ -44,6 +48,8 @@ const routes: Routes = [
     UsersComponent,
     DashboardComponent,
     UserComponent,
+    CompaniesComponent,
+    CompanyComponent,
   ],
   imports: [
     BrowserAnimationsModule,

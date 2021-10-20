@@ -1,0 +1,12 @@
+.column-container {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  margin: 8px 8px 8px 0;
+}
+
+mat-icon {
+  margin-right: 4px;
+}

@@ -1,0 +1,47 @@
+<mat-toolbar>
+  <mat-icon>{{ company?.picture }}</mat-icon>
+  <span>{{ company?.name || 'Новая компания' }}</span>
+</mat-toolbar>
+
+<div class="page-content">
+  <section>
+    <button
+      mat-flat-button
+      color="primary"
+      matTooltip=""
+      matTooltipShowDelay="1000"
+      (click)="onSaveClick()"
+      [disabled]="!company.name">
+      <mat-icon>save</mat-icon>
+      <span class="mat-button-wrapper">Сохранить</span>
+    </button>
+  </section>
+
+  <mat-card class="card">
+    <mat-card-content>
+      <div class="column-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Название</mat-label>
+          <input matInput [(ngModel)]="company.name" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Логотип</mat-label>
+          <input matInput [(ngModel)]="company.picture" />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="
+              goToLink('https://fonts.google.com/icons?selected=Material+Icons')
+            ">
+            <mat-icon>{{ 'travel_explore' }}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <section>
+        <mat-checkbox [(ngModel)]="company.enabled"
+          >Компания активна</mat-checkbox
+        >
+      </section>
+    </mat-card-content>
+  </mat-card>
+</div>
