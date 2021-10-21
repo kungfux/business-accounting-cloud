@@ -3,7 +3,7 @@ import { Observable, ObservableInput, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
-import { UserPreferences } from 'src/app/services/app-user.service';
+import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,7 @@ export class ApiService {
 
   constructor(
     private http: HttpClient,
-    private userPreferences: UserPreferences
+    private userPreferences: UserPreferencesService
   ) {
     this.userPreferences.userPreferencesSubject.subscribe(() => {
       this.setToken(this.userPreferences.token);
@@ -74,7 +74,6 @@ export class ApiService {
         case 401:
           errorMessage =
             'Вы указали неверный логин/пароль или необходимо выполнить вход повторно';
-          // TODO: Cleanup auth token and route to login page
           this.userPreferences.resetUser();
           break;
         default:

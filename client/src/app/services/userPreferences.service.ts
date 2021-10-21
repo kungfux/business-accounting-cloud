@@ -6,7 +6,7 @@ import { LocalStorageService } from './local-storage.service';
 @Injectable({
   providedIn: 'root',
 })
-export class UserPreferences {
+export class UserPreferencesService {
   userPreferencesSubject = new Subject<AppUser>();
 
   private appUser = new AppUser();
@@ -89,7 +89,7 @@ export class UserPreferences {
     this.saveUserToStorage();
   }
 
-  setCompany(id: number, picture: string, name: string): void {
+  setCompany(id: number, name: string, picture: string): void {
     this.appUser.companyId = id;
     this.appUser.companyPicture = picture;
     this.appUser.companyName = name;

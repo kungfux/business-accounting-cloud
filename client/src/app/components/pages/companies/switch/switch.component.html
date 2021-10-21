@@ -10,7 +10,7 @@
     *ngFor="let company of companies"
     (mouseover)="hover = company.name"
     (mouseleave)="hover = ''"
-    (click)="onSwitchCompany(company.id)"
+    (click)="onSwitchCompany(company.id, company.name, company.picture)"
     [color]="hover === company.name ? 'primary' : ''">
     <mat-icon>{{ company.picture }}</mat-icon>
     {{ company.name }}
