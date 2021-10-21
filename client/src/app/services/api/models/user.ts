@@ -5,4 +5,8 @@ export class User {
   admin: boolean = false;
   enabled: boolean = false;
   created: Date = new Date();
+
+  public constructor(init?: Partial<User>) {
+    Object.assign(this, init);
+  }
 }

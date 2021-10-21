@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component';
-import { ApiService } from 'src/app/services/api/api.service';
-import { ItemCreatedResponse } from 'src/app/services/api/itemCreatedResponse';
+import { CompanyApiService } from 'src/app/services/api/company.service';
 import { Company } from 'src/app/services/api/models/company';
 
 @Component({
@@ -14,12 +13,10 @@ export class CompanyComponent implements OnInit {
   item: Company = new Company();
   toolBarMode: ToolBarMode = ToolBarMode.Details;
 
-  private readonly apiEndpoint = '/companies';
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private api: ApiService
+    private companyApi: CompanyApiService
   ) {}
 
   ngOnInit(): void {
@@ -29,7 +26,7 @@ export class CompanyComponent implements OnInit {
     }
     const companyId = parseInt(id);
     if (companyId !== 0) {
-      this.api.get<Company>(`${this.apiEndpoint}/${id}`).subscribe({
+      this.companyApi.getCompany(companyId).subscribe({
         next: (company) => {
           this.item = company;
         },
@@ -38,42 +35,41 @@ export class CompanyComponent implements OnInit {
   }
 
   onSaveRequest() {
-    if (this.item.id == 0) {
-      this.api
-        .post<ItemCreatedResponse>(this.apiEndpoint, {
-          name: this.item.name,
-          picture: this.item.picture,
-          enabled: this.item.enabled,
-        })
-        .subscribe({
-          next: (data) => {
-            this.router.navigate(['companies']);
-          },
-        });
+    let company = new Company({
+      id: this.item.id,
+      name: this.item.name,
+      picture: this.item.picture,
+      enabled: this.item.enabled,
+    });
+
+    if (company.id === 0) {
+      this.companyApi.addCompany(company).subscribe({
+        next: () => {
+          this.navigateToAllCompanies();
+        },
+      });
     } else {
-      this.api
-        .put(`${this.apiEndpoint}/${this.item.id}`, {
-          name: this.item.name,
-          picture: this.item.picture,
-          enabled: this.item.enabled,
-        })
-        .subscribe({
-          next: (data) => {
-            this.router.navigate(['companies']);
-          },
-        });
+      this.companyApi.updateCompany(company.id, company).subscribe({
+        next: () => {
+          this.navigateToAllCompanies();
+        },
+      });
     }
   }
 
   onDeleteRequest() {
-    this.api.delete(`${this.apiEndpoint}/${this.item.id}`).subscribe({
+    this.companyApi.deleteCompany(this.item.id).subscribe({
       next: () => {
-        this.router.navigate(['companies']);
+        this.navigateToAllCompanies();
       },
     });
   }
 
   goToLink(url: string) {
     window.open(url, '_blank');
+  }
+
+  private navigateToAllCompanies(): void {
+    this.router.navigate(['companies']);
   }
 }
