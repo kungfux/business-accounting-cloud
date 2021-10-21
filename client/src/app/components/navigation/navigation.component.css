@@ -27,6 +27,6 @@ mat-nav-list mat-icon {
   color: #3f51b5;
 }
 
-button mat-icon {
-  margin-right: 4px;
+button span {
+  margin-left: 4px;
 }

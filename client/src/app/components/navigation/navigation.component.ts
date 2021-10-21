@@ -70,4 +70,8 @@ export class NavigationComponent {
       this.router.navigate(['auth']);
     }
   }
+
+  logout(): void {
+    this.auth.logout();
+  }
 }
