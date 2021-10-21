@@ -70,15 +70,18 @@ export class ApiService {
       errorMessage = error.error.message;
     } else {
       switch (error.status) {
+        case 0:
+          errorMessage = 'Сервер недоступен';
+          break;
+        case 400:
+          errorMessage = 'Неверная операция';
+          break;
         case 401:
           errorMessage =
             'Вы указали неверный логин/пароль или необходимо выполнить вход повторно';
           // TODO: Cleanup auth token and route to login page
           this.loggedInUser = new LoggedInUser();
           this.currentUserSubject.next(this.loggedInUser);
-          break;
-        case 0:
-          errorMessage = 'Сервер недоступен';
           break;
         default:
           errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;

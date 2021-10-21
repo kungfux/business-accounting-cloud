@@ -56,12 +56,8 @@
       </button>
       <span *ngIf="!(isHandset$ | async)">{{ title }}</span>
       <span class="spacer"></span>
-      <button
-        *ngIf="loggedInUser.login"
-        mat-button
-        matTooltip="Наименование организации для управления (нажмите, чтобы сменить)"
-        matTooltipShowDelay="1000">
-        <mat-icon>{{ company.logo }}</mat-icon>
+      <button *ngIf="loggedInUser.login" mat-button (click)="onSwitchCompany()">
+        <mat-icon>{{ company.picture }}</mat-icon>
         <span class="mat-button-wrapper">{{ company.name }}</span>
       </button>
     </mat-toolbar>

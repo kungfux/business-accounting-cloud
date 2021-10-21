@@ -25,7 +25,10 @@ export class NavigationComponent {
 
   @Input() title: string = '';
   loggedInUser: LoggedInUser = new LoggedInUser();
-  company = { name: 'Fox Parking Ltd.', logo: 'emoji_transportation' };
+  company: Company = new Company({
+    name: 'Unknown',
+    picture: 'help_center',
+  });
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -35,6 +38,25 @@ export class NavigationComponent {
   ) {}
 
   ngOnInit(): void {
+    this.monitorLoggedInUser();
+    this.authenticate();
+  }
+
+  onSwitchCompany(): void {
+    this.router.navigate(['companies/switch']);
+  }
+
+  authenticate(): void {
+    if (this.authService.restoreAuthentication()) {
+      if (this.router.url.endsWith('auth')) {
+        this.router.navigate(['/dashboard']);
+      }
+    } else {
+      this.router.navigate(['']);
+    }
+  }
+
+  monitorLoggedInUser(): void {
     this.api.userSubject.subscribe((user) => {
       this.loggedInUser = user;
 
@@ -56,10 +78,10 @@ export class NavigationComponent {
                   data[0].picture,
                   data[0].name
                 );
-                this.company = {
+                this.company = new Company({
                   name: data[0].name,
-                  logo: data[0].picture,
-                };
+                  picture: data[0].picture,
+                });
               }
             },
           });
@@ -68,22 +90,14 @@ export class NavigationComponent {
             .get<Company>(`/companies/${this.loggedInUser._companyId}`)
             .subscribe({
               next: (data) => {
-                this.company = {
+                this.company = new Company({
                   name: data.name,
-                  logo: data.picture,
-                };
+                  picture: data.picture,
+                });
               },
             });
         }
       }
     });
-
-    if (this.authService.restoreAuthentication()) {
-      if (this.router.url.endsWith('auth')) {
-        this.router.navigate(['/dashboard']);
-      }
-    } else {
-      this.router.navigate(['']);
-    }
   }
 }

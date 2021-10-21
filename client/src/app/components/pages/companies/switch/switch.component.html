@@ -1,0 +1,21 @@
+<mat-toolbar> Выбор компании </mat-toolbar>
+<div class="page-content">
+  <p>Выберите компанию для управления.</p>
+  <p>
+    После выбора вы будете перенаправлены на страницу с доской выбранной
+    компании.
+  </p>
+  <button
+    mat-raised-button
+    *ngFor="let company of companies"
+    (mouseover)="hover = company.name"
+    (mouseleave)="hover = ''"
+    (click)="onSwitchCompany(company.id)"
+    [color]="hover === company.name ? 'primary' : ''">
+    <mat-icon>{{ company.picture }}</mat-icon>
+    {{ company.name }}
+  </button>
+  <b *ngIf="!!companies && companies.length === 0"
+    >Активных компаний не найдено.</b
+  >
+</div>
