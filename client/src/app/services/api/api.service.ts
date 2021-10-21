@@ -1,26 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Observable, ObservableInput, Subject, throwError } from 'rxjs';
+import { Observable, ObservableInput, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
-import { LoggedInUser } from 'src/app/loggedInUser';
+import { UserPreferences } from 'src/app/services/app-user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
   private url = `${environment.apiUrl}/api`;
-  private currentUserSubject = new Subject<LoggedInUser>();
-  private loggedInUser: LoggedInUser = new LoggedInUser();
 
-  get userSubject(): Subject<LoggedInUser> {
-    return this.currentUserSubject;
-  }
-
-  constructor(private http: HttpClient) {
-    this.userSubject.subscribe((user) => {
-      this.loggedInUser = user;
-      this.setToken(this.loggedInUser.token);
+  constructor(
+    private http: HttpClient,
+    private userPreferences: UserPreferences
+  ) {
+    this.userPreferences.userPreferencesSubject.subscribe(() => {
+      this.setToken(this.userPreferences.token);
     });
   }
 
@@ -31,7 +27,6 @@ export class ApiService {
   };
 
   get<T>(api: string): Observable<T> {
-    console.log(JSON.stringify(this.headers.headers));
     return this.http
       .get<T>(`${this.url}${api}`, this.headers)
       .pipe(catchError(this.handleError));
@@ -80,12 +75,10 @@ export class ApiService {
           errorMessage =
             'Вы указали неверный логин/пароль или необходимо выполнить вход повторно';
           // TODO: Cleanup auth token and route to login page
-          this.loggedInUser = new LoggedInUser();
-          this.currentUserSubject.next(this.loggedInUser);
+          this.userPreferences.resetUser();
           break;
         default:
           errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-
           break;
       }
     }

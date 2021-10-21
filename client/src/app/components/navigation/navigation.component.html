@@ -8,13 +8,13 @@
     [autoFocus]="false">
     <mat-toolbar>Меню</mat-toolbar>
     <mat-divider></mat-divider>
-    <mat-nav-list *ngIf="!loggedInUser.login">
+    <mat-nav-list *ngIf="!loggedInUser.id">
       <a mat-list-item (click)="drawer.toggle()" routerLink="/">
         <mat-icon color="primary">account_circle</mat-icon>
         Авторизация
       </a>
     </mat-nav-list>
-    <mat-nav-list *ngIf="loggedInUser.login">
+    <mat-nav-list *ngIf="loggedInUser.id">
       <a mat-list-item (click)="drawer.toggle()" routerLink="/dashboard">
         <mat-icon>dashboard</mat-icon>
         Доска
@@ -32,7 +32,7 @@
         Отчеты
       </a>
     </mat-nav-list>
-    <div *ngIf="loggedInUser.login && loggedInUser.isAdmin">
+    <div *ngIf="loggedInUser.id && loggedInUser.admin">
       <mat-toolbar>Управление</mat-toolbar>
       <mat-divider></mat-divider>
       <mat-nav-list>
@@ -56,7 +56,10 @@
       </button>
       <span *ngIf="!(isHandset$ | async)">{{ title }}</span>
       <span class="spacer"></span>
-      <button *ngIf="loggedInUser.login" mat-button (click)="onSwitchCompany()">
+      <button
+        *ngIf="loggedInUser.companyId"
+        mat-button
+        (click)="onSwitchCompany()">
         <mat-icon>{{ company.picture }}</mat-icon>
         <span class="mat-button-wrapper">{{ company.name }}</span>
       </button>
