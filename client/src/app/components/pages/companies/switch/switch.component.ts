@@ -11,7 +11,7 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
 })
 export class SwitchComponent implements OnInit {
   companies: Company[] = [];
-  hover: string = '';
+  isLoading: boolean = true;
 
   constructor(
     private companyApi: CompanyApiService,
@@ -27,6 +27,7 @@ export class SwitchComponent implements OnInit {
     this.companyApi.getCompanies().subscribe({
       next: (data) => {
         this.companies = data.filter((company) => company.enabled);
+        this.isLoading = false;
       },
     });
   }
