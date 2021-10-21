@@ -3,6 +3,7 @@
 const path = require('path')
 const chalk = require('chalk')
 const autoLoad = require('fastify-autoload')
+const { v4: uuidv4 } = require('uuid')
 
 module.exports = function (fastify, opts, next) {
   async function executeSqlFile(filename) {
@@ -24,7 +25,7 @@ module.exports = function (fastify, opts, next) {
     })
     .register(require('fastify-helmet'))
     .register(require('fastify-jwt'), {
-      secret: opts.auth ? opts.auth.secret : process.env.BAC_SECRET || '9005890b-1fcd-41d4-a58f-23bd4ca19750'
+      secret: opts.auth ? opts.auth.secret : uuidv4()
     })
     .register(require('fastify-formbody'))
     .register(require('fastify-multipart'))
