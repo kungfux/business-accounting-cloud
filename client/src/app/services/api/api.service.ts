@@ -73,7 +73,7 @@ export class ApiService {
           break;
         case 401:
           errorMessage =
-            'Вы указали неверный логин/пароль или необходимо выполнить вход повторно';
+            'Вы указали неверный логин/пароль или время сессии истекло и необходимо выполнить вход повторно';
           this.userPreferences.resetUser();
           break;
         default:

@@ -63,6 +63,9 @@
         <mat-icon>{{ company.picture }}</mat-icon>
         <span class="mat-button-wrapper">{{ company.name }}</span>
       </button>
+      <button mat-icon-button (click)="logout()" *ngIf="loggedInUser.id">
+        <mat-icon>logout</mat-icon>
+      </button>
     </mat-toolbar>
     <div>
       <router-outlet></router-outlet>

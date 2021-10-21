@@ -99,6 +99,10 @@ export class AuthApiService {
     }
   }
 
+  logout(): void {
+    this.userPreferences.resetUser();
+  }
+
   private getUserPreferences(): void {
     if (this.userPreferences.id != 0) {
       this.userApi.getUser(this.userPreferences.id).subscribe({

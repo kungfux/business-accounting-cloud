@@ -98,7 +98,9 @@ export class UserPreferencesService {
   }
 
   resetUser(): void {
+    let companyId = this.appUser.companyId;
     this.appUser = new AppUser();
+    this.appUser.companyId = companyId;
     this.saveUserToStorage();
     this.userPreferencesSubject.next(this.appUser);
   }
