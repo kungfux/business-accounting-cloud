@@ -11,6 +11,7 @@ import { Company } from 'src/app/services/api/models/company';
 export class CompaniesComponent implements OnInit {
   data: Company[] = [];
   selectedItem?: Company;
+  isLoading = true;
 
   constructor(private companyApi: CompanyApiService, private router: Router) {}
 
@@ -22,6 +23,7 @@ export class CompaniesComponent implements OnInit {
     this.companyApi.getCompanies().subscribe({
       next: (data) => {
         this.data = data;
+        this.isLoading = false;
       },
     });
   }

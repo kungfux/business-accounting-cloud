@@ -1,5 +1,6 @@
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 <app-toolbar
-  [title]="item?.name || 'Новый компания'"
+  [title]="item?.name || 'Новая компания'"
   [mode]="toolBarMode"
   [selectedItem]="item"
   [deleteVisible]="!!item?.id"

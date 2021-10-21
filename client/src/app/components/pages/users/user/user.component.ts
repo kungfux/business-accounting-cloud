@@ -13,6 +13,7 @@ export class UserComponent implements OnInit {
   hidePassword = true;
   item: User = new User();
   toolBarMode: ToolBarMode = ToolBarMode.Details;
+  isLoading = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,6 +24,7 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id === null) {
+      this.isLoading = false;
       return;
     }
     const userId = parseInt(id);
@@ -30,6 +32,7 @@ export class UserComponent implements OnInit {
       this.userApi.getUser(userId).subscribe({
         next: (user) => {
           this.item = user;
+          this.isLoading = false;
         },
       });
     }

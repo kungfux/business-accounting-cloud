@@ -1,3 +1,4 @@
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 <app-toolbar
   title="Компании"
   toolbarMode="mode.List"
@@ -46,7 +47,6 @@
       <tr
         mat-row
         (click)="selectItem(row)"
-        [class.selectedRow]="selectedItem == row"
         *matRowDef="
           let row;
           columns: ['id', 'picture', 'name', 'enabled', 'created']

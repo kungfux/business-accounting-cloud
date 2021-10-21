@@ -16,6 +16,9 @@
 .mat-header-row {
   display: table-row;
 }
+.mat-row:hover {
+  background: #4658bdc5;
+}
 .mat-cell,
 .mat-header-cell {
   word-wrap: initial;
@@ -28,8 +31,4 @@
   vertical-align: middle;
   text-align: center;
   vertical-align: middle;
-}
-
-.selectedRow {
-  background: #4658bdc5;
 }

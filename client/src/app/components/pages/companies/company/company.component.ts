@@ -12,6 +12,7 @@ import { Company } from 'src/app/services/api/models/company';
 export class CompanyComponent implements OnInit {
   item: Company = new Company();
   toolBarMode: ToolBarMode = ToolBarMode.Details;
+  isLoading = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,6 +23,7 @@ export class CompanyComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id === null) {
+      this.isLoading = false;
       return;
     }
     const companyId = parseInt(id);
@@ -29,6 +31,7 @@ export class CompanyComponent implements OnInit {
       this.companyApi.getCompany(companyId).subscribe({
         next: (company) => {
           this.item = company;
+          this.isLoading = false;
         },
       });
     }

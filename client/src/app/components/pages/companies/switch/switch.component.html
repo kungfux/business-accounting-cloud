@@ -1,3 +1,4 @@
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 <mat-toolbar> Выбор компании </mat-toolbar>
 <div class="page-content">
   <p>Выберите компанию для управления.</p>
@@ -8,14 +9,11 @@
   <button
     mat-raised-button
     *ngFor="let company of companies"
-    (mouseover)="hover = company.name"
-    (mouseleave)="hover = ''"
-    (click)="onSwitchCompany(company.id, company.name, company.picture)"
-    [color]="hover === company.name ? 'primary' : ''">
+    (click)="onSwitchCompany(company.id, company.name, company.picture)">
     <mat-icon>{{ company.picture }}</mat-icon>
     {{ company.name }}
   </button>
-  <b *ngIf="!!companies && companies.length === 0"
-    >Активных компаний не найдено.</b
+  <b *ngIf="!!companies && companies.length === 0 && !isLoading"
+    >Нет активных компаний.</b
   >
 </div>
