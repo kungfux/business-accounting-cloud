@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService } from 'src/app/services/api/api.service';
+import { CompanyApiService } from 'src/app/services/api/company.service';
 import { Company } from 'src/app/services/api/models/company';
 
 @Component({
@@ -12,16 +12,14 @@ export class CompaniesComponent implements OnInit {
   data: Company[] = [];
   selectedItem?: Company;
 
-  private readonly apiEndpoint = '/companies';
-
-  constructor(private api: ApiService, private router: Router) {}
+  constructor(private companyApi: CompanyApiService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadData();
   }
 
   loadData(): void {
-    this.api.get<Company[]>(this.apiEndpoint).subscribe({
+    this.companyApi.getCompanies().subscribe({
       next: (data) => {
         this.data = data;
       },
@@ -37,20 +35,10 @@ export class CompaniesComponent implements OnInit {
   }
 
   onCreateRequest() {
-    this.router.navigate([`${this.apiEndpoint}/0`]);
+    this.router.navigate(['companies/0']);
   }
 
   onEditRequest() {
-    this.router.navigate([`${this.apiEndpoint}/`, this.selectedItem?.id]);
-  }
-
-  onDeleteRequest() {
-    if (this.selectedItem) {
-      this.api.delete(`${this.apiEndpoint}/${this.selectedItem.id}`).subscribe({
-        next: () => {
-          this.ngOnInit();
-        },
-      });
-    }
+    this.router.navigate(['companies', this.selectedItem?.id]);
   }
 }

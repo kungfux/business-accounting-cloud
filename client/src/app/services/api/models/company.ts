@@ -4,4 +4,8 @@ export class Company {
   picture: string = '';
   enabled: boolean = false;
   created: Date = new Date();
+
+  public constructor(init?: Partial<Company>) {
+    Object.assign(this, init);
+  }
 }
