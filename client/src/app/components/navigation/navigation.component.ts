@@ -3,11 +3,11 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/api/auth.service';
 import { Router } from '@angular/router';
-import { ApiService } from 'src/app/services/api/api.service';
-import { LoggedInUser } from 'src/app/loggedInUser';
-import { User } from 'src/app/services/api/models/user';
+
+import { AppUser } from 'src/app/services/app-user';
+import { UserPreferences } from 'src/app/services/app-user.service';
+import { AuthApiService } from 'src/app/services/api/auth.service';
 import { Company } from 'src/app/services/api/models/company';
 
 @Component({
@@ -24,7 +24,7 @@ export class NavigationComponent {
     );
 
   @Input() title: string = '';
-  loggedInUser: LoggedInUser = new LoggedInUser();
+  loggedInUser: AppUser = new AppUser();
   company: Company = new Company({
     name: 'Unknown',
     picture: 'help_center',
@@ -32,13 +32,28 @@ export class NavigationComponent {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private api: ApiService,
-    private authService: AuthService,
-    private router: Router
+    private auth: AuthApiService,
+    private router: Router,
+    private userPreferences: UserPreferences
   ) {}
 
   ngOnInit(): void {
-    this.monitorLoggedInUser();
+    this.userPreferences.userPreferencesSubject.subscribe((user) => {
+      this.loggedInUser = user;
+
+      if (this.loggedInUser.id == 0) {
+        // If token is expired, redirect to auth page
+        this.router.navigate(['auth']);
+      }
+
+      if (this.loggedInUser.companyId != 0) {
+        this.company = new Company({
+          name: this.loggedInUser.companyName,
+          picture: this.loggedInUser.companyPicture,
+        });
+      }
+    });
+
     this.authenticate();
   }
 
@@ -47,57 +62,12 @@ export class NavigationComponent {
   }
 
   authenticate(): void {
-    if (this.authService.restoreAuthentication()) {
+    if (this.auth.isAuthenticated()) {
       if (this.router.url.endsWith('auth')) {
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['dashboard']);
       }
     } else {
-      this.router.navigate(['']);
+      this.router.navigate(['auth']);
     }
-  }
-
-  monitorLoggedInUser(): void {
-    this.api.userSubject.subscribe((user) => {
-      this.loggedInUser = user;
-
-      if (this.loggedInUser.id !== 0) {
-        this.api.get<User>(`/users/${this.loggedInUser.id}`).subscribe({
-          next: (data) => {
-            this.loggedInUser.isAdmin = data.admin;
-          },
-        });
-      }
-
-      if (this.loggedInUser.id !== 0) {
-        if (this.loggedInUser._companyId === 0) {
-          this.api.get<Company[]>('/companies').subscribe({
-            next: (data) => {
-              if (data.length > 0) {
-                this.loggedInUser.setCompany(
-                  data[0].id,
-                  data[0].picture,
-                  data[0].name
-                );
-                this.company = new Company({
-                  name: data[0].name,
-                  picture: data[0].picture,
-                });
-              }
-            },
-          });
-        } else {
-          this.api
-            .get<Company>(`/companies/${this.loggedInUser._companyId}`)
-            .subscribe({
-              next: (data) => {
-                this.company = new Company({
-                  name: data.name,
-                  picture: data.picture,
-                });
-              },
-            });
-        }
-      }
-    });
   }
 }

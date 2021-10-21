@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { LoggedInUser } from 'src/app/loggedInUser';
-import { LocalStorageService } from '../local-storage.service';
+import { Observable } from 'rxjs';
+import { UserPreferences } from 'src/app/services/app-user.service';
 import { ApiService } from './api.service';
+import { CompanyApiService } from './company.service';
+import { UserApiService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthApiService {
   private serviceEndpoint: string = '/auth';
 
   constructor(
     private api: ApiService,
-    private localStorage: LocalStorageService
+    private userPreferences: UserPreferences,
+    private userApi: UserApiService,
+    private companyApi: CompanyApiService
   ) {}
 
   authenticate(login: string, password: string): Observable<boolean> {
@@ -24,26 +27,18 @@ export class AuthService {
         })
         .subscribe({
           next: (data) => {
-            let user = new LoggedInUser(
+            this.userPreferences.setUser(
               data.id,
               login,
               data.token,
               data.expiration
             );
-            this.localStorage.set(
-              'auth',
-              JSON.stringify({
-                id: user.id,
-                login: user.login,
-                token: user.token,
-                expiration: user.tokenExpirationDate,
-              })
-            );
-            this.api.userSubject.next(user);
             subscriber.next(true);
             subscriber.complete();
+            this.getUserPreferences();
+            this.getCompanyInfo();
           },
-          error: (error) => {
+          error: () => {
             subscriber.next(false);
             subscriber.complete();
           },
@@ -51,35 +46,67 @@ export class AuthService {
     });
   }
 
-  restoreAuthentication(): boolean {
-    let auth = this.localStorage.get('auth');
-    if (auth !== null) {
-      let json = JSON.parse(auth);
-      let id = json.id;
-      let login = json.login;
-      let token = json.token;
-      let tokenExpirationDate = json.expiration;
-
-      if (login !== null && token !== null && tokenExpirationDate !== null) {
-        try {
-          if (
-            Date.parse(tokenExpirationDate) >
-            Date.parse(new Date().toUTCString())
-          ) {
-            let user = new LoggedInUser(
-              id,
-              login,
-              token,
-              new Date(Date.parse(tokenExpirationDate))
-            );
-            this.api.userSubject.next(user);
-            return true;
-          }
-        } catch {}
-      }
+  isAuthenticated(): boolean {
+    if (this.userPreferences.id == 0) {
+      this.userPreferences.restoreUser();
     }
 
+    if (
+      this.userPreferences.id != 0 &&
+      Date.parse(new Date().toUTCString()) <
+        Date.parse(this.userPreferences.tokenExpirationDate.toUTCString())
+    ) {
+      this.getUserPreferences();
+      this.getCompanyInfo();
+      return true;
+    }
+
+    this.userPreferences.resetUser();
     return false;
+  }
+
+  getCompanyDetails(companyId: number): void {
+    if (companyId != 0) {
+      this.companyApi.getCompany(companyId).subscribe({
+        next: (company) => {
+          this.userPreferences.setCompany(
+            company.id,
+            company.picture,
+            company.name
+          );
+        },
+      });
+    }
+  }
+
+  private getCompanyInfo(): void {
+    let companyId = this.userPreferences.companyId;
+
+    if (companyId == 0) {
+      // Get any company if no primary
+      this.companyApi.getCompanies().subscribe({
+        next: (companies) => {
+          let enabledCompanies = companies.filter((company) => company.enabled);
+          if (enabledCompanies.length > 0) {
+            companyId = enabledCompanies[0].id;
+            this.getCompanyDetails(companyId);
+            return;
+          }
+        },
+      });
+    } else {
+      this.getCompanyDetails(companyId);
+    }
+  }
+
+  private getUserPreferences(): void {
+    if (this.userPreferences.id != 0) {
+      this.userApi.getUser(this.userPreferences.id).subscribe({
+        next: (user) => {
+          this.userPreferences.admin = user.admin;
+        },
+      });
+    }
   }
 }
 

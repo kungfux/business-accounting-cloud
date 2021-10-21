@@ -33,7 +33,7 @@ import { ToolbarComponent } from './components/common/toolbar/toolbar.component'
 import { SwitchComponent } from './components/pages/companies/switch/switch.component';
 
 const routes: Routes = [
-  { path: '', component: AuthComponent },
+  { path: 'auth', component: AuthComponent },
   { path: 'users', component: UsersComponent },
   { path: 'users/:id', component: UserComponent },
   { path: 'companies', component: CompaniesComponent },

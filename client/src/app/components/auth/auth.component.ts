@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/api/auth.service';
+import { AuthApiService } from 'src/app/services/api/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -13,13 +13,13 @@ export class AuthComponent implements OnInit {
   hidePassword = true;
   checkingCredentials = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authApi: AuthApiService, private router: Router) {}
 
   ngOnInit(): void {}
 
   onLoginClick() {
     this.checkingCredentials = true;
-    this.authService
+    this.authApi
       .authenticate(this.login, this.password)
       .subscribe((success) => {
         if (success) {
