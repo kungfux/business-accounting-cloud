@@ -30,12 +30,14 @@ import { UserComponent } from './components/pages/users/user/user.component';
 import { CompaniesComponent } from './components/pages/companies/companies/companies.component';
 import { CompanyComponent } from './components/pages/companies/company/company.component';
 import { ToolbarComponent } from './components/common/toolbar/toolbar.component';
+import { SwitchComponent } from './components/pages/companies/switch/switch.component';
 
 const routes: Routes = [
   { path: '', component: AuthComponent },
   { path: 'users', component: UsersComponent },
   { path: 'users/:id', component: UserComponent },
   { path: 'companies', component: CompaniesComponent },
+  { path: 'companies/switch', component: SwitchComponent },
   { path: 'companies/:id', component: CompanyComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: '**', redirectTo: '/' },
@@ -52,6 +54,7 @@ const routes: Routes = [
     CompaniesComponent,
     CompanyComponent,
     ToolbarComponent,
+    SwitchComponent,
   ],
   imports: [
     BrowserAnimationsModule,

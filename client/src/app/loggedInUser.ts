@@ -5,7 +5,7 @@ export class LoggedInUser {
   tokenExpirationDate: Date;
   _isAdmin: boolean = false;
   _companyId: number = 0;
-  _companyLogo: string = '';
+  _companyPicture: string = '';
   _companyName: string = '';
 
   constructor(
@@ -32,9 +32,9 @@ export class LoggedInUser {
     return this._companyId;
   }
 
-  setCompany(id: number, logo: string, name: string): void {
+  setCompany(id: number, picture: string, name: string): void {
     this._companyId = id;
-    this._companyLogo = logo;
+    this._companyPicture = picture;
     this._companyName = name;
   }
 }
