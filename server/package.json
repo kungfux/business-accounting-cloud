@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/kungfux/business-accounting-cloud#readme",
   "dependencies": {
-    "fastify": "^3.22.0",
+    "fastify": "^3.22.1",
     "fastify-autoload": "^3.9.0",
     "fastify-cli": "^2.13.0",
     "fastify-cors": "^6.0.2",
@@ -39,7 +39,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.13",
+    "nodemon": "^2.0.14",
     "snazzy": "^9.0.0",
     "standard": "^16.0.4",
     "tap": "^15.0.10"
