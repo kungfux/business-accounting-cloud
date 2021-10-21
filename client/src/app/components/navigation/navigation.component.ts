@@ -6,7 +6,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 import { AppUser } from 'src/app/services/app-user';
-import { UserPreferences } from 'src/app/services/app-user.service';
+import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 import { AuthApiService } from 'src/app/services/api/auth.service';
 import { Company } from 'src/app/services/api/models/company';
 
@@ -34,7 +34,7 @@ export class NavigationComponent {
     private breakpointObserver: BreakpointObserver,
     private auth: AuthApiService,
     private router: Router,
-    private userPreferences: UserPreferences
+    private userPreferences: UserPreferencesService
   ) {}
 
   ngOnInit(): void {

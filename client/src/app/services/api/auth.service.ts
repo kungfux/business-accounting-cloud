@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserPreferences } from 'src/app/services/app-user.service';
+import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 import { ApiService } from './api.service';
 import { CompanyApiService } from './company.service';
 import { UserApiService } from './user.service';
@@ -13,7 +13,7 @@ export class AuthApiService {
 
   constructor(
     private api: ApiService,
-    private userPreferences: UserPreferences,
+    private userPreferences: UserPreferencesService,
     private userApi: UserApiService,
     private companyApi: CompanyApiService
   ) {}
@@ -71,8 +71,8 @@ export class AuthApiService {
         next: (company) => {
           this.userPreferences.setCompany(
             company.id,
-            company.picture,
-            company.name
+            company.name,
+            company.picture
           );
         },
       });
