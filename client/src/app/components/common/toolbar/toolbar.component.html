@@ -10,7 +10,7 @@
   <span class="toolbar-spacer"></span>
   <section *ngIf="(isHandset$ | async) === false">
     <button
-      mat-flat-button
+      mat-stroked-button
       color="primary"
       (click)="onEditClick()"
       [disabled]="selectedItem === undefined"
@@ -27,7 +27,7 @@
       <span class="mat-button-wrapper">Создать</span>
     </button>
     <button
-      mat-flat-button
+      mat-stroked-button
       color="warn"
       (click)="onDeleteClick()"
       *ngIf="mode === 1 && deleteVisible">
@@ -47,7 +47,7 @@
   <section *ngIf="(isHandset$ | async) === true">
     <button
       color="primary"
-      mat-mini-fab
+      mat-icon-button
       (click)="onEditClick()"
       [disabled]="selectedItem === undefined"
       *ngIf="mode === 0">
@@ -62,7 +62,7 @@
     </button>
     <button
       color="warn"
-      mat-mini-fab
+      mat-icon-button
       (click)="onDeleteClick()"
       *ngIf="mode === 1 && deleteVisible">
       <mat-icon>delete</mat-icon>
