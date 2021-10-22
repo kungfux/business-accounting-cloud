@@ -16,8 +16,8 @@ export class CompanyApiService {
 
   constructor(private api: ApiService) {}
 
-  getCompanies(): Observable<Company[]> {
-    return this.api.get<Company[]>(this.allCompaniesEndpoint);
+  getCompanies(offset: number = 0): Observable<Company[]> {
+    return this.api.get<Company[]>(this.allCompaniesEndpoint, offset);
   }
 
   getCompany(id: number): Observable<Company> {

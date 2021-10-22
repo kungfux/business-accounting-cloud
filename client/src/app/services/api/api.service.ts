@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, ObservableInput, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
@@ -26,9 +26,15 @@ export class ApiService {
     }),
   };
 
-  get<T>(api: string): Observable<T> {
+  get<T>(api: string, offset?: number): Observable<T> {
+    const params = offset ? { offset: offset } : {};
+    const options: any = {
+      headers: this.headers.headers,
+      params: params,
+    };
+
     return this.http
-      .get<T>(`${this.url}${api}`, this.headers)
+      .get<T>(`${this.url}${api}`, options)
       .pipe(catchError(this.handleError));
   }
 

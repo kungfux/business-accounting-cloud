@@ -14,6 +14,7 @@ export class UsersComponent implements OnInit {
   selectedItem?: User;
   toolBarMode: ToolBarMode = ToolBarMode.List;
   isLoading = true;
+  pageIndex: number = 1;
 
   constructor(private userApi: UserApiService, private router: Router) {}
 
@@ -21,11 +22,13 @@ export class UsersComponent implements OnInit {
     this.loadData();
   }
 
-  loadData(): void {
-    this.userApi.getUsers().subscribe({
+  loadData(pageIndex: number = this.pageIndex): void {
+    this.isLoading = true;
+    this.userApi.getUsers((pageIndex - 1) * 10).subscribe({
       next: (data) => {
         this.data = data;
         this.isLoading = false;
+        this.pageIndex = pageIndex;
       },
     });
   }

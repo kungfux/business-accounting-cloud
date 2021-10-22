@@ -16,8 +16,8 @@ export class UserApiService {
 
   constructor(private api: ApiService) {}
 
-  getUsers(): Observable<User[]> {
-    return this.api.get<User[]>(this.allUsersEndpoint);
+  getUsers(offset: number = 0): Observable<User[]> {
+    return this.api.get<User[]>(this.allUsersEndpoint, offset);
   }
 
   getUser(id: number): Observable<User> {
