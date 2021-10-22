@@ -19,15 +19,31 @@
         <mat-icon>dashboard</mat-icon>
         Доска
       </a>
-      <a mat-list-item (click)="drawer.toggle()" routerLink="/transactions">
-        <mat-icon>monetization_on</mat-icon>
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="/transactions"
+        *ngIf="false">
+        <mat-icon>payments</mat-icon>
         Касса
       </a>
-      <a mat-list-item (click)="drawer.toggle()" routerLink="/contacts">
-        <mat-icon>supervised_user_circle</mat-icon>
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="/contacts"
+        *ngIf="false">
+        <mat-icon>badge</mat-icon>
         Сотрудники
       </a>
-      <a mat-list-item (click)="drawer.toggle()" routerLink="/reports">
+      <a mat-list-item (click)="drawer.toggle()" routerLink="/titles">
+        <mat-icon>personal_injury</mat-icon>
+        Должности
+      </a>
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="/reports"
+        *ngIf="false">
         <mat-icon>pie_chart</mat-icon>
         Отчеты
       </a>

@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS TITLES (
  [id]         INTEGER PRIMARY KEY AUTOINCREMENT,
  [name]       VARCHAR NOT NULL,
  [rate]       FLOAT,
- [billable]   BIT NOT NULL DEFAULT 0,
+ [enabled]    BIT NOT NULL DEFAULT 0,
  [company_id] INTEGER NOT NULL
               REFERENCES COMPANIES(id)
               ON DELETE CASCADE,
