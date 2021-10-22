@@ -24,11 +24,12 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id === null) {
-      this.isLoading = false;
       return;
     }
     const userId = parseInt(id);
-    if (userId !== 0) {
+    if (userId === 0) {
+      this.isLoading = false;
+    } else {
       this.userApi.getUser(userId).subscribe({
         next: (user) => {
           this.item = user;
