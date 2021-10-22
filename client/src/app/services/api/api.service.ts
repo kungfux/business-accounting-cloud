@@ -26,8 +26,12 @@ export class ApiService {
     }),
   };
 
-  get<T>(api: string, offset?: number): Observable<T> {
-    const params = offset ? { offset: offset } : {};
+  get<T>(api: string, offset: number = 0, companyId?: number): Observable<T> {
+    const params = {
+      ...(companyId && { companyId: companyId }),
+      ...(offset && { offset: offset }),
+    };
+
     const options: any = {
       headers: this.headers.headers,
       params: params,

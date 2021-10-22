@@ -31,11 +31,15 @@ import { CompaniesComponent } from './components/pages/companies/companies/compa
 import { CompanyComponent } from './components/pages/companies/company/company.component';
 import { ToolbarComponent } from './components/common/toolbar/toolbar.component';
 import { SwitchComponent } from './components/pages/companies/switch/switch.component';
+import { TitlesComponent } from './components/pages/contacts/titles/titles/titles.component';
+import { TitleComponent } from './components/pages/contacts/titles/title/title.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent },
   { path: 'users', component: UsersComponent },
   { path: 'users/:id', component: UserComponent },
+  { path: 'titles', component: TitlesComponent },
+  { path: 'titles/:id', component: TitleComponent },
   { path: 'companies', component: CompaniesComponent },
   { path: 'companies/switch', component: SwitchComponent },
   { path: 'companies/:id', component: CompanyComponent },
@@ -55,6 +59,8 @@ const routes: Routes = [
     CompanyComponent,
     ToolbarComponent,
     SwitchComponent,
+    TitlesComponent,
+    TitleComponent,
   ],
   imports: [
     BrowserAnimationsModule,
