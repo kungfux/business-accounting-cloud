@@ -16,6 +16,7 @@
 .mat-header-row {
   display: table-row;
 }
+.selectedRow,
 .mat-row:hover {
   background: #4658bdc5;
 }

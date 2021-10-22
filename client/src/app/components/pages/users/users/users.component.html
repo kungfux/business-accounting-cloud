@@ -52,6 +52,7 @@
       <tr
         mat-row
         (click)="selectItem(row)"
+        [class.selectedRow]="selectedItem == row"
         *matRowDef="
           let row;
           columns: ['id', 'login', 'password', 'admin', 'enabled', 'created']
