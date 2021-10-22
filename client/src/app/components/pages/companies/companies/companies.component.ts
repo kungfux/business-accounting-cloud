@@ -12,6 +12,7 @@ export class CompaniesComponent implements OnInit {
   data: Company[] = [];
   selectedItem?: Company;
   isLoading = true;
+  pageIndex: number = 1;
 
   constructor(private companyApi: CompanyApiService, private router: Router) {}
 
@@ -19,11 +20,13 @@ export class CompaniesComponent implements OnInit {
     this.loadData();
   }
 
-  loadData(): void {
-    this.companyApi.getCompanies().subscribe({
+  loadData(pageIndex: number = this.pageIndex): void {
+    this.isLoading = true;
+    this.companyApi.getCompanies((pageIndex - 1) * 10).subscribe({
       next: (data) => {
         this.data = data;
         this.isLoading = false;
+        this.pageIndex = pageIndex;
       },
     });
   }

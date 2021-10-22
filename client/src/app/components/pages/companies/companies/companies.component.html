@@ -54,4 +54,19 @@
         "></tr>
     </table>
   </div>
+  <div class="paginator">
+    <span class="mat-small">Страница: {{ pageIndex }}</span>
+    <button
+      mat-icon-button
+      (click)="loadData(pageIndex - 1)"
+      [disabled]="pageIndex == 1">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      (click)="loadData(pageIndex + 1)"
+      [disabled]="data.length < 10">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
 </div>
