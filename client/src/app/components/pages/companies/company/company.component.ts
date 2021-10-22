@@ -23,11 +23,12 @@ export class CompanyComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id === null) {
-      this.isLoading = false;
       return;
     }
     const companyId = parseInt(id);
-    if (companyId !== 0) {
+    if (companyId === 0) {
+      this.isLoading = false;
+    } else {
       this.companyApi.getCompany(companyId).subscribe({
         next: (company) => {
           this.item = company;
