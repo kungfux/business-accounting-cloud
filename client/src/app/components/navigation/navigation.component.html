@@ -72,9 +72,17 @@
       </button>
       <span *ngIf="!(isHandset$ | async)">{{ title }}</span>
       <span class="spacer"></span>
-      <button *ngIf="loggedInUser.id" mat-button (click)="onSwitchCompany()">
+      <button
+        *ngIf="loggedInUser.id && loggedInUser.companyId"
+        mat-button
+        (click)="onSwitchCompany()">
         <mat-icon>{{ company.logo }}</mat-icon>
         <span class="mat-button-wrapper">{{ company.name }}</span>
+      </button>
+      <div class="vertical-line" *ngIf="loggedInUser.id"></div>
+      <button *ngIf="loggedInUser.id" mat-button>
+        <mat-icon>{{ loggedInUser.avatar }}</mat-icon>
+        <span class="mat-button-wrapper">{{ loggedInUser.name }}</span>
       </button>
       <button mat-icon-button (click)="logout()" *ngIf="loggedInUser.id">
         <mat-icon>logout</mat-icon>

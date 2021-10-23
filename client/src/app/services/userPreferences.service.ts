@@ -28,13 +28,16 @@ export class UserPreferencesService {
     return this.appUser.tokenExpirationDate;
   }
 
-  get admin(): boolean {
-    return this.appUser.admin;
+  get name(): string {
+    return this.appUser.name;
   }
 
-  set admin(admin: boolean) {
-    this.appUser.admin = admin;
-    this.userPreferencesSubject.next(this.appUser);
+  get avatar(): string {
+    return this.appUser.avatar;
+  }
+
+  get admin(): boolean {
+    return this.appUser.admin;
   }
 
   get companyId(): number {
@@ -87,6 +90,13 @@ export class UserPreferencesService {
     this.appUser.tokenExpirationDate = tokenExpirationDate;
     this.userPreferencesSubject.next(this.appUser);
     this.saveUserToStorage();
+  }
+
+  setUserDetails(name: string, avatar: string, admin: boolean) {
+    this.appUser.name = name;
+    this.appUser.avatar = avatar;
+    this.appUser.admin = admin;
+    this.userPreferencesSubject.next(this.appUser);
   }
 
   setCompany(id: number, name: string, logo: string): void {

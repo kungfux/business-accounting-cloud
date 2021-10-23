@@ -3,6 +3,8 @@ export class AppUser {
   login: string = '';
   token: string = '';
   tokenExpirationDate: Date = new Date();
+  name: string = '';
+  avatar: string = '';
   admin: boolean = false;
   companyId: number = 0;
   companyLogo: string = '';
