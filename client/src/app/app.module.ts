@@ -33,6 +33,10 @@ import { ToolbarComponent } from './components/common/toolbar/toolbar.component'
 import { SwitchComponent } from './components/pages/companies/switch/switch.component';
 import { TitlesComponent } from './components/pages/contacts/titles/titles/titles.component';
 import { TitleComponent } from './components/pages/contacts/titles/title/title.component';
+import { PropertyComponent } from './components/pages/property/property/property.component';
+import { PropertiesComponent } from './components/pages/property/properties/properties.component';
+import { ExpenditureComponent } from './components/pages/expenditure/expenditure/expenditure.component';
+import { ExpendituresComponent } from './components/pages/expenditure/expenditures/expenditures.component';
 
 const routes: Routes = [
   { path: '', component: AuthComponent },
@@ -43,6 +47,10 @@ const routes: Routes = [
   { path: 'companies', component: CompaniesComponent },
   { path: 'companies/switch', component: SwitchComponent },
   { path: 'companies/:id', component: CompanyComponent },
+  { path: 'properties', component: PropertiesComponent },
+  { path: 'properties/:id', component: PropertyComponent },
+  { path: 'expenditures', component: ExpendituresComponent },
+  { path: 'expenditures/:id', component: ExpenditureComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: '**', redirectTo: '/' },
 ];
@@ -61,6 +69,10 @@ const routes: Routes = [
     SwitchComponent,
     TitlesComponent,
     TitleComponent,
+    PropertyComponent,
+    PropertiesComponent,
+    ExpenditureComponent,
+    ExpendituresComponent,
   ],
   imports: [
     BrowserAnimationsModule,

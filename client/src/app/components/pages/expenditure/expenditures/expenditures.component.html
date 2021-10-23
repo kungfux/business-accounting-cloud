@@ -1,0 +1,72 @@
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+<app-toolbar
+  title="Расходы"
+  [mode]="toolBarMode"
+  [selectedItem]="selectedItem"
+  (createRequest)="onCreateRequest()"
+  (editRequest)="onEditRequest()"></app-toolbar>
+
+<div class="page-content">
+  <div class="table-responsive">
+    <table mat-table [dataSource]="data">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>Номер</th>
+        <td mat-cell *matCellDef="let item">{{ item.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Название</th>
+        <td mat-cell *matCellDef="let item">{{ item.title }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="rate">
+        <th mat-header-cell *matHeaderCellDef>Сумма по-умолчанию</th>
+        <td mat-cell *matCellDef="let item">
+          {{ item.rate ? '₴ ' + item.rate : '' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="enabled">
+        <th mat-header-cell *matHeaderCellDef>Активен</th>
+        <td mat-cell *matCellDef="let item">
+          <mat-checkbox [checked]="item.enabled" disabled> </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="created">
+        <th mat-header-cell *matHeaderCellDef>Создан</th>
+        <td mat-cell *matCellDef="let item">{{ item.created }}</td>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="
+          ['id', 'title', 'rate', 'enabled', 'created'];
+          sticky: true
+        "></tr>
+      <tr
+        mat-row
+        (click)="selectItem(row)"
+        [class.selectedRow]="selectedItem == row"
+        *matRowDef="
+          let row;
+          columns: ['id', 'title', 'rate', 'enabled', 'created']
+        "></tr>
+    </table>
+  </div>
+  <div class="paginator">
+    <span class="mat-small">Страница: {{ pageIndex }}</span>
+    <button
+      mat-icon-button
+      (click)="loadData(pageIndex - 1)"
+      [disabled]="pageIndex == 1">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      (click)="loadData(pageIndex + 1)"
+      [disabled]="data.length < 10">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+</div>

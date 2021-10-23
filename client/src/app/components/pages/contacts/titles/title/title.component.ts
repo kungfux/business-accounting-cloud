@@ -8,7 +8,7 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
 @Component({
   selector: 'app-title',
   templateUrl: './title.component.html',
-  styleUrls: ['./title.component.css', '../../../detailsPage.css'],
+  styleUrls: ['../../../detailsPage.css'],
 })
 export class TitleComponent implements OnInit {
   item: Title = new Title();
