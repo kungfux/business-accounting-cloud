@@ -72,7 +72,7 @@ export class AuthApiService {
           this.userPreferences.setCompany(
             company.id,
             company.name,
-            company.picture
+            company.logo
           );
         },
       });

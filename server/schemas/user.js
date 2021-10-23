@@ -8,6 +8,8 @@ const findAll = {
         properties: {
           id: { type: 'integer' },
           login: { type: 'string' },
+          name: { type: 'string' },
+          avatar: { type: 'string' },
           admin: { type: 'boolean' },
           enabled: { type: 'boolean' },
           created: { type: 'string' }
@@ -28,6 +30,8 @@ const findOne = {
       properties: {
         id: { type: 'integer' },
         login: { type: 'string' },
+        name: { type: 'string' },
+        avatar: { type: 'string' },
         admin: { type: 'boolean' },
         enabled: { type: 'boolean' },
         created: { type: 'string' }
@@ -53,11 +57,13 @@ const insertOne = {
     type: 'object',
     properties: {
       login: { type: 'string', minLength: 1 },
+      name: { type: 'string', minLength: 1 },
+      avatar: { type: 'string' },
       password: { type: 'string', minLength: 8 },
       admin: { type: 'boolean' },
       enabled: { type: 'boolean' }
     },
-    required: ['login', 'password', 'admin', 'enabled']
+    required: ['login', 'name', 'avatar', 'password', 'admin', 'enabled']
   }
 }
 
@@ -66,11 +72,13 @@ const updateOne = {
     type: 'object',
     properties: {
       login: { type: 'string', minLength: 1 },
+      name: { type: 'string', minLength: 1 },
+      avatar: { type: 'string' },
       password: { type: 'string', minLength: 8 },
       admin: { type: 'boolean' },
       enabled: { type: 'boolean' }
     },
-    required: ['login', 'password', 'admin', 'enabled']
+    required: ['login', 'name', 'avatar', 'password', 'admin', 'enabled']
   },
   params: {
     type: 'object',

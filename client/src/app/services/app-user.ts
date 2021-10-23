@@ -5,6 +5,6 @@ export class AppUser {
   tokenExpirationDate: Date = new Date();
   admin: boolean = false;
   companyId: number = 0;
-  companyPicture: string = '';
+  companyLogo: string = '';
   companyName: string = '';
 }

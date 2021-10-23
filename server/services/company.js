@@ -59,9 +59,9 @@ module.exports = async function (fastify, opts) {
     '/',
     { schema: schemas.insertOne },
     async function (request, reply) {
-      const [result] = await this.db.query('insert into companies (name, picture, enabled) values(?,?,?)',
+      const [result] = await this.db.query('insert into companies (name,logo,enabled) values(?,?,?)',
         {
-          replacements: [request.body.name, request.body.picture, request.body.enabled],
+          replacements: [request.body.name, request.body.logo, request.body.enabled],
           type: QueryTypes.INSERT
         }
       )
@@ -76,9 +76,9 @@ module.exports = async function (fastify, opts) {
     '/:id',
     { schema: schemas.updateOne },
     async function (request, reply) {
-      const [, metadata] = await this.db.query('update companies set name=?, picture=?, enabled=? where id=?',
+      const [, metadata] = await this.db.query('update companies set name=?,logo=?,enabled=? where id=?',
         {
-          replacements: [request.body.name, request.body.picture, request.body.enabled, request.params.id],
+          replacements: [request.body.name, request.body.logo, request.body.enabled, request.params.id],
           type: QueryTypes.UPDATE
         }
       )

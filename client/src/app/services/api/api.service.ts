@@ -85,6 +85,9 @@ export class ApiService {
           errorMessage =
             'Вы указали неверный логин/пароль или время сессии истекло и необходимо выполнить вход повторно';
           break;
+        case 404:
+          errorMessage = 'Запрашиваемые данные не найдены';
+          break;
         default:
           errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
           break;

@@ -14,10 +14,10 @@
         <td mat-cell *matCellDef="let item">{{ item.id }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="picture">
+      <ng-container matColumnDef="logo">
         <th mat-header-cell *matHeaderCellDef>Логотип</th>
         <td mat-cell *matCellDef="let item">
-          <mat-icon>{{ item.picture }}</mat-icon>
+          <mat-icon>{{ item.logo }}</mat-icon>
         </td>
       </ng-container>
 
@@ -41,7 +41,7 @@
       <tr
         mat-header-row
         *matHeaderRowDef="
-          ['id', 'picture', 'name', 'enabled', 'created'];
+          ['id', 'logo', 'name', 'enabled', 'created'];
           sticky: true
         "></tr>
       <tr
@@ -50,7 +50,7 @@
         [class.selectedRow]="selectedItem == row"
         *matRowDef="
           let row;
-          columns: ['id', 'picture', 'name', 'enabled', 'created']
+          columns: ['id', 'logo', 'name', 'enabled', 'created']
         "></tr>
     </table>
   </div>

@@ -28,6 +28,8 @@ export class UserApiService {
     return this.api.post<ItemCreatedResponse>(this.allUsersEndpoint, {
       login: user.login,
       password: user.password,
+      name: user.name,
+      avatar: user.avatar,
       admin: user.admin,
       enabled: user.enabled,
     });
@@ -37,6 +39,8 @@ export class UserApiService {
     return this.api.put(this.exactUserEndpoint(id), {
       login: user.login,
       password: user.password,
+      name: user.name,
+      avatar: user.avatar,
       admin: user.admin,
       enabled: user.enabled,
     });
