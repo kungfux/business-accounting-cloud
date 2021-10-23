@@ -7,8 +7,9 @@ const findAll = {
             items: {
                 properties: {
                     id: { type: 'integer' },
-                    name: { type: 'string' },
+                    title: { type: 'string' },
                     rate: { type: 'number' },
+                    comment: { type: 'string' },
                     enabled: { type: 'boolean' },
                     created: { type: 'string' }
                 }
@@ -20,7 +21,7 @@ const findAll = {
         properties: {
             companyId: { type: 'integer' },
             limit: { type: 'integer' },
-            offset: { type: 'integer' }
+            offset: { type: 'integer' },
         },
         required: ['companyId']
     },
@@ -32,8 +33,9 @@ const findOne = {
             type: 'object',
             properties: {
                 id: { type: 'integer' },
-                name: { type: 'string' },
+                title: { type: 'string' },
                 rate: { type: 'number' },
+                comment: { type: 'string' },
                 enabled: { type: 'boolean' },
                 created: { type: 'string' }
             }
@@ -48,7 +50,7 @@ const findOne = {
     params: {
         type: 'object',
         properties: {
-            id: { type: 'integer' }
+            id: { type: 'integer' },
         },
         required: ['id']
     }
@@ -58,12 +60,13 @@ const insertOne = {
     body: {
         type: 'object',
         properties: {
-            name: { type: 'string', minLength: 1 },
+            title: { type: 'string', minLength: 1 },
             rate: { type: 'number' },
+            comment: { type: 'string' },
             enabled: { type: 'boolean' },
-            companyId: { type: 'integer' }
+            company_id: { type: 'integer' }
         },
-        required: ['name', 'rate', 'enabled', 'companyId']
+        required: ['title', 'rate', 'comment', 'enabled', 'companyId']
     }
 }
 
@@ -71,11 +74,12 @@ const updateOne = {
     body: {
         type: 'object',
         properties: {
-            name: { type: 'string', minLength: 1 },
+            title: { type: 'string', minLength: 1 },
             rate: { type: 'number' },
-            enabled: { type: 'boolean' }
+            comment: { type: 'string' },
+            enabled: { type: 'boolean' },
         },
-        required: ['name', 'rate', 'enabled']
+        required: ['title', 'rate', 'comment', 'enabled']
     },
     params: {
         type: 'object',

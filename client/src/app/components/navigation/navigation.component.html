@@ -39,6 +39,14 @@
         <mat-icon>personal_injury</mat-icon>
         Должности
       </a>
+      <a mat-list-item (click)="drawer.toggle()" routerLink="/properties">
+        <mat-icon>savings</mat-icon>
+        Имущество
+      </a>
+      <a mat-list-item (click)="drawer.toggle()" routerLink="/expenditures">
+        <mat-icon>payment</mat-icon>
+        Расходы
+      </a>
       <a
         mat-list-item
         (click)="drawer.toggle()"

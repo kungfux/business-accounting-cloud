@@ -7,8 +7,10 @@ const findAll = {
             items: {
                 properties: {
                     id: { type: 'integer' },
-                    name: { type: 'string' },
-                    rate: { type: 'number' },
+                    title: { type: 'string' },
+                    inventory_number: { type: 'string' },
+                    cost: { type: 'number' },
+                    comment: { type: 'string' },
                     enabled: { type: 'boolean' },
                     created: { type: 'string' }
                 }
@@ -32,8 +34,10 @@ const findOne = {
             type: 'object',
             properties: {
                 id: { type: 'integer' },
-                name: { type: 'string' },
-                rate: { type: 'number' },
+                title: { type: 'string' },
+                inventory_number: { type: 'string' },
+                cost: { type: 'number' },
+                comment: { type: 'string' },
                 enabled: { type: 'boolean' },
                 created: { type: 'string' }
             }
@@ -58,12 +62,14 @@ const insertOne = {
     body: {
         type: 'object',
         properties: {
-            name: { type: 'string', minLength: 1 },
-            rate: { type: 'number' },
+            title: { type: 'string', minLength: 1 },
+            inventory_number: { type: 'string' },
+            cost: { type: 'number' },
+            comment: { type: 'string' },
             enabled: { type: 'boolean' },
-            companyId: { type: 'integer' }
+            company_id: { type: 'integer' }
         },
-        required: ['name', 'rate', 'enabled', 'companyId']
+        required: ['title', 'inventory_number', 'cost', 'comment', 'enabled', 'companyId']
     }
 }
 
@@ -71,11 +77,13 @@ const updateOne = {
     body: {
         type: 'object',
         properties: {
-            name: { type: 'string', minLength: 1 },
-            rate: { type: 'number' },
+            title: { type: 'string', minLength: 1 },
+            inventory_number: { type: 'string' },
+            cost: { type: 'number' },
+            comment: { type: 'string' },
             enabled: { type: 'boolean' }
         },
-        required: ['name', 'rate', 'enabled']
+        required: ['title', 'inventory_number', 'cost', 'comment', 'enabled']
     },
     params: {
         type: 'object',

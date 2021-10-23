@@ -1,0 +1,34 @@
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+<app-toolbar
+  [title]="item?.title || 'Новый расход'"
+  [mode]="toolBarMode"
+  [selectedItem]="item"
+  [deleteVisible]="!!item?.id"
+  [saveEnabled]="!!item.title"
+  (saveRequest)="onSaveRequest()"
+  (deleteRequest)="onDeleteRequest()"></app-toolbar>
+
+<div class="page-content">
+  <mat-card class="card">
+    <mat-card-content>
+      <div class="column-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Название</mat-label>
+          <input matInput [(ngModel)]="item.title" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Сумма по-умолчанию</mat-label>
+          <input matInput type="number" [(ngModel)]="item.rate" />
+          <span matPrefix>₴&nbsp;</span>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Комментарий</mat-label>
+          <textarea matInput [(ngModel)]="item.comment"></textarea>
+        </mat-form-field>
+      </div>
+      <section>
+        <mat-checkbox [(ngModel)]="item.enabled">Расход активен</mat-checkbox>
+      </section>
+    </mat-card-content>
+  </mat-card>
+</div>
