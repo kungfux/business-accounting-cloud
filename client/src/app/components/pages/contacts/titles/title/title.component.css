@@ -1,8 +1,0 @@
-.column-container {
-  display: flex;
-  flex-direction: column;
-}
-
-mat-checkbox:nth-of-type(2) {
-  margin-left: 16px;
-}

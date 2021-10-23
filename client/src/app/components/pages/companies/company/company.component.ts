@@ -7,7 +7,7 @@ import { Company } from 'src/app/services/api/models/company';
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
-  styleUrls: ['./company.component.css'],
+  styleUrls: ['../../detailsPage.css'],
 })
 export class CompanyComponent implements OnInit {
   item: Company = new Company();

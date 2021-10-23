@@ -7,7 +7,7 @@ import { UserApiService } from 'src/app/services/api/user.service';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css'],
+  styleUrls: ['../../listPage.css'],
 })
 export class UsersComponent implements OnInit {
   data: User[] = [];
