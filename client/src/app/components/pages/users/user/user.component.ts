@@ -7,7 +7,7 @@ import { UserApiService } from 'src/app/services/api/user.service';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css'],
+  styleUrls: ['../../detailsPage.css'],
 })
 export class UserComponent implements OnInit {
   hidePassword = true;

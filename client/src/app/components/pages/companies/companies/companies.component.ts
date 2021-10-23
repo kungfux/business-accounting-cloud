@@ -6,7 +6,7 @@ import { Company } from 'src/app/services/api/models/company';
 @Component({
   selector: 'app-companies',
   templateUrl: './companies.component.html',
-  styleUrls: ['./companies.component.css'],
+  styleUrls: ['../../listPage.css'],
 })
 export class CompaniesComponent implements OnInit {
   data: Company[] = [];
