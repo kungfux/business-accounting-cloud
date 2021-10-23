@@ -23,7 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { AuthComponent } from './components/auth/auth.component';
+import { AuthComponent } from './components/pages/auth/auth.component';
 import { UsersComponent } from './components/pages/users/users/users.component';
 import { DashboardComponent } from './components/pages/dashboard/dashboard.component';
 import { UserComponent } from './components/pages/users/user/user.component';
@@ -35,7 +35,7 @@ import { TitlesComponent } from './components/pages/contacts/titles/titles/title
 import { TitleComponent } from './components/pages/contacts/titles/title/title.component';
 
 const routes: Routes = [
-  { path: 'auth', component: AuthComponent },
+  { path: '', component: AuthComponent },
   { path: 'users', component: UsersComponent },
   { path: 'users/:id', component: UserComponent },
   { path: 'titles', component: TitlesComponent },
