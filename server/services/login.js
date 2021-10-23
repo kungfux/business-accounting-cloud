@@ -1,6 +1,6 @@
 'use strict'
 
-const schemas = require('../schemas/auth')
+const schemas = require('../schemas/login')
 const { QueryTypes } = require('sequelize')
 
 module.exports = async function (fastify, opts) {
@@ -44,4 +44,4 @@ module.exports = async function (fastify, opts) {
   })
 }
 
-module.exports.autoPrefix = '/auth'
+module.exports.autoPrefix = '/login'

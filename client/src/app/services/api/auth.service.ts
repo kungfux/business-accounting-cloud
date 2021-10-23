@@ -9,7 +9,7 @@ import { UserApiService } from './user.service';
   providedIn: 'root',
 })
 export class AuthApiService {
-  private serviceEndpoint: string = '/auth';
+  private serviceEndpoint: string = '/login';
 
   constructor(
     private api: ApiService,

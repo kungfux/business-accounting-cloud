@@ -1,69 +1,41 @@
 'use strict'
 
-const findAll = {
-  response: {
-    200: {
-      type: 'array',
-      items: {
-        properties: {
-          id: { type: 'integer' },
-          login: { type: 'string' },
-          name: { type: 'string' },
-          avatar: { type: 'string' },
-          admin: { type: 'boolean' },
-          enabled: { type: 'boolean' },
-          created: { type: 'string' }
-        }
-      }
-    }
-  },
-  querystring: {
-    limit: { type: 'integer' },
-    offset: { type: 'integer' }
-  }
-}
+const BaseSchema = require('./baseSchema')
 
-const findOne = {
-  response: {
-    200: {
-      type: 'object',
-      properties: {
-        id: { type: 'integer' },
-        login: { type: 'string' },
-        name: { type: 'string' },
-        avatar: { type: 'string' },
-        admin: { type: 'boolean' },
-        enabled: { type: 'boolean' },
-        created: { type: 'string' }
-      }
-    },
-    404: {
-      type: 'object',
-      properties: {
-        message: { type: 'string' }
-      }
-    }
+var schema = new BaseSchema({
+  id: { type: 'integer' },
+  created: { type: 'string' }
+},
+  {
+    login: { type: 'string' },
+    name: { type: 'string' },
+    avatar: { type: 'string' },
+    admin: { type: 'boolean' },
+    enabled: { type: 'boolean' }
   },
-  params: {
-    type: 'object',
-    properties: {
-      id: { type: 'integer' }
-    }
-  }
-}
+  {
+    login: { type: 'string' },
+    name: { type: 'string' },
+    avatar: { type: 'string' },
+    admin: { type: 'boolean' },
+    enabled: { type: 'boolean' }
+  })
+
+const findAll = schema.findAll
+const findOne = schema.findOne
 
 const insertOne = {
   body: {
     type: 'object',
     properties: {
       login: { type: 'string', minLength: 1 },
+      password: { type: 'string', minLength: 8 },
       name: { type: 'string', minLength: 1 },
       avatar: { type: 'string' },
-      password: { type: 'string', minLength: 8 },
       admin: { type: 'boolean' },
       enabled: { type: 'boolean' }
     },
-    required: ['login', 'name', 'avatar', 'password', 'admin', 'enabled']
+    required: ['login', 'password', 'name', 'avatar', 'admin', 'enabled']
   }
 }
 
@@ -72,13 +44,13 @@ const updateOne = {
     type: 'object',
     properties: {
       login: { type: 'string', minLength: 1 },
+      password: { type: 'string', minLength: 8 },
       name: { type: 'string', minLength: 1 },
       avatar: { type: 'string' },
-      password: { type: 'string', minLength: 8 },
       admin: { type: 'boolean' },
       enabled: { type: 'boolean' }
     },
-    required: ['login', 'name', 'avatar', 'password', 'admin', 'enabled']
+    required: ['login', 'password', 'name', 'avatar', 'admin', 'enabled']
   },
   params: {
     type: 'object',
@@ -88,13 +60,6 @@ const updateOne = {
   }
 }
 
-const deleteOne = {
-  params: {
-    type: 'object',
-    properties: {
-      id: { type: 'integer' }
-    }
-  }
-}
+const deleteOne = schema.deleteOne
 
 module.exports = { findAll, findOne, insertOne, updateOne, deleteOne }
