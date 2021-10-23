@@ -27,7 +27,7 @@ export class CompanyApiService {
   addCompany(company: Company): Observable<ItemCreatedResponse> {
     return this.api.post<ItemCreatedResponse>(this.allCompaniesEndpoint, {
       name: company.name,
-      picture: company.picture,
+      logo: company.logo,
       enabled: company.enabled,
     });
   }
@@ -35,7 +35,7 @@ export class CompanyApiService {
   updateCompany(id: number, company: Company): Observable<void> {
     return this.api.put(this.exactCompanyEndpoint(id), {
       name: company.name,
-      picture: company.picture,
+      logo: company.logo,
       enabled: company.enabled,
     });
   }

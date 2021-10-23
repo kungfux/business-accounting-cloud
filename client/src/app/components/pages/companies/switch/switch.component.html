@@ -9,8 +9,8 @@
   <button
     mat-raised-button
     *ngFor="let company of companies"
-    (click)="onSwitchCompany(company.id, company.name, company.picture)">
-    <mat-icon>{{ company.picture }}</mat-icon>
+    (click)="onSwitchCompany(company.id, company.name, company.logo)">
+    <mat-icon>{{ company.logo }}</mat-icon>
     {{ company.name }}
   </button>
   <b *ngIf="!!companies && companies.length === 0 && !isLoading"

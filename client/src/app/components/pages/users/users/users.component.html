@@ -14,14 +14,21 @@
         <td mat-cell *matCellDef="let item">{{ item.id }}</td>
       </ng-container>
 
+      <ng-container matColumnDef="avatar">
+        <th mat-header-cell *matHeaderCellDef>Аватар</th>
+        <td mat-cell *matCellDef="let item">
+          <mat-icon>{{ item.avatar }}</mat-icon>
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="login">
         <th mat-header-cell *matHeaderCellDef>Логин</th>
         <td mat-cell *matCellDef="let item">{{ item.login }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="password">
-        <th mat-header-cell *matHeaderCellDef>Пароль</th>
-        <td mat-cell *matCellDef="let item">********</td>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Имя</th>
+        <td mat-cell *matCellDef="let item">{{ item.name }}</td>
       </ng-container>
 
       <ng-container matColumnDef="admin">
@@ -46,7 +53,7 @@
       <tr
         mat-header-row
         *matHeaderRowDef="
-          ['id', 'login', 'password', 'admin', 'enabled', 'created'];
+          ['id', 'avatar', 'login', 'name', 'admin', 'enabled', 'created'];
           sticky: true
         "></tr>
       <tr
@@ -55,7 +62,15 @@
         [class.selectedRow]="selectedItem == row"
         *matRowDef="
           let row;
-          columns: ['id', 'login', 'password', 'admin', 'enabled', 'created']
+          columns: [
+            'id',
+            'avatar',
+            'login',
+            'name',
+            'admin',
+            'enabled',
+            'created'
+          ]
         "></tr>
     </table>
   </div>

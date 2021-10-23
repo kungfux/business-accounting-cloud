@@ -8,7 +8,7 @@ const findAll = {
         properties: {
           id: { type: 'integer' },
           name: { type: 'string' },
-          picture: { type: 'string' },
+          logo: { type: 'string' },
           enabled: { type: 'boolean' },
           created: { type: 'string' }
         }
@@ -28,7 +28,7 @@ const findOne = {
       properties: {
         id: { type: 'integer' },
         name: { type: 'string' },
-        picture: { type: 'string' },
+        logo: { type: 'string' },
         enabled: { type: 'boolean' },
         created: { type: 'string' }
       }
@@ -53,10 +53,10 @@ const insertOne = {
     type: 'object',
     properties: {
       name: { type: 'string', minLength: 1 },
-      picture: { type: 'string' },
+      logo: { type: 'string' },
       enabled: { type: 'boolean' }
     },
-    required: ['name', 'picture', 'enabled']
+    required: ['name', 'logo', 'enabled']
   }
 }
 
@@ -65,10 +65,10 @@ const updateOne = {
     type: 'object',
     properties: {
       name: { type: 'string', minLength: 1 },
-      picture: { type: 'string' },
+      logo: { type: 'string' },
       enabled: { type: 'boolean' }
     },
-    required: ['name', 'picture', 'enabled']
+    required: ['name', 'logo', 'enabled']
   },
   params: {
     type: 'object',

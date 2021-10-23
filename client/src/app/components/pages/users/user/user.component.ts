@@ -43,6 +43,8 @@ export class UserComponent implements OnInit {
     let user = new User({
       id: this.item.id,
       login: this.item.login,
+      name: this.item.name,
+      avatar: this.item.avatar,
       password: this.item.password,
       admin: this.item.admin,
       enabled: this.item.enabled,
@@ -69,6 +71,10 @@ export class UserComponent implements OnInit {
         this.navigateToAllUsers();
       },
     });
+  }
+
+  goToLink(url: string) {
+    window.open(url, '_blank');
   }
 
   private navigateToAllUsers(): void {

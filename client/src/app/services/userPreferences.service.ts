@@ -41,8 +41,8 @@ export class UserPreferencesService {
     return this.appUser.companyId;
   }
 
-  get companyPicture(): string {
-    return this.appUser.companyPicture;
+  get companyLogo(): string {
+    return this.appUser.companyLogo;
   }
 
   get companyName(): string {
@@ -89,9 +89,9 @@ export class UserPreferencesService {
     this.saveUserToStorage();
   }
 
-  setCompany(id: number, name: string, picture: string): void {
+  setCompany(id: number, name: string, logo: string): void {
     this.appUser.companyId = id;
-    this.appUser.companyPicture = picture;
+    this.appUser.companyLogo = logo;
     this.appUser.companyName = name;
     this.userPreferencesSubject.next(this.appUser);
     this.saveUserToStorage();

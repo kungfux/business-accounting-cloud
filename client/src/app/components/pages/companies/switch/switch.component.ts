@@ -32,8 +32,8 @@ export class SwitchComponent implements OnInit {
     });
   }
 
-  onSwitchCompany(id: number, name: string, picture: string): void {
-    this.userPreferences.setCompany(id, name, picture);
+  onSwitchCompany(id: number, name: string, logo: string): void {
+    this.userPreferences.setCompany(id, name, logo);
     this.router.navigate(['dashboard']);
   }
 }

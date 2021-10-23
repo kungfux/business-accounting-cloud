@@ -8,7 +8,7 @@ module.exports = async function (fastify, opts) {
     const tokenHoursToLive = 12;
     const { username, password } = request.body
 
-    const credentials = await this.db.query('select id, password, salt from users where login = ? and enabled = 1',
+    const credentials = await this.db.query('select id,password,salt from users where login = ? and enabled = 1',
       {
         replacements: [username],
         type: QueryTypes.SELECT

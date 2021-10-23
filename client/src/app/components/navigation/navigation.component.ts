@@ -26,8 +26,8 @@ export class NavigationComponent {
   @Input() title: string = '';
   loggedInUser: AppUser = new AppUser();
   company: Company = new Company({
-    name: 'Unknown',
-    picture: 'help_center',
+    name: 'Выбрать',
+    logo: 'notifications_active',
   });
 
   constructor(
@@ -44,12 +44,13 @@ export class NavigationComponent {
       if (this.loggedInUser.id == 0) {
         // If token is expired, redirect to auth page
         this.router.navigate(['auth']);
+        return;
       }
 
       if (this.loggedInUser.companyId != 0) {
         this.company = new Company({
           name: this.loggedInUser.companyName,
-          picture: this.loggedInUser.companyPicture,
+          logo: this.loggedInUser.companyLogo,
         });
       }
     });

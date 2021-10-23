@@ -62,9 +62,9 @@ module.exports = async function (fastify, opts) {
       const salt = this.getNewSalt()
       const hash = this.getHash(request.body.password, salt)
 
-      const [result] = await this.db.query('insert into users (login, password, salt, admin, enabled) values(?,?,?,?,?)',
+      const [result] = await this.db.query('insert into users (login,password,salt,name,avatar,admin,enabled) values(?,?,?,?,?,?,?)',
         {
-          replacements: [request.body.login, hash, salt, request.body.admin, request.body.enabled],
+          replacements: [request.body.login, hash, salt, request.body.name, request.body.avatar, request.body.admin, request.body.enabled],
           type: QueryTypes.INSERT
         }
       )
@@ -82,9 +82,9 @@ module.exports = async function (fastify, opts) {
       const salt = this.getNewSalt()
       const hash = this.getHash(request.body.password, salt)
 
-      const [, metadata] = await this.db.query('update users set login=?, password=?,salt=?,admin=?,enabled=? where id=?',
+      const [, metadata] = await this.db.query('update users set login=?,password=?,salt=?,name=?,avatar=?,admin=?,enabled=? where id=?',
         {
-          replacements: [request.body.login, hash, salt, request.body.admin, request.body.enabled, request.params.id],
+          replacements: [request.body.login, hash, salt, request.body.name, request.body.avatar, request.body.admin, request.body.enabled, request.params.id],
           type: QueryTypes.UPDATE
         }
       )
@@ -94,7 +94,7 @@ module.exports = async function (fastify, opts) {
       }
 
       return {
-        name: request.body.login
+        id: request.params.id
       }
     }
   )
