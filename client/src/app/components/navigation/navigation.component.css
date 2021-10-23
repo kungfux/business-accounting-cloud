@@ -30,3 +30,8 @@ mat-nav-list mat-icon {
 button span {
   margin-left: 4px;
 }
+
+.vertical-line {
+  border-left: 2px solid whitesmoke;
+  height: 20px;
+}

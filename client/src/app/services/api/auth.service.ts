@@ -107,7 +107,11 @@ export class AuthApiService {
     if (this.userPreferences.id != 0) {
       this.userApi.getUser(this.userPreferences.id).subscribe({
         next: (user) => {
-          this.userPreferences.admin = user.admin;
+          this.userPreferences.setUserDetails(
+            user.name,
+            user.avatar,
+            user.admin
+          );
         },
       });
     }
