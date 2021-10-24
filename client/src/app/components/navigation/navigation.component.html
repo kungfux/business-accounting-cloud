@@ -17,7 +17,7 @@
     <mat-nav-list *ngIf="loggedInUser.id">
       <a mat-list-item (click)="drawer.toggle()" routerLink="/dashboard">
         <mat-icon>dashboard</mat-icon>
-        Доска
+        Главная
       </a>
       <a
         mat-list-item
@@ -27,6 +27,7 @@
         <mat-icon>payments</mat-icon>
         Касса
       </a>
+      <div mat-subheader>Каталоги</div>
       <a
         mat-list-item
         (click)="drawer.toggle()"
@@ -57,9 +58,8 @@
       </a>
     </mat-nav-list>
     <div *ngIf="loggedInUser.id && loggedInUser.admin">
-      <mat-toolbar>Управление</mat-toolbar>
-      <mat-divider></mat-divider>
       <mat-nav-list>
+        <div mat-subheader>Администрирование</div>
         <a mat-list-item (click)="drawer.toggle()" routerLink="/users">
           <mat-icon>manage_accounts</mat-icon>
           Пользователи

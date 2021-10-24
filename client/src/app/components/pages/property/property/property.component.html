@@ -13,7 +13,7 @@
     <mat-card-content>
       <div class="column-container">
         <mat-form-field appearance="fill">
-          <mat-label>Название</mat-label>
+          <mat-label>Название имущества</mat-label>
           <input matInput [(ngModel)]="item.title" required />
         </mat-form-field>
         <mat-form-field appearance="fill">
@@ -32,7 +32,7 @@
       </div>
       <section>
         <mat-checkbox [(ngModel)]="item.enabled"
-          >Имущество активно</mat-checkbox
+          >Разрешить использование</mat-checkbox
         >
       </section>
     </mat-card-content>

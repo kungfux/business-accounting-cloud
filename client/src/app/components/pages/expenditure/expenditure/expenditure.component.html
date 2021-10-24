@@ -13,11 +13,11 @@
     <mat-card-content>
       <div class="column-container">
         <mat-form-field appearance="fill">
-          <mat-label>Название</mat-label>
+          <mat-label>Название статьи расхода</mat-label>
           <input matInput [(ngModel)]="item.title" required />
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Сумма по-умолчанию</mat-label>
+          <mat-label>Типовая сумма платежа</mat-label>
           <input matInput type="number" [(ngModel)]="item.rate" />
           <span matPrefix>₴&nbsp;</span>
         </mat-form-field>
@@ -27,7 +27,9 @@
         </mat-form-field>
       </div>
       <section>
-        <mat-checkbox [(ngModel)]="item.enabled">Расход активен</mat-checkbox>
+        <mat-checkbox [(ngModel)]="item.enabled"
+          >Разрешить использование</mat-checkbox
+        >
       </section>
     </mat-card-content>
   </mat-card>
