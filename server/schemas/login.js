@@ -1,6 +1,6 @@
 'use strict'
 
-const token = {
+const login = {
   response: {
     200: {
       type: 'object',
@@ -21,4 +21,4 @@ const token = {
   }
 }
 
-module.exports = { token }
+module.exports = { token: login }

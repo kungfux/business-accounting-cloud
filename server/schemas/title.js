@@ -1,19 +1,19 @@
 'use strict'
 
-const BaseSchema = require('./baseSchema')
+const BaseSchema = require('../common/baseSchema')
 
 var schema = new BaseSchema({
     id: { type: 'integer' },
     created: { type: 'string' }
 },
     {
-        name: { type: 'string' },
+        name: { type: 'string', minLength: 1 },
         rate: { type: 'number' },
         enabled: { type: 'boolean' },
-        companyId: { type: 'integer' }
+        companyId: { type: 'integer', minLength: 1 }
     },
     {
-        name: { type: 'string' },
+        name: { type: 'string', minLength: 1 },
         rate: { type: 'number' },
         enabled: { type: 'boolean' }
     })
