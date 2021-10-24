@@ -43,7 +43,7 @@ export class NavigationComponent {
 
       if (this.loggedInUser.id == 0) {
         // If token is expired, redirect to login page
-        this.router.navigate(['']);
+        this.router.navigate(['login']);
         return;
       }
 
@@ -68,7 +68,7 @@ export class NavigationComponent {
         this.router.navigate(['dashboard']);
       }
     } else {
-      this.router.navigate(['']);
+      this.router.navigate(['login']);
     }
   }
 

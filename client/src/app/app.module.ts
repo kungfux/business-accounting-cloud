@@ -39,7 +39,9 @@ import { ExpenditureComponent } from './components/pages/expenditure/expenditure
 import { ExpendituresComponent } from './components/pages/expenditure/expenditures/expenditures.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'users', component: UsersComponent },
   { path: 'users/:id', component: UserComponent },
   { path: 'titles', component: TitlesComponent },
@@ -51,7 +53,6 @@ const routes: Routes = [
   { path: 'properties/:id', component: PropertyComponent },
   { path: 'expenditures', component: ExpendituresComponent },
   { path: 'expenditures/:id', component: ExpenditureComponent },
-  { path: 'dashboard', component: DashboardComponent },
   { path: '**', redirectTo: '/' },
 ];
 

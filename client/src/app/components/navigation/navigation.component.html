@@ -9,64 +9,52 @@
     <mat-toolbar>Меню</mat-toolbar>
     <mat-divider></mat-divider>
     <mat-nav-list *ngIf="!loggedInUser.id">
-      <a mat-list-item (click)="drawer.toggle()" routerLink="/">
+      <a mat-list-item (click)="drawer.toggle()" routerLink="login">
         <mat-icon color="primary">account_circle</mat-icon>
         Авторизация
       </a>
     </mat-nav-list>
     <mat-nav-list *ngIf="loggedInUser.id">
-      <a mat-list-item (click)="drawer.toggle()" routerLink="/dashboard">
+      <a mat-list-item (click)="drawer.toggle()" routerLink="dashboard">
         <mat-icon>dashboard</mat-icon>
         Главная
       </a>
-      <a
-        mat-list-item
-        (click)="drawer.toggle()"
-        routerLink="/transactions"
-        *ngIf="false">
+      <a mat-list-item (click)="drawer.toggle()" routerLink="transactions">
         <mat-icon>payments</mat-icon>
         Касса
       </a>
+      <a mat-list-item (click)="drawer.toggle()" routerLink="reports">
+        <mat-icon>pie_chart</mat-icon>
+        Отчеты
+      </a>
       <div mat-subheader>Каталоги</div>
-      <a
-        mat-list-item
-        (click)="drawer.toggle()"
-        routerLink="/contacts"
-        *ngIf="false">
+      <a mat-list-item (click)="drawer.toggle()" routerLink="contacts">
         <mat-icon>badge</mat-icon>
         Сотрудники
       </a>
-      <a mat-list-item (click)="drawer.toggle()" routerLink="/titles">
+      <a mat-list-item (click)="drawer.toggle()" routerLink="titles">
         <mat-icon>personal_injury</mat-icon>
         Должности
       </a>
-      <a mat-list-item (click)="drawer.toggle()" routerLink="/properties">
+      <a mat-list-item (click)="drawer.toggle()" routerLink="properties">
         <mat-icon>savings</mat-icon>
         Имущество
       </a>
-      <a mat-list-item (click)="drawer.toggle()" routerLink="/expenditures">
+      <a mat-list-item (click)="drawer.toggle()" routerLink="expenditures">
         <mat-icon>payment</mat-icon>
         Расходы
-      </a>
-      <a
-        mat-list-item
-        (click)="drawer.toggle()"
-        routerLink="/reports"
-        *ngIf="false">
-        <mat-icon>pie_chart</mat-icon>
-        Отчеты
       </a>
     </mat-nav-list>
     <div *ngIf="loggedInUser.id && loggedInUser.admin">
       <mat-nav-list>
         <div mat-subheader>Администрирование</div>
-        <a mat-list-item (click)="drawer.toggle()" routerLink="/users">
+        <a mat-list-item (click)="drawer.toggle()" routerLink="users">
           <mat-icon>manage_accounts</mat-icon>
           Пользователи
         </a>
       </mat-nav-list>
       <mat-nav-list>
-        <a mat-list-item (click)="drawer.toggle()" routerLink="/companies">
+        <a mat-list-item (click)="drawer.toggle()" routerLink="companies">
           <mat-icon>business</mat-icon>
           Компании
         </a>
