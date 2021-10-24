@@ -92,9 +92,18 @@
         <mat-icon>{{ loggedInUser.avatar }}</mat-icon>
         <span class="mat-button-wrapper">{{ loggedInUser.name }}</span>
       </button>
-      <button mat-icon-button (click)="logout()" *ngIf="loggedInUser.id">
-        <mat-icon>logout</mat-icon>
-      </button>
+      <div *ngIf="isHandset$ | async; then iconLogout; else buttonLogout"></div>
+      <ng-template #iconLogout
+        ><button mat-icon-button (click)="logout()" *ngIf="loggedInUser.id">
+          <mat-icon>logout</mat-icon>
+        </button></ng-template
+      >
+      <ng-template #buttonLogout
+        ><button mat-button (click)="logout()" *ngIf="loggedInUser.id">
+          <mat-icon>logout</mat-icon>
+          <span>Выйти</span>
+        </button></ng-template
+      >
     </mat-toolbar>
     <div>
       <router-outlet></router-outlet>
