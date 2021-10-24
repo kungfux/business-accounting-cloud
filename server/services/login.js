@@ -4,7 +4,7 @@ const schemas = require('../schemas/login')
 const { QueryTypes } = require('sequelize')
 
 module.exports = async function (fastify, opts) {
-  fastify.post('/', { schema: schemas.token }, async function (request, reply) {
+  fastify.post('/', { schema: schemas.login }, async function (request, reply) {
     const tokenHoursToLive = 12;
     const { username, password } = request.body
 
