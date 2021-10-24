@@ -8,7 +8,7 @@ import { UserApiService } from './user.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthApiService {
+export class LoginApiService {
   private serviceEndpoint: string = '/login';
 
   constructor(
@@ -21,7 +21,7 @@ export class AuthApiService {
   authenticate(login: string, password: string): Observable<boolean> {
     return new Observable<boolean>((subscriber) => {
       this.api
-        .post<AuthResponse>(this.serviceEndpoint, {
+        .post<LoginResponse>(this.serviceEndpoint, {
           username: login,
           password: password,
         })
@@ -118,7 +118,7 @@ export class AuthApiService {
   }
 }
 
-interface AuthResponse {
+interface LoginResponse {
   id: number;
   token: string;
   expiration: Date;

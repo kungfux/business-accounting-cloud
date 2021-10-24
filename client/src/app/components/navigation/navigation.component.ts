@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 
 import { AppUser } from 'src/app/services/app-user';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
-import { AuthApiService } from 'src/app/services/api/auth.service';
+import { LoginApiService } from 'src/app/services/api/login.service';
 import { Company } from 'src/app/services/api/models/company';
 
 @Component({
@@ -32,7 +32,7 @@ export class NavigationComponent {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private auth: AuthApiService,
+    private login: LoginApiService,
     private router: Router,
     private userPreferences: UserPreferencesService
   ) {}
@@ -42,7 +42,7 @@ export class NavigationComponent {
       this.loggedInUser = user;
 
       if (this.loggedInUser.id == 0) {
-        // If token is expired, redirect to auth page
+        // If token is expired, redirect to login page
         this.router.navigate(['']);
         return;
       }
@@ -63,7 +63,7 @@ export class NavigationComponent {
   }
 
   authenticate(): void {
-    if (this.auth.isAuthenticated()) {
+    if (this.login.isAuthenticated()) {
       if (this.router.url === '') {
         this.router.navigate(['dashboard']);
       }
@@ -73,6 +73,6 @@ export class NavigationComponent {
   }
 
   logout(): void {
-    this.auth.logout();
+    this.login.logout();
   }
 }
