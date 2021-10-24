@@ -10,7 +10,7 @@
   <div class="table-responsive">
     <table mat-table [dataSource]="data">
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>Номер</th>
+        <th mat-header-cell *matHeaderCellDef>Запись</th>
         <td mat-cell *matCellDef="let item">{{ item.id }}</td>
       </ng-container>
 
@@ -22,19 +22,19 @@
       </ng-container>
 
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Название</th>
+        <th mat-header-cell *matHeaderCellDef>Название компании</th>
         <td mat-cell *matCellDef="let item">{{ item.name }}</td>
       </ng-container>
 
       <ng-container matColumnDef="enabled">
-        <th mat-header-cell *matHeaderCellDef>Активна</th>
+        <th mat-header-cell *matHeaderCellDef>Разрешить управление</th>
         <td mat-cell *matCellDef="let item">
           <mat-checkbox [checked]="item.enabled" disabled> </mat-checkbox>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="created">
-        <th mat-header-cell *matHeaderCellDef>Создана</th>
+        <th mat-header-cell *matHeaderCellDef>Дата создания</th>
         <td mat-cell *matCellDef="let item">{{ item.created }}</td>
       </ng-container>
 

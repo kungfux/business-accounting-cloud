@@ -13,18 +13,18 @@
     <mat-card-content>
       <div class="column-container">
         <mat-form-field appearance="fill">
-          <mat-label>Название</mat-label>
+          <mat-label>Название должности</mat-label>
           <input matInput [(ngModel)]="item.name" required />
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Ставка</mat-label>
+          <mat-label>Типовая сумма выплат</mat-label>
           <input matInput type="number" [(ngModel)]="item.rate" />
           <span matPrefix>₴&nbsp;</span>
         </mat-form-field>
       </div>
       <section>
         <mat-checkbox [(ngModel)]="item.enabled"
-          >Должность активна</mat-checkbox
+          >Разрешить использование</mat-checkbox
         >
       </section>
     </mat-card-content>
