@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-import { AppUser } from 'src/app/services/app-user';
+import { AppUser } from 'src/app/services/appUser';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 import { LoginApiService } from 'src/app/services/api/login.service';
 import { Company } from 'src/app/services/api/models/company';
