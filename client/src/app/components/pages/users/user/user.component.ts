@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component';
+import {
+  CustomButton,
+  ToolBarMode,
+} from 'src/app/components/common/toolbar/toolbar.component';
 import { User } from 'src/app/services/api/models/user';
 import { UserApiService } from 'src/app/services/api/user.service';
 
@@ -14,6 +17,10 @@ export class UserComponent implements OnInit {
   item: User = new User();
   toolBarMode: ToolBarMode = ToolBarMode.Details;
   isLoading = true;
+  changePasswordButton: CustomButton = new CustomButton(
+    'Изменить пароль',
+    'pin'
+  );
 
   constructor(
     private route: ActivatedRoute,
@@ -73,12 +80,12 @@ export class UserComponent implements OnInit {
     });
   }
 
-  goToLink(url: string) {
-    window.open(url, '_blank');
+  onChangePasswordRequest() {
+    this.router.navigate([`users/${this.item.id}/password`]);
   }
 
-  changePassword() {
-    this.router.navigate([`users/${this.item.id}/password`]);
+  goToLink(url: string) {
+    window.open(url, '_blank');
   }
 
   private navigateToAllUsers(): void {

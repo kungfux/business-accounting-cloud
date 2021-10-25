@@ -12,6 +12,8 @@
         item.password.length >= 8
       : !!item.login && item.login.length > 0
   "
+  [customButton]="changePasswordButton"
+  (customRequest)="onChangePasswordRequest()"
   (saveRequest)="onSaveRequest()"
   (deleteRequest)="onDeleteRequest()"></app-toolbar>
 
@@ -62,15 +64,5 @@
         <mat-checkbox [(ngModel)]="item.enabled">Вход разрешен</mat-checkbox>
       </section>
     </mat-card-content>
-    <mat-card-actions>
-      <button
-        mat-flat-button
-        color="primary"
-        *ngIf="item && item.id != 0"
-        (click)="changePassword()">
-        <mat-icon>password</mat-icon>
-        <span class="mat-button-wrapper">Изменить пароль</span>
-      </button>
-    </mat-card-actions>
   </mat-card>
 </div>

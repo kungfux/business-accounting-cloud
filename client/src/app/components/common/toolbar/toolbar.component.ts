@@ -15,10 +15,12 @@ export class ToolbarComponent implements OnInit {
   @Input() mode: ToolBarMode = ToolBarMode.List;
   @Input() saveEnabled?: boolean = true;
   @Input() deleteVisible: boolean = true;
+  @Input() customButton?: CustomButton;
   @Output() createRequest = new EventEmitter();
   @Output() editRequest = new EventEmitter();
   @Output() saveRequest = new EventEmitter();
   @Output() deleteRequest = new EventEmitter();
+  @Output() customRequest = new EventEmitter();
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -53,9 +55,23 @@ export class ToolbarComponent implements OnInit {
   onSaveClick() {
     this.saveRequest.emit();
   }
+
+  onCustomClick() {
+    this.customRequest.emit();
+  }
 }
 
 export enum ToolBarMode {
   List = 0,
   Details = 1,
+}
+
+export class CustomButton {
+  text: string = '';
+  icon: string = '';
+
+  constructor(text: string, icon: string) {
+    this.text = text;
+    this.icon = icon;
+  }
 }
