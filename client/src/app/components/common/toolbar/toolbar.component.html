@@ -1,14 +1,18 @@
 <mat-toolbar>
-  <button
-    mat-icon-button
-    color="link"
-    (click)="this.goBack()"
-    *ngIf="mode === 1">
+  <button mat-icon-button color="link" (click)="goBack()" *ngIf="mode === 1">
     <mat-icon>chevron_left</mat-icon>
   </button>
   <span>{{ title }}</span>
   <span class="toolbar-spacer"></span>
   <section *ngIf="(isHandset$ | async) === false">
+    <button
+      mat-stroked-button
+      color="primary"
+      (click)="onCustomClick()"
+      *ngIf="customButton">
+      <mat-icon>{{ customButton?.icon }}</mat-icon>
+      <span class="mat-button-wrapper">{{ customButton?.text }}</span>
+    </button>
     <button
       mat-stroked-button
       color="primary"
@@ -45,6 +49,13 @@
     </button>
   </section>
   <section *ngIf="(isHandset$ | async) === true">
+    <button
+      mat-icon-button
+      color="primary"
+      (click)="onCustomClick()"
+      *ngIf="customButton">
+      <mat-icon>{{ customButton?.icon }}</mat-icon>
+    </button>
     <button
       color="primary"
       mat-icon-button
