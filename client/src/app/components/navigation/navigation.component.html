@@ -76,7 +76,7 @@
         <span class="mat-button-wrapper">{{ company.name }}</span>
       </button>
       <div class="vertical-line" *ngIf="loggedInUser.id"></div>
-      <button *ngIf="loggedInUser.id" mat-button>
+      <button *ngIf="loggedInUser.id" mat-button (click)="onProfileClick()">
         <mat-icon>{{ loggedInUser.avatar }}</mat-icon>
         <span class="mat-button-wrapper">{{ loggedInUser.name }}</span>
       </button>

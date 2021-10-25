@@ -62,6 +62,10 @@ export class NavigationComponent {
     this.router.navigate(['/companies/switch']);
   }
 
+  onProfileClick(): void {
+    this.router.navigate(['/profile']);
+  }
+
   authenticate(): void {
     if (this.login.isAuthenticated()) {
       if (this.router.url === '') {
