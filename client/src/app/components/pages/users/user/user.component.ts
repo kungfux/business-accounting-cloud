@@ -47,7 +47,7 @@ export class UserComponent implements OnInit {
   }
 
   onSaveRequest() {
-    let user = new User({
+    let item = new User({
       id: this.item.id,
       login: this.item.login,
       name: this.item.name,
@@ -57,14 +57,14 @@ export class UserComponent implements OnInit {
       enabled: this.item.enabled,
     });
 
-    if (user.id === 0) {
-      this.userApi.addUser(user).subscribe({
+    if (item.id === 0) {
+      this.userApi.addUser(item).subscribe({
         next: () => {
           this.navigateToAllUsers();
         },
       });
     } else {
-      this.userApi.updateUser(user.id, user).subscribe({
+      this.userApi.updateUser(item.id, item).subscribe({
         next: () => {
           this.navigateToAllUsers();
         },

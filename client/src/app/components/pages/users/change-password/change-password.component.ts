@@ -33,7 +33,7 @@ export class ChangePasswordComponent implements OnInit {
     }
     const userId = parseInt(id);
     if (!userId) {
-      this.navigateToAllUsers();
+      // TODO: Handle this case
       return;
     }
     this.id = userId;
@@ -45,20 +45,12 @@ export class ChangePasswordComponent implements OnInit {
       .changesPassword(this.id, this.currentPassword, this.newPassword)
       .subscribe({
         next: () => {
-          this.navigateToUser();
+          this.goBack();
         },
         error: () => {
           this.isLoading = false;
         },
       });
-  }
-
-  private navigateToUser(): void {
-    this.router.navigate(['/users', this.id]);
-  }
-
-  private navigateToAllUsers(): void {
-    this.router.navigate(['/users']);
   }
 
   goBack(): void {
