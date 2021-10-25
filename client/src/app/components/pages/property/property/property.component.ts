@@ -28,7 +28,7 @@ export class PropertyComponent implements OnInit {
       return;
     }
     const propertyId = parseInt(id);
-    if (propertyId === 0) {
+    if (!propertyId) {
       this.isLoading = false;
     } else {
       this.propertyApi.getProperty(propertyId).subscribe({
@@ -51,7 +51,7 @@ export class PropertyComponent implements OnInit {
       companyId: this.userPreferences.companyId,
     });
 
-    if (property.id === 0) {
+    if (!property.id) {
       this.propertyApi.addProperty(property).subscribe({
         next: () => {
           this.navigateToAllProperties();
@@ -75,6 +75,6 @@ export class PropertyComponent implements OnInit {
   }
 
   private navigateToAllProperties(): void {
-    this.router.navigate(['properties']);
+    this.router.navigate(['/properties']);
   }
 }

@@ -5,7 +5,17 @@ const sha512 = require('js-sha512')
 const fp = require('fastify-plugin')
 
 module.exports = fp(async (fastify, opts) => {
-  fastify.decorate('getNewSalt', function () {
+  fastify.decorate('createNewHashSalt', function (password) {
+    const salt = getNewSalt();
+    const hash = getHash(password, salt);
+    return { hash, salt }
+  })
+
+  fastify.decorate('calculateHash', function (password, salt) {
+    return getHash(password, salt)
+  })
+
+  function getNewSalt() {
     function createSalt(length) {
       let result = ''
       const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -18,9 +28,9 @@ module.exports = fp(async (fastify, opts) => {
     }
 
     return createSalt(10)
-  })
+  }
 
-  fastify.decorate('getHash', function (password, salt) {
+  function getHash(password, salt) {
     return sha512(password + salt + '6510225325')
-  })
+  }
 })

@@ -42,10 +42,10 @@ export class UsersComponent implements OnInit {
   }
 
   onCreateRequest() {
-    this.router.navigate(['users/0']);
+    this.router.navigate(['/users/new']);
   }
 
   onEditRequest() {
-    this.router.navigate(['users', this.selectedItem?.id]);
+    this.router.navigate(['/users', this.selectedItem?.id]);
   }
 }

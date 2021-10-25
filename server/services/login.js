@@ -6,11 +6,11 @@ const { QueryTypes } = require('sequelize')
 module.exports = async function (fastify, opts) {
   fastify.post('/', { schema: schemas.login }, async function (request, reply) {
     const tokenHoursToLive = 12;
-    const { username, password } = request.body
+    const { username: login, password } = request.body
 
     const credentials = await this.db.query('select id,password,salt from users where login = ? and enabled = 1',
       {
-        replacements: [username],
+        replacements: [login],
         type: QueryTypes.SELECT
       }
     )
@@ -24,15 +24,16 @@ module.exports = async function (fastify, opts) {
     const hash = credentials[0].password
     const salt = credentials[0].salt
 
-    const comparativeHash = this.getHash(password, salt)
+    const calculatedHash = this.calculateHash(password, salt)
 
-    if (hash !== comparativeHash) {
+    if (hash !== calculatedHash) {
       rejectAuthorization()
     } else {
       const token = fastify.jwt.sign(
-        { sub: username },
+        { sub: login },
         { expiresIn: `${tokenHoursToLive}h` }
       )
+
       let expiration = new Date();
       expiration.setHours(new Date().getHours() + tokenHoursToLive);
       reply.send({ id, token, expiration: expiration.toUTCString() })

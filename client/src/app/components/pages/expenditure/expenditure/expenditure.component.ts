@@ -28,7 +28,7 @@ export class ExpenditureComponent implements OnInit {
       return;
     }
     const propertyId = parseInt(id);
-    if (propertyId === 0) {
+    if (!propertyId) {
       this.isLoading = false;
     } else {
       this.expenditureApi.getExpenditure(propertyId).subscribe({
@@ -77,6 +77,6 @@ export class ExpenditureComponent implements OnInit {
   }
 
   private navigateToAllExpenditure(): void {
-    this.router.navigate(['expenditures']);
+    this.router.navigate(['/expenditures']);
   }
 }

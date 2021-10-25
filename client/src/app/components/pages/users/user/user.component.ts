@@ -27,7 +27,7 @@ export class UserComponent implements OnInit {
       return;
     }
     const userId = parseInt(id);
-    if (userId === 0) {
+    if (!userId) {
       this.isLoading = false;
     } else {
       this.userApi.getUser(userId).subscribe({
@@ -77,7 +77,11 @@ export class UserComponent implements OnInit {
     window.open(url, '_blank');
   }
 
+  changePassword() {
+    this.router.navigate([`users/${this.item.id}/password`]);
+  }
+
   private navigateToAllUsers(): void {
-    this.router.navigate(['users']);
+    this.router.navigate(['/users']);
   }
 }

@@ -1,6 +1,6 @@
 'use strict'
 
-const BaseSchema = require('../common/baseSchema')
+const BaseSchema = require('./schema.base')
 
 var schema = new BaseSchema({
     id: { type: 'integer' },

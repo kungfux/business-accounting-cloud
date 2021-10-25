@@ -29,3 +29,7 @@ body {
 .page-content {
   margin: 8px;
 }
+
+button mat-icon ~ span {
+  margin-left: 4px;
+}

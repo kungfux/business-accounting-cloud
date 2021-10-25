@@ -40,10 +40,10 @@ export class CompaniesComponent implements OnInit {
   }
 
   onCreateRequest() {
-    this.router.navigate(['companies/0']);
+    this.router.navigate(['/companies/new']);
   }
 
   onEditRequest() {
-    this.router.navigate(['companies', this.selectedItem?.id]);
+    this.router.navigate(['/companies', this.selectedItem?.id]);
   }
 }

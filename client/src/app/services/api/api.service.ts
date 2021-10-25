@@ -54,6 +54,12 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
+  patch<T>(api: string, payload: object): Observable<T> {
+    return this.http
+      .patch<T>(`${this.url}${api}`, JSON.stringify(payload), this.headers)
+      .pipe(catchError(this.handleError));
+  }
+
   delete<T>(api: string): Observable<T> {
     return this.http
       .delete<T>(`${this.url}${api}`, this.headers)
@@ -76,10 +82,10 @@ export class ApiService {
     } else {
       switch (error.status) {
         case 0:
-          errorMessage = 'Сервер недоступен';
+          errorMessage = 'Сервер недоступен. Попробуйте повторить операцию';
           break;
         case 400:
-          errorMessage = 'Неверная операция';
+          errorMessage = 'Неверная операция. Обратитесь к администратору';
           break;
         case 401:
           errorMessage =
@@ -88,8 +94,11 @@ export class ApiService {
         case 404:
           errorMessage = 'Запрашиваемые данные не найдены';
           break;
+        case 422:
+          errorMessage = 'Операция невозможна из-за неверно указанных данных';
+          break;
         default:
-          errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+          errorMessage = 'Что-то пошло не так. Обратитесь к администратору';
           break;
       }
     }

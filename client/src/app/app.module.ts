@@ -37,6 +37,7 @@ import { PropertyComponent } from './components/pages/property/property/property
 import { PropertiesComponent } from './components/pages/property/properties/properties.component';
 import { ExpenditureComponent } from './components/pages/expenditure/expenditure/expenditure.component';
 import { ExpendituresComponent } from './components/pages/expenditure/expenditures/expenditures.component';
+import { ChangePasswordComponent } from './components/pages/users/change-password/change-password.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -44,6 +45,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'users', component: UsersComponent },
   { path: 'users/:id', component: UserComponent },
+  { path: 'users/:id/password', component: ChangePasswordComponent },
   { path: 'titles', component: TitlesComponent },
   { path: 'titles/:id', component: TitleComponent },
   { path: 'companies', component: CompaniesComponent },
@@ -74,6 +76,7 @@ const routes: Routes = [
     PropertiesComponent,
     ExpenditureComponent,
     ExpendituresComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserAnimationsModule,

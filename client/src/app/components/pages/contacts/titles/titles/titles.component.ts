@@ -49,10 +49,10 @@ export class TitlesComponent implements OnInit {
   }
 
   onCreateRequest() {
-    this.router.navigate(['titles/0']);
+    this.router.navigate(['/titles/new']);
   }
 
   onEditRequest() {
-    this.router.navigate(['titles', this.selectedItem?.id]);
+    this.router.navigate(['/titles', this.selectedItem?.id]);
   }
 }

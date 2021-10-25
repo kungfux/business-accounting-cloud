@@ -5,10 +5,12 @@
   [selectedItem]="item"
   [deleteVisible]="!!item?.id"
   [saveEnabled]="
-    !!item.login &&
-    !!item.password &&
-    item.login.length > 0 &&
-    item.password.length >= 8
+    item.id == 0
+      ? !!item.login &&
+        !!item.password &&
+        item.login.length > 0 &&
+        item.password.length >= 8
+      : !!item.login && item.login.length > 0
   "
   (saveRequest)="onSaveRequest()"
   (deleteRequest)="onDeleteRequest()"></app-toolbar>
@@ -21,7 +23,7 @@
           <mat-label>Логин</mat-label>
           <input matInput [(ngModel)]="item.login" required />
         </mat-form-field>
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" *ngIf="item && item.id == 0">
           <mat-label>Пароль</mat-label>
           <input
             matInput
@@ -60,5 +62,15 @@
         <mat-checkbox [(ngModel)]="item.enabled">Вход разрешен</mat-checkbox>
       </section>
     </mat-card-content>
+    <mat-card-actions>
+      <button
+        mat-flat-button
+        color="primary"
+        *ngIf="item && item.id != 0"
+        (click)="changePassword()">
+        <mat-icon>password</mat-icon>
+        <span class="mat-button-wrapper">Изменить пароль</span>
+      </button>
+    </mat-card-actions>
   </mat-card>
 </div>
