@@ -43,7 +43,7 @@ export class NavigationComponent {
 
       if (this.loggedInUser.id == 0) {
         // If token is expired, redirect to login page
-        this.router.navigate(['login']);
+        this.router.navigate(['/login']);
         return;
       }
 
@@ -59,16 +59,16 @@ export class NavigationComponent {
   }
 
   onSwitchCompany(): void {
-    this.router.navigate(['companies/switch']);
+    this.router.navigate(['/companies/switch']);
   }
 
   authenticate(): void {
     if (this.login.isAuthenticated()) {
       if (this.router.url === '') {
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['/dashboard']);
       }
     } else {
-      this.router.navigate(['login']);
+      this.router.navigate(['/login']);
     }
   }
 

@@ -49,10 +49,10 @@ export class PropertiesComponent implements OnInit {
   }
 
   onCreateRequest() {
-    this.router.navigate(['properties/0']);
+    this.router.navigate(['/properties/new']);
   }
 
   onEditRequest() {
-    this.router.navigate(['properties', this.selectedItem?.id]);
+    this.router.navigate(['/properties', this.selectedItem?.id]);
   }
 }

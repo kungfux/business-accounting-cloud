@@ -49,10 +49,10 @@ export class ExpendituresComponent implements OnInit {
   }
 
   onCreateRequest() {
-    this.router.navigate(['expenditures/0']);
+    this.router.navigate(['/expenditures/new']);
   }
 
   onEditRequest() {
-    this.router.navigate(['expenditures', this.selectedItem?.id]);
+    this.router.navigate(['/expenditures', this.selectedItem?.id]);
   }
 }

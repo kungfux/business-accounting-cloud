@@ -26,7 +26,7 @@ export class CompanyComponent implements OnInit {
       return;
     }
     const companyId = parseInt(id);
-    if (companyId === 0) {
+    if (!companyId) {
       this.isLoading = false;
     } else {
       this.companyApi.getCompany(companyId).subscribe({
@@ -74,6 +74,6 @@ export class CompanyComponent implements OnInit {
   }
 
   private navigateToAllCompanies(): void {
-    this.router.navigate(['companies']);
+    this.router.navigate(['/companies']);
   }
 }

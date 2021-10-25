@@ -137,9 +137,9 @@
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Login is not null\", function() {\r",
+											"pm.test(\"Id is not null\", function() {\r",
 											"    const item = pm.response.json();\r",
-											"    pm.expect(item.login).to.be.not.null;\r",
+											"    pm.expect(item.id).to.be.greaterThan(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -150,10 +150,8 @@
 									"script": {
 										"exec": [
 											"const firstName = pm.variables.replaceIn('{{$randomFirstName}}')\r",
-											"const password = pm.variables.replaceIn('{{$randomPassword}}')\r",
 											"\r",
 											"pm.collectionVariables.set(\"UserLogin\", firstName);\r",
-											"pm.collectionVariables.set(\"UserPassword\", password);\r",
 											"pm.collectionVariables.set(\"UserName\", firstName);"
 										],
 										"type": "text/javascript"
@@ -171,7 +169,69 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"login\": \"{{UserLogin}}\",\r\n    \"password\": \"{{UserPassword}}\",\r\n    \"name\": \"{{UserName}}\",\r\n    \"avatar\": \"travel_explore\",\r\n    \"admin\": false,\r\n    \"enabled\": false\r\n}",
+									"raw": "{\r\n    \"login\": \"{{UserLogin}}\",\r\n    \"name\": \"{{UserName}}\",\r\n    \"avatar\": \"travel_explore\",\r\n    \"admin\": false,\r\n    \"enabled\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{UserId}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}",
+										"{{UserId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Id is not null\", function() {\r",
+											"    const item = pm.response.json();\r",
+											"    pm.expect(item.id).to.be.not.null;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const newPassword = pm.variables.replaceIn('{{$randomPassword}}')\r",
+											"\r",
+											"pm.collectionVariables.set(\"UserNewPassword\", newPassword);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\": \"{{UserPassword}}\",\r\n    \"newPassword\": \"{{UserNewPassword}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1850,7 +1910,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"kungfux\",\r\n    \"password\": \"2nHLdLV5dt5cuRp\"\r\n}",
+							"raw": "{\r\n    \"username\": \"qwe\",\r\n    \"password\": \"qweqweqwe\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1943,6 +2003,10 @@
 		},
 		{
 			"key": "ExpenditureName",
+			"value": ""
+		},
+		{
+			"key": "UserNewPassword",
 			"value": ""
 		}
 	]

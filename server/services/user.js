@@ -59,8 +59,8 @@ module.exports = async function (fastify, opts) {
     '/',
     { schema: schemas.insertOne },
     async function (request, reply) {
-      const salt = this.getNewSalt()
-      const hash = this.getHash(request.body.password, salt)
+      const password = request.body.password
+      const { hash, salt } = this.createNewHashSalt(password)
 
       const [result] = await this.db.query('insert into users (login,password,salt,name,avatar,admin,enabled) values(?,?,?,?,?,?,?)',
         {
@@ -79,12 +79,60 @@ module.exports = async function (fastify, opts) {
     '/:id',
     { schema: schemas.updateOne },
     async function (request, reply) {
-      const salt = this.getNewSalt()
-      const hash = this.getHash(request.body.password, salt)
-
-      const [, metadata] = await this.db.query('update users set login=?,password=?,salt=?,name=?,avatar=?,admin=?,enabled=? where id=?',
+      const [, metadata] = await this.db.query('update users set login=?,name=?,avatar=?,admin=?,enabled=? where id=?',
         {
-          replacements: [request.body.login, hash, salt, request.body.name, request.body.avatar, request.body.admin, request.body.enabled, request.params.id],
+          replacements: [request.body.login, request.body.name, request.body.avatar, request.body.admin, request.body.enabled, request.params.id],
+          type: QueryTypes.UPDATE
+        }
+      )
+
+      if (metadata === 0) {
+        reply.callNotFound()
+      }
+
+      return {
+        id: request.params.id
+      }
+    }
+  )
+
+  fastify.patch(
+    '/:id',
+    { schema: schemas.updatePart },
+    async function (request, reply) {
+      const id = request.params.id
+      const { password, newPassword } = request.body
+
+      const credentials = await this.db.query('select password,salt from users where id = ?',
+        {
+          replacements: [id],
+          type: QueryTypes.SELECT
+        }
+      )
+
+      if (credentials.length !== 1) {
+        reply.callNotFound()
+        return
+      }
+
+      const hash = credentials[0].password
+      const salt = credentials[0].salt
+      const calculatedHash = this.calculateHash(password, salt)
+
+      if (hash !== calculatedHash) {
+        reply
+          .code(422)
+          .type('application/json')
+          .send({ message: 'Unexceptable request' })
+        return
+      }
+
+      const newHashSalt = this.createNewHashSalt(newPassword)
+      const newHash = newHashSalt.hash
+      const newSalt = newHashSalt.salt
+      const [, metadata] = await this.db.query('update users set password=?,salt=? where id=?',
+        {
+          replacements: [newHash, newSalt, id],
           type: QueryTypes.UPDATE
         }
       )

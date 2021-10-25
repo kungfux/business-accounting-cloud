@@ -28,7 +28,7 @@ export class TitleComponent implements OnInit {
       return;
     }
     const titleId = parseInt(id);
-    if (titleId === 0) {
+    if (!titleId) {
       this.isLoading = false;
     } else {
       this.titleApi.getTitle(titleId).subscribe({
@@ -73,6 +73,6 @@ export class TitleComponent implements OnInit {
   }
 
   private navigateToAllTitles(): void {
-    this.router.navigate(['titles']);
+    this.router.navigate(['/titles']);
   }
 }
