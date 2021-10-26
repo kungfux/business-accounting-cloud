@@ -8,6 +8,11 @@ module.exports = async function (fastify, opts) {
     const tokenHoursToLive = 12;
     const { username: login, password } = request.body
 
+    if (!this.canLogin(login)) {
+      rejectAuthorization()
+      return
+    }
+
     const credentials = await this.db.query('select id,password,salt from users where login = ? and enabled = 1',
       {
         replacements: [login],
@@ -28,6 +33,7 @@ module.exports = async function (fastify, opts) {
 
     if (hash !== calculatedHash) {
       rejectAuthorization()
+      return
     } else {
       const token = fastify.jwt.sign(
         { sub: login },
