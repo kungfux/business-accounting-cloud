@@ -2,6 +2,28 @@
   <span>Авторизация</span>
 </mat-toolbar>
 
+<div id="background-wrap">
+  <div class="x1">
+    <div class="cloud"></div>
+  </div>
+
+  <div class="x2">
+    <div class="cloud"></div>
+  </div>
+
+  <div class="x3">
+    <div class="cloud"></div>
+  </div>
+
+  <div class="x4">
+    <div class="cloud"></div>
+  </div>
+
+  <div class="x5">
+    <div class="cloud"></div>
+  </div>
+</div>
+
 <div class="page-content">
   <mat-card class="card">
     <mat-card-content>
@@ -44,6 +66,7 @@
           login.length == 0 || password.length == 0 || checkingCredentials
         "
         (click)="onLoginClick()">
+        <mat-icon>login</mat-icon>
         Войти
       </button>
     </mat-card-actions>
