@@ -1,4 +1,4 @@
-import { Input } from '@angular/core';
+import { Input, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
@@ -15,7 +15,7 @@ import { Company } from 'src/app/services/api/models/company';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css'],
 })
-export class NavigationComponent {
+export class NavigationComponent implements OnInit {
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
@@ -24,6 +24,7 @@ export class NavigationComponent {
     );
 
   @Input() title: string = '';
+  activeRoute: string = '';
   loggedInUser: AppUser = new AppUser();
   company: Company = new Company({
     name: 'Выбрать',
@@ -56,6 +57,10 @@ export class NavigationComponent {
     });
 
     this.authenticate();
+  }
+
+  onOpenedStart(): void {
+    this.activeRoute = this.router.url;
   }
 
   onSwitchCompany(): void {

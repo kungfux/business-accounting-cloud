@@ -5,42 +5,75 @@
     fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'push'"
-    [autoFocus]="false">
+    [autoFocus]="false"
+    (openedStart)="onOpenedStart()">
     <mat-toolbar>Меню</mat-toolbar>
     <mat-divider></mat-divider>
     <mat-nav-list *ngIf="!loggedInUser.id">
-      <a mat-list-item (click)="drawer.toggle()" routerLink="login">
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="login"
+        [class.active]="activeRoute === '/login'">
         <mat-icon color="primary">account_circle</mat-icon>
         Авторизация
       </a>
     </mat-nav-list>
     <mat-nav-list *ngIf="loggedInUser.id">
-      <a mat-list-item (click)="drawer.toggle()" routerLink="dashboard">
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="dashboard"
+        [class.active]="activeRoute === '/dashboard'">
         <mat-icon>dashboard</mat-icon>
         Главная
       </a>
-      <a mat-list-item (click)="drawer.toggle()" routerLink="transactions">
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="transactions"
+        [class.active]="activeRoute === '/transactions'">
         <mat-icon>payments</mat-icon>
         Касса
       </a>
-      <a mat-list-item (click)="drawer.toggle()" routerLink="reports">
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="reports"
+        [class.active]="activeRoute.startsWith('/reports')">
         <mat-icon>pie_chart</mat-icon>
         Отчеты
       </a>
       <div mat-subheader>Каталоги</div>
-      <a mat-list-item (click)="drawer.toggle()" routerLink="contacts">
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="contacts"
+        [class.active]="activeRoute.startsWith('/contacts')">
         <mat-icon>badge</mat-icon>
         Сотрудники
       </a>
-      <a mat-list-item (click)="drawer.toggle()" routerLink="titles">
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="titles"
+        [class.active]="activeRoute.startsWith('/titles')">
         <mat-icon>personal_injury</mat-icon>
         Должности
       </a>
-      <a mat-list-item (click)="drawer.toggle()" routerLink="properties">
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="properties"
+        [class.active]="activeRoute.startsWith('/properties')">
         <mat-icon>savings</mat-icon>
         Имущество
       </a>
-      <a mat-list-item (click)="drawer.toggle()" routerLink="expenditures">
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="expenditures"
+        [class.active]="activeRoute.startsWith('/expenditures')">
         <mat-icon>payment</mat-icon>
         Расходы
       </a>
@@ -48,13 +81,21 @@
     <div *ngIf="loggedInUser.id && loggedInUser.admin">
       <mat-nav-list>
         <div mat-subheader>Администрирование</div>
-        <a mat-list-item (click)="drawer.toggle()" routerLink="users">
+        <a
+          mat-list-item
+          (click)="drawer.toggle()"
+          routerLink="users"
+          [class.active]="activeRoute.startsWith('/users')">
           <mat-icon>manage_accounts</mat-icon>
           Пользователи
         </a>
       </mat-nav-list>
       <mat-nav-list>
-        <a mat-list-item (click)="drawer.toggle()" routerLink="companies">
+        <a
+          mat-list-item
+          (click)="drawer.toggle()"
+          routerLink="companies"
+          [class.active]="activeRoute.startsWith('/companies')">
           <mat-icon>business</mat-icon>
           Компании
         </a>
