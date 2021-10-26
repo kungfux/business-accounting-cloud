@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
@@ -42,6 +43,8 @@ import { ProfileComponent } from './components/pages/users/profile/profile.compo
 
 import { AuthorizedUserGuard } from './guards/authorized-user-guard.guard';
 import { AdminUserGuard } from './guards/admin-user-guard.guard';
+import { DialogComponent } from './components/dialogs/dialog/dialog.component';
+import { DeleteComponent } from './components/dialogs/delete/delete.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -139,6 +142,8 @@ const routes: Routes = [
     ExpendituresComponent,
     ChangePasswordComponent,
     ProfileComponent,
+    DialogComponent,
+    DeleteComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -149,6 +154,7 @@ const routes: Routes = [
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
+    MatDialogModule,
     MatDividerModule,
     MatExpansionModule,
     MatFormFieldModule,
@@ -164,7 +170,13 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes, { enableTracing: false }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: MatDialogRef,
+      useValue: {},
+    },
+    DialogComponent,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
