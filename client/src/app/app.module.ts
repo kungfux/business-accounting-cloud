@@ -40,24 +40,83 @@ import { ExpendituresComponent } from './components/pages/expenditure/expenditur
 import { ChangePasswordComponent } from './components/pages/users/change-password/change-password.component';
 import { ProfileComponent } from './components/pages/users/profile/profile.component';
 
+import { AuthorizedUserGuard } from './guards/authorized-user-guard.guard';
+import { AdminUserGuard } from './guards/admin-user-guard.guard';
+
 const routes: Routes = [
   { path: '', component: DashboardComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthorizedUserGuard],
+  },
   { path: 'login', component: LoginComponent },
-  { path: 'users', component: UsersComponent },
-  { path: 'users/:id', component: UserComponent },
-  { path: 'users/:id/password', component: ChangePasswordComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'titles', component: TitlesComponent },
-  { path: 'titles/:id', component: TitleComponent },
-  { path: 'companies', component: CompaniesComponent },
-  { path: 'companies/switch', component: SwitchComponent },
-  { path: 'companies/:id', component: CompanyComponent },
-  { path: 'properties', component: PropertiesComponent },
-  { path: 'properties/:id', component: PropertyComponent },
-  { path: 'expenditures', component: ExpendituresComponent },
-  { path: 'expenditures/:id', component: ExpenditureComponent },
-  { path: '**', redirectTo: '/' },
+  {
+    path: 'users',
+    component: UsersComponent,
+    canActivate: [AuthorizedUserGuard, AdminUserGuard],
+  },
+  {
+    path: 'users/:id',
+    component: UserComponent,
+    canActivate: [AuthorizedUserGuard, AdminUserGuard],
+  },
+  {
+    path: 'users/:id/password',
+    component: ChangePasswordComponent,
+    canActivate: [AuthorizedUserGuard],
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthorizedUserGuard],
+  },
+  {
+    path: 'titles',
+    component: TitlesComponent,
+    canActivate: [AuthorizedUserGuard],
+  },
+  {
+    path: 'titles/:id',
+    component: TitleComponent,
+    canActivate: [AuthorizedUserGuard],
+  },
+  {
+    path: 'companies',
+    component: CompaniesComponent,
+    canActivate: [AuthorizedUserGuard, AdminUserGuard],
+  },
+  {
+    path: 'companies/switch',
+    component: SwitchComponent,
+    canActivate: [AuthorizedUserGuard],
+  },
+  {
+    path: 'companies/:id',
+    component: CompanyComponent,
+    canActivate: [AuthorizedUserGuard, AdminUserGuard],
+  },
+  {
+    path: 'properties',
+    component: PropertiesComponent,
+    canActivate: [AuthorizedUserGuard],
+  },
+  {
+    path: 'properties/:id',
+    component: PropertyComponent,
+    canActivate: [AuthorizedUserGuard],
+  },
+  {
+    path: 'expenditures',
+    component: ExpendituresComponent,
+    canActivate: [AuthorizedUserGuard],
+  },
+  {
+    path: 'expenditures/:id',
+    component: ExpenditureComponent,
+    canActivate: [AuthorizedUserGuard],
+  },
+  { path: '**', redirectTo: '/dashboard' },
 ];
 
 @NgModule({
