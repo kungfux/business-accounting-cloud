@@ -25,8 +25,11 @@
       <mat-card-title>{{ item.name }}</mat-card-title>
       <mat-card-subtitle>{{ item.login }}</mat-card-subtitle>
     </mat-card-header>
+    <hr />
     <mat-card-content>
       <div class="column-container">
+        <mat-card-subtitle>Аккаунт</mat-card-subtitle>
+
         <mat-form-field appearance="fill">
           <mat-label>Логин</mat-label>
           <input matInput [(ngModel)]="item.login" required />
@@ -46,6 +49,17 @@
             ">
             <mat-icon>{{ 'travel_explore' }}</mat-icon>
           </button>
+        </mat-form-field>
+
+        <mat-card-subtitle>Параметры</mat-card-subtitle>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Формат денежной единицы</mat-label>
+          <mat-select [(value)]="locale">
+            <mat-option [value]="'en-US'"> Доллары ($) </mat-option>
+            <mat-option [value]="'ru'"> Рубли (руб.)</mat-option>
+            <mat-option [value]="'ru-UA'"> Гривны (грн.)</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
     </mat-card-content>

@@ -86,7 +86,9 @@ export class LoginApiService {
       // Get any company if no primary
       this.companyApi.getCompanies().subscribe({
         next: (companies) => {
-          let enabledCompanies = companies.filter((company) => company.enabled);
+          const enabledCompanies = companies.filter(
+            (company) => company.enabled
+          );
           if (enabledCompanies.length > 0) {
             companyId = enabledCompanies[0].id;
             this.getCompanyDetails(companyId);

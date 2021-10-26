@@ -9,4 +9,5 @@ export class AppUser {
   companyId: number = 0;
   companyLogo: string = '';
   companyName: string = '';
+  locale: string = 'en-US';
 }

@@ -15,10 +15,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeRU from '@angular/common/locales/ru';
+import localeUA from '@angular/common/locales/ru-UA';
 
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
@@ -45,6 +49,7 @@ import { AuthorizedUserGuard } from './guards/authorized-user-guard.guard';
 import { AdminUserGuard } from './guards/admin-user-guard.guard';
 import { DialogComponent } from './components/dialogs/dialog/dialog.component';
 import { DeleteComponent } from './components/dialogs/delete/delete.component';
+import { UserPreferencesService } from './services/userPreferences.service';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -164,6 +169,7 @@ const routes: Routes = [
     MatListModule,
     MatProgressBarModule,
     MatSidenavModule,
+    MatSelectModule,
     MatTableModule,
     MatToolbarModule,
     MatTooltipModule,
@@ -176,7 +182,17 @@ const routes: Routes = [
       useValue: {},
     },
     DialogComponent,
+    {
+      provide: LOCALE_ID,
+      deps: [UserPreferencesService],
+      useFactory: (userPreferences: any) => userPreferences.getLocale(),
+    },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    registerLocaleData(localeRU);
+    registerLocaleData(localeUA);
+  }
+}

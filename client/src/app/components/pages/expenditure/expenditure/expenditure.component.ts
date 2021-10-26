@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component';
 import { ExpenditureApiService } from 'src/app/services/api/expenditure.service';
 import { Expenditure } from 'src/app/services/api/models/expenditure';
+import { CurrencyService } from 'src/app/services/converters/currency.service';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Component({
@@ -19,7 +20,8 @@ export class ExpenditureComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private expenditureApi: ExpenditureApiService,
-    private userPreferences: UserPreferencesService
+    private userPreferences: UserPreferencesService,
+    public currency: CurrencyService
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +44,7 @@ export class ExpenditureComponent implements OnInit {
 
   onSaveRequest() {
     this.isLoading = true;
-    let expenditure = new Expenditure({
+    const expenditure = new Expenditure({
       id: this.item.id,
       title: this.item.title,
 

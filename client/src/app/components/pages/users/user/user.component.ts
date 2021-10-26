@@ -48,7 +48,7 @@ export class UserComponent implements OnInit {
 
   onSaveRequest() {
     this.isLoading = true;
-    let item = new User({
+    const item = new User({
       id: this.item.id,
       login: this.item.login,
       name: this.item.name,

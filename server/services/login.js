@@ -34,7 +34,7 @@ module.exports = async function (fastify, opts) {
         { expiresIn: `${tokenHoursToLive}h` }
       )
 
-      let expiration = new Date();
+      const expiration = new Date();
       expiration.setHours(new Date().getHours() + tokenHoursToLive);
       reply.send({ id, token, expiration: expiration.toUTCString() })
     }

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component';
 import { Property } from 'src/app/services/api/models/property';
 import { PropertyApiService } from 'src/app/services/api/property.service';
+import { CurrencyService } from 'src/app/services/converters/currency.service';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Component({
@@ -19,7 +20,8 @@ export class PropertyComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private propertyApi: PropertyApiService,
-    private userPreferences: UserPreferencesService
+    private userPreferences: UserPreferencesService,
+    public currency: CurrencyService
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +44,7 @@ export class PropertyComponent implements OnInit {
 
   onSaveRequest() {
     this.isLoading = true;
-    let property = new Property({
+    const property = new Property({
       id: this.item.id,
       title: this.item.title,
       inventory_number: this.item.inventory_number,

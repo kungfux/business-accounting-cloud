@@ -24,7 +24,7 @@
         <mat-form-field appearance="fill">
           <mat-label>Стоимость</mat-label>
           <input matInput type="number" [(ngModel)]="item.cost" />
-          <span matPrefix>₴&nbsp;</span>
+          <span matPrefix>{{ this.currency.getSymbol() }}&nbsp;</span>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Комментарий</mat-label>

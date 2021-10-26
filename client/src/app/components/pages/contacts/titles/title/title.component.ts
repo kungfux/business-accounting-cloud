@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component';
 import { Title } from 'src/app/services/api/models/title';
 import { TitleApiService } from 'src/app/services/api/title.service';
+import { CurrencyService } from 'src/app/services/converters/currency.service';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Component({
@@ -19,7 +20,8 @@ export class TitleComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private titleApi: TitleApiService,
-    private userPreferences: UserPreferencesService
+    private userPreferences: UserPreferencesService,
+    public currency: CurrencyService
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +44,7 @@ export class TitleComponent implements OnInit {
 
   onSaveRequest() {
     this.isLoading = true;
-    let title = new Title({
+    const title = new Title({
       id: this.item.id,
       name: this.item.name,
       rate: this.item.rate,
