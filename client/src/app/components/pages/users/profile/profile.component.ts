@@ -43,6 +43,7 @@ export class ProfileComponent implements OnInit {
   }
 
   onSaveRequest() {
+    this.isLoading = true;
     this.userApi.updateUser(this.userPreferences.id, this.item).subscribe({
       next: () => {
         this.userPreferences.setUserDetails(
@@ -51,6 +52,9 @@ export class ProfileComponent implements OnInit {
           this.item.admin
         );
         this.navigateToDashboard();
+      },
+      error: () => {
+        this.isLoading = false;
       },
     });
   }

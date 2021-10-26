@@ -13,9 +13,11 @@ export class ToolbarComponent implements OnInit {
   @Input() selectedItem: any = undefined;
   @Input() title: string = '';
   @Input() mode: ToolBarMode = ToolBarMode.List;
-  @Input() saveEnabled?: boolean = true;
-  @Input() deleteVisible: boolean = true;
   @Input() customButton?: CustomButton;
+  @Input() saveEnabled?: boolean = true;
+  @Input() deleteEnabled?: boolean = true;
+  @Input() customButtonEnabled?: boolean = true;
+  @Input() deleteVisible: boolean = true;
   @Output() createRequest = new EventEmitter();
   @Output() editRequest = new EventEmitter();
   @Output() saveRequest = new EventEmitter();

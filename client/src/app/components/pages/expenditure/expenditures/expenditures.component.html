@@ -61,13 +61,13 @@
     <button
       mat-icon-button
       (click)="loadData(pageIndex - 1)"
-      [disabled]="pageIndex == 1">
+      [disabled]="pageIndex == 1 || isLoading">
       <mat-icon>chevron_left</mat-icon>
     </button>
     <button
       mat-icon-button
       (click)="loadData(pageIndex + 1)"
-      [disabled]="data.length < 10">
+      [disabled]="data.length < 10 || isLoading">
       <mat-icon>chevron_right</mat-icon>
     </button>
   </div>

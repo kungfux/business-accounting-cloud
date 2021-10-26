@@ -4,7 +4,14 @@
   [mode]="toolBarMode"
   [selectedItem]="item"
   [deleteVisible]="false"
-  [saveEnabled]="!!item.login && item.login.length > 0"
+  [saveEnabled]="
+    !!item.login &&
+    item.login.length > 0 &&
+    !!item.name &&
+    item.name.length > 0 &&
+    !isLoading
+  "
+  [customButtonEnabled]="!!item?.id && !isLoading"
   [customButton]="changePasswordButton"
   (customRequest)="onChangePasswordRequest()"
   (saveRequest)="onSaveRequest()"></app-toolbar>
@@ -26,7 +33,7 @@
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Имя</mat-label>
-          <input matInput [(ngModel)]="item.name" />
+          <input matInput [(ngModel)]="item.name" required />
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Аватар</mat-label>

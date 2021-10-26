@@ -7,11 +7,20 @@
   [saveEnabled]="
     item.id == 0
       ? !!item.login &&
-        !!item.password &&
         item.login.length > 0 &&
-        item.password.length >= 8
-      : !!item.login && item.login.length > 0
+        !!item.password &&
+        item.password.length >= 8 &&
+        !!item.name &&
+        item.name.length > 0 &&
+        !isLoading
+      : !!item.login &&
+        item.login.length > 0 &&
+        !!item.name &&
+        item.name.length > 0 &&
+        !isLoading
   "
+  [deleteEnabled]="!isLoading"
+  [customButtonEnabled]="!!item?.id && !isLoading"
   [customButton]="changePasswordButton"
   (customRequest)="onChangePasswordRequest()"
   (saveRequest)="onSaveRequest()"
@@ -44,7 +53,7 @@
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Имя</mat-label>
-          <input matInput [(ngModel)]="item.name" />
+          <input matInput [(ngModel)]="item.name" required />
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Аватар</mat-label>
