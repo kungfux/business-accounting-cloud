@@ -55,32 +55,18 @@ export class UserPreferencesService {
   constructor(private localStorage: LocalStorageService) {}
 
   restoreUser() {
-    let userJSON = this.localStorage.get(this.storageUserKey);
+    const userJSON = this.localStorage.get(this.storageUserKey);
     if (userJSON !== null) {
-      let user = JSON.parse(userJSON);
-      if (
-        user.id !== null &&
-        user.token !== null &&
-        user.tokenExpirationDate !== null
-      ) {
-        this.appUser.id = user.id;
-        this.appUser.token = user.token;
-        this.appUser.tokenExpirationDate = new Date(
-          Date.parse(user.tokenExpirationDate)
-        );
-        this.appUser.companyId = user.companyId;
-        this.userPreferencesSubject.next(this.appUser);
-      }
+      const user = JSON.parse(userJSON);
+      this.appUser.id = user.id;
+      this.appUser.token = user.token;
+      this.appUser.tokenExpirationDate = new Date(
+        Date.parse(user.tokenExpirationDate)
+      );
+      this.appUser.companyId = user.companyId;
+      this.appUser.locale = user.locale;
+      this.userPreferencesSubject.next(this.appUser);
     }
-  }
-
-  getUserJSON() {
-    return JSON.stringify({
-      id: this.appUser.id,
-      token: this.appUser.token,
-      tokenExpirationDate: this.appUser.tokenExpirationDate,
-      companyId: this.appUser.companyId,
-    });
   }
 
   setUser(id: number, login: string, token: string, tokenExpirationDate: Date) {
@@ -107,15 +93,36 @@ export class UserPreferencesService {
     this.saveUserToStorage();
   }
 
+  setUserSettings(locale: string): void {
+    this.appUser.locale = locale;
+    this.saveUserToStorage();
+  }
+
   resetUser(): void {
-    let companyId = this.appUser.companyId;
+    const companyId = this.appUser.companyId;
+    const locale = this.appUser.locale;
     this.appUser = new AppUser();
     this.appUser.companyId = companyId;
+    this.appUser.locale = locale;
     this.saveUserToStorage();
     this.userPreferencesSubject.next(this.appUser);
   }
 
+  getLocale(): string {
+    return this.appUser.locale;
+  }
+
   private saveUserToStorage(): void {
     this.localStorage.set(this.storageUserKey, this.getUserJSON());
+  }
+
+  getUserJSON() {
+    return JSON.stringify({
+      id: this.appUser.id,
+      token: this.appUser.token,
+      tokenExpirationDate: this.appUser.tokenExpirationDate,
+      companyId: this.appUser.companyId,
+      locale: this.appUser.locale,
+    });
   }
 }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component';
 import { Title } from 'src/app/services/api/models/title';
 import { TitleApiService } from 'src/app/services/api/title.service';
+import { CurrencyService } from 'src/app/services/converters/currency.service';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Component({
@@ -20,7 +21,8 @@ export class TitlesComponent implements OnInit {
   constructor(
     private titleApi: TitleApiService,
     private router: Router,
-    private userPreferences: UserPreferencesService
+    private userPreferences: UserPreferencesService,
+    public currency: CurrencyService
   ) {}
 
   ngOnInit(): void {

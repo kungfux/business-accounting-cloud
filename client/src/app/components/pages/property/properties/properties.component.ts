@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component';
 import { Property } from 'src/app/services/api/models/property';
 import { PropertyApiService } from 'src/app/services/api/property.service';
+import { CurrencyService } from 'src/app/services/converters/currency.service';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Component({
@@ -20,7 +21,8 @@ export class PropertiesComponent implements OnInit {
   constructor(
     private propertyApi: PropertyApiService,
     private router: Router,
-    private userPreferences: UserPreferencesService
+    private userPreferences: UserPreferencesService,
+    public currency: CurrencyService
   ) {}
 
   ngOnInit(): void {

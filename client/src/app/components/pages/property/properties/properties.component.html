@@ -27,7 +27,7 @@
       <ng-container matColumnDef="cost">
         <th mat-header-cell *matHeaderCellDef>Стоимость</th>
         <td mat-cell *matCellDef="let item">
-          {{ item.cost ? '₴ ' + item.cost : '' }}
+          {{ item.cost ? this.currency.convert(item.cost) : '' }}
         </td>
       </ng-container>
 

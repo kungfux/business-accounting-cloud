@@ -15,6 +15,7 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
 })
 export class ProfileComponent implements OnInit {
   item: User = new User();
+  locale: string = '';
   toolBarMode: ToolBarMode = ToolBarMode.Details;
   isLoading = true;
   changePasswordButton: CustomButton = new CustomButton(
@@ -40,10 +41,12 @@ export class ProfileComponent implements OnInit {
         },
       });
     }
+    this.locale = this.userPreferences.getLocale();
   }
 
   onSaveRequest() {
     this.isLoading = true;
+    this.userPreferences.setUserSettings(this.locale);
     this.userApi.updateUser(this.userPreferences.id, this.item).subscribe({
       next: () => {
         this.userPreferences.setUserDetails(

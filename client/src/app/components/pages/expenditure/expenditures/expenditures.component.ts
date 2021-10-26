@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component';
 import { ExpenditureApiService } from 'src/app/services/api/expenditure.service';
 import { Expenditure } from 'src/app/services/api/models/expenditure';
+import { CurrencyService } from 'src/app/services/converters/currency.service';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Component({
@@ -20,7 +21,8 @@ export class ExpendituresComponent implements OnInit {
   constructor(
     private expenditureApi: ExpenditureApiService,
     private router: Router,
-    private userPreferences: UserPreferencesService
+    private userPreferences: UserPreferencesService,
+    public currency: CurrencyService
   ) {}
 
   ngOnInit(): void {
