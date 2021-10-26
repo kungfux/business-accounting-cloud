@@ -30,3 +30,11 @@ mat-nav-list mat-icon {
   border-left: 2px solid whitesmoke;
   height: 20px;
 }
+
+.active {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.mat-nav-list .mat-list-item:hover {
+  background: #bbdefb;
+}
