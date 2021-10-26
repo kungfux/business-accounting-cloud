@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -33,7 +34,8 @@ export class ToolbarComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private location: Location
+    private location: Location,
+    private dialog: DialogComponent
   ) {}
 
   ngOnInit(): void {}
@@ -51,7 +53,11 @@ export class ToolbarComponent implements OnInit {
   }
 
   onDeleteClick() {
-    this.deleteRequest.emit();
+    this.dialog.confirmDelete().subscribe((result) => {
+      if (result) {
+        this.deleteRequest.emit();
+      }
+    });
   }
 
   onSaveClick() {
