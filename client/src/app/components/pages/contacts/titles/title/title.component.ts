@@ -41,6 +41,7 @@ export class TitleComponent implements OnInit {
   }
 
   onSaveRequest() {
+    this.isLoading = true;
     let title = new Title({
       id: this.item.id,
       name: this.item.name,
@@ -54,20 +55,30 @@ export class TitleComponent implements OnInit {
         next: () => {
           this.navigateToAllTitles();
         },
+        error: () => {
+          this.isLoading = false;
+        },
       });
     } else {
       this.titleApi.updateTitle(title.id, title).subscribe({
         next: () => {
           this.navigateToAllTitles();
         },
+        error: () => {
+          this.isLoading = false;
+        },
       });
     }
   }
 
   onDeleteRequest() {
+    this.isLoading = true;
     this.titleApi.deleteTitle(this.item.id).subscribe({
       next: () => {
         this.navigateToAllTitles();
+      },
+      error: () => {
+        this.isLoading = false;
       },
     });
   }

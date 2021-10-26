@@ -41,6 +41,7 @@ export class PropertyComponent implements OnInit {
   }
 
   onSaveRequest() {
+    this.isLoading = true;
     let property = new Property({
       id: this.item.id,
       title: this.item.title,
@@ -56,20 +57,30 @@ export class PropertyComponent implements OnInit {
         next: () => {
           this.navigateToAllProperties();
         },
+        error: () => {
+          this.isLoading = false;
+        },
       });
     } else {
       this.propertyApi.updateProperty(property.id, property).subscribe({
         next: () => {
           this.navigateToAllProperties();
         },
+        error: () => {
+          this.isLoading = false;
+        },
       });
     }
   }
 
   onDeleteRequest() {
+    this.isLoading = true;
     this.propertyApi.deleteProperty(this.item.id).subscribe({
       next: () => {
         this.navigateToAllProperties();
+      },
+      error: () => {
+        this.isLoading = false;
       },
     });
   }

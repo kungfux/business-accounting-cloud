@@ -4,7 +4,8 @@
   [mode]="toolBarMode"
   [selectedItem]="item"
   [deleteVisible]="!!item?.id"
-  [saveEnabled]="!!item.title"
+  [saveEnabled]="!!item.title && !isLoading"
+  [deleteEnabled]="!isLoading"
   (saveRequest)="onSaveRequest()"
   (deleteRequest)="onDeleteRequest()"></app-toolbar>
 

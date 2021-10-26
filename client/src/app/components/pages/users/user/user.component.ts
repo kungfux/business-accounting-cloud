@@ -47,6 +47,7 @@ export class UserComponent implements OnInit {
   }
 
   onSaveRequest() {
+    this.isLoading = true;
     let item = new User({
       id: this.item.id,
       login: this.item.login,
@@ -62,20 +63,30 @@ export class UserComponent implements OnInit {
         next: () => {
           this.navigateToAllUsers();
         },
+        error: () => {
+          this.isLoading = false;
+        },
       });
     } else {
       this.userApi.updateUser(item.id, item).subscribe({
         next: () => {
           this.navigateToAllUsers();
         },
+        error: () => {
+          this.isLoading = false;
+        },
       });
     }
   }
 
   onDeleteRequest() {
+    this.isLoading = true;
     this.userApi.deleteUser(this.item.id).subscribe({
       next: () => {
         this.navigateToAllUsers();
+      },
+      error: () => {
+        this.isLoading = false;
       },
     });
   }

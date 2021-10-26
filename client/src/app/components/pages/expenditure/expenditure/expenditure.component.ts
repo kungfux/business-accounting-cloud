@@ -41,6 +41,7 @@ export class ExpenditureComponent implements OnInit {
   }
 
   onSaveRequest() {
+    this.isLoading = true;
     let expenditure = new Expenditure({
       id: this.item.id,
       title: this.item.title,
@@ -56,6 +57,9 @@ export class ExpenditureComponent implements OnInit {
         next: () => {
           this.navigateToAllExpenditure();
         },
+        error: () => {
+          this.isLoading = false;
+        },
       });
     } else {
       this.expenditureApi
@@ -64,14 +68,21 @@ export class ExpenditureComponent implements OnInit {
           next: () => {
             this.navigateToAllExpenditure();
           },
+          error: () => {
+            this.isLoading = false;
+          },
         });
     }
   }
 
   onDeleteRequest() {
+    this.isLoading = true;
     this.expenditureApi.deleteExpenditure(this.item.id).subscribe({
       next: () => {
         this.navigateToAllExpenditure();
+      },
+      error: () => {
+        this.isLoading = false;
       },
     });
   }

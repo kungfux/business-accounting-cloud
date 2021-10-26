@@ -9,6 +9,7 @@
       mat-stroked-button
       color="primary"
       (click)="onCustomClick()"
+      [disabled]="!customButtonEnabled"
       *ngIf="customButton">
       <mat-icon>{{ customButton?.icon }}</mat-icon>
       <span class="mat-button-wrapper">{{ customButton?.text }}</span>
@@ -34,6 +35,7 @@
       mat-stroked-button
       color="warn"
       (click)="onDeleteClick()"
+      [disabled]="!deleteEnabled"
       *ngIf="mode === 1 && deleteVisible">
       <mat-icon>delete</mat-icon>
       <span class="mat-button-wrapper">Удалить</span>
@@ -53,6 +55,7 @@
       mat-icon-button
       color="primary"
       (click)="onCustomClick()"
+      [disabled]="!customButtonEnabled"
       *ngIf="customButton">
       <mat-icon>{{ customButton?.icon }}</mat-icon>
     </button>
@@ -75,6 +78,7 @@
       color="warn"
       mat-icon-button
       (click)="onDeleteClick()"
+      [disabled]="!deleteEnabled"
       *ngIf="mode === 1 && deleteVisible">
       <mat-icon>delete</mat-icon>
     </button>

@@ -39,6 +39,7 @@ export class CompanyComponent implements OnInit {
   }
 
   onSaveRequest() {
+    this.isLoading = true;
     let company = new Company({
       id: this.item.id,
       name: this.item.name,
@@ -51,20 +52,30 @@ export class CompanyComponent implements OnInit {
         next: () => {
           this.navigateToAllCompanies();
         },
+        error: () => {
+          this.isLoading = false;
+        },
       });
     } else {
       this.companyApi.updateCompany(company.id, company).subscribe({
         next: () => {
           this.navigateToAllCompanies();
         },
+        error: () => {
+          this.isLoading = false;
+        },
       });
     }
   }
 
   onDeleteRequest() {
+    this.isLoading = true;
     this.companyApi.deleteCompany(this.item.id).subscribe({
       next: () => {
         this.navigateToAllCompanies();
+      },
+      error: () => {
+        this.isLoading = false;
       },
     });
   }
