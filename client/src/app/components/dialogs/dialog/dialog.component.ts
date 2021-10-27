@@ -14,7 +14,9 @@ export class DialogComponent implements OnInit {
   ngOnInit(): void {}
 
   confirmDelete(): Observable<boolean> {
-    const dialogRef = this.dialog.open(DeleteDialogComponent);
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      autoFocus: false,
+    });
     return dialogRef.afterClosed();
   }
 
@@ -22,7 +24,9 @@ export class DialogComponent implements OnInit {
     const alertDialog = new AlertDialogComponent();
     alertDialog.title = title;
     alertDialog.message = message;
-    const dialogRef = this.dialog.open(AlertDialogComponent);
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      autoFocus: false,
+    });
     return dialogRef.afterClosed();
   }
 }
