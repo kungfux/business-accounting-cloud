@@ -53,7 +53,6 @@ import { UserPreferencesService } from './services/userPreferences.service';
 import { AlertDialogComponent } from './components/dialogs/alert/alert.component';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent },
   {
     path: 'dashboard',
     component: DashboardComponent,
