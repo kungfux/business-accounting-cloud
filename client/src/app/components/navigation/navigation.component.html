@@ -113,8 +113,10 @@
         *ngIf="loggedInUser.id && loggedInUser.companyId"
         mat-button
         (click)="onSwitchCompany()">
-        <mat-icon>{{ company.logo }}</mat-icon>
-        <span class="mat-button-wrapper">{{ company.name }}</span>
+        <mat-icon>{{ company.logo || 'warning' }}</mat-icon>
+        <span class="mat-button-wrapper">{{
+          company.name || 'Выбрать компанию'
+        }}</span>
       </button>
       <div class="vertical-line" *ngIf="loggedInUser.id"></div>
       <button *ngIf="loggedInUser.id" mat-button (click)="onProfileClick()">
