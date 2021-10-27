@@ -21,7 +21,7 @@ export class ExpendituresComponent implements OnInit {
   constructor(
     private expenditureApi: ExpenditureApiService,
     private router: Router,
-    private userPreferences: UserPreferencesService,
+    public userPreferences: UserPreferencesService,
     public currency: CurrencyService
   ) {}
 

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/services/api/models/user';
 import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component';
 import { UserApiService } from 'src/app/services/api/user.service';
+import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Component({
   selector: 'app-users',
@@ -16,7 +17,11 @@ export class UsersComponent implements OnInit {
   isLoading = true;
   pageIndex: number = 1;
 
-  constructor(private userApi: UserApiService, private router: Router) {}
+  constructor(
+    private userApi: UserApiService,
+    private router: Router,
+    public userPreferences: UserPreferencesService
+  ) {}
 
   ngOnInit(): void {
     this.loadData();

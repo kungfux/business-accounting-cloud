@@ -8,7 +8,7 @@ export class CurrencyService {
   constructor(private userPreferences: UserPreferencesService) {}
 
   convert(value: number): string {
-    switch (this.userPreferences.getLocale()) {
+    switch (this.userPreferences.locale) {
       case 'ru':
         return value + ' руб.';
       case 'ru-UA':
@@ -20,7 +20,7 @@ export class CurrencyService {
   }
 
   getSymbol(): string {
-    switch (this.userPreferences.getLocale()) {
+    switch (this.userPreferences.locale) {
       case 'ru':
         return 'руб.';
       case 'ru-UA':

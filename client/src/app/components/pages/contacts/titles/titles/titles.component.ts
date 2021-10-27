@@ -21,7 +21,7 @@ export class TitlesComponent implements OnInit {
   constructor(
     private titleApi: TitleApiService,
     private router: Router,
-    private userPreferences: UserPreferencesService,
+    public userPreferences: UserPreferencesService,
     public currency: CurrencyService
   ) {}
 
