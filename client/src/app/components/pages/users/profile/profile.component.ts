@@ -41,7 +41,7 @@ export class ProfileComponent implements OnInit {
         },
       });
     }
-    this.locale = this.userPreferences.getLocale();
+    this.locale = this.userPreferences.locale;
   }
 
   onSaveRequest() {

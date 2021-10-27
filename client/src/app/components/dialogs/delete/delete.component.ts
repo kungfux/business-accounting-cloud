@@ -3,13 +3,9 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-delete',
   templateUrl: './delete.component.html',
-  styleUrls: ['./delete.component.css']
 })
-export class DeleteComponent implements OnInit {
+export class DeleteDialogComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

@@ -21,7 +21,7 @@ export class PropertiesComponent implements OnInit {
   constructor(
     private propertyApi: PropertyApiService,
     private router: Router,
-    private userPreferences: UserPreferencesService,
+    public userPreferences: UserPreferencesService,
     public currency: CurrencyService
   ) {}
 

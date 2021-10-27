@@ -48,8 +48,9 @@ import { ProfileComponent } from './components/pages/users/profile/profile.compo
 import { AuthorizedUserGuard } from './guards/authorized-user-guard.guard';
 import { AdminUserGuard } from './guards/admin-user-guard.guard';
 import { DialogComponent } from './components/dialogs/dialog/dialog.component';
-import { DeleteComponent } from './components/dialogs/delete/delete.component';
+import { DeleteDialogComponent } from './components/dialogs/delete/delete.component';
 import { UserPreferencesService } from './services/userPreferences.service';
+import { AlertDialogComponent } from './components/dialogs/alert/alert.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -148,7 +149,8 @@ const routes: Routes = [
     ChangePasswordComponent,
     ProfileComponent,
     DialogComponent,
-    DeleteComponent,
+    DeleteDialogComponent,
+    AlertDialogComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -185,7 +187,7 @@ const routes: Routes = [
     {
       provide: LOCALE_ID,
       deps: [UserPreferencesService],
-      useFactory: (userPreferences: any) => userPreferences.getLocale(),
+      useFactory: (userPreferences: any) => userPreferences.locale,
     },
   ],
   bootstrap: [AppComponent],

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, ObservableInput, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CompanyApiService } from 'src/app/services/api/company.service';
 import { Company } from 'src/app/services/api/models/company';
+import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Component({
   selector: 'app-companies',
@@ -14,7 +15,11 @@ export class CompaniesComponent implements OnInit {
   isLoading = true;
   pageIndex: number = 1;
 
-  constructor(private companyApi: CompanyApiService, private router: Router) {}
+  constructor(
+    private companyApi: CompanyApiService,
+    private router: Router,
+    public userPreferences: UserPreferencesService
+  ) {}
 
   ngOnInit(): void {
     this.loadData();

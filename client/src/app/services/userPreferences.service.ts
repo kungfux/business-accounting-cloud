@@ -52,6 +52,10 @@ export class UserPreferencesService {
     return this.appUser.companyName;
   }
 
+  get locale(): string {
+    return this.appUser.locale;
+  }
+
   constructor(private localStorage: LocalStorageService) {}
 
   restoreUser() {
@@ -106,10 +110,6 @@ export class UserPreferencesService {
     this.appUser.locale = locale;
     this.saveUserToStorage();
     this.userPreferencesSubject.next(this.appUser);
-  }
-
-  getLocale(): string {
-    return this.appUser.locale;
   }
 
   private saveUserToStorage(): void {
