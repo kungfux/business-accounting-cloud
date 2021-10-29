@@ -47,14 +47,14 @@ export class LoginApiService {
   }
 
   isAuthenticated(): boolean {
-    if (this.userPreferences.id == 0) {
+    if (!this.userPreferences.id) {
       this.userPreferences.restoreUser();
     }
 
     if (
-      this.userPreferences.id != 0 &&
+      this.userPreferences.id &&
       Date.parse(new Date().toUTCString()) <
-        Date.parse(this.userPreferences.tokenExpirationDate.toUTCString())
+        Date.parse(this.userPreferences.tokenExpirationDate!.toUTCString())
     ) {
       this.getUserPreferences();
       this.getCompanyInfo();
@@ -66,13 +66,13 @@ export class LoginApiService {
   }
 
   getCompanyDetails(companyId: number): void {
-    if (companyId != 0) {
+    if (companyId) {
       this.companyApi.getCompany(companyId).subscribe({
         next: (company) => {
           this.userPreferences.setCompany(
-            company.id,
-            company.name,
-            company.logo
+            company.id!,
+            company.name!,
+            company.logo!
           );
         },
       });
@@ -82,7 +82,7 @@ export class LoginApiService {
   private getCompanyInfo(): void {
     let companyId = this.userPreferences.companyId;
 
-    if (companyId == 0) {
+    if (!companyId) {
       // Get any company if no primary
       this.companyApi.getCompanies().subscribe({
         next: (companies) => {
@@ -90,14 +90,14 @@ export class LoginApiService {
             (company) => company.enabled
           );
           if (enabledCompanies.length > 0) {
-            companyId = enabledCompanies[0].id;
+            companyId = enabledCompanies[0].id!;
             this.getCompanyDetails(companyId);
             return;
           }
         },
       });
     } else {
-      this.getCompanyDetails(companyId);
+      this.getCompanyDetails(companyId!);
     }
   }
 
@@ -107,11 +107,11 @@ export class LoginApiService {
 
   private getUserPreferences(): void {
     if (this.userPreferences.id != 0) {
-      this.userApi.getUser(this.userPreferences.id).subscribe({
+      this.userApi.getUser(this.userPreferences.id!).subscribe({
         next: (user) => {
           this.userPreferences.setUserDetails(
-            user.name,
-            user.avatar,
+            user.name!,
+            user.avatar!,
             user.admin
           );
         },

@@ -129,7 +129,7 @@ const routes: Routes = [
     component: ContactsComponent,
     canActivate: [AuthorizedUserGuard],
   },
-  { path: '**', redirectTo: '/dashboard' },
+  { path: '**', redirectTo: 'dashboard' },
 ];
 
 @NgModule({

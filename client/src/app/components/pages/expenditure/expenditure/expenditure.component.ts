@@ -47,14 +47,13 @@ export class ExpenditureComponent implements OnInit {
     const expenditure = new Expenditure({
       id: this.item.id,
       title: this.item.title,
-
       rate: this.item.rate,
       comment: this.item.comment,
       enabled: this.item.enabled,
       companyId: this.userPreferences.companyId,
     });
 
-    if (expenditure.id === 0) {
+    if (!expenditure.id) {
       this.expenditureApi.addExpenditure(expenditure).subscribe({
         next: () => {
           this.navigateToAllExpenditure();
@@ -65,7 +64,7 @@ export class ExpenditureComponent implements OnInit {
       });
     } else {
       this.expenditureApi
-        .updateExpenditure(expenditure.id, expenditure)
+        .updateExpenditure(expenditure.id!, expenditure)
         .subscribe({
           next: () => {
             this.navigateToAllExpenditure();
@@ -79,7 +78,7 @@ export class ExpenditureComponent implements OnInit {
 
   onDeleteRequest() {
     this.isLoading = true;
-    this.expenditureApi.deleteExpenditure(this.item.id).subscribe({
+    this.expenditureApi.deleteExpenditure(this.item.id!).subscribe({
       next: () => {
         this.navigateToAllExpenditure();
       },

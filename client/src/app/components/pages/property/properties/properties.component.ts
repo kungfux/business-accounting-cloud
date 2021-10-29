@@ -32,7 +32,7 @@ export class PropertiesComponent implements OnInit {
   loadData(pageIndex: number = this.pageIndex): void {
     this.isLoading = true;
     this.propertyApi
-      .getProperties(this.userPreferences.companyId, (pageIndex - 1) * 10)
+      .getProperties(this.userPreferences.companyId!, (pageIndex - 1) * 10)
       .subscribe({
         next: (data) => {
           this.data = data;
