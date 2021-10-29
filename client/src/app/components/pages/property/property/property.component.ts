@@ -77,7 +77,7 @@ export class PropertyComponent implements OnInit {
 
   onDeleteRequest() {
     this.isLoading = true;
-    this.propertyApi.deleteProperty(this.item.id).subscribe({
+    this.propertyApi.deleteProperty(this.item.id!).subscribe({
       next: () => {
         this.navigateToAllProperties();
       },

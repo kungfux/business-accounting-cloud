@@ -47,7 +47,7 @@ export class CompanyComponent implements OnInit {
       enabled: this.item.enabled,
     });
 
-    if (company.id === 0) {
+    if (!company.id) {
       this.companyApi.addCompany(company).subscribe({
         next: () => {
           this.navigateToAllCompanies();
@@ -57,7 +57,7 @@ export class CompanyComponent implements OnInit {
         },
       });
     } else {
-      this.companyApi.updateCompany(company.id, company).subscribe({
+      this.companyApi.updateCompany(company.id!, company).subscribe({
         next: () => {
           this.navigateToAllCompanies();
         },
@@ -70,7 +70,7 @@ export class CompanyComponent implements OnInit {
 
   onDeleteRequest() {
     this.isLoading = true;
-    this.companyApi.deleteCompany(this.item.id).subscribe({
+    this.companyApi.deleteCompany(this.item.id!).subscribe({
       next: () => {
         this.navigateToAllCompanies();
       },

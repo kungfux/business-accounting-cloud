@@ -16,7 +16,7 @@ export class ApiService {
     private userPreferences: UserPreferencesService
   ) {
     this.userPreferences.userPreferencesSubject.subscribe(() => {
-      this.setToken(this.userPreferences.token);
+      this.setToken(this.userPreferences.token!);
     });
   }
 

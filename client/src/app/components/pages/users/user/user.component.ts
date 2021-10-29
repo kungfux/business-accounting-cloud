@@ -58,7 +58,7 @@ export class UserComponent implements OnInit {
       enabled: this.item.enabled,
     });
 
-    if (item.id === 0) {
+    if (!item.id) {
       this.userApi.addUser(item).subscribe({
         next: () => {
           this.navigateToAllUsers();
@@ -68,7 +68,7 @@ export class UserComponent implements OnInit {
         },
       });
     } else {
-      this.userApi.updateUser(item.id, item).subscribe({
+      this.userApi.updateUser(item.id!, item).subscribe({
         next: () => {
           this.navigateToAllUsers();
         },
@@ -81,7 +81,7 @@ export class UserComponent implements OnInit {
 
   onDeleteRequest() {
     this.isLoading = true;
-    this.userApi.deleteUser(this.item.id).subscribe({
+    this.userApi.deleteUser(this.item.id!).subscribe({
       next: () => {
         this.navigateToAllUsers();
       },

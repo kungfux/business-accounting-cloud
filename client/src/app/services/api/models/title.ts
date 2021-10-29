@@ -1,10 +1,10 @@
 export class Title {
-  id: number = 0;
-  name: string = '';
-  rate: number = 0;
+  id: number | null = null;
+  name: string | null = null;
+  rate: number | null = null;
   enabled: boolean = true;
-  created: Date = new Date();
-  companyId: number = 0;
+  created: Date | null = null;
+  companyId: number | null = null;
 
   public constructor(init?: Partial<Title>) {
     Object.assign(this, init);

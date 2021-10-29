@@ -110,8 +110,9 @@
       <span *ngIf="!(isHandset$ | async)">{{ title }}</span>
       <span class="spacer"></span>
       <button
-        *ngIf="loggedInUser.id && loggedInUser.companyId"
         mat-button
+        *ngIf="loggedInUser.id && loggedInUser.companyId"
+        [color]="company.name ? 'inherit' : 'warn'"
         (click)="onSwitchCompany()">
         <mat-icon>{{ company.logo || 'warning' }}</mat-icon>
         <span class="mat-button-wrapper">{{
@@ -119,7 +120,11 @@
         }}</span>
       </button>
       <div class="vertical-line" *ngIf="loggedInUser.id"></div>
-      <button *ngIf="loggedInUser.id" mat-button (click)="onProfileClick()">
+      <button
+        *ngIf="loggedInUser.id"
+        mat-button
+        [color]="loggedInUser.name ? 'inherit' : 'warn'"
+        (click)="onProfileClick()">
         <mat-icon>{{ loggedInUser.avatar || 'warning' }}</mat-icon>
         <span class="mat-button-wrapper">{{
           loggedInUser.name || 'Авторизуйтесь'

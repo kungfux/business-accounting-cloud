@@ -32,7 +32,7 @@ export class TitlesComponent implements OnInit {
   loadData(pageIndex: number = this.pageIndex): void {
     this.isLoading = true;
     this.titleApi
-      .getTitles(this.userPreferences.companyId, (pageIndex - 1) * 10)
+      .getTitles(this.userPreferences.companyId!, (pageIndex - 1) * 10)
       .subscribe({
         next: (data) => {
           this.data = data;

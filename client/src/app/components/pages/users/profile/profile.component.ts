@@ -47,11 +47,11 @@ export class ProfileComponent implements OnInit {
   onSaveRequest() {
     this.isLoading = true;
     this.userPreferences.setUserSettings(this.locale);
-    this.userApi.updateUser(this.userPreferences.id, this.item).subscribe({
+    this.userApi.updateUser(this.userPreferences.id!, this.item).subscribe({
       next: () => {
         this.userPreferences.setUserDetails(
-          this.item.name,
-          this.item.avatar,
+          this.item.name!,
+          this.item.avatar!,
           this.item.admin
         );
         this.navigateToDashboard();

@@ -42,13 +42,13 @@ export class NavigationComponent implements OnInit {
     this.userPreferences.userPreferencesSubject.subscribe((user) => {
       this.loggedInUser = user;
 
-      if (this.loggedInUser.id == 0) {
+      if (!this.loggedInUser.id) {
         // If token is expired, redirect to login page
         this.router.navigate(['/login']);
         return;
       }
 
-      if (this.loggedInUser.companyId != 0) {
+      if (this.loggedInUser.companyId) {
         this.company = new Company({
           name: this.loggedInUser.companyName,
           logo: this.loggedInUser.companyLogo,
@@ -73,7 +73,7 @@ export class NavigationComponent implements OnInit {
 
   authenticate(): void {
     if (this.login.isAuthenticated()) {
-      if (this.router.url === '') {
+      if (this.router.url === '' || this.router.url === '/') {
         this.router.navigate(['/dashboard']);
       }
     } else {

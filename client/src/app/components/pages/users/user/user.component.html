@@ -5,7 +5,7 @@
   [selectedItem]="item"
   [deleteVisible]="!!item?.id"
   [saveEnabled]="
-    item.id == 0
+    !item.id
       ? !!item.login &&
         item.login.length > 0 &&
         !!item.password &&
@@ -34,7 +34,7 @@
           <mat-label>Логин</mat-label>
           <input matInput [(ngModel)]="item.login" required />
         </mat-form-field>
-        <mat-form-field appearance="fill" *ngIf="item && item.id == 0">
+        <mat-form-field appearance="fill" *ngIf="item && !item.id">
           <mat-label>Пароль</mat-label>
           <input
             matInput

@@ -22,6 +22,6 @@ export class AuthorizedUserGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.userPreferences.id > 0;
+    return !!this.userPreferences.id;
   }
 }

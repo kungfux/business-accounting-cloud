@@ -1,11 +1,11 @@
 export class Expenditure {
-  id: number = 0;
-  title: string = '';
-  rate: number = 0;
-  comment: string = '';
+  id: number | null = null;
+  title: string | null = null;
+  rate: number | null = null;
+  comment: string | null = null;
   enabled: boolean = true;
-  created?: Date;
-  companyId: number = 0;
+  created: Date | null = null;
+  companyId: number | null = null;
 
   public constructor(init?: Partial<Expenditure>) {
     Object.assign(this, init);

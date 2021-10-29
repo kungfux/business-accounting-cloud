@@ -52,7 +52,7 @@ export class TitleComponent implements OnInit {
       companyId: this.userPreferences.companyId,
     });
 
-    if (title.id === 0) {
+    if (!title.id) {
       this.titleApi.addTitle(title).subscribe({
         next: () => {
           this.navigateToAllTitles();
@@ -62,7 +62,7 @@ export class TitleComponent implements OnInit {
         },
       });
     } else {
-      this.titleApi.updateTitle(title.id, title).subscribe({
+      this.titleApi.updateTitle(title.id!, title).subscribe({
         next: () => {
           this.navigateToAllTitles();
         },
@@ -75,7 +75,7 @@ export class TitleComponent implements OnInit {
 
   onDeleteRequest() {
     this.isLoading = true;
-    this.titleApi.deleteTitle(this.item.id).subscribe({
+    this.titleApi.deleteTitle(this.item.id!).subscribe({
       next: () => {
         this.navigateToAllTitles();
       },

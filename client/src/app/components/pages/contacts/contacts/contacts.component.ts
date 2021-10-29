@@ -41,7 +41,7 @@ export class ContactsComponent implements OnInit {
   loadData(pageIndex: number = this.pageIndex): void {
     this.isLoading = true;
     this.contactApi
-      .getContacts(this.userPreferences.companyId, (pageIndex - 1) * 10)
+      .getContacts(this.userPreferences.companyId!, (pageIndex - 1) * 10)
       .subscribe({
         next: (data) => {
           this.data = data;

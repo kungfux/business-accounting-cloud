@@ -10,45 +10,45 @@ export class UserPreferencesService {
   userPreferencesSubject = new Subject<AppUser>();
 
   private appUser = new AppUser();
-  private storageUserKey: string = 'app-user';
+  private storageUserKey: string = 'Preferences';
 
-  get id(): number {
+  get id() {
     return this.appUser.id;
   }
 
-  get login(): string {
+  get login() {
     return this.appUser.login;
   }
 
-  get token(): string {
+  get token() {
     return this.appUser.token;
   }
 
-  get tokenExpirationDate(): Date {
+  get tokenExpirationDate() {
     return this.appUser.tokenExpirationDate;
   }
 
-  get name(): string {
+  get name() {
     return this.appUser.name;
   }
 
-  get avatar(): string {
+  get avatar() {
     return this.appUser.avatar;
   }
 
-  get admin(): boolean {
+  get admin() {
     return this.appUser.admin;
   }
 
-  get companyId(): number {
+  get companyId() {
     return this.appUser.companyId;
   }
 
-  get companyLogo(): string {
+  get companyLogo() {
     return this.appUser.companyLogo;
   }
 
-  get companyName(): string {
+  get companyName() {
     return this.appUser.companyName;
   }
 
@@ -113,6 +113,8 @@ export class UserPreferencesService {
   }
 
   private saveUserToStorage(): void {
+    // TODO: Remove next time
+    this.localStorage.remove('app-user');
     this.localStorage.set(this.storageUserKey, this.getUserJSON());
   }
 

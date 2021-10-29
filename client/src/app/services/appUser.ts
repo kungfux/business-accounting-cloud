@@ -1,13 +1,13 @@
 export class AppUser {
-  id: number = 0;
-  login: string = '';
-  token: string = '';
-  tokenExpirationDate: Date = new Date();
-  name: string = '';
-  avatar: string = '';
+  id: number | null = null;
+  login: string | null = null;
+  token: string | null = null;
+  tokenExpirationDate: Date | null = null;
+  name: string | null = null;
+  avatar: string | null = null;
   admin: boolean = false;
-  companyId: number = 0;
-  companyLogo: string = '';
-  companyName: string = '';
+  companyId: number | null = null;
+  companyLogo: string | null = null;
+  companyName: string | null = null;
   locale: string = 'en-US';
 }
