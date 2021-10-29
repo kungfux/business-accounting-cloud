@@ -24,11 +24,13 @@ CREATE TABLE IF NOT EXISTS CONTACTS (
  [cellphone]  VARCHAR,
  [email]      VARCHAR,
  [address]    VARCHAR,
+ [passport]   VARCHAR,
  [dob]        DATE,
  [note]       VARCHAR,
  [hired]      DATE,
  [fired]      DATE,
- [picture]    VARCHAR,
+ [photo]      VARCHAR,
+ [avatar]     VARCHAR,
  [created]    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
  [company_id] INTEGER NOT NULL
               REFERENCES COMPANIES(id)

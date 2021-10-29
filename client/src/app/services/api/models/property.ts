@@ -5,7 +5,7 @@ export class Property {
   cost: number = 0;
   comment: string = '';
   enabled: boolean = true;
-  created: Date = new Date();
+  created?: Date;
   companyId: number = 0;
 
   public constructor(init?: Partial<Property>) {

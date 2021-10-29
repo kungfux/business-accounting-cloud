@@ -36,29 +36,29 @@ import { CompaniesComponent } from './components/pages/companies/companies/compa
 import { CompanyComponent } from './components/pages/companies/company/company.component';
 import { ToolbarComponent } from './components/common/toolbar/toolbar.component';
 import { SwitchComponent } from './components/pages/companies/switch/switch.component';
-import { TitlesComponent } from './components/pages/contacts/titles/titles/titles.component';
-import { TitleComponent } from './components/pages/contacts/titles/title/title.component';
+import { TitlesComponent } from './components/pages/titles/titles/titles.component';
+import { TitleComponent } from './components/pages/titles/title/title.component';
 import { PropertyComponent } from './components/pages/property/property/property.component';
 import { PropertiesComponent } from './components/pages/property/properties/properties.component';
 import { ExpenditureComponent } from './components/pages/expenditure/expenditure/expenditure.component';
 import { ExpendituresComponent } from './components/pages/expenditure/expenditures/expenditures.component';
 import { ChangePasswordComponent } from './components/pages/users/change-password/change-password.component';
 import { ProfileComponent } from './components/pages/users/profile/profile.component';
-
-import { AuthorizedUserGuard } from './guards/authorized-user-guard.guard';
-import { AdminUserGuard } from './guards/admin-user-guard.guard';
 import { DialogComponent } from './components/dialogs/dialog/dialog.component';
 import { DeleteDialogComponent } from './components/dialogs/delete/delete.component';
 import { UserPreferencesService } from './services/userPreferences.service';
 import { AlertDialogComponent } from './components/dialogs/alert/alert.component';
+import { ContactsComponent } from './components/pages/contacts/contacts/contacts.component';
+import { AuthorizedUserGuard } from './guards/authorized-user-guard.guard';
+import { AdminUserGuard } from './guards/admin-user-guard.guard';
 
 const routes: Routes = [
+  { path: 'login', component: LoginComponent },
   {
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [AuthorizedUserGuard],
   },
-  { path: 'login', component: LoginComponent },
   {
     path: 'users',
     component: UsersComponent,
@@ -80,16 +80,6 @@ const routes: Routes = [
     canActivate: [AuthorizedUserGuard],
   },
   {
-    path: 'titles',
-    component: TitlesComponent,
-    canActivate: [AuthorizedUserGuard],
-  },
-  {
-    path: 'titles/:id',
-    component: TitleComponent,
-    canActivate: [AuthorizedUserGuard],
-  },
-  {
     path: 'companies',
     component: CompaniesComponent,
     canActivate: [AuthorizedUserGuard, AdminUserGuard],
@@ -103,6 +93,16 @@ const routes: Routes = [
     path: 'companies/:id',
     component: CompanyComponent,
     canActivate: [AuthorizedUserGuard, AdminUserGuard],
+  },
+  {
+    path: 'titles',
+    component: TitlesComponent,
+    canActivate: [AuthorizedUserGuard],
+  },
+  {
+    path: 'titles/:id',
+    component: TitleComponent,
+    canActivate: [AuthorizedUserGuard],
   },
   {
     path: 'properties',
@@ -122,6 +122,11 @@ const routes: Routes = [
   {
     path: 'expenditures/:id',
     component: ExpenditureComponent,
+    canActivate: [AuthorizedUserGuard],
+  },
+  {
+    path: 'contacts',
+    component: ContactsComponent,
     canActivate: [AuthorizedUserGuard],
   },
   { path: '**', redirectTo: '/dashboard' },
@@ -150,6 +155,7 @@ const routes: Routes = [
     DialogComponent,
     DeleteDialogComponent,
     AlertDialogComponent,
+    ContactsComponent,
   ],
   imports: [
     BrowserAnimationsModule,

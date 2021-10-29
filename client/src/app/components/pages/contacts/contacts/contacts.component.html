@@ -1,0 +1,40 @@
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+<app-toolbar
+  title="Сотрудники"
+  [mode]="toolBarMode"
+  (createRequest)="onCreateRequest()"></app-toolbar>
+
+<div class="page-content">
+  <mat-card
+    *ngFor="let contact of data"
+    (click)="selectItem(contact)"
+    [class.selected]="selectedItem == contact">
+    <img
+      mat-card-image
+      src="{{ contact.avatar }}"
+      [ngClass]="(isHandset$ | async) ? 'small' : 'big'" />
+    <mat-card-header>
+      <mat-card-title [ngClass]="(isHandset$ | async) ? 'small' : 'big'">{{
+        contact.name
+      }}</mat-card-title>
+      <mat-card-subtitle [ngClass]="(isHandset$ | async) ? 'small' : 'big'">{{
+        contact.title || '&zwnj;'
+      }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+  <div class="paginator line-break">
+    <button
+      mat-icon-button
+      (click)="loadData(pageIndex - 1)"
+      [disabled]="pageIndex == 1 || isLoading">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <span class="mat-small">Страница: {{ pageIndex }}</span>
+    <button
+      mat-icon-button
+      (click)="loadData(pageIndex + 1)"
+      [disabled]="data.length < 10 || isLoading">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+</div>
