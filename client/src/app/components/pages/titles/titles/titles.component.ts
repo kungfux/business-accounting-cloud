@@ -9,7 +9,7 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
 @Component({
   selector: 'app-titles',
   templateUrl: './titles.component.html',
-  styleUrls: ['../../../listPage.css'],
+  styleUrls: ['../../listPage.css'],
 })
 export class TitlesComponent implements OnInit {
   data: Title[] = [];

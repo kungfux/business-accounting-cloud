@@ -3,7 +3,7 @@ export class Company {
   name: string = '';
   logo: string = '';
   enabled: boolean = false;
-  created: Date = new Date();
+  created?: Date;
 
   public constructor(init?: Partial<Company>) {
     Object.assign(this, init);

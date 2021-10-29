@@ -39,20 +39,20 @@
       <a
         mat-list-item
         (click)="drawer.toggle()"
+        routerLink="contacts"
+        [class.active]="activeRoute.startsWith('/contacts')">
+        <mat-icon>badge</mat-icon>
+        Сотрудники
+      </a>
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
         routerLink="reports"
         [class.active]="activeRoute.startsWith('/reports')">
         <mat-icon>pie_chart</mat-icon>
         Отчеты
       </a>
       <div mat-subheader>Каталоги</div>
-      <a
-        mat-list-item
-        (click)="drawer.toggle()"
-        routerLink="contacts"
-        [class.active]="activeRoute.startsWith('/contacts')">
-        <mat-icon>badge</mat-icon>
-        Сотрудники
-      </a>
       <a
         mat-list-item
         (click)="drawer.toggle()"
@@ -120,8 +120,10 @@
       </button>
       <div class="vertical-line" *ngIf="loggedInUser.id"></div>
       <button *ngIf="loggedInUser.id" mat-button (click)="onProfileClick()">
-        <mat-icon>{{ loggedInUser.avatar }}</mat-icon>
-        <span class="mat-button-wrapper">{{ loggedInUser.name }}</span>
+        <mat-icon>{{ loggedInUser.avatar || 'warning' }}</mat-icon>
+        <span class="mat-button-wrapper">{{
+          loggedInUser.name || 'Авторизуйтесь'
+        }}</span>
       </button>
       <div *ngIf="isHandset$ | async; then iconLogout; else buttonLogout"></div>
       <ng-template #iconLogout
