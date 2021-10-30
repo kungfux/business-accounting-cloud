@@ -17,6 +17,7 @@ var schema = new BaseSchema({
         note: { type: 'string' },
         hired: { type: 'string' },
         fired: { type: 'string' },
+        firedNote: { type: 'string' },
         photo: { type: 'string' },
         title: { type: 'string' },
         companyId: { type: 'integer', minLength: 1 }
@@ -32,6 +33,7 @@ var schema = new BaseSchema({
         note: { type: 'string' },
         hired: { type: 'string' },
         fired: { type: 'string' },
+        firedNote: { type: 'string' },
         photo: { type: 'string' },
         title: { type: 'string' },
     })

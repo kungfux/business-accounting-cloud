@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS CONTACTS (
  [note]       VARCHAR,
  [hired]      DATE,
  [fired]      DATE,
+ [fired_note] VARCHAR,
  [photo]      VARCHAR,
  [created]    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
  [company_id] INTEGER NOT NULL

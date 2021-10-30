@@ -7,16 +7,17 @@
   [saveEnabled]="!!item.name && !isLoading"
   [deleteEnabled]="!isLoading"
   (saveRequest)="onSaveRequest()"
-  (deleteRequest)="onDeleteRequest()"></app-toolbar>
+  (deleteRequest)="onDeleteRequest()"
+  [customButton]="choosePhotoButton"
+  (customRequest)="onChoosePhotoRequest()"></app-toolbar>
 
 <div class="page-content">
   <mat-card class="card">
     <mat-card-content>
-      <div class="section-small">
+      <div class="section-small img">
         <img
           mat-card-image
-          src="{{ item.photo || '/assets/photo-placeholder.jpg' }}"
-          [ngClass]="(isHandset$ | async) ? 'small' : 'big'" />
+          src="{{ item.photo || '/assets/photo-placeholder.jpg' }}" />
       </div>
       <div class="section-big">
         <div class="column-container">
@@ -24,22 +25,6 @@
             <mat-label>Фамилия, имя и отчество</mat-label>
             <input matInput [(ngModel)]="item.name" required />
           </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Паспортные данные</mat-label>
-            <textarea matInput [(ngModel)]="item.passport"></textarea>
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Адрес регистрации</mat-label>
-            <textarea matInput [(ngModel)]="item.address"></textarea>
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Заметки</mat-label>
-            <textarea matInput [(ngModel)]="item.note"></textarea>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="section-small">
-        <div class="column-container">
           <mat-form-field appearance="fill">
             <mat-label>Должность</mat-label>
             <mat-select [(ngModel)]="item.title">
@@ -61,6 +46,38 @@
             <mat-label>Электронная почта</mat-label>
             <input matInput [(ngModel)]="item.email" />
           </mat-form-field>
+          <div class="calendars">
+            <mat-form-field appearance="fill">
+              <mat-label>Дата принятия</mat-label>
+              <input
+                matInput
+                [(ngModel)]="item.hired"
+                [matDatepicker]="hired" />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="hired"></mat-datepicker-toggle>
+              <mat-datepicker #hired></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Дата увольнения</mat-label>
+              <input
+                matInput
+                [(ngModel)]="item.fired"
+                [matDatepicker]="fired" />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="fired"></mat-datepicker-toggle>
+              <mat-datepicker #fired></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <mat-form-field appearance="fill">
+            <mat-label>Причина увольнения</mat-label>
+            <input matInput [(ngModel)]="item.firedNote" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="section-big">
+        <div class="column-container">
           <mat-form-field appearance="fill">
             <mat-label>Дата рождения</mat-label>
             <input matInput [(ngModel)]="item.dob" [matDatepicker]="dob" />
@@ -70,23 +87,21 @@
             <mat-datepicker #dob></mat-datepicker>
           </mat-form-field>
           <mat-form-field appearance="fill">
-            <mat-label>Дата принятия на работу</mat-label>
-            <input matInput [(ngModel)]="item.hired" [matDatepicker]="hired" />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="hired"></mat-datepicker-toggle>
-            <mat-datepicker #hired></mat-datepicker>
+            <mat-label>Паспортные данные</mat-label>
+            <textarea matInput [(ngModel)]="item.passport"></textarea>
           </mat-form-field>
           <mat-form-field appearance="fill">
-            <mat-label>Дата увольнения</mat-label>
-            <input matInput [(ngModel)]="item.fired" [matDatepicker]="fired" />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="fired"></mat-datepicker-toggle>
-            <mat-datepicker #fired></mat-datepicker>
+            <mat-label>Адрес регистрации</mat-label>
+            <textarea matInput [(ngModel)]="item.address"></textarea>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Заметки</mat-label>
+            <textarea matInput [(ngModel)]="item.note"></textarea>
           </mat-form-field>
         </div>
       </div>
     </mat-card-content>
   </mat-card>
 </div>
+
+<input hidden #file type="file" id="file" (change)="handleFileInput($event)" />
