@@ -25,6 +25,7 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeRU from '@angular/common/locales/ru';
 import localeUA from '@angular/common/locales/ru-UA';
+import { ImageToDataUrlModule } from 'ngx-image2dataurl';
 
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
@@ -193,6 +194,7 @@ const routes: Routes = [
     MatTooltipModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes, { enableTracing: false }),
+    ImageToDataUrlModule,
   ],
   providers: [
     {

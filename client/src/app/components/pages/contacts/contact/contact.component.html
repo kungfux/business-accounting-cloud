@@ -104,4 +104,9 @@
   </mat-card>
 </div>
 
-<input hidden #file type="file" id="file" (change)="handleFileInput($event)" />
+<input
+  hidden
+  #imageUpload
+  type="file"
+  [imageToDataUrl]="options"
+  (imageSelected)="selected($event)" />
