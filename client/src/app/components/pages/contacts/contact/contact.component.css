@@ -24,6 +24,19 @@ mat-card-content,
   }
 }
 
+div.img {
+  padding: 16px 16px;
+}
+
 img {
-  padding: 15px 0px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+  background: transparent;
+}
+
+div.calendars mat-form-field {
+  width: 49%;
+}
+
+div.calendars mat-form-field:nth-child(1) {
+  padding-right: 2%;
 }

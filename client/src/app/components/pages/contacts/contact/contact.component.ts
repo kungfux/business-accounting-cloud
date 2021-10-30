@@ -1,9 +1,12 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component';
+import {
+  CustomButton,
+  ToolBarMode,
+} from 'src/app/components/common/toolbar/toolbar.component';
 import { ContactApiService } from 'src/app/services/api/contact.service';
 import { Contact } from 'src/app/services/api/models/contact';
 import { Title } from 'src/app/services/api/models/title';
@@ -22,12 +25,21 @@ export class ContactComponent implements OnInit {
   toolBarMode: ToolBarMode = ToolBarMode.Details;
   isLoading = true;
 
+  fileToUpload: File | null = null;
+
+  choosePhotoButton: CustomButton = new CustomButton(
+    'Выбрать фото',
+    'photo_camera'
+  );
+
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
       map((result) => result.matches),
       shareReplay()
     );
+
+  @ViewChild('file') fileInput: any;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -77,6 +89,8 @@ export class ContactComponent implements OnInit {
       note: this.item.note,
       hired: this.item.hired,
       fired: this.item.fired,
+      firedNote: this.item.firedNote,
+      photo: this.item.photo,
       title: this.item.title,
       companyId: this.userPreferences.companyId,
     });
@@ -112,6 +126,24 @@ export class ContactComponent implements OnInit {
         this.isLoading = false;
       },
     });
+  }
+
+  handleFileInput(event: any | null) {
+    const selectedFile = event?.target.files[0];
+    if (selectedFile.type && !selectedFile.type.startsWith('image/')) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      this.item.photo = e?.target?.result as string;
+    };
+
+    reader.readAsDataURL(selectedFile);
+  }
+
+  onChoosePhotoRequest() {
+    this.fileInput.nativeElement.click();
   }
 
   private navigateToAllContacts(): void {

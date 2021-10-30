@@ -10,6 +10,7 @@ export class Contact {
   note: string | null = null;
   hired: Date | null = null;
   fired: Date | null = null;
+  firedNote: string | null = null;
   photo: string | null = null;
   title: string | null = null;
   companyId?: number | null = null;
