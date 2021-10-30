@@ -66,7 +66,7 @@ module.exports = async function (fastify, opts) {
         async function (request, reply) {
             const [result] = await this.db.query(
                 'insert into contacts (name,phone,cellphone,email,address,passport,dob,note,hired,fired,photo,avatar,title_id,company_id) ' +
-                'values(?,?,?,?,?,?,?,?,?,?,?,(select id from titles where name = ?),?)',
+                'values(?,?,?,?,?,?,?,?,?,?,?,?,(select id from titles where name = ?),?)',
                 {
                     replacements: [
                         request.body.name,

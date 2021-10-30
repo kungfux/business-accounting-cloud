@@ -1,0 +1,29 @@
+mat-card {
+  flex: auto;
+}
+
+mat-card-content,
+.page-content {
+  display: flex;
+}
+
+.section-small {
+  flex: 1;
+  padding: 0 16px;
+}
+
+.section-big {
+  flex: 2;
+  padding: 0 16px;
+}
+
+@media (max-width: 768px) {
+  mat-card-content,
+  .page-content {
+    flex-direction: column;
+  }
+}
+
+img {
+  padding: 15px 0px;
+}

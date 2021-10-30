@@ -2,7 +2,9 @@
 <app-toolbar
   title="Сотрудники"
   [mode]="toolBarMode"
-  (createRequest)="onCreateRequest()"></app-toolbar>
+  [selectedItem]="selectedItem"
+  (createRequest)="onCreateRequest()"
+  (editRequest)="onEditRequest()"></app-toolbar>
 
 <div class="page-content">
   <mat-card
@@ -11,7 +13,7 @@
     [class.selected]="selectedItem == contact">
     <img
       mat-card-image
-      src="{{ contact.avatar }}"
+      src="{{ contact.avatar || '/assets/image-placeholder.jpg' }}"
       [ngClass]="(isHandset$ | async) ? 'small' : 'big'" />
     <mat-card-header>
       <mat-card-title [ngClass]="(isHandset$ | async) ? 'small' : 'big'">{{
