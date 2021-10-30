@@ -73,7 +73,7 @@ export class NavigationComponent implements OnInit {
 
   authenticate(): void {
     if (this.login.isAuthenticated()) {
-      if (this.router.url === '' || this.router.url === '/') {
+      if (this.router.url !== '/') {
         this.router.navigate(['/dashboard']);
       }
     } else {

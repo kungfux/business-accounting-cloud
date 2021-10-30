@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
@@ -51,6 +53,7 @@ import { AlertDialogComponent } from './components/dialogs/alert/alert.component
 import { ContactsComponent } from './components/pages/contacts/contacts/contacts.component';
 import { AuthorizedUserGuard } from './guards/authorized-user-guard.guard';
 import { AdminUserGuard } from './guards/admin-user-guard.guard';
+import { ContactComponent } from './components/pages/contacts/contact/contact.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -129,6 +132,11 @@ const routes: Routes = [
     component: ContactsComponent,
     canActivate: [AuthorizedUserGuard],
   },
+  {
+    path: 'contacts/:id',
+    component: ContactComponent,
+    canActivate: [AuthorizedUserGuard],
+  },
   { path: '**', redirectTo: 'dashboard' },
 ];
 
@@ -156,6 +164,7 @@ const routes: Routes = [
     DeleteDialogComponent,
     AlertDialogComponent,
     ContactsComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -166,6 +175,8 @@ const routes: Routes = [
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatDialogModule,
     MatDividerModule,
     MatExpansionModule,
@@ -194,6 +205,7 @@ const routes: Routes = [
       deps: [UserPreferencesService],
       useFactory: (userPreferences: any) => userPreferences.locale,
     },
+    MatDatepickerModule,
   ],
   bootstrap: [AppComponent],
 })
