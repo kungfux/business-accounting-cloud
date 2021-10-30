@@ -30,7 +30,6 @@ CREATE TABLE IF NOT EXISTS CONTACTS (
  [hired]      DATE,
  [fired]      DATE,
  [photo]      VARCHAR,
- [avatar]     VARCHAR,
  [created]    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
  [company_id] INTEGER NOT NULL
               REFERENCES COMPANIES(id)
