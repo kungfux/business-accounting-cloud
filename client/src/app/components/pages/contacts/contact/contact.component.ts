@@ -13,6 +13,7 @@ import { Title } from 'src/app/services/api/models/title';
 import { TitleApiService } from 'src/app/services/api/title.service';
 import { CurrencyService } from 'src/app/services/converters/currency.service';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
+import { Options, ImageResult } from 'ngx-image2dataurl';
 
 @Component({
   selector: 'app-contact',
@@ -24,8 +25,6 @@ export class ContactComponent implements OnInit {
   titles?: Title[];
   toolBarMode: ToolBarMode = ToolBarMode.Details;
   isLoading = true;
-
-  fileToUpload: File | null = null;
 
   choosePhotoButton: CustomButton = new CustomButton(
     'Выбрать фото',
@@ -39,7 +38,15 @@ export class ContactComponent implements OnInit {
       shareReplay()
     );
 
-  @ViewChild('file') fileInput: any;
+  options: Options = {
+    resize: {
+      maxHeight: 500,
+      maxWidth: 750,
+    },
+    allowedExtensions: ['JPG', 'PnG'],
+  };
+
+  @ViewChild('imageUpload') imageUpload: any;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -128,22 +135,15 @@ export class ContactComponent implements OnInit {
     });
   }
 
-  handleFileInput(event: any | null) {
-    const selectedFile = event?.target.files[0];
-    if (selectedFile.type && !selectedFile.type.startsWith('image/')) {
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      this.item.photo = e?.target?.result as string;
-    };
-
-    reader.readAsDataURL(selectedFile);
+  selected(imageResult: ImageResult) {
+    if (imageResult.error) alert(imageResult.error);
+    this.item.photo =
+      (imageResult.resized && imageResult.resized.dataURL) ||
+      imageResult.dataURL!;
   }
 
   onChoosePhotoRequest() {
-    this.fileInput.nativeElement.click();
+    this.imageUpload.nativeElement.click();
   }
 
   private navigateToAllContacts(): void {
