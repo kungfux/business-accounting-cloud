@@ -65,8 +65,8 @@ module.exports = async function (fastify, opts) {
         { schema: schemas.insertOne },
         async function (request, reply) {
             const [result] = await this.db.query(
-                'insert into contacts (name,phone,cellphone,email,address,passport,dob,note,hired,fired,photo,avatar,title_id,company_id) ' +
-                'values(?,?,?,?,?,?,?,?,?,?,?,?,(select id from titles where name = ?),?)',
+                'insert into contacts (name,phone,cellphone,email,address,passport,dob,note,hired,fired,photo,title_id,company_id) ' +
+                'values(?,?,?,?,?,?,?,?,?,?,?,(select id from titles where name = ?),?)',
                 {
                     replacements: [
                         request.body.name,
@@ -80,7 +80,6 @@ module.exports = async function (fastify, opts) {
                         request.body.hired,
                         request.body.fired,
                         request.body.photo,
-                        request.body.avatar,
                         request.body.title,
                         request.body.companyId],
                     type: QueryTypes.INSERT
@@ -99,7 +98,7 @@ module.exports = async function (fastify, opts) {
         async function (request, reply) {
             const [, metadata] = await this.db.query(
                 'update contacts set name=?,phone=?,cellphone=?,email=?,address=?,passport=?,dob=?,note=?,hired=?,fired=?,' +
-                'photo=?,avatar=?,title_id=(select titles.id from titles where titles.name=?) where id=?',
+                'photo=?,title_id=(select titles.id from titles where titles.name=?) where id=?',
                 {
                     replacements: [
                         request.body.name,
@@ -113,7 +112,6 @@ module.exports = async function (fastify, opts) {
                         request.body.hired,
                         request.body.fired,
                         request.body.photo,
-                        request.body.avatar,
                         request.body.title,
                         request.params.id],
                     type: QueryTypes.UPDATE

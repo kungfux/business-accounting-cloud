@@ -18,7 +18,6 @@ var schema = new BaseSchema({
         hired: { type: 'string' },
         fired: { type: 'string' },
         photo: { type: 'string' },
-        avatar: { type: 'string' },
         title: { type: 'string' },
         companyId: { type: 'integer', minLength: 1 }
     },
@@ -34,7 +33,6 @@ var schema = new BaseSchema({
         hired: { type: 'string' },
         fired: { type: 'string' },
         photo: { type: 'string' },
-        avatar: { type: 'string' },
         title: { type: 'string' },
     })
 

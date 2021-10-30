@@ -37,7 +37,6 @@ export class ContactApiService {
       hired: contact.hired,
       fired: contact.fired,
       photo: contact.photo,
-      avatar: contact.avatar,
       title: contact.title,
       companyId: contact.companyId,
     });
@@ -56,7 +55,6 @@ export class ContactApiService {
       hired: contact.hired,
       fired: contact.fired,
       photo: contact.photo,
-      avatar: contact.avatar,
       title: contact.title,
     });
   }
