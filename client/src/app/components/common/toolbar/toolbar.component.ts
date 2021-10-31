@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
@@ -10,7 +10,7 @@ import { DialogComponent } from '../../dialogs/dialog/dialog.component';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.css'],
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent {
   @Input() isLoading: boolean = true;
   @Input() selectedItem: any | null = null;
   @Input() title: string = '';
@@ -38,8 +38,6 @@ export class ToolbarComponent implements OnInit {
     private location: Location,
     private dialog: DialogComponent
   ) {}
-
-  ngOnInit(): void {}
 
   goBack(): void {
     this.location.back();

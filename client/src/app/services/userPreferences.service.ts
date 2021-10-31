@@ -56,6 +56,10 @@ export class UserPreferencesService {
     return this.appUser.locale;
   }
 
+  get limit(): number {
+    return this.appUser.limit;
+  }
+
   constructor(private localStorage: LocalStorageService) {}
 
   restoreUser() {
@@ -69,6 +73,7 @@ export class UserPreferencesService {
       );
       this.appUser.companyId = user.companyId;
       this.appUser.locale = user.locale;
+      this.appUser.limit = user.limit;
       this.userPreferencesSubject.next(this.appUser);
     }
   }
@@ -97,8 +102,9 @@ export class UserPreferencesService {
     this.saveUserToStorage();
   }
 
-  setUserSettings(locale: string): void {
+  setUserSettings(locale: string, limit: number): void {
     this.appUser.locale = locale;
+    this.appUser.limit = limit;
     this.saveUserToStorage();
   }
 
@@ -125,6 +131,7 @@ export class UserPreferencesService {
       tokenExpirationDate: this.appUser.tokenExpirationDate,
       companyId: this.appUser.companyId,
       locale: this.appUser.locale,
+      limit: this.appUser.limit,
     });
   }
 }

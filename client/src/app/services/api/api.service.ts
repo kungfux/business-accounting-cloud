@@ -10,6 +10,7 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
 })
 export class ApiService {
   private url = `${environment.apiUrl}/api`;
+  private limit: number = 10;
 
   constructor(
     private http: HttpClient,
@@ -17,6 +18,7 @@ export class ApiService {
   ) {
     this.userPreferences.userPreferencesSubject.subscribe(() => {
       this.setToken(this.userPreferences.token!);
+      this.limit = userPreferences.limit;
     });
   }
 
@@ -33,6 +35,7 @@ export class ApiService {
     params?: any
   ): Observable<T> {
     const querystring = {
+      limit: this.limit,
       ...(companyId && { companyId: companyId }),
       ...(offset && { offset: offset }),
       ...params,
