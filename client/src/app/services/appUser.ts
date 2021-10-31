@@ -10,4 +10,5 @@ export class AppUser {
   companyLogo: string | null = null;
   companyName: string | null = null;
   locale: string = 'en-US';
+  limit: number = 10;
 }

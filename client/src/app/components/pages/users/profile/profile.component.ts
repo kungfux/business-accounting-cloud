@@ -6,6 +6,7 @@ import {
 } from 'src/app/components/common/toolbar/toolbar.component';
 import { User } from 'src/app/services/api/models/user';
 import { UserApiService } from 'src/app/services/api/user.service';
+import { AppUser } from 'src/app/services/appUser';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Component({
@@ -15,7 +16,7 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
 })
 export class ProfileComponent implements OnInit {
   item: User = new User();
-  locale: string = '';
+  appUser: AppUser = new AppUser();
   toolBarMode: ToolBarMode = ToolBarMode.Details;
   isLoading = true;
   changePasswordButton: CustomButton = new CustomButton(
@@ -41,12 +42,16 @@ export class ProfileComponent implements OnInit {
         },
       });
     }
-    this.locale = this.userPreferences.locale;
+    this.appUser.locale = this.userPreferences.locale;
+    this.appUser.limit = this.userPreferences.limit;
   }
 
   onSaveRequest() {
     this.isLoading = true;
-    this.userPreferences.setUserSettings(this.locale);
+    this.userPreferences.setUserSettings(
+      this.appUser.locale,
+      this.appUser.limit
+    );
     this.userApi.updateUser(this.userPreferences.id!, this.item).subscribe({
       next: () => {
         this.userPreferences.setUserDetails(

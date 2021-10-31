@@ -55,11 +55,18 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Формат даты, времени и денежной единицы</mat-label>
-          <mat-select [(value)]="locale">
+          <mat-select [(value)]="appUser.locale">
             <mat-option [value]="'ru'"> Российская Федерация </mat-option>
             <mat-option [value]="'en-US'"> США </mat-option>
             <mat-option [value]="'ru-UA'"> Украина </mat-option>
           </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label
+            >Количество записей на странице (таблицы, списки)</mat-label
+          >
+          <input matInput type="number" [(ngModel)]="appUser.limit" />
         </mat-form-field>
       </div>
     </mat-card-content>

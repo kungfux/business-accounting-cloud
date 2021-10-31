@@ -200,7 +200,9 @@ const routes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes, { enableTracing: false }),
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration: 'enabled',
+    }),
     ImageToDataUrlModule,
   ],
   providers: [
