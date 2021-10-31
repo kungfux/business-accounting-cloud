@@ -52,12 +52,17 @@ import { DeleteDialogComponent } from './components/dialogs/delete/delete.compon
 import { UserPreferencesService } from './services/userPreferences.service';
 import { AlertDialogComponent } from './components/dialogs/alert/alert.component';
 import { ContactsComponent } from './components/pages/contacts/contacts/contacts.component';
+import { NotAuthorizedUserGuard } from './guards/not-authorized-user-guard';
 import { AuthorizedUserGuard } from './guards/authorized-user-guard.guard';
 import { AdminUserGuard } from './guards/admin-user-guard.guard';
 import { ContactComponent } from './components/pages/contacts/contact/contact.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [NotAuthorizedUserGuard],
+  },
   {
     path: 'dashboard',
     component: DashboardComponent,
