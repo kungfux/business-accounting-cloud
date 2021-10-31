@@ -34,6 +34,7 @@
             matInput
             [(ngModel)]="login"
             [disabled]="checkingCredentials"
+            (keyup.enter)="onLoginClick()"
             required />
         </mat-form-field>
         <mat-form-field appearance="fill">
@@ -43,6 +44,7 @@
             [type]="hidePassword ? 'password' : 'text'"
             [(ngModel)]="password"
             [disabled]="checkingCredentials"
+            (keyup.enter)="onLoginClick()"
             required />
           <button
             mat-icon-button
