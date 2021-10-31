@@ -36,6 +36,9 @@ var schema = new BaseSchema({
         firedNote: { type: 'string' },
         photo: { type: 'string' },
         title: { type: 'string' },
+    },
+    {
+        activeOnly: { type: 'boolean' },
     })
 
 const findAll = schema.findAll

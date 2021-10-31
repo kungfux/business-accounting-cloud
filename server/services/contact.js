@@ -24,18 +24,30 @@ module.exports = async function (fastify, opts) {
         { schema: schemas.findAll },
         async function (request, reply) {
             const companyId = parseInt(request.query.companyId)
+            const activeOnly = request.query.activeOnly || false;
             const limit = parseInt(request.query.limit) || 10
             const offset = parseInt(request.query.offset) || 0
-            const items = await this.db.query(
-                'select contacts.*, titles.name as title from contacts left join titles on contacts.title_id = titles.id ' +
-                'where contacts.company_id = ? limit ? offset ?',
-                {
-                    replacements: [companyId, limit, offset],
-                    type: QueryTypes.SELECT
-                }
-            )
 
-            return items
+            if (activeOnly) {
+                return await this.db.query(
+                    'select contacts.*, titles.name as title from contacts left join titles on contacts.title_id = titles.id ' +
+                    'where contacts.company_id = ? and contacts.fired == "" limit ? offset ?',
+                    {
+                        replacements: [companyId, limit, offset],
+                        type: QueryTypes.SELECT
+                    }
+                )
+            }
+            else {
+                return await this.db.query(
+                    'select contacts.*, titles.name as title from contacts left join titles on contacts.title_id = titles.id ' +
+                    'where contacts.company_id = ? limit ? offset ?',
+                    {
+                        replacements: [companyId, limit, offset],
+                        type: QueryTypes.SELECT
+                    }
+                )
+            }
         }
     )
 

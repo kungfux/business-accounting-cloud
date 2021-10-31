@@ -16,8 +16,17 @@ export class ContactApiService {
 
   constructor(private api: ApiService) {}
 
-  getContacts(companyId: number, offset: number = 0): Observable<Contact[]> {
-    return this.api.get<Contact[]>(this.allContactsEndpoint, offset, companyId);
+  getContacts(
+    companyId: number,
+    activeOnly: boolean,
+    offset: number = 0
+  ): Observable<Contact[]> {
+    return this.api.get<Contact[]>(
+      this.allContactsEndpoint,
+      offset,
+      companyId,
+      { activeOnly: activeOnly }
+    );
   }
 
   getContact(id: number): Observable<Contact> {

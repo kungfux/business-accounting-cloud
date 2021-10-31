@@ -3,7 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component';
+import {
+  CustomButton,
+  ToolBarMode,
+} from 'src/app/components/common/toolbar/toolbar.component';
 import { ContactApiService } from 'src/app/services/api/contact.service';
 import { Contact } from 'src/app/services/api/models/contact';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
@@ -19,6 +22,11 @@ export class ContactsComponent implements OnInit {
   toolBarMode: ToolBarMode = ToolBarMode.List;
   isLoading = true;
   pageIndex: number = 1;
+  filterShow: boolean = false;
+  filterActiveOnly: boolean = true;
+  filterContactName: string | null = null;
+
+  filtersButton: CustomButton = new CustomButton('Фильтр', 'filter_alt');
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -41,7 +49,11 @@ export class ContactsComponent implements OnInit {
   loadData(pageIndex: number = this.pageIndex): void {
     this.isLoading = true;
     this.contactApi
-      .getContacts(this.userPreferences.companyId!, (pageIndex - 1) * 10)
+      .getContacts(
+        this.userPreferences.companyId!,
+        this.filterActiveOnly,
+        (pageIndex - 1) * 10
+      )
       .subscribe({
         next: (data) => {
           this.data = data;
@@ -65,5 +77,9 @@ export class ContactsComponent implements OnInit {
 
   onEditRequest() {
     this.router.navigate(['/contacts', this.selectedItem?.id]);
+  }
+
+  onFiltersRequest() {
+    this.filterShow = !this.filterShow;
   }
 }
