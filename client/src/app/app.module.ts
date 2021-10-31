@@ -56,6 +56,7 @@ import { NotAuthorizedUserGuard } from './guards/not-authorized-user-guard';
 import { AuthorizedUserGuard } from './guards/authorized-user-guard.guard';
 import { AdminUserGuard } from './guards/admin-user-guard.guard';
 import { ContactComponent } from './components/pages/contacts/contact/contact.component';
+import { NavigatorComponent } from './components/common/navigator/navigator.component';
 
 const routes: Routes = [
   {
@@ -171,6 +172,7 @@ const routes: Routes = [
     AlertDialogComponent,
     ContactsComponent,
     ContactComponent,
+    NavigatorComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -13,7 +13,6 @@ export class CompaniesComponent implements OnInit {
   data: Company[] = [];
   selectedItem?: Company;
   isLoading = true;
-  pageIndex: number = 1;
 
   constructor(
     private companyApi: CompanyApiService,
@@ -22,16 +21,15 @@ export class CompaniesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadData();
+    this.getCompanies();
   }
 
-  loadData(pageIndex: number = this.pageIndex): void {
+  getCompanies(offset: number = 0): void {
     this.isLoading = true;
-    this.companyApi.getCompanies((pageIndex - 1) * 10).subscribe({
+    this.companyApi.getCompanies(offset).subscribe({
       next: (data) => {
         this.data = data;
         this.isLoading = false;
-        this.pageIndex = pageIndex;
       },
     });
   }

@@ -1,0 +1,8 @@
+div.paginator {
+  text-align: center;
+  margin: 8px;
+}
+
+[hidden] {
+  display: none !important;
+}

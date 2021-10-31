@@ -15,7 +15,6 @@ export class UsersComponent implements OnInit {
   selectedItem?: User;
   toolBarMode: ToolBarMode = ToolBarMode.List;
   isLoading = true;
-  pageIndex: number = 1;
 
   constructor(
     private userApi: UserApiService,
@@ -24,16 +23,15 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadData();
+    this.getUsers();
   }
 
-  loadData(pageIndex: number = this.pageIndex): void {
+  getUsers(offset: number = 0): void {
     this.isLoading = true;
-    this.userApi.getUsers((pageIndex - 1) * 10).subscribe({
+    this.userApi.getUsers(offset).subscribe({
       next: (data) => {
         this.data = data;
         this.isLoading = false;
-        this.pageIndex = pageIndex;
       },
     });
   }
