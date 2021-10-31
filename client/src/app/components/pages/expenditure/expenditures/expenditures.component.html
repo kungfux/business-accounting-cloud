@@ -59,19 +59,9 @@
         "></tr>
     </table>
   </div>
-  <div class="paginator">
-    <button
-      mat-icon-button
-      (click)="loadData(pageIndex - 1)"
-      [disabled]="pageIndex == 1 || isLoading">
-      <mat-icon>chevron_left</mat-icon>
-    </button>
-    <span class="mat-small">Страница: {{ pageIndex }}</span>
-    <button
-      mat-icon-button
-      (click)="loadData(pageIndex + 1)"
-      [disabled]="data.length < 10 || isLoading">
-      <mat-icon>chevron_right</mat-icon>
-    </button>
-  </div>
+
+  <app-navigator
+    [isLoading]="isLoading"
+    [itemsCount]="data.length"
+    (pageChanged)="getExpenditures($event)"></app-navigator>
 </div>

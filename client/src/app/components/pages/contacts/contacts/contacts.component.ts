@@ -21,7 +21,7 @@ export class ContactsComponent implements OnInit {
   selectedItem?: Contact;
   toolBarMode: ToolBarMode = ToolBarMode.List;
   isLoading = true;
-  pageIndex: number = 1;
+
   filterShow: boolean = false;
   filterActiveOnly: boolean = true;
   filterContactName: string | null = null;
@@ -43,22 +43,21 @@ export class ContactsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadData();
+    this.getContacts();
   }
 
-  loadData(pageIndex: number = this.pageIndex): void {
+  getContacts(offset: number = 0): void {
     this.isLoading = true;
     this.contactApi
       .getContacts(
         this.userPreferences.companyId!,
         this.filterActiveOnly,
-        (pageIndex - 1) * 10
+        offset
       )
       .subscribe({
         next: (data) => {
           this.data = data;
           this.isLoading = false;
-          this.pageIndex = pageIndex;
         },
       });
   }

@@ -16,7 +16,6 @@ export class ExpendituresComponent implements OnInit {
   selectedItem?: Expenditure;
   toolBarMode: ToolBarMode = ToolBarMode.List;
   isLoading = true;
-  pageIndex: number = 1;
 
   constructor(
     private expenditureApi: ExpenditureApiService,
@@ -26,18 +25,17 @@ export class ExpendituresComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadData();
+    this.getExpenditures();
   }
 
-  loadData(pageIndex: number = this.pageIndex): void {
+  getExpenditures(offset: number = 0): void {
     this.isLoading = true;
     this.expenditureApi
-      .getExpenditures(this.userPreferences.companyId!, (pageIndex - 1) * 10)
+      .getExpenditures(this.userPreferences.companyId!, offset)
       .subscribe({
         next: (data) => {
           this.data = data;
           this.isLoading = false;
-          this.pageIndex = pageIndex;
         },
       });
   }

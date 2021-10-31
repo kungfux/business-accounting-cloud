@@ -1,0 +1,17 @@
+<div class="paginator" *ngIf="!(page == 1 && itemsCount < 10)">
+  <button
+    mat-icon-button
+    (click)="onPageChanged(page - 1)"
+    [disabled]="isLoading"
+    [hidden]="page == 1">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+  <span class="mat-small">Страница: {{ page }}</span>
+  <button
+    mat-icon-button
+    (click)="onPageChanged(page + 1)"
+    [disabled]="isLoading"
+    [hidden]="itemsCount < 10">
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+</div>

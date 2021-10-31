@@ -16,7 +16,6 @@ export class TitlesComponent implements OnInit {
   selectedItem?: Title;
   toolBarMode: ToolBarMode = ToolBarMode.List;
   isLoading = true;
-  pageIndex: number = 1;
 
   constructor(
     private titleApi: TitleApiService,
@@ -26,20 +25,17 @@ export class TitlesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadData();
+    this.getTitles();
   }
 
-  loadData(pageIndex: number = this.pageIndex): void {
+  getTitles(offset: number = 0): void {
     this.isLoading = true;
-    this.titleApi
-      .getTitles(this.userPreferences.companyId!, (pageIndex - 1) * 10)
-      .subscribe({
-        next: (data) => {
-          this.data = data;
-          this.isLoading = false;
-          this.pageIndex = pageIndex;
-        },
-      });
+    this.titleApi.getTitles(this.userPreferences.companyId!, offset).subscribe({
+      next: (data) => {
+        this.data = data;
+        this.isLoading = false;
+      },
+    });
   }
 
   selectItem(item: Title) {

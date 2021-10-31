@@ -16,7 +16,6 @@ export class PropertiesComponent implements OnInit {
   selectedItem?: Property;
   toolBarMode: ToolBarMode = ToolBarMode.List;
   isLoading = true;
-  pageIndex: number = 1;
 
   constructor(
     private propertyApi: PropertyApiService,
@@ -26,18 +25,17 @@ export class PropertiesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadData();
+    this.getProperties();
   }
 
-  loadData(pageIndex: number = this.pageIndex): void {
+  getProperties(offset: number = 0): void {
     this.isLoading = true;
     this.propertyApi
-      .getProperties(this.userPreferences.companyId!, (pageIndex - 1) * 10)
+      .getProperties(this.userPreferences.companyId!, offset)
       .subscribe({
         next: (data) => {
           this.data = data;
           this.isLoading = false;
-          this.pageIndex = pageIndex;
         },
       });
   }
