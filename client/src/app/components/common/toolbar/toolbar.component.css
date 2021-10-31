@@ -5,6 +5,10 @@ mat-toolbar {
   z-index: 1000;
 }
 
+mat-toolbar span {
+  overflow: hidden;
+}
+
 .toolbar-spacer {
   flex: 1 1 auto;
 }
