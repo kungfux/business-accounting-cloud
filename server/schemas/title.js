@@ -17,7 +17,9 @@ var schema = new BaseSchema({
         rate: { type: 'number' },
         enabled: { type: 'boolean' }
     },
-    undefined)
+    {
+        enabled: { type: 'boolean' },
+    })
 
 const findAll = schema.findAll
 const findOne = schema.findOne

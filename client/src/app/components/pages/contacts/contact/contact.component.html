@@ -29,8 +29,8 @@
             <mat-label>Должность</mat-label>
             <mat-select [(ngModel)]="item.title">
               <mat-option value="null"></mat-option>
-              <mat-option *ngFor="let title of titles" value="{{ title.name }}">
-                {{ title.name }}
+              <mat-option *ngFor="let title of titles" value="{{ title }}">
+                {{ title }}
               </mat-option>
             </mat-select>
           </mat-form-field>

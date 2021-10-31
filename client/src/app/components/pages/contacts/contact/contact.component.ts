@@ -22,7 +22,7 @@ import { Options, ImageResult } from 'ngx-image2dataurl';
 })
 export class ContactComponent implements OnInit {
   item: Contact = new Contact();
-  titles?: Title[];
+  titles?: string[];
   toolBarMode: ToolBarMode = ToolBarMode.Details;
   isLoading = true;
 
@@ -59,21 +59,26 @@ export class ContactComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.titleApi.getTitles(this.userPreferences.companyId!).subscribe({
-      next: (titles) => {
-        this.titles = titles;
+    const contactId: number = parseInt(this.route.snapshot.paramMap.get('id')!);
 
-        const id = this.route.snapshot.paramMap.get('id');
-        if (id === null) {
-          return;
-        }
-        const contactId = parseInt(id);
+    this.titleApi.getTitles(this.userPreferences.companyId!, true).subscribe({
+      next: (titles) => {
+        this.titles = titles.map((x) => x.name!);
+
         if (!contactId) {
           this.isLoading = false;
         } else {
           this.contactApi.getContact(contactId).subscribe({
             next: (contact) => {
               this.item = contact;
+              if (contact.title) {
+                if (
+                  this.titles?.find((x) => x === contact.title) === undefined
+                ) {
+                  this.titles?.push(contact.title);
+                }
+                this.titles?.sort();
+              }
               this.isLoading = false;
             },
           });

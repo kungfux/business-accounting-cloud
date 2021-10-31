@@ -14,7 +14,8 @@ CREATE TABLE IF NOT EXISTS TITLES (
  [created]    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
  [company_id] INTEGER NOT NULL
               REFERENCES COMPANIES(id)
-              ON DELETE CASCADE
+              ON DELETE CASCADE,
+              CONSTRAINT uniq UNIQUE (name, company_id)
 );
 
 CREATE TABLE IF NOT EXISTS CONTACTS (
@@ -37,7 +38,8 @@ CREATE TABLE IF NOT EXISTS CONTACTS (
               ON DELETE CASCADE,
  [title_id]   INTEGER
               REFERENCES TITLES(id)
-              ON DELETE SET NULL
+              ON DELETE SET NULL,
+              CONSTRAINT uniq UNIQUE (name, company_id)
 );
 
 CREATE TABLE IF NOT EXISTS PROPERTIES (
@@ -50,7 +52,8 @@ CREATE TABLE IF NOT EXISTS PROPERTIES (
  [created]          TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
  [company_id]       INTEGER NOT NULL
                     REFERENCES COMPANIES(id)
-                    ON DELETE CASCADE
+                    ON DELETE CASCADE,
+                    CONSTRAINT uniq UNIQUE (title, company_id)
 );
 
 CREATE TABLE IF NOT EXISTS EXPENDITURES (
@@ -62,7 +65,8 @@ CREATE TABLE IF NOT EXISTS EXPENDITURES (
  [created]      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
  [company_id]   INTEGER NOT NULL
                 REFERENCES COMPANIES(id)
-                ON DELETE CASCADE
+                ON DELETE CASCADE,
+                CONSTRAINT uniq UNIQUE (title, company_id)
 );
 
 CREATE TABLE IF NOT EXISTS OPERATIONS (
