@@ -1,7 +1,7 @@
-<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 <app-toolbar
   title="Расходы"
   [mode]="toolBarMode"
+  [isLoading]="isLoading"
   [selectedItem]="selectedItem"
   (createRequest)="onCreateRequest()"
   (editRequest)="onEditRequest()"></app-toolbar>
