@@ -16,8 +16,14 @@ export class TitleApiService {
 
   constructor(private api: ApiService) {}
 
-  getTitles(companyId: number, offset: number = 0): Observable<Title[]> {
-    return this.api.get<Title[]>(this.allTitlesEndpoint, offset, companyId);
+  getTitles(
+    companyId: number,
+    enabled: boolean,
+    offset: number = 0
+  ): Observable<Title[]> {
+    return this.api.get<Title[]>(this.allTitlesEndpoint, offset, companyId, {
+      enabled: enabled,
+    });
   }
 
   getTitle(id: number): Observable<Title> {

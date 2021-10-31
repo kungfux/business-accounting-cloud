@@ -24,16 +24,25 @@ module.exports = async function (fastify, opts) {
         { schema: schemas.findAll },
         async function (request, reply) {
             const companyId = parseInt(request.query.companyId)
+            const enabled = request.query.enabled || false;
             const limit = parseInt(request.query.limit) || 10
             const offset = parseInt(request.query.offset) || 0
-            const items = await this.db.query('select * from titles where company_id = ? limit ? offset ?',
-                {
-                    replacements: [companyId, limit, offset],
-                    type: QueryTypes.SELECT
-                }
-            )
 
-            return items
+            if (enabled) {
+                return await this.db.query('select * from titles where company_id = ? and enabled = true limit ? offset ?',
+                    {
+                        replacements: [companyId, limit, offset],
+                        type: QueryTypes.SELECT
+                    }
+                )
+            } else {
+                return await this.db.query('select * from titles where company_id = ? limit ? offset ?',
+                    {
+                        replacements: [companyId, limit, offset],
+                        type: QueryTypes.SELECT
+                    }
+                )
+            }
         }
     )
 
