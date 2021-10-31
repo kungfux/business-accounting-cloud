@@ -1,7 +1,7 @@
-<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 <app-toolbar
   [title]="item?.login || 'Новый пользователь'"
   [mode]="toolBarMode"
+  [isLoading]="isLoading"
   [selectedItem]="item"
   [deleteVisible]="!!item?.id"
   [saveEnabled]="

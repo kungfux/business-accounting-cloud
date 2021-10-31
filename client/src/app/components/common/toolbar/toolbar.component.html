@@ -1,5 +1,6 @@
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 <mat-toolbar>
-  <button mat-icon-button color="link" (click)="goBack()" *ngIf="mode === 1">
+  <button mat-icon-button color="link" (click)="goBack()" *ngIf="mode === 2">
     <mat-icon>chevron_left</mat-icon>
   </button>
   <span>{{ title }}</span>
@@ -19,7 +20,7 @@
       color="primary"
       (click)="onEditClick()"
       [disabled]="selectedItem === undefined"
-      *ngIf="mode === 0">
+      *ngIf="mode === 1">
       <mat-icon>edit</mat-icon>
       <span class="mat-button-wrapper">Изменить</span>
     </button>
@@ -27,7 +28,7 @@
       color="primary"
       mat-flat-button
       (click)="onCreateClick()"
-      *ngIf="mode === 0">
+      *ngIf="mode === 1">
       <mat-icon>add</mat-icon>
       <span class="mat-button-wrapper">Добавить</span>
     </button>
@@ -36,7 +37,7 @@
       color="warn"
       (click)="onDeleteClick()"
       [disabled]="!deleteEnabled"
-      *ngIf="mode === 1 && deleteVisible">
+      *ngIf="mode === 2 && deleteVisible">
       <mat-icon>delete</mat-icon>
       <span class="mat-button-wrapper">Удалить</span>
     </button>
@@ -44,7 +45,7 @@
       mat-flat-button
       color="primary"
       (click)="onSaveClick()"
-      *ngIf="mode === 1"
+      *ngIf="mode === 2"
       [disabled]="!saveEnabled">
       <mat-icon>save</mat-icon>
       <span class="mat-button-wrapper">Сохранить</span>
@@ -64,14 +65,14 @@
       mat-icon-button
       (click)="onEditClick()"
       [disabled]="selectedItem === undefined"
-      *ngIf="mode === 0">
+      *ngIf="mode === 1">
       <mat-icon>edit</mat-icon>
     </button>
     <button
       color="primary"
       mat-mini-fab
       (click)="onCreateClick()"
-      *ngIf="mode === 0">
+      *ngIf="mode === 1">
       <mat-icon>add</mat-icon>
     </button>
     <button
@@ -79,14 +80,14 @@
       mat-icon-button
       (click)="onDeleteClick()"
       [disabled]="!deleteEnabled"
-      *ngIf="mode === 1 && deleteVisible">
+      *ngIf="mode === 2 && deleteVisible">
       <mat-icon>delete</mat-icon>
     </button>
     <button
       color="primary"
       mat-mini-fab
       (click)="onSaveClick()"
-      *ngIf="mode === 1"
+      *ngIf="mode === 2"
       [disabled]="!saveEnabled">
       <mat-icon>save</mat-icon>
     </button>

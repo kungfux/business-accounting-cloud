@@ -11,14 +11,14 @@ export class LoginComponent implements OnInit {
   login = '';
   password = '';
   hidePassword = true;
-  checkingCredentials = false;
+  isLoading = false;
 
   constructor(private loginApi: LoginApiService, private router: Router) {}
 
   ngOnInit(): void {}
 
   onLoginClick() {
-    this.checkingCredentials = true;
+    this.isLoading = true;
     this.loginApi
       .authenticate(this.login, this.password)
       .subscribe((success) => {
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
           return;
         }
         // TODO: Show error
-        this.checkingCredentials = false;
+        this.isLoading = false;
       });
   }
 }

@@ -11,13 +11,14 @@ import { DialogComponent } from '../../dialogs/dialog/dialog.component';
   styleUrls: ['./toolbar.component.css'],
 })
 export class ToolbarComponent implements OnInit {
-  @Input() selectedItem: any = undefined;
+  @Input() isLoading: boolean = true;
+  @Input() selectedItem: any | null = null;
   @Input() title: string = '';
-  @Input() mode: ToolBarMode = ToolBarMode.List;
+  @Input() mode: ToolBarMode = ToolBarMode.None;
   @Input() customButton?: CustomButton;
-  @Input() saveEnabled?: boolean = true;
-  @Input() deleteEnabled?: boolean = true;
-  @Input() customButtonEnabled?: boolean = true;
+  @Input() saveEnabled: boolean = true;
+  @Input() deleteEnabled: boolean = true;
+  @Input() customButtonEnabled: boolean = true;
   @Input() deleteVisible: boolean = true;
   @Output() createRequest = new EventEmitter();
   @Output() editRequest = new EventEmitter();
@@ -70,8 +71,9 @@ export class ToolbarComponent implements OnInit {
 }
 
 export enum ToolBarMode {
-  List = 0,
-  Details = 1,
+  None = 0,
+  List = 1,
+  Details = 2,
 }
 
 export class CustomButton {
