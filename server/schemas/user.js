@@ -15,7 +15,8 @@ var schema = new BaseSchema({
   created: { type: 'string' }
 },
   editableParams,
-  editableParams)
+  editableParams,
+  undefined)
 
 const findAll = schema.findAll
 const findOne = schema.findOne

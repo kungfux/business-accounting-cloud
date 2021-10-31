@@ -2,7 +2,7 @@
 
 class BaseSchema {
 
-    constructor(getProperties, postProperties, putProperties) {
+    constructor(getProperties, postProperties, putProperties, querystring) {
         this.getProperties = {
             id: { type: 'integer' },
             ...(postProperties),
@@ -11,6 +11,7 @@ class BaseSchema {
         };
         this.postProperties = postProperties;
         this.putProperties = putProperties;
+        this.querystring = querystring;
     }
 
     get findAll() {
@@ -25,7 +26,8 @@ class BaseSchema {
             },
             querystring: {
                 limit: { type: 'integer' },
-                offset: { type: 'integer' }
+                offset: { type: 'integer' },
+                ...(this.querystring)
             }
         }
     }

@@ -16,7 +16,8 @@ var schema = new BaseSchema({
         name: { type: 'string', minLength: 1 },
         rate: { type: 'number' },
         enabled: { type: 'boolean' }
-    })
+    },
+    undefined)
 
 const findAll = schema.findAll
 const findOne = schema.findOne

@@ -20,7 +20,8 @@ var schema = new BaseSchema({
         cost: { type: 'number' },
         comment: { type: 'string' },
         enabled: { type: 'boolean' },
-    })
+    },
+    undefined)
 
 const findAll = schema.findAll
 const findOne = schema.findOne

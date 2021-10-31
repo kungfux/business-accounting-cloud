@@ -26,15 +26,21 @@ export class ApiService {
     }),
   };
 
-  get<T>(api: string, offset: number = 0, companyId?: number): Observable<T> {
-    const params = {
+  get<T>(
+    api: string,
+    offset: number = 0,
+    companyId?: number,
+    params?: any
+  ): Observable<T> {
+    const querystring = {
       ...(companyId && { companyId: companyId }),
       ...(offset && { offset: offset }),
+      ...params,
     };
 
     const options: any = {
       headers: this.headers.headers,
-      params: params,
+      params: querystring,
     };
 
     return this.http
