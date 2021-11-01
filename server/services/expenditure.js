@@ -26,7 +26,7 @@ module.exports = async function (fastify, opts) {
             const companyId = parseInt(request.query.companyId)
             const limit = parseInt(request.query.limit) || 10
             const offset = parseInt(request.query.offset) || 0
-            const items = await this.db.query('select * from expenditures where company_id = ? limit ? offset ?',
+            const items = await this.db.query('select * from expenditures where companyId = ? limit ? offset ?',
                 {
                     replacements: [companyId, limit, offset],
                     type: QueryTypes.SELECT
@@ -60,7 +60,7 @@ module.exports = async function (fastify, opts) {
         '/',
         { schema: schemas.insertOne },
         async function (request, reply) {
-            const [result] = await this.db.query('insert into expenditures (title,rate,comment,enabled,company_id) values(?,?,?,?,?)',
+            const [result] = await this.db.query('insert into expenditures (title,rate,comment,enabled,companyId) values(?,?,?,?,?)',
                 {
                     replacements: [request.body.title, request.body.rate, request.body.comment, request.body.enabled, request.body.companyId],
                     type: QueryTypes.INSERT

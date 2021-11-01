@@ -12,10 +12,10 @@ CREATE TABLE IF NOT EXISTS TITLES (
  [rate]       FLOAT,
  [enabled]    BIT NOT NULL DEFAULT 0,
  [created]    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
- [company_id] INTEGER NOT NULL
+ [companyId]  INTEGER NOT NULL
               REFERENCES COMPANIES(id)
-              ON DELETE CASCADE,
-              CONSTRAINT uniq UNIQUE (name, company_id)
+              ON DELETE RESTRICT,
+              CONSTRAINT uniq UNIQUE (name, companyId)
 );
 
 CREATE TABLE IF NOT EXISTS CONTACTS (
@@ -30,30 +30,30 @@ CREATE TABLE IF NOT EXISTS CONTACTS (
  [note]       VARCHAR,
  [hired]      DATE,
  [fired]      DATE,
- [fired_note] VARCHAR,
+ [firedNote] VARCHAR,
  [photo]      VARCHAR,
  [created]    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
- [company_id] INTEGER NOT NULL
+ [companyId]  INTEGER NOT NULL
               REFERENCES COMPANIES(id)
-              ON DELETE CASCADE,
- [title_id]   INTEGER
+              ON DELETE RESTRICT,
+ [titleId]    INTEGER
               REFERENCES TITLES(id)
-              ON DELETE SET NULL,
-              CONSTRAINT uniq UNIQUE (name, company_id)
+              ON DELETE RESTRICT,
+              CONSTRAINT uniq UNIQUE (name, companyId)
 );
 
 CREATE TABLE IF NOT EXISTS PROPERTIES (
  [id]               INTEGER PRIMARY KEY AUTOINCREMENT,
  [title]            VARCHAR NOT NULL,
- [inventory_number] VARCHAR,
+ [inventoryNumber]  VARCHAR,
  [cost]             FLOAT,
  [comment]          VARCHAR,
  [enabled]          BIT NOT NULL DEFAULT 0,
  [created]          TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
- [company_id]       INTEGER NOT NULL
+ [companyId]        INTEGER NOT NULL
                     REFERENCES COMPANIES(id)
-                    ON DELETE CASCADE,
-                    CONSTRAINT uniq UNIQUE (title, company_id)
+                    ON DELETE RESTRICT,
+                    CONSTRAINT uniq UNIQUE (title, companyId)
 );
 
 CREATE TABLE IF NOT EXISTS EXPENDITURES (
@@ -63,30 +63,30 @@ CREATE TABLE IF NOT EXISTS EXPENDITURES (
  [comment]      VARCHAR,
  [enabled]      BIT NOT NULL DEFAULT 0,
  [created]      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
- [company_id]   INTEGER NOT NULL
+ [companyId]    INTEGER NOT NULL
                 REFERENCES COMPANIES(id)
-                ON DELETE CASCADE,
-                CONSTRAINT uniq UNIQUE (title, company_id)
+                ON DELETE RESTRICT,
+                CONSTRAINT uniq UNIQUE (title, companyId)
 );
 
 CREATE TABLE IF NOT EXISTS OPERATIONS (
  [id]             INTEGER PRIMARY KEY AUTOINCREMENT,
- [when]           DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ [operationDate]  DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
  [amount]         FLOAT NOT NULL,
  [comment]        VARCHAR,
  [created]        TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
- [contact_id]     INTEGER
+ [contactId]      INTEGER
                   REFERENCES CONTACTS(id)
                   ON DELETE RESTRICT,
- [property_id]    INTEGER
+ [propertyId]     INTEGER
                   REFERENCES PROPERTIES(id)
                   ON DELETE RESTRICT,
- [expenditure_id] INTEGER
+ [expenditureId]  INTEGER
                   REFERENCES EXPENDITURES(id)
                   ON DELETE RESTRICT,
- [company_id]     INTEGER NOT NULL
+ [companyId]      INTEGER NOT NULL
                   REFERENCES COMPANIES(id)
-                  ON DELETE CASCADE
+                  ON DELETE RESTRICT
 );
 
 CREATE TABLE IF NOT EXISTS USERS (

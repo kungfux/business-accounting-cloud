@@ -2,15 +2,15 @@
 
 class BaseSchema {
 
-    constructor(getProperties, postProperties, putProperties, querystring) {
+    constructor(getOnlyProperties, getAndPostProperties, putOnlyProperties, querystring) {
         this.getProperties = {
             id: { type: 'integer' },
-            ...(postProperties),
-            ...(getProperties),
-            ...(putProperties)
+            ...(getAndPostProperties),
+            ...(getOnlyProperties),
+            ...(putOnlyProperties)
         };
-        this.postProperties = postProperties;
-        this.putProperties = putProperties;
+        this.postProperties = getAndPostProperties;
+        this.putProperties = putOnlyProperties;
         this.querystring = querystring;
     }
 

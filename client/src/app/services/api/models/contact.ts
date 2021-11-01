@@ -13,8 +13,8 @@ export class Contact {
   firedNote: string | null = null;
   photo: string | null = null;
   title: string | null = null;
-  companyId?: number | null = null;
-  created?: Date | null = null;
+  companyId: number | null = null;
+  created: Date | null = null;
 
   public constructor(init?: Partial<Contact>) {
     Object.assign(this, init);
