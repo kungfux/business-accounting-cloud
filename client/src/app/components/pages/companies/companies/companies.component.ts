@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component';
 import { CompanyApiService } from 'src/app/services/api/company.service';
 import { Company } from 'src/app/services/api/models/company';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
@@ -12,6 +13,7 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
 export class CompaniesComponent implements OnInit {
   data: Company[] = [];
   selectedItem?: Company;
+  toolBarMode: ToolBarMode = ToolBarMode.List;
   isLoading = true;
 
   constructor(
