@@ -103,6 +103,10 @@ export class ApiService {
         case 404:
           errorMessage = 'Запрашиваемые данные не найдены';
           break;
+        case 413:
+          errorMessage =
+            'Сервер отклонил запрос из-за превышения лимита на обработку данных';
+          break;
         case 422:
           errorMessage = 'Операция невозможна из-за неверно указанных данных';
           break;
