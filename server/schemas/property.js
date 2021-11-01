@@ -8,7 +8,7 @@ var schema = new BaseSchema({
 },
     {
         title: { type: 'string', minLength: 1 },
-        inventory_number: { type: 'string' },
+        inventoryNumber: { type: 'string' },
         cost: { type: 'number' },
         comment: { type: 'string' },
         enabled: { type: 'boolean' },
@@ -16,7 +16,7 @@ var schema = new BaseSchema({
     },
     {
         title: { type: 'string' },
-        inventory_number: { type: 'string' },
+        inventoryNumber: { type: 'string' },
         cost: { type: 'number' },
         comment: { type: 'string' },
         enabled: { type: 'boolean' },

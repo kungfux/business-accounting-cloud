@@ -31,7 +31,7 @@ export class PropertyApiService {
   addProperty(property: Property): Observable<ItemCreatedResponse> {
     return this.api.post<ItemCreatedResponse>(this.allPropertiesEndpoint, {
       title: property.title,
-      inventory_number: property.inventory_number,
+      inventoryNumber: property.inventoryNumber,
       cost: property.cost,
       comment: property.comment,
       enabled: property.enabled,
@@ -42,7 +42,7 @@ export class PropertyApiService {
   updateProperty(id: number, property: Property): Observable<void> {
     return this.api.put(this.exactPropertyEndpoint(id), {
       title: property.title,
-      inventory_number: property.inventory_number,
+      inventoryNumber: property.inventoryNumber,
       cost: property.cost,
       comment: property.comment,
       enabled: property.enabled,

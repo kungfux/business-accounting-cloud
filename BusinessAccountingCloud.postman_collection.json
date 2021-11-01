@@ -679,7 +679,7 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"const name = pm.variables.replaceIn('{{$randomLastName}}')\r",
+											"const name = pm.variables.replaceIn('{{$randomJobType}}')\r",
 											"\r",
 											"pm.collectionVariables.set(\"TitleName\", name);"
 										],
@@ -956,6 +956,312 @@
 					]
 				},
 				{
+					"name": "Contacts",
+					"item": [
+						{
+							"name": "Create contact",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Id is not null\", function() {\r",
+											"    const item = pm.response.json();\r",
+											"    pm.expect(item.id).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.collectionVariables.set(\"ContactId\", pm.response.json().id);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"ContactName\", \"{{$randomFullName}}\");\r",
+											"pm.collectionVariables.set(\"ContactPhoneNumber\", \"{{$randomPhoneNumber}}\");\r",
+											"pm.collectionVariables.set(\"ContactEmail\", \"{{$randomEmail}}\");\r",
+											"pm.collectionVariables.set(\"ContactAddress\", \"{{$randomStreetAddress}}\");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{ContactName}}\",\r\n    \"phone\": \"{{ContactPhoneNumber}}\",\r\n    \"cellphone\": \"{{ContactPhoneNumber}}\",\r\n    \"email\": \"{{ContactEmail}}\",\r\n    \"address\": \"{{ContactAddress}}\",\r\n    \"passport\": \"{{ContactAddress}}\",\r\n    \"dob\": null,\r\n    \"note\": null,\r\n    \"hired\": null,\r\n    \"fired\": null,\r\n    \"firedNote\": null,\r\n    \"photo\": null,\r\n    \"title\": null,\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get contact",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Name is not null\", function() {\r",
+											"    const item = pm.response.json();\r",
+											"    pm.expect(item.name).to.be.not.null;\r",
+											"    pm.expect(item.name).to.be.not.empty;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{ContactId}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}",
+										"{{ContactId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update contact",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Name is not null\", function() {\r",
+											"    const item = pm.response.json();\r",
+											"    pm.expect(item.name).to.be.not.null;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const name = pm.variables.replaceIn('{{$randomFullName}}')\r",
+											"\r",
+											"pm.collectionVariables.set(\"ContactName\", name);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{ContactName}}\",\r\n    \"phone\": \"{{ContactPhoneNumber}}\",\r\n    \"cellphone\": \"{{ContactPhoneNumber}}\",\r\n    \"email\": \"{{ContactEmail}}\",\r\n    \"address\": \"{{ContactAddress}}\",\r\n    \"passport\": \"{{ContactAddress}}\",\r\n    \"dob\": null,\r\n    \"note\": null,\r\n    \"hired\": null,\r\n    \"fired\": null,\r\n    \"firedNote\": null,\r\n    \"photo\": null,\r\n    \"title\": null,\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{ContactId}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}",
+										"{{ContactId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List all contacts",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"List of items returned is greater than zero\", function() {\r",
+											"    const items = pm.response.json();\r",
+											"    pm.expect(items.length).to.be.greaterThan(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"All items contain a name\", function() {\r",
+											"    const items = pm.response.json();\r",
+											"    pm.expect(items.every(item => {\r",
+											"        return item.name !== undefined;\r",
+											"    })).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}?companyId=1&offset=0",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}"
+									],
+									"query": [
+										{
+											"key": "companyId",
+											"value": "1"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete contact",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Id is not null\", function() {\r",
+											"    const item = pm.response.json();\r",
+											"    pm.expect(item.id).to.be.not.null;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{ContactId}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}",
+										"{{ContactId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.collectionVariables.set(\"COLLECTION_API_URL\", \"contacts\");"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
 					"name": "Properties",
 					"item": [
 						{
@@ -1002,7 +1308,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"{{PropertyName}}\",\r\n    \"inventory_number\": \"INV-12345678\",\r\n    \"cost\": 1.1,\r\n    \"comment\": \"comments\",\r\n    \"enabled\": true,\r\n    \"companyId\": 1\r\n}",
+									"raw": "{\r\n    \"title\": \"{{PropertyName}}\",\r\n    \"inventoryNumber\": \"INV-12345678\",\r\n    \"cost\": 1.1,\r\n    \"comment\": \"comments\",\r\n    \"enabled\": true,\r\n    \"companyId\": 1\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1117,7 +1423,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"{{PropertyName}}\",\r\n    \"inventory_number\": \"INV-12345678\",\r\n    \"cost\": 1.1,\r\n    \"comment\": \"comments\",\r\n    \"enabled\": true\r\n}",
+									"raw": "{\r\n    \"title\": \"{{PropertyName}}\",\r\n    \"inventoryNumber\": \"INV-12345678\",\r\n    \"cost\": 1.1,\r\n    \"comment\": \"comments\",\r\n    \"enabled\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1564,10 +1870,10 @@
 					]
 				},
 				{
-					"name": "[deprecated] Pictures",
+					"name": "Operations",
 					"item": [
 						{
-							"name": "Create picture",
+							"name": "Create operation",
 							"event": [
 								{
 									"listen": "test",
@@ -1582,7 +1888,18 @@
 											"    pm.expect(item.id).to.be.not.null;\r",
 											"});\r",
 											"\r",
-											"pm.collectionVariables.set(\"PictureId\", pm.response.json().id);"
+											"pm.collectionVariables.set(\"TitleId\", pm.response.json().id);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"OperationDate\", new Date(Date.now()).toISOString());\r",
+											"\r",
+											"console.log(pm.collectionVariables.get(\"OperationDate\"))"
 										],
 										"type": "text/javascript"
 									}
@@ -1598,14 +1915,13 @@
 									}
 								],
 								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "picture",
-											"type": "file",
-											"src": "avatar.png"
+									"mode": "raw",
+									"raw": "{\r\n    \"operationDate\": \"{{OperationDate}}\",\r\n    \"amount\": -1.1,\r\n    \"comment\": \"comments\",\r\n    \"contactId\": null,\r\n    \"propertyId\": null,\r\n    \"expenditureId\": null,\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
 										}
-									]
+									}
 								},
 								"url": {
 									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}",
@@ -1620,7 +1936,7 @@
 							"response": []
 						},
 						{
-							"name": "Get picture",
+							"name": "Get operation",
 							"event": [
 								{
 									"listen": "test",
@@ -1630,15 +1946,18 @@
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Picture is not null\", function() {\r",
+											"pm.test(\"Name is not null\", function() {\r",
 											"    const item = pm.response.json();\r",
-											"    pm.expect(item.picture).to.be.not.null;\r",
+											"    pm.expect(item.name).to.be.not.null;\r",
 											"});"
 										],
 										"type": "text/javascript"
 									}
 								}
 							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
 							"request": {
 								"method": "GET",
 								"header": [
@@ -1648,21 +1967,30 @@
 										"type": "text"
 									}
 								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{PictureId}}",
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{TitleId}}",
 									"host": [
 										"{{API_URL}}"
 									],
 									"path": [
 										"{{COLLECTION_API_URL}}",
-										"{{PictureId}}"
+										"{{TitleId}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Update picture",
+							"name": "Update operation",
 							"event": [
 								{
 									"listen": "test",
@@ -1672,10 +2000,21 @@
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Id is not null\", function() {\r",
+											"pm.test(\"Name is not null\", function() {\r",
 											"    const item = pm.response.json();\r",
-											"    pm.expect(item.id).to.be.not.null;\r",
+											"    pm.expect(item.name).to.be.not.null;\r",
 											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"OperationDate\", new Date(Date.now()).toISOString());\r",
+											"\r",
+											"console.log(pm.collectionVariables.get(\"OperationDate\"))"
 										],
 										"type": "text/javascript"
 									}
@@ -1691,30 +2030,29 @@
 									}
 								],
 								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "picture",
-											"type": "file",
-											"src": "happy.png"
+									"mode": "raw",
+									"raw": "{\r\n    \"operationDate\": \"{{OperationDate}}\",\r\n    \"amount\": 1.1,\r\n    \"comment\": \"comments\",\r\n    \"contactId\": null,\r\n    \"propertyId\": null,\r\n    \"expenditureId\": null,\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
 										}
-									]
+									}
 								},
 								"url": {
-									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{PictureId}}",
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{TitleId}}",
 									"host": [
 										"{{API_URL}}"
 									],
 									"path": [
 										"{{COLLECTION_API_URL}}",
-										"{{PictureId}}"
+										"{{TitleId}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "List all pictures",
+							"name": "List all operations",
 							"event": [
 								{
 									"listen": "test",
@@ -1729,10 +2067,10 @@
 											"    pm.expect(items.length).to.be.greaterThan(0);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"All items contain an id\", function() {\r",
+											"pm.test(\"All items contain amount\", function() {\r",
 											"    const items = pm.response.json();\r",
 											"    pm.expect(items.every(item => {\r",
-											"        return item.id !== undefined;\r",
+											"        return item.amount !== undefined;\r",
 											"    })).to.be.true;\r",
 											"});"
 										],
@@ -1750,19 +2088,29 @@
 									}
 								],
 								"url": {
-									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}",
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}?companyId=1&offset=0",
 									"host": [
 										"{{API_URL}}"
 									],
 									"path": [
 										"{{COLLECTION_API_URL}}"
+									],
+									"query": [
+										{
+											"key": "companyId",
+											"value": "1"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										}
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Delete picture",
+							"name": "Delete operation",
 							"event": [
 								{
 									"listen": "test",
@@ -1791,13 +2139,13 @@
 									}
 								],
 								"url": {
-									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{PictureId}}",
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{TitleId}}",
 									"host": [
 										"{{API_URL}}"
 									],
 									"path": [
 										"{{COLLECTION_API_URL}}",
-										"{{PictureId}}"
+										"{{TitleId}}"
 									]
 								}
 							},
@@ -1810,7 +2158,7 @@
 							"script": {
 								"type": "text/javascript",
 								"exec": [
-									"pm.collectionVariables.set(\"COLLECTION_API_URL\", \"pictures\");"
+									"pm.collectionVariables.set(\"COLLECTION_API_URL\", \"operations\");"
 								]
 							}
 						},
@@ -1835,24 +2183,27 @@
 							"const HOST = pm.environment.get(\"HOST\");",
 							"const API_URL = pm.environment.get(\"API_URL\").replace(\"{{HOST}}\", HOST);",
 							"",
-							"const postRequest = {",
-							"    url: `${API_URL}/login`,",
-							"    method: 'POST',",
-							"    header: {",
-							"        'Content-Type': 'application/json'",
-							"    },",
-							"    body: {",
-							"        mode: 'raw',",
-							"        raw: JSON.stringify({ \"username\": 'kungfux', \"password\": '2nHLdLV5dt5cuRp' })",
-							"    }",
-							"}",
+							"if (pm.variables.get(\"AUTH_TOKEN\") === '') {",
 							"",
-							"// Authenticate and remember auth token",
-							"pm.sendRequest(postRequest, function (error, response) {",
-							"    const token = response.json().token;",
-							"    pm.variables.set(\"AUTH_TOKEN\", `Bearer ${token}`);",
-							"});",
-							""
+							"    const postRequest = {",
+							"        url: `${API_URL}/login`,",
+							"        method: 'POST',",
+							"        header: {",
+							"            'Content-Type': 'application/json'",
+							"        },",
+							"        body: {",
+							"            mode: 'raw',",
+							"            raw: JSON.stringify({ \"username\": 'kungfux', \"password\": '2nHLdLV5dt5cuRp' })",
+							"        }",
+							"    }",
+							"",
+							"    // Authenticate and remember auth token",
+							"    pm.sendRequest(postRequest, function (error, response) {",
+							"        const token = response.json().token;",
+							"        pm.variables.set(\"AUTH_TOKEN\", `Bearer ${token}`);",
+							"        pm.variables.set(\"AUTH_TOKEN_DATE\", Date.now());",
+							"    });",
+							"}"
 						]
 					}
 				},
@@ -1910,7 +2261,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"qwe\",\r\n    \"password\": \"qweqweqwe\"\r\n}",
+							"raw": "{\r\n    \"username\": \"kungfux\",\r\n    \"password\": \"2nHLdLV5dt5cuRp\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1928,6 +2279,268 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "[deprecated] Pictures",
+			"item": [
+				{
+					"name": "Create picture",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Id is not null\", function() {\r",
+									"    const item = pm.response.json();\r",
+									"    pm.expect(item.id).to.be.not.null;\r",
+									"});\r",
+									"\r",
+									"pm.collectionVariables.set(\"PictureId\", pm.response.json().id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AUTH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "picture",
+									"type": "file",
+									"src": "avatar.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}/{{COLLECTION_API_URL}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"{{COLLECTION_API_URL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get picture",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Picture is not null\", function() {\r",
+									"    const item = pm.response.json();\r",
+									"    pm.expect(item.picture).to.be.not.null;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AUTH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{PictureId}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"{{COLLECTION_API_URL}}",
+								"{{PictureId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update picture",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Id is not null\", function() {\r",
+									"    const item = pm.response.json();\r",
+									"    pm.expect(item.id).to.be.not.null;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AUTH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "picture",
+									"type": "file",
+									"src": "happy.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{PictureId}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"{{COLLECTION_API_URL}}",
+								"{{PictureId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List all pictures",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"List of items returned is greater than zero\", function() {\r",
+									"    const items = pm.response.json();\r",
+									"    pm.expect(items.length).to.be.greaterThan(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"All items contain an id\", function() {\r",
+									"    const items = pm.response.json();\r",
+									"    pm.expect(items.every(item => {\r",
+									"        return item.id !== undefined;\r",
+									"    })).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AUTH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/{{COLLECTION_API_URL}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"{{COLLECTION_API_URL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete picture",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Id is not null\", function() {\r",
+									"    const item = pm.response.json();\r",
+									"    pm.expect(item.id).to.be.not.null;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AUTH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{PictureId}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"{{COLLECTION_API_URL}}",
+								"{{PictureId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.collectionVariables.set(\"COLLECTION_API_URL\", \"pictures\");"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		}
@@ -2007,6 +2620,30 @@
 		},
 		{
 			"key": "UserNewPassword",
+			"value": ""
+		},
+		{
+			"key": "ContactName",
+			"value": ""
+		},
+		{
+			"key": "ContactId",
+			"value": ""
+		},
+		{
+			"key": "ContactPhoneNumber",
+			"value": ""
+		},
+		{
+			"key": "ContactEmail",
+			"value": ""
+		},
+		{
+			"key": "ContactAddress",
+			"value": ""
+		},
+		{
+			"key": "OperationDate",
 			"value": ""
 		}
 	]

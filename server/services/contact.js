@@ -30,8 +30,8 @@ module.exports = async function (fastify, opts) {
 
             if (activeOnly) {
                 return await this.db.query(
-                    'select contacts.*, titles.name as title from contacts left join titles on contacts.title_id = titles.id ' +
-                    'where contacts.company_id = ? and contacts.fired == "" limit ? offset ?',
+                    'select contacts.*, titles.name as title from contacts left join titles on contacts.titleId = titles.id ' +
+                    'where contacts.companyId = ? and contacts.fired == "" limit ? offset ?',
                     {
                         replacements: [companyId, limit, offset],
                         type: QueryTypes.SELECT
@@ -40,8 +40,8 @@ module.exports = async function (fastify, opts) {
             }
             else {
                 return await this.db.query(
-                    'select contacts.*, titles.name as title from contacts left join titles on contacts.title_id = titles.id ' +
-                    'where contacts.company_id = ? limit ? offset ?',
+                    'select contacts.*, titles.name as title from contacts left join titles on contacts.titleId = titles.id ' +
+                    'where contacts.companyId = ? limit ? offset ?',
                     {
                         replacements: [companyId, limit, offset],
                         type: QueryTypes.SELECT
@@ -56,7 +56,7 @@ module.exports = async function (fastify, opts) {
         { schema: schemas.findOne },
         async function (request, reply) {
             const item = await this.db.query(
-                'select contacts.*, titles.name as title from contacts left join titles on contacts.title_id = titles.id ' +
+                'select contacts.*, titles.name as title from contacts left join titles on contacts.titleId = titles.id ' +
                 'where contacts.id = ? limit 1',
                 {
                     replacements: [request.params.id],
@@ -77,7 +77,7 @@ module.exports = async function (fastify, opts) {
         { schema: schemas.insertOne },
         async function (request, reply) {
             const [result] = await this.db.query(
-                'insert into contacts (name,phone,cellphone,email,address,passport,dob,note,hired,fired,firedNote,photo,title_id,company_id) ' +
+                'insert into contacts (name,phone,cellphone,email,address,passport,dob,note,hired,fired,firedNote,photo,titleId,companyId) ' +
                 'values(?,?,?,?,?,?,?,?,?,?,?,?,(select id from titles where name = ?),?)',
                 {
                     replacements: [
@@ -111,7 +111,7 @@ module.exports = async function (fastify, opts) {
         async function (request, reply) {
             const [, metadata] = await this.db.query(
                 'update contacts set name=?,phone=?,cellphone=?,email=?,address=?,passport=?,dob=?,note=?,hired=?,fired=?,' +
-                'firedNote=?,photo=?,title_id=(select titles.id from titles where titles.name=?) where id=?',
+                'firedNote=?,photo=?,titleId=(select titles.id from titles where titles.name=?) where id=?',
                 {
                     replacements: [
                         request.body.name,

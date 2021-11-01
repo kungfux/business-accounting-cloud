@@ -26,7 +26,7 @@ module.exports = async function (fastify, opts) {
             const companyId = parseInt(request.query.companyId)
             const limit = parseInt(request.query.limit) || 10
             const offset = parseInt(request.query.offset) || 0
-            const items = await this.db.query('select * from properties where company_id = ? limit ? offset ?',
+            const items = await this.db.query('select * from properties where companyId = ? limit ? offset ?',
                 {
                     replacements: [companyId, limit, offset],
                     type: QueryTypes.SELECT
@@ -60,9 +60,9 @@ module.exports = async function (fastify, opts) {
         '/',
         { schema: schemas.insertOne },
         async function (request, reply) {
-            const [result] = await this.db.query('insert into properties (title,inventory_number,cost,comment,enabled,company_id) values(?,?,?,?,?,?)',
+            const [result] = await this.db.query('insert into properties (title,inventoryNumber,cost,comment,enabled,companyId) values(?,?,?,?,?,?)',
                 {
-                    replacements: [request.body.title, request.body.inventory_number, request.body.cost, request.body.comment, request.body.enabled, request.body.companyId],
+                    replacements: [request.body.title, request.body.inventoryNumber, request.body.cost, request.body.comment, request.body.enabled, request.body.companyId],
                     type: QueryTypes.INSERT
                 }
             )
@@ -77,9 +77,9 @@ module.exports = async function (fastify, opts) {
         '/:id',
         { schema: schemas.updateOne },
         async function (request, reply) {
-            const [, metadata] = await this.db.query('update properties set title=?,inventory_number=?,cost=?,comment=?,enabled=? where id=?',
+            const [, metadata] = await this.db.query('update properties set title=?,inventoryNumber=?,cost=?,comment=?,enabled=? where id=?',
                 {
-                    replacements: [request.body.title, request.body.inventory_number, request.body.cost, request.body.comment, request.body.enabled, request.params.id],
+                    replacements: [request.body.title, request.body.inventoryNumber, request.body.cost, request.body.comment, request.body.enabled, request.params.id],
                     type: QueryTypes.UPDATE
                 }
             )

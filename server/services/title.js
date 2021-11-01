@@ -29,14 +29,14 @@ module.exports = async function (fastify, opts) {
             const offset = parseInt(request.query.offset) || 0
 
             if (enabled) {
-                return await this.db.query('select * from titles where company_id = ? and enabled = true limit ? offset ?',
+                return await this.db.query('select * from titles where companyId = ? and enabled = true limit ? offset ?',
                     {
                         replacements: [companyId, limit, offset],
                         type: QueryTypes.SELECT
                     }
                 )
             } else {
-                return await this.db.query('select * from titles where company_id = ? limit ? offset ?',
+                return await this.db.query('select * from titles where companyId = ? limit ? offset ?',
                     {
                         replacements: [companyId, limit, offset],
                         type: QueryTypes.SELECT
@@ -69,7 +69,7 @@ module.exports = async function (fastify, opts) {
         '/',
         { schema: schemas.insertOne },
         async function (request, reply) {
-            const [result] = await this.db.query('insert into titles (name,rate,enabled,company_id) values(?,?,?,?)',
+            const [result] = await this.db.query('insert into titles (name,rate,enabled,companyId) values(?,?,?,?)',
                 {
                     replacements: [request.body.name, request.body.rate, request.body.enabled, request.body.companyId],
                     type: QueryTypes.INSERT
