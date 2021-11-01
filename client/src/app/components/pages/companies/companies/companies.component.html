@@ -1,6 +1,6 @@
 <app-toolbar
   title="Компании"
-  toolbarMode="mode.List"
+  [mode]="toolBarMode"
   [isLoading]="isLoading"
   [selectedItem]="selectedItem"
   (createRequest)="onCreateRequest()"
