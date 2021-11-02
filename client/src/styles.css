@@ -33,3 +33,7 @@ body {
 button mat-icon ~ span {
   margin-left: 4px;
 }
+
+mat-toolbar > span {
+  overflow: hidden;
+}
