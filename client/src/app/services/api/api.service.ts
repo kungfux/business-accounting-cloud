@@ -12,6 +12,12 @@ export class ApiService {
   private url = `${environment.apiUrl}/api`;
   private limit: number = 10;
 
+  private headers = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+  };
+
   constructor(
     private http: HttpClient,
     private userPreferences: UserPreferencesService
@@ -22,22 +28,22 @@ export class ApiService {
     });
   }
 
-  private headers = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
+  get defaultLimit() {
+    return this.limit;
+  }
 
-  get<T>(
-    api: string,
-    offset: number = 0,
-    companyId?: number,
-    params?: any
-  ): Observable<T> {
+  get<T>({
+    api,
+    id: id,
+    companyId,
+    offset,
+    limit,
+    params,
+  }: GetRequest): Observable<T> {
     const querystring = {
-      limit: this.limit,
       ...(companyId && { companyId: companyId }),
       ...(offset && { offset: offset }),
+      ...(limit && { limit: limit }),
       ...params,
     };
 
@@ -46,8 +52,9 @@ export class ApiService {
       params: querystring,
     };
 
+    const endpoint = !id ? `${this.url}${api}` : `${this.url}${api}/${id}`;
     return this.http
-      .get<T>(`${this.url}${api}`, options)
+      .get<T>(endpoint, options)
       .pipe(catchError(this.handleError));
   }
 
@@ -57,21 +64,25 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  put<T>(api: string, payload: object): Observable<T> {
+  put<T>(api: string, id: number, payload: object): Observable<T> {
     return this.http
-      .put<T>(`${this.url}${api}`, JSON.stringify(payload), this.headers)
+      .put<T>(`${this.url}${api}/${id}`, JSON.stringify(payload), this.headers)
       .pipe(catchError(this.handleError));
   }
 
-  patch<T>(api: string, payload: object): Observable<T> {
+  patch<T>(api: string, id: number, payload: object): Observable<T> {
     return this.http
-      .patch<T>(`${this.url}${api}`, JSON.stringify(payload), this.headers)
+      .patch<T>(
+        `${this.url}${api}/${id}`,
+        JSON.stringify(payload),
+        this.headers
+      )
       .pipe(catchError(this.handleError));
   }
 
-  delete<T>(api: string): Observable<T> {
+  delete<T>(api: string, id: number): Observable<T> {
     return this.http
-      .delete<T>(`${this.url}${api}`, this.headers)
+      .delete<T>(`${this.url}${api}/${id}`, this.headers)
       .pipe(catchError(this.handleError));
   }
 
@@ -118,4 +129,13 @@ export class ApiService {
     window.alert(errorMessage);
     return throwError(errorMessage);
   }
+}
+
+export interface GetRequest {
+  api: string;
+  id?: number;
+  companyId?: number;
+  limit?: number;
+  offset?: number;
+  params?: any;
 }

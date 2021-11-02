@@ -7,7 +7,7 @@
   (editRequest)="onEditRequest()"></app-toolbar>
 
 <div class="page-content">
-  <div class="table-responsive">
+  <div class="table-responsive" *ngIf="!isLoading">
     <table mat-table [dataSource]="data">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>Запись</th>

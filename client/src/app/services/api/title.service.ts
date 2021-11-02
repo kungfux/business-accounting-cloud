@@ -8,30 +8,46 @@ import { Title } from './models/title';
   providedIn: 'root',
 })
 export class TitleApiService {
-  private allTitlesEndpoint: string = '/titles';
-
-  private exactTitleEndpoint(id: number): string {
-    return `${this.allTitlesEndpoint}/${id}`;
-  }
+  private titleApiUrl: string = '/titles';
 
   constructor(private api: ApiService) {}
 
-  getTitles(
-    companyId: number,
-    enabled: boolean,
-    offset: number = 0
-  ): Observable<Title[]> {
-    return this.api.get<Title[]>(this.allTitlesEndpoint, offset, companyId, {
-      enabled: enabled,
+  getTitles(companyId: number, offset: number = 0): Observable<Title[]> {
+    return this.api.get<Title[]>({
+      api: this.titleApiUrl,
+      companyId: companyId,
+      offset: offset,
+      limit: this.api.defaultLimit,
+    });
+  }
+
+  getEnabledTitles(companyId: number): Observable<Title[]> {
+    return this.api.get<Title[]>({
+      api: this.titleApiUrl,
+      companyId: companyId,
+      params: {
+        enabled: true,
+        limit: 999,
+      },
+    });
+  }
+
+  getExactTitles(ids: number[]): Observable<Title[]> {
+    const range = ids.join(',');
+    return this.api.get<Title[]>({
+      api: this.titleApiUrl,
+      params: {
+        list: range,
+      },
     });
   }
 
   getTitle(id: number): Observable<Title> {
-    return this.api.get<Title>(this.exactTitleEndpoint(id));
+    return this.api.get<Title>({ api: this.titleApiUrl, id: id });
   }
 
   addTitle(title: Title): Observable<ItemCreatedResponse> {
-    return this.api.post<ItemCreatedResponse>(this.allTitlesEndpoint, {
+    return this.api.post<ItemCreatedResponse>(this.titleApiUrl, {
       name: title.name,
       rate: title.rate,
       enabled: title.enabled,
@@ -40,7 +56,7 @@ export class TitleApiService {
   }
 
   updateTitle(id: number, title: Title): Observable<void> {
-    return this.api.put(this.exactTitleEndpoint(id), {
+    return this.api.put(this.titleApiUrl, id, {
       name: title.name,
       rate: title.rate,
       enabled: title.enabled,
@@ -48,6 +64,6 @@ export class TitleApiService {
   }
 
   deleteTitle(id: number): Observable<void> {
-    return this.api.delete(this.exactTitleEndpoint(id));
+    return this.api.delete(this.titleApiUrl, id);
   }
 }

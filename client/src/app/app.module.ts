@@ -57,6 +57,7 @@ import { AuthorizedUserGuard } from './guards/authorized-user-guard.guard';
 import { AdminUserGuard } from './guards/admin-user-guard.guard';
 import { ContactComponent } from './components/pages/contacts/contact/contact.component';
 import { NavigatorComponent } from './components/common/navigator/navigator.component';
+import { TitlePipe } from './pipes/title';
 
 const routes: Routes = [
   {
@@ -173,6 +174,7 @@ const routes: Routes = [
     ContactsComponent,
     ContactComponent,
     NavigatorComponent,
+    TitlePipe,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -25,24 +25,26 @@
 </mat-card>
 
 <div class="page-content">
-  <mat-card
-    *ngFor="let contact of data"
-    (click)="selectItem(contact)"
-    [class.selected]="selectedItem == contact"
-    class="contact">
-    <img
-      mat-card-image
-      src="{{ contact.photo || '/assets/photo-placeholder.jpg' }}"
-      [ngClass]="(isHandset$ | async) ? 'small' : 'big'" />
-    <mat-card-header>
-      <mat-card-title [ngClass]="(isHandset$ | async) ? 'small' : 'big'">{{
-        contact.name
-      }}</mat-card-title>
-      <mat-card-subtitle [ngClass]="(isHandset$ | async) ? 'small' : 'big'">{{
-        contact.title || '&zwnj;'
-      }}</mat-card-subtitle>
-    </mat-card-header>
-  </mat-card>
+  <div class="page-content" *ngIf="!isLoading">
+    <mat-card
+      *ngFor="let contact of data"
+      (click)="selectItem(contact)"
+      [class.selected]="selectedItem == contact"
+      class="contact">
+      <img
+        mat-card-image
+        src="{{ contact.photo || '/assets/photo-placeholder.jpg' }}"
+        [ngClass]="(isHandset$ | async) ? 'small' : 'big'" />
+      <mat-card-header>
+        <mat-card-title [ngClass]="(isHandset$ | async) ? 'small' : 'big'">{{
+          contact.name
+        }}</mat-card-title>
+        <mat-card-subtitle [ngClass]="(isHandset$ | async) ? 'small' : 'big'">
+          {{ (titles | title: contact.titleId!) || '&zwnj;' }}
+        </mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
 
   <app-navigator
     class="line-break"

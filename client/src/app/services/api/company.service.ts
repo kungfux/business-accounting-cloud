@@ -8,24 +8,27 @@ import { Company } from './models/company';
   providedIn: 'root',
 })
 export class CompanyApiService {
-  private allCompaniesEndpoint: string = '/companies';
-
-  private exactCompanyEndpoint(id: number): string {
-    return `${this.allCompaniesEndpoint}/${id}`;
-  }
+  private companyApiUrl: string = '/companies';
 
   constructor(private api: ApiService) {}
 
   getCompanies(offset: number = 0): Observable<Company[]> {
-    return this.api.get<Company[]>(this.allCompaniesEndpoint, offset);
+    return this.api.get<Company[]>({
+      api: this.companyApiUrl,
+      offset: offset,
+      limit: this.api.defaultLimit,
+    });
   }
 
   getCompany(id: number): Observable<Company> {
-    return this.api.get<Company>(this.exactCompanyEndpoint(id));
+    return this.api.get<Company>({
+      api: this.companyApiUrl,
+      id: id,
+    });
   }
 
   addCompany(company: Company): Observable<ItemCreatedResponse> {
-    return this.api.post<ItemCreatedResponse>(this.allCompaniesEndpoint, {
+    return this.api.post<ItemCreatedResponse>(this.companyApiUrl, {
       name: company.name,
       logo: company.logo,
       enabled: company.enabled,
@@ -33,7 +36,7 @@ export class CompanyApiService {
   }
 
   updateCompany(id: number, company: Company): Observable<void> {
-    return this.api.put(this.exactCompanyEndpoint(id), {
+    return this.api.put(this.companyApiUrl, id, {
       name: company.name,
       logo: company.logo,
       enabled: company.enabled,
@@ -41,6 +44,6 @@ export class CompanyApiService {
   }
 
   deleteCompany(id: number): Observable<void> {
-    return this.api.delete(this.exactCompanyEndpoint(id));
+    return this.api.delete(this.companyApiUrl, id);
   }
 }

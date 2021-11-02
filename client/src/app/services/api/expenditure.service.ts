@@ -8,11 +8,7 @@ import { ItemCreatedResponse } from './models/itemCreatedResponse';
   providedIn: 'root',
 })
 export class ExpenditureApiService {
-  private allExpendituresEndpoint: string = '/expenditures';
-
-  private exactExpenditureEndpoint(id: number): string {
-    return `${this.allExpendituresEndpoint}/${id}`;
-  }
+  private expenditureApiUrl: string = '/expenditures';
 
   constructor(private api: ApiService) {}
 
@@ -20,19 +16,20 @@ export class ExpenditureApiService {
     companyId: number,
     offset: number = 0
   ): Observable<Expenditure[]> {
-    return this.api.get<Expenditure[]>(
-      this.allExpendituresEndpoint,
-      offset,
-      companyId
-    );
+    return this.api.get<Expenditure[]>({
+      api: this.expenditureApiUrl,
+      companyId: companyId,
+      offset: offset,
+      limit: this.api.defaultLimit,
+    });
   }
 
   getExpenditure(id: number): Observable<Expenditure> {
-    return this.api.get<Expenditure>(this.exactExpenditureEndpoint(id));
+    return this.api.get<Expenditure>({ api: this.expenditureApiUrl, id: id });
   }
 
   addExpenditure(expenditure: Expenditure): Observable<ItemCreatedResponse> {
-    return this.api.post<ItemCreatedResponse>(this.allExpendituresEndpoint, {
+    return this.api.post<ItemCreatedResponse>(this.expenditureApiUrl, {
       title: expenditure.title,
       rate: expenditure.rate,
       comment: expenditure.comment,
@@ -42,7 +39,7 @@ export class ExpenditureApiService {
   }
 
   updateExpenditure(id: number, expenditure: Expenditure): Observable<void> {
-    return this.api.put(this.exactExpenditureEndpoint(id), {
+    return this.api.put(this.expenditureApiUrl, id, {
       title: expenditure.title,
       rate: expenditure.rate,
       comment: expenditure.comment,
@@ -51,6 +48,6 @@ export class ExpenditureApiService {
   }
 
   deleteExpenditure(id: number): Observable<void> {
-    return this.api.delete(this.exactExpenditureEndpoint(id));
+    return this.api.delete(this.expenditureApiUrl, id);
   }
 }

@@ -24,18 +24,12 @@ module.exports = async function (fastify, opts) {
         { schema: schemas.findAll },
         async function (request, reply) {
             const companyId = parseInt(request.query.companyId)
-            const enabled = request.query.enabled || false;
+            const enabled = request.query.enabled || false
+            const list = request.query.list || undefined
             const limit = parseInt(request.query.limit) || 10
             const offset = parseInt(request.query.offset) || 0
 
-            if (enabled) {
-                return await this.db.query('select * from titles where companyId = ? and enabled = true limit ? offset ?',
-                    {
-                        replacements: [companyId, limit, offset],
-                        type: QueryTypes.SELECT
-                    }
-                )
-            } else {
+            if (companyId && !enabled) {
                 return await this.db.query('select * from titles where companyId = ? limit ? offset ?',
                     {
                         replacements: [companyId, limit, offset],
@@ -43,6 +37,31 @@ module.exports = async function (fastify, opts) {
                     }
                 )
             }
+
+            if (companyId && enabled) {
+                return await this.db.query('select * from titles where companyId = ? and enabled = true ' +
+                    'limit ? offset ?',
+                    {
+                        replacements: [companyId, limit, offset],
+                        type: QueryTypes.SELECT
+                    }
+                )
+            }
+
+            if (list) {
+                const ids = list.split(',');
+                for (var i = 0; i < ids.length; i++) {
+                    ids[i] = +ids[i];
+                }
+                return await this.db.query('select * from titles where id in (?)',
+                    {
+                        replacements: [ids],
+                        type: QueryTypes.SELECT
+                    }
+                )
+            }
+
+            return reply.code(400)
         }
     )
 

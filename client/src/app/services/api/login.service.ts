@@ -9,7 +9,7 @@ import { UserApiService } from './user.service';
   providedIn: 'root',
 })
 export class LoginApiService {
-  private serviceEndpoint: string = '/login';
+  private loginApiUrl: string = '/login';
 
   constructor(
     private api: ApiService,
@@ -21,7 +21,7 @@ export class LoginApiService {
   authenticate(login: string, password: string): Observable<boolean> {
     return new Observable<boolean>((subscriber) => {
       this.api
-        .post<LoginResponse>(this.serviceEndpoint, {
+        .post<LoginResponse>(this.loginApiUrl, {
           username: login,
           password: password,
         })

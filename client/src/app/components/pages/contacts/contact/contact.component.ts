@@ -22,7 +22,7 @@ import { Options, ImageResult } from 'ngx-image2dataurl';
 })
 export class ContactComponent implements OnInit {
   item: Contact = new Contact();
-  titles?: string[];
+  titles: Title[] = [];
   toolBarMode: ToolBarMode = ToolBarMode.Details;
   isLoading = true;
 
@@ -59,32 +59,52 @@ export class ContactComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getTitles();
+  }
+
+  getContact(): void {
     const contactId: number = parseInt(this.route.snapshot.paramMap.get('id')!);
 
-    this.titleApi.getTitles(this.userPreferences.companyId!, true).subscribe({
-      next: (titles) => {
-        this.titles = titles.map((x) => x.name!);
-
-        if (!contactId) {
+    if (contactId) {
+      this.isLoading = true;
+      this.contactApi.getContact(contactId).subscribe({
+        next: (contact) => {
+          if (contact.titleId) {
+            if (
+              this.titles?.find((x) => x.id === contact.titleId) === undefined
+            ) {
+              this.getTitles(contact.titleId);
+            }
+          }
+          this.item = contact;
           this.isLoading = false;
-        } else {
-          this.contactApi.getContact(contactId).subscribe({
-            next: (contact) => {
-              this.item = contact;
-              if (contact.title) {
-                if (
-                  this.titles?.find((x) => x === contact.title) === undefined
-                ) {
-                  this.titles?.push(contact.title);
-                }
-                this.titles?.sort();
-              }
-              this.isLoading = false;
-            },
-          });
-        }
-      },
-    });
+        },
+      });
+    }
+  }
+
+  getTitles(id: number | undefined = undefined): void {
+    this.isLoading = true;
+    if (id) {
+      this.titleApi.getTitle(id).subscribe({
+        next: (title) => {
+          this.titles?.splice(0, 0, title);
+          this.titles?.sort((x, y) => x.name!.localeCompare(y.name!));
+          this.isLoading = false;
+        },
+      });
+    } else {
+      this.titleApi
+        .getEnabledTitles(this.userPreferences.companyId!)
+        .subscribe({
+          next: (titles) => {
+            this.titles = titles;
+            this.titles?.sort((x, y) => x.name!.localeCompare(y.name!));
+            this.isLoading = false;
+            this.getContact();
+          },
+        });
+    }
   }
 
   onSaveRequest() {
@@ -103,7 +123,7 @@ export class ContactComponent implements OnInit {
       fired: this.item.fired,
       firedNote: this.item.firedNote,
       photo: this.item.photo,
-      title: this.item.title,
+      titleId: this.item.titleId,
       companyId: this.userPreferences.companyId,
     });
 

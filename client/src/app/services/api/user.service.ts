@@ -8,24 +8,24 @@ import { User } from './models/user';
   providedIn: 'root',
 })
 export class UserApiService {
-  private allUsersEndpoint: string = '/users';
-
-  private exactUserEndpoint(id: number): string {
-    return `${this.allUsersEndpoint}/${id}`;
-  }
+  private userApiUrl: string = '/users';
 
   constructor(private api: ApiService) {}
 
   getUsers(offset: number = 0): Observable<User[]> {
-    return this.api.get<User[]>(this.allUsersEndpoint, offset);
+    return this.api.get<User[]>({
+      api: this.userApiUrl,
+      offset: offset,
+      limit: this.api.defaultLimit,
+    });
   }
 
   getUser(id: number): Observable<User> {
-    return this.api.get<User>(this.exactUserEndpoint(id));
+    return this.api.get<User>({ api: this.userApiUrl, id: id });
   }
 
   addUser(user: User): Observable<ItemCreatedResponse> {
-    return this.api.post<ItemCreatedResponse>(this.allUsersEndpoint, {
+    return this.api.post<ItemCreatedResponse>(this.userApiUrl, {
       login: user.login,
       password: user.password,
       name: user.name,
@@ -36,7 +36,7 @@ export class UserApiService {
   }
 
   updateUser(id: number, user: User): Observable<void> {
-    return this.api.put(this.exactUserEndpoint(id), {
+    return this.api.put(this.userApiUrl, id, {
       login: user.login,
       name: user.name,
       avatar: user.avatar,
@@ -50,13 +50,13 @@ export class UserApiService {
     currentPassword: string,
     newPassword: string
   ): Observable<void> {
-    return this.api.patch(this.exactUserEndpoint(id), {
+    return this.api.patch(this.userApiUrl, id, {
       password: currentPassword,
       newPassword: newPassword,
     });
   }
 
   deleteUser(id: number): Observable<void> {
-    return this.api.delete(this.exactUserEndpoint(id));
+    return this.api.delete(this.userApiUrl, id);
   }
 }
