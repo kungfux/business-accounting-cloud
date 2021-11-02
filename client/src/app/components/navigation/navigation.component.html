@@ -15,7 +15,7 @@
         (click)="drawer.toggle()"
         routerLink="login"
         [class.active]="activeRoute === '/login'">
-        <mat-icon color="primary">account_circle</mat-icon>
+        <mat-icon>account_circle</mat-icon>
         Авторизация
       </a>
     </mat-nav-list>
@@ -107,7 +107,7 @@
       <button mat-icon-button onclick="this.blur()" (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <span *ngIf="!(isHandset$ | async)">{{ title }}</span>
+      <span *ngIf="!(isHandset$ | async) || !loggedInUser.id">{{ title }}</span>
       <span class="spacer"></span>
       <button
         mat-button
