@@ -8,33 +8,32 @@ import { ItemCreatedResponse } from './models/itemCreatedResponse';
   providedIn: 'root',
 })
 export class ContactApiService {
-  private allContactsEndpoint: string = '/contacts';
-
-  private exactContactEndpoint(id: number): string {
-    return `${this.allContactsEndpoint}/${id}`;
-  }
+  private contactApiUrl: string = '/contacts';
 
   constructor(private api: ApiService) {}
 
   getContacts(
     companyId: number,
-    activeOnly: boolean,
+    active: boolean,
     offset: number = 0
   ): Observable<Contact[]> {
-    return this.api.get<Contact[]>(
-      this.allContactsEndpoint,
-      offset,
-      companyId,
-      { activeOnly: activeOnly }
-    );
+    return this.api.get<Contact[]>({
+      api: this.contactApiUrl,
+      companyId: companyId,
+      offset: offset,
+      limit: this.api.defaultLimit,
+      params: {
+        active: active,
+      },
+    });
   }
 
   getContact(id: number): Observable<Contact> {
-    return this.api.get<Contact>(this.exactContactEndpoint(id));
+    return this.api.get<Contact>({ api: this.contactApiUrl, id: id });
   }
 
   addContact(contact: Contact): Observable<ItemCreatedResponse> {
-    return this.api.post<ItemCreatedResponse>(this.allContactsEndpoint, {
+    return this.api.post<ItemCreatedResponse>(this.contactApiUrl, {
       name: contact.name,
       phone: contact.phone,
       cellphone: contact.cellphone,
@@ -47,13 +46,13 @@ export class ContactApiService {
       fired: contact.fired,
       firedNote: contact.firedNote,
       photo: contact.photo,
-      title: contact.title,
+      titleId: contact.titleId,
       companyId: contact.companyId,
     });
   }
 
   updateContact(id: number, contact: Contact): Observable<void> {
-    return this.api.put(this.exactContactEndpoint(id), {
+    return this.api.put(this.contactApiUrl, id, {
       name: contact.name,
       phone: contact.phone,
       cellphone: contact.cellphone,
@@ -66,11 +65,11 @@ export class ContactApiService {
       fired: contact.fired,
       firedNote: contact.firedNote,
       photo: contact.photo,
-      title: contact.title,
+      titleId: contact.titleId,
     });
   }
 
   deleteContact(id: number): Observable<void> {
-    return this.api.delete(this.exactContactEndpoint(id));
+    return this.api.delete(this.contactApiUrl, id);
   }
 }

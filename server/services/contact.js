@@ -24,30 +24,19 @@ module.exports = async function (fastify, opts) {
         { schema: schemas.findAll },
         async function (request, reply) {
             const companyId = parseInt(request.query.companyId)
-            const activeOnly = request.query.activeOnly || false;
+            const active = request.query.active || false;
             const limit = parseInt(request.query.limit) || 10
             const offset = parseInt(request.query.offset) || 0
 
-            if (activeOnly) {
-                return await this.db.query(
-                    'select contacts.*, titles.name as title from contacts left join titles on contacts.titleId = titles.id ' +
-                    'where contacts.companyId = ? and contacts.fired == "" limit ? offset ?',
-                    {
-                        replacements: [companyId, limit, offset],
-                        type: QueryTypes.SELECT
-                    }
-                )
-            }
-            else {
-                return await this.db.query(
-                    'select contacts.*, titles.name as title from contacts left join titles on contacts.titleId = titles.id ' +
-                    'where contacts.companyId = ? limit ? offset ?',
-                    {
-                        replacements: [companyId, limit, offset],
-                        type: QueryTypes.SELECT
-                    }
-                )
-            }
+            return await this.db.query(
+                'select * from contacts where companyId = ? ' +
+                (active ? 'and fired = ""' : '') +
+                ' limit ? offset ?',
+                {
+                    replacements: [companyId, limit, offset],
+                    type: QueryTypes.SELECT
+                }
+            )
         }
     )
 
@@ -55,9 +44,7 @@ module.exports = async function (fastify, opts) {
         '/:id',
         { schema: schemas.findOne },
         async function (request, reply) {
-            const item = await this.db.query(
-                'select contacts.*, titles.name as title from contacts left join titles on contacts.titleId = titles.id ' +
-                'where contacts.id = ? limit 1',
+            const item = await this.db.query('select * from contacts where id = ? limit 1',
                 {
                     replacements: [request.params.id],
                     type: QueryTypes.SELECT
@@ -78,7 +65,7 @@ module.exports = async function (fastify, opts) {
         async function (request, reply) {
             const [result] = await this.db.query(
                 'insert into contacts (name,phone,cellphone,email,address,passport,dob,note,hired,fired,firedNote,photo,titleId,companyId) ' +
-                'values(?,?,?,?,?,?,?,?,?,?,?,?,(select id from titles where name = ?),?)',
+                'values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
                 {
                     replacements: [
                         request.body.name,
@@ -111,7 +98,7 @@ module.exports = async function (fastify, opts) {
         async function (request, reply) {
             const [, metadata] = await this.db.query(
                 'update contacts set name=?,phone=?,cellphone=?,email=?,address=?,passport=?,dob=?,note=?,hired=?,fired=?,' +
-                'firedNote=?,photo=?,titleId=(select titles.id from titles where titles.name=?) where id=?',
+                'firedNote=?,photo=?,titleId=? where id=?',
                 {
                     replacements: [
                         request.body.name,
@@ -126,7 +113,7 @@ module.exports = async function (fastify, opts) {
                         request.body.fired,
                         request.body.firedNote,
                         request.body.photo,
-                        request.body.title,
+                        request.body.titleId,
                         request.params.id],
                     type: QueryTypes.UPDATE
                 }

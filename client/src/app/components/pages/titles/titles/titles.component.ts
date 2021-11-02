@@ -30,14 +30,12 @@ export class TitlesComponent implements OnInit {
 
   getTitles(offset: number = 0): void {
     this.isLoading = true;
-    this.titleApi
-      .getTitles(this.userPreferences.companyId!, false, offset)
-      .subscribe({
-        next: (data) => {
-          this.data = data;
-          this.isLoading = false;
-        },
-      });
+    this.titleApi.getTitles(this.userPreferences.companyId!, offset).subscribe({
+      next: (data) => {
+        this.data = data;
+        this.isLoading = false;
+      },
+    });
   }
 
   selectItem(item: Title) {

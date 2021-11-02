@@ -19,7 +19,7 @@ var schema = new BaseSchema({
         fired: { type: 'string' },
         firedNote: { type: 'string' },
         photo: { type: 'string' },
-        title: { type: 'string' },
+        titleId: { type: 'integer' },
         companyId: { type: 'integer', minLength: 1 }
     },
     {
@@ -35,10 +35,10 @@ var schema = new BaseSchema({
         fired: { type: 'string' },
         firedNote: { type: 'string' },
         photo: { type: 'string' },
-        title: { type: 'string' },
+        titleId: { type: 'integer' },
     },
     {
-        activeOnly: { type: 'boolean' },
+        active: { type: 'boolean' },
     })
 
 const findAll = schema.findAll

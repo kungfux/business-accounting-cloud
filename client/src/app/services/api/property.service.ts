@@ -8,28 +8,25 @@ import { Property } from './models/property';
   providedIn: 'root',
 })
 export class PropertyApiService {
-  private allPropertiesEndpoint: string = '/properties';
-
-  private exactPropertyEndpoint(id: number): string {
-    return `${this.allPropertiesEndpoint}/${id}`;
-  }
+  private propertyApiUrl: string = '/properties';
 
   constructor(private api: ApiService) {}
 
   getProperties(companyId: number, offset: number = 0): Observable<Property[]> {
-    return this.api.get<Property[]>(
-      this.allPropertiesEndpoint,
-      offset,
-      companyId
-    );
+    return this.api.get<Property[]>({
+      api: this.propertyApiUrl,
+      companyId: companyId,
+      offset: offset,
+      limit: this.api.defaultLimit,
+    });
   }
 
   getProperty(id: number): Observable<Property> {
-    return this.api.get<Property>(this.exactPropertyEndpoint(id));
+    return this.api.get<Property>({ api: this.propertyApiUrl, id: id });
   }
 
   addProperty(property: Property): Observable<ItemCreatedResponse> {
-    return this.api.post<ItemCreatedResponse>(this.allPropertiesEndpoint, {
+    return this.api.post<ItemCreatedResponse>(this.propertyApiUrl, {
       title: property.title,
       inventoryNumber: property.inventoryNumber,
       cost: property.cost,
@@ -40,7 +37,7 @@ export class PropertyApiService {
   }
 
   updateProperty(id: number, property: Property): Observable<void> {
-    return this.api.put(this.exactPropertyEndpoint(id), {
+    return this.api.put(this.propertyApiUrl, id, {
       title: property.title,
       inventoryNumber: property.inventoryNumber,
       cost: property.cost,
@@ -50,6 +47,6 @@ export class PropertyApiService {
   }
 
   deleteProperty(id: number): Observable<void> {
-    return this.api.delete(this.exactPropertyEndpoint(id));
+    return this.api.delete(this.propertyApiUrl, id);
   }
 }

@@ -12,7 +12,7 @@ export class Contact {
   fired: Date | null = null;
   firedNote: string | null = null;
   photo: string | null = null;
-  title: string | null = null;
+  titleId: number | null = null;
   companyId: number | null = null;
   created: Date | null = null;
 

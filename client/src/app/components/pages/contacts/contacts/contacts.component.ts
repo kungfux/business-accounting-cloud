@@ -9,6 +9,8 @@ import {
 } from 'src/app/components/common/toolbar/toolbar.component';
 import { ContactApiService } from 'src/app/services/api/contact.service';
 import { Contact } from 'src/app/services/api/models/contact';
+import { Title } from 'src/app/services/api/models/title';
+import { TitleApiService } from 'src/app/services/api/title.service';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Component({
@@ -18,6 +20,7 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
 })
 export class ContactsComponent implements OnInit {
   data: Contact[] = [];
+  titles: Title[] = [];
   selectedItem?: Contact;
   toolBarMode: ToolBarMode = ToolBarMode.List;
   isLoading = true;
@@ -38,6 +41,7 @@ export class ContactsComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private contactApi: ContactApiService,
+    private titleApi: TitleApiService,
     private router: Router,
     public userPreferences: UserPreferencesService
   ) {}
@@ -57,9 +61,30 @@ export class ContactsComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.data = data;
-          this.isLoading = false;
+          this.getTitles();
         },
       });
+  }
+
+  getTitles(): void {
+    this.isLoading = true;
+
+    const titleIds: number[] = [];
+    this.data.forEach((contact) => {
+      if (contact.titleId) {
+        if (titleIds.find((id) => id == contact.titleId) === undefined) {
+          titleIds.push(contact.titleId);
+        }
+      }
+    });
+
+    this.titles = [];
+    this.titleApi.getExactTitles(titleIds).subscribe({
+      next: (titles) => {
+        this.titles = titles;
+        this.isLoading = false;
+      },
+    });
   }
 
   selectItem(item: Contact) {

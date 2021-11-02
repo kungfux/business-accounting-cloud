@@ -30,14 +30,14 @@ CREATE TABLE IF NOT EXISTS CONTACTS (
  [note]       VARCHAR,
  [hired]      DATE,
  [fired]      DATE,
- [firedNote] VARCHAR,
+ [firedNote]  VARCHAR,
  [photo]      VARCHAR,
  [created]    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
- [companyId]  INTEGER NOT NULL
-              REFERENCES COMPANIES(id)
-              ON DELETE RESTRICT,
  [titleId]    INTEGER
               REFERENCES TITLES(id)
+              ON DELETE RESTRICT,
+ [companyId]  INTEGER NOT NULL
+              REFERENCES COMPANIES(id)
               ON DELETE RESTRICT,
               CONSTRAINT uniq UNIQUE (name, companyId)
 );
