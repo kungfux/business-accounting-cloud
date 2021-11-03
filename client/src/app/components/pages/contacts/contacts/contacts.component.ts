@@ -79,6 +79,11 @@ export class ContactsComponent implements OnInit {
     });
 
     this.titles = [];
+    if (titleIds.length == 0) {
+      this.isLoading = false;
+      return;
+    }
+
     this.titleApi.getExactTitles(titleIds).subscribe({
       next: (titles) => {
         this.titles = titles;
