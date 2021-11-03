@@ -1,10 +1,10 @@
 <app-toolbar
-  [title]="item?.name || 'Новая должность'"
+  [title]="title?.name || 'Новая должность'"
   [mode]="toolBarMode"
   [isLoading]="isLoading"
-  [selectedItem]="item"
-  [deleteVisible]="!!item?.id"
-  [saveEnabled]="!!item.name && !isLoading"
+  [selectedItem]="title"
+  [deleteVisible]="!!title?.id"
+  [saveEnabled]="!!title.name && title.rate! >= 0 && !isLoading"
   [deleteEnabled]="!isLoading"
   (saveRequest)="onSaveRequest()"
   (deleteRequest)="onDeleteRequest()"></app-toolbar>
@@ -15,17 +15,16 @@
       <div class="column-container">
         <mat-form-field appearance="fill">
           <mat-label>Название должности</mat-label>
-          <input matInput [(ngModel)]="item.name" required />
+          <input matInput [(ngModel)]="title.name" required />
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Типовая сумма выплат</mat-label>
-          <input matInput type="number" [(ngModel)]="item.rate" />
-          <span matPrefix>{{ this.currency.getSymbol() }}&nbsp;</span>
+          <mat-label>Зарплата ({{ this.currency.getSymbol() }})</mat-label>
+          <input matInput type="number" [(ngModel)]="title.rate" />
         </mat-form-field>
       </div>
       <section>
-        <mat-checkbox [(ngModel)]="item.enabled"
-          >Разрешить использование</mat-checkbox
+        <mat-checkbox [(ngModel)]="title.enabled"
+          >Показывать в списке для выбора в сотрудниках</mat-checkbox
         >
       </section>
     </mat-card-content>

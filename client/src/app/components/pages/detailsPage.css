@@ -10,3 +10,10 @@ mat-checkbox:nth-of-type(2) {
 textarea {
   min-height: 86px;
 }
+
+.mat-card:not([class*='mat-elevation-z']),
+mat-card {
+  box-shadow: none;
+  transition: none;
+  /* background: transparent; */
+}

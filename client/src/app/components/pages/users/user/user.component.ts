@@ -14,7 +14,7 @@ import { UserApiService } from 'src/app/services/api/user.service';
 })
 export class UserComponent implements OnInit {
   hidePassword = true;
-  item: User = new User();
+  user: User = new User();
   toolBarMode: ToolBarMode = ToolBarMode.Details;
   isLoading = true;
   changePasswordButton: CustomButton = new CustomButton(
@@ -39,7 +39,7 @@ export class UserComponent implements OnInit {
     } else {
       this.userApi.getUser(userId).subscribe({
         next: (user) => {
-          this.item = user;
+          this.user = user;
           this.isLoading = false;
         },
       });
@@ -49,13 +49,13 @@ export class UserComponent implements OnInit {
   onSaveRequest() {
     this.isLoading = true;
     const item = new User({
-      id: this.item.id,
-      login: this.item.login,
-      name: this.item.name,
-      avatar: this.item.avatar,
-      password: this.item.password,
-      admin: this.item.admin,
-      enabled: this.item.enabled,
+      id: this.user.id,
+      login: this.user.login,
+      name: this.user.name,
+      avatar: this.user.avatar,
+      password: this.user.password,
+      admin: this.user.admin,
+      enabled: this.user.enabled,
     });
 
     if (!item.id) {
@@ -81,7 +81,7 @@ export class UserComponent implements OnInit {
 
   onDeleteRequest() {
     this.isLoading = true;
-    this.userApi.deleteUser(this.item.id!).subscribe({
+    this.userApi.deleteUser(this.user.id!).subscribe({
       next: () => {
         this.navigateToAllUsers();
       },
@@ -92,7 +92,7 @@ export class UserComponent implements OnInit {
   }
 
   onChangePasswordRequest() {
-    this.router.navigate([`users/${this.item.id}/password`]);
+    this.router.navigate([`users/${this.user.id}/password`]);
   }
 
   goToLink(url: string) {

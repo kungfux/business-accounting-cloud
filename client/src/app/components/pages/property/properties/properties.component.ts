@@ -12,8 +12,8 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
   styleUrls: ['../../listPage.css'],
 })
 export class PropertiesComponent implements OnInit {
-  data: Property[] = [];
-  selectedItem?: Property;
+  properties: Property[] = [];
+  selectedProperty?: Property;
   toolBarMode: ToolBarMode = ToolBarMode.List;
   isLoading = true;
 
@@ -33,16 +33,16 @@ export class PropertiesComponent implements OnInit {
     this.propertyApi
       .getProperties(this.userPreferences.companyId!, offset)
       .subscribe({
-        next: (data) => {
-          this.data = data;
+        next: (properties) => {
+          this.properties = properties;
           this.isLoading = false;
         },
       });
   }
 
-  selectItem(item: Property) {
-    if (this.selectedItem != item) {
-      this.selectedItem = item;
+  selectProperty(property: Property) {
+    if (this.selectedProperty != property) {
+      this.selectedProperty = property;
     } else {
       this.onEditRequest();
     }
@@ -53,6 +53,6 @@ export class PropertiesComponent implements OnInit {
   }
 
   onEditRequest() {
-    this.router.navigate(['/properties', this.selectedItem?.id]);
+    this.router.navigate(['/properties', this.selectedProperty?.id]);
   }
 }

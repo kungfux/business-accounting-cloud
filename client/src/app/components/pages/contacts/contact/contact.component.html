@@ -1,10 +1,10 @@
 <app-toolbar
-  [title]="item?.name || 'Новый сотрудник'"
+  [title]="contact?.name || 'Новый сотрудник'"
   [mode]="toolBarMode"
   [isLoading]="isLoading"
-  [selectedItem]="item"
-  [deleteVisible]="!!item?.id"
-  [saveEnabled]="!!item.name && !isLoading"
+  [selectedItem]="contact"
+  [deleteVisible]="!!contact?.id"
+  [saveEnabled]="!!contact.name && !isLoading"
   [deleteEnabled]="!isLoading"
   (saveRequest)="onSaveRequest()"
   (deleteRequest)="onDeleteRequest()"
@@ -17,17 +17,17 @@
       <div class="section-small img">
         <img
           mat-card-image
-          src="{{ item.photo || '/assets/photo-placeholder.jpg' }}" />
+          src="{{ contact.photo || '/assets/photo-placeholder.jpg' }}" />
       </div>
       <div class="section-big">
         <div class="column-container">
           <mat-form-field appearance="fill">
             <mat-label>Фамилия, имя и отчество</mat-label>
-            <input matInput [(ngModel)]="item.name" required />
+            <input matInput [(ngModel)]="contact.name" required />
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Должность</mat-label>
-            <mat-select [(ngModel)]="item.titleId">
+            <mat-select [(ngModel)]="contact.titleId">
               <mat-option value="null"></mat-option>
               <mat-option *ngFor="let title of titles" [value]="title.id">
                 {{ title.name }}
@@ -36,22 +36,22 @@
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Мобильный телефон</mat-label>
-            <input matInput [(ngModel)]="item.cellphone" />
+            <input matInput [(ngModel)]="contact.cellphone" />
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Домашний телефон</mat-label>
-            <input matInput [(ngModel)]="item.phone" />
+            <input matInput [(ngModel)]="contact.phone" />
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Электронная почта</mat-label>
-            <input matInput [(ngModel)]="item.email" />
+            <input matInput [(ngModel)]="contact.email" />
           </mat-form-field>
           <div class="calendars">
             <mat-form-field appearance="fill">
               <mat-label>Дата принятия</mat-label>
               <input
                 matInput
-                [(ngModel)]="item.hired"
+                [(ngModel)]="contact.hired"
                 [matDatepicker]="hired" />
               <mat-datepicker-toggle
                 matSuffix
@@ -62,7 +62,7 @@
               <mat-label>Дата увольнения</mat-label>
               <input
                 matInput
-                [(ngModel)]="item.fired"
+                [(ngModel)]="contact.fired"
                 [matDatepicker]="fired" />
               <mat-datepicker-toggle
                 matSuffix
@@ -72,7 +72,7 @@
           </div>
           <mat-form-field appearance="fill">
             <mat-label>Причина увольнения</mat-label>
-            <input matInput [(ngModel)]="item.firedNote" />
+            <input matInput [(ngModel)]="contact.firedNote" />
           </mat-form-field>
         </div>
       </div>
@@ -80,7 +80,7 @@
         <div class="column-container">
           <mat-form-field appearance="fill">
             <mat-label>Дата рождения</mat-label>
-            <input matInput [(ngModel)]="item.dob" [matDatepicker]="dob" />
+            <input matInput [(ngModel)]="contact.dob" [matDatepicker]="dob" />
             <mat-datepicker-toggle
               matSuffix
               [for]="dob"></mat-datepicker-toggle>
@@ -88,15 +88,15 @@
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Паспортные данные</mat-label>
-            <textarea matInput [(ngModel)]="item.passport"></textarea>
+            <textarea matInput [(ngModel)]="contact.passport"></textarea>
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Адрес регистрации</mat-label>
-            <textarea matInput [(ngModel)]="item.address"></textarea>
+            <textarea matInput [(ngModel)]="contact.address"></textarea>
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Заметки</mat-label>
-            <textarea matInput [(ngModel)]="item.note"></textarea>
+            <textarea matInput [(ngModel)]="contact.note"></textarea>
           </mat-form-field>
         </div>
       </div>
@@ -109,4 +109,4 @@
   #imageUpload
   type="file"
   [imageToDataUrl]="options"
-  (imageSelected)="selected($event)" />
+  (imageSelected)="onImageSelected($event)" />

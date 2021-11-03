@@ -9,6 +9,7 @@
     item.login.length > 0 &&
     !!item.name &&
     item.name.length > 0 &&
+    appUser.limit > 0 &&
     !isLoading
   "
   [customButtonEnabled]="!!item?.id && !isLoading"

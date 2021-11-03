@@ -12,8 +12,8 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
   styleUrls: ['../../listPage.css'],
 })
 export class ExpendituresComponent implements OnInit {
-  data: Expenditure[] = [];
-  selectedItem?: Expenditure;
+  expenditures: Expenditure[] = [];
+  selectedExpenditure?: Expenditure;
   toolBarMode: ToolBarMode = ToolBarMode.List;
   isLoading = true;
 
@@ -33,16 +33,16 @@ export class ExpendituresComponent implements OnInit {
     this.expenditureApi
       .getExpenditures(this.userPreferences.companyId!, offset)
       .subscribe({
-        next: (data) => {
-          this.data = data;
+        next: (expenditures) => {
+          this.expenditures = expenditures;
           this.isLoading = false;
         },
       });
   }
 
-  selectItem(item: Expenditure) {
-    if (this.selectedItem != item) {
-      this.selectedItem = item;
+  selectExpenditure(expenditure: Expenditure) {
+    if (this.selectedExpenditure != expenditure) {
+      this.selectedExpenditure = expenditure;
     } else {
       this.onEditRequest();
     }
@@ -53,6 +53,6 @@ export class ExpendituresComponent implements OnInit {
   }
 
   onEditRequest() {
-    this.router.navigate(['/expenditures', this.selectedItem?.id]);
+    this.router.navigate(['/expenditures', this.selectedExpenditure?.id]);
   }
 }

@@ -1,26 +1,26 @@
 <app-toolbar
-  [title]="item?.login || 'Новый пользователь'"
+  [title]="user?.login || 'Новый пользователь'"
   [mode]="toolBarMode"
   [isLoading]="isLoading"
-  [selectedItem]="item"
-  [deleteVisible]="!!item?.id"
+  [selectedItem]="user"
+  [deleteVisible]="!!user?.id"
   [saveEnabled]="
-    !item.id
-      ? !!item.login &&
-        item.login.length > 0 &&
-        !!item.password &&
-        item.password.length >= 8 &&
-        !!item.name &&
-        item.name.length > 0 &&
+    !user.id
+      ? !!user.login &&
+        user.login.length > 0 &&
+        !!user.password &&
+        user.password.length >= 8 &&
+        !!user.name &&
+        user.name.length > 0 &&
         !isLoading
-      : !!item.login &&
-        item.login.length > 0 &&
-        !!item.name &&
-        item.name.length > 0 &&
+      : !!user.login &&
+        user.login.length > 0 &&
+        !!user.name &&
+        user.name.length > 0 &&
         !isLoading
   "
   [deleteEnabled]="!isLoading"
-  [customButtonEnabled]="!!item?.id && !isLoading"
+  [customButtonEnabled]="!!user?.id && !isLoading"
   [customButton]="changePasswordButton"
   (customRequest)="onChangePasswordRequest()"
   (saveRequest)="onSaveRequest()"
@@ -32,14 +32,14 @@
       <div class="column-container">
         <mat-form-field appearance="fill">
           <mat-label>Логин</mat-label>
-          <input matInput [(ngModel)]="item.login" required />
+          <input matInput [(ngModel)]="user.login" required />
         </mat-form-field>
-        <mat-form-field appearance="fill" *ngIf="item && !item.id">
+        <mat-form-field appearance="fill" *ngIf="user && !user.id">
           <mat-label>Пароль</mat-label>
           <input
             matInput
             [type]="hidePassword ? 'password' : 'text'"
-            [(ngModel)]="item.password"
+            [(ngModel)]="user.password"
             required />
           <button
             mat-icon-button
@@ -53,11 +53,11 @@
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Имя</mat-label>
-          <input matInput [(ngModel)]="item.name" required />
+          <input matInput [(ngModel)]="user.name" required />
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Аватар</mat-label>
-          <input matInput [(ngModel)]="item.avatar" />
+          <input matInput [(ngModel)]="user.avatar" />
           <button
             mat-icon-button
             matSuffix
@@ -69,8 +69,12 @@
         </mat-form-field>
       </div>
       <section>
-        <mat-checkbox [(ngModel)]="item.admin">Администратор</mat-checkbox>
-        <mat-checkbox [(ngModel)]="item.enabled">Вход разрешен</mat-checkbox>
+        <mat-checkbox [(ngModel)]="user.admin"
+          >Разрешить администрирование</mat-checkbox
+        >
+        <mat-checkbox [(ngModel)]="user.enabled"
+          >Разрешить вход в систему</mat-checkbox
+        >
       </section>
     </mat-card-content>
   </mat-card>

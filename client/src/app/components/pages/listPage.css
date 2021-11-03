@@ -10,7 +10,7 @@
   display: table;
   border-collapse: collapse;
   margin: 0px;
-  background: transparent;
+  /* background: transparent; */
 }
 .mat-row,
 .mat-header-row {

@@ -12,7 +12,7 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
   styleUrls: ['../../detailsPage.css'],
 })
 export class ExpenditureComponent implements OnInit {
-  item: Expenditure = new Expenditure();
+  expenditure: Expenditure = new Expenditure();
   toolBarMode: ToolBarMode = ToolBarMode.Details;
   isLoading = true;
 
@@ -35,7 +35,7 @@ export class ExpenditureComponent implements OnInit {
     } else {
       this.expenditureApi.getExpenditure(propertyId).subscribe({
         next: (expenditure) => {
-          this.item = expenditure;
+          this.expenditure = expenditure;
           this.isLoading = false;
         },
       });
@@ -45,11 +45,11 @@ export class ExpenditureComponent implements OnInit {
   onSaveRequest() {
     this.isLoading = true;
     const expenditure = new Expenditure({
-      id: this.item.id,
-      title: this.item.title,
-      rate: this.item.rate,
-      comment: this.item.comment,
-      enabled: this.item.enabled,
+      id: this.expenditure.id,
+      title: this.expenditure.title,
+      rate: this.expenditure.rate,
+      comment: this.expenditure.comment,
+      enabled: this.expenditure.enabled,
       companyId: this.userPreferences.companyId,
     });
 
@@ -78,7 +78,7 @@ export class ExpenditureComponent implements OnInit {
 
   onDeleteRequest() {
     this.isLoading = true;
-    this.expenditureApi.deleteExpenditure(this.item.id!).subscribe({
+    this.expenditureApi.deleteExpenditure(this.expenditure.id!).subscribe({
       next: () => {
         this.navigateToAllExpenditure();
       },

@@ -1,10 +1,10 @@
 <app-toolbar
-  [title]="item?.name || 'Новая компания'"
+  [title]="company?.name || 'Новая компания'"
   [mode]="toolBarMode"
   [isLoading]="isLoading"
-  [selectedItem]="item"
-  [deleteVisible]="!!item?.id"
-  [saveEnabled]="!!item.name && !isLoading"
+  [selectedItem]="company"
+  [deleteVisible]="!!company?.id"
+  [saveEnabled]="!!company.name && !isLoading"
   [deleteEnabled]="!isLoading"
   (saveRequest)="onSaveRequest()"
   (deleteRequest)="onDeleteRequest()"></app-toolbar>
@@ -15,11 +15,11 @@
       <div class="column-container">
         <mat-form-field appearance="fill">
           <mat-label>Название компании</mat-label>
-          <input matInput [(ngModel)]="item.name" required />
+          <input matInput [(ngModel)]="company.name" required />
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Логотип</mat-label>
-          <input matInput [(ngModel)]="item.logo" />
+          <input matInput [(ngModel)]="company.logo" />
           <button
             mat-icon-button
             matSuffix
@@ -31,8 +31,8 @@
         </mat-form-field>
       </div>
       <section>
-        <mat-checkbox [(ngModel)]="item.enabled"
-          >Разрешить управление</mat-checkbox
+        <mat-checkbox [(ngModel)]="company.enabled"
+          >Разрешить управление этой компанией</mat-checkbox
         >
       </section>
     </mat-card-content>

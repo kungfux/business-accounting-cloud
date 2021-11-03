@@ -12,7 +12,7 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
   styleUrls: ['../../detailsPage.css'],
 })
 export class TitleComponent implements OnInit {
-  item: Title = new Title();
+  title: Title = new Title();
   toolBarMode: ToolBarMode = ToolBarMode.Details;
   isLoading = true;
 
@@ -20,7 +20,7 @@ export class TitleComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private titleApi: TitleApiService,
-    private userPreferences: UserPreferencesService,
+    public userPreferences: UserPreferencesService,
     public currency: CurrencyService
   ) {}
 
@@ -35,7 +35,7 @@ export class TitleComponent implements OnInit {
     } else {
       this.titleApi.getTitle(titleId).subscribe({
         next: (title) => {
-          this.item = title;
+          this.title = title;
           this.isLoading = false;
         },
       });
@@ -45,10 +45,10 @@ export class TitleComponent implements OnInit {
   onSaveRequest() {
     this.isLoading = true;
     const title = new Title({
-      id: this.item.id,
-      name: this.item.name,
-      rate: this.item.rate,
-      enabled: this.item.enabled,
+      id: this.title.id,
+      name: this.title.name,
+      rate: this.title.rate,
+      enabled: this.title.enabled,
       companyId: this.userPreferences.companyId,
     });
 
@@ -75,7 +75,7 @@ export class TitleComponent implements OnInit {
 
   onDeleteRequest() {
     this.isLoading = true;
-    this.titleApi.deleteTitle(this.item.id!).subscribe({
+    this.titleApi.deleteTitle(this.title.id!).subscribe({
       next: () => {
         this.navigateToAllTitles();
       },

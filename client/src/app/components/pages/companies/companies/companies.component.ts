@@ -11,8 +11,8 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
   styleUrls: ['../../listPage.css'],
 })
 export class CompaniesComponent implements OnInit {
-  data: Company[] = [];
-  selectedItem?: Company;
+  companies: Company[] = [];
+  selectedCompany?: Company;
   toolBarMode: ToolBarMode = ToolBarMode.List;
   isLoading = true;
 
@@ -29,16 +29,16 @@ export class CompaniesComponent implements OnInit {
   getCompanies(offset: number = 0): void {
     this.isLoading = true;
     this.companyApi.getCompanies(offset).subscribe({
-      next: (data) => {
-        this.data = data;
+      next: (companies) => {
+        this.companies = companies;
         this.isLoading = false;
       },
     });
   }
 
-  selectItem(item: Company) {
-    if (this.selectedItem != item) {
-      this.selectedItem = item;
+  selectCompany(company: Company) {
+    if (this.selectedCompany != company) {
+      this.selectedCompany = company;
     } else {
       this.onEditRequest();
     }
@@ -49,6 +49,6 @@ export class CompaniesComponent implements OnInit {
   }
 
   onEditRequest() {
-    this.router.navigate(['/companies', this.selectedItem?.id]);
+    this.router.navigate(['/companies', this.selectedCompany?.id]);
   }
 }

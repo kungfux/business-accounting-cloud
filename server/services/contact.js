@@ -80,7 +80,7 @@ module.exports = async function (fastify, opts) {
                         request.body.fired,
                         request.body.firedNote,
                         request.body.photo,
-                        request.body.title,
+                        request.body.titleId || null,
                         request.body.companyId],
                     type: QueryTypes.INSERT
                 }
@@ -113,7 +113,7 @@ module.exports = async function (fastify, opts) {
                         request.body.fired,
                         request.body.firedNote,
                         request.body.photo,
-                        request.body.titleId,
+                        request.body.titleId || null,
                         request.params.id],
                     type: QueryTypes.UPDATE
                 }
