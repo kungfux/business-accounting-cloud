@@ -11,8 +11,8 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
   styleUrls: ['../../listPage.css'],
 })
 export class UsersComponent implements OnInit {
-  data: User[] = [];
-  selectedItem?: User;
+  users: User[] = [];
+  selectedUser?: User;
   toolBarMode: ToolBarMode = ToolBarMode.List;
   isLoading = true;
 
@@ -29,16 +29,16 @@ export class UsersComponent implements OnInit {
   getUsers(offset: number = 0): void {
     this.isLoading = true;
     this.userApi.getUsers(offset).subscribe({
-      next: (data) => {
-        this.data = data;
+      next: (users) => {
+        this.users = users;
         this.isLoading = false;
       },
     });
   }
 
-  selectItem(item: User) {
-    if (this.selectedItem != item) {
-      this.selectedItem = item;
+  selectUser(user: User) {
+    if (this.selectedUser != user) {
+      this.selectedUser = user;
     } else {
       this.onEditRequest();
     }
@@ -49,6 +49,6 @@ export class UsersComponent implements OnInit {
   }
 
   onEditRequest() {
-    this.router.navigate(['/users', this.selectedItem?.id]);
+    this.router.navigate(['/users', this.selectedUser?.id]);
   }
 }

@@ -12,7 +12,7 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
   styleUrls: ['../../detailsPage.css'],
 })
 export class PropertyComponent implements OnInit {
-  item: Property = new Property();
+  property: Property = new Property();
   toolBarMode: ToolBarMode = ToolBarMode.Details;
   isLoading = true;
 
@@ -35,7 +35,7 @@ export class PropertyComponent implements OnInit {
     } else {
       this.propertyApi.getProperty(propertyId).subscribe({
         next: (property) => {
-          this.item = property;
+          this.property = property;
           this.isLoading = false;
         },
       });
@@ -45,12 +45,12 @@ export class PropertyComponent implements OnInit {
   onSaveRequest() {
     this.isLoading = true;
     const property = new Property({
-      id: this.item.id,
-      title: this.item.title,
-      inventoryNumber: this.item.inventoryNumber,
-      cost: this.item.cost,
-      comment: this.item.comment,
-      enabled: this.item.enabled,
+      id: this.property.id,
+      title: this.property.title,
+      inventoryNumber: this.property.inventoryNumber,
+      cost: this.property.cost,
+      comment: this.property.comment,
+      enabled: this.property.enabled,
       companyId: this.userPreferences.companyId,
     });
 
@@ -77,7 +77,7 @@ export class PropertyComponent implements OnInit {
 
   onDeleteRequest() {
     this.isLoading = true;
-    this.propertyApi.deleteProperty(this.item.id!).subscribe({
+    this.propertyApi.deleteProperty(this.property.id!).subscribe({
       next: () => {
         this.navigateToAllProperties();
       },

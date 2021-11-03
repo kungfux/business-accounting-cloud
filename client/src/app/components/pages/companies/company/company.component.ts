@@ -10,7 +10,7 @@ import { Company } from 'src/app/services/api/models/company';
   styleUrls: ['../../detailsPage.css'],
 })
 export class CompanyComponent implements OnInit {
-  item: Company = new Company();
+  company: Company = new Company();
   toolBarMode: ToolBarMode = ToolBarMode.Details;
   isLoading = true;
 
@@ -31,7 +31,7 @@ export class CompanyComponent implements OnInit {
     } else {
       this.companyApi.getCompany(companyId).subscribe({
         next: (company) => {
-          this.item = company;
+          this.company = company;
           this.isLoading = false;
         },
       });
@@ -41,10 +41,10 @@ export class CompanyComponent implements OnInit {
   onSaveRequest() {
     this.isLoading = true;
     let company = new Company({
-      id: this.item.id,
-      name: this.item.name,
-      logo: this.item.logo,
-      enabled: this.item.enabled,
+      id: this.company.id,
+      name: this.company.name,
+      logo: this.company.logo,
+      enabled: this.company.enabled,
     });
 
     if (!company.id) {
@@ -70,7 +70,7 @@ export class CompanyComponent implements OnInit {
 
   onDeleteRequest() {
     this.isLoading = true;
-    this.companyApi.deleteCompany(this.item.id!).subscribe({
+    this.companyApi.deleteCompany(this.company.id!).subscribe({
       next: () => {
         this.navigateToAllCompanies();
       },

@@ -12,8 +12,8 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
   styleUrls: ['../../listPage.css'],
 })
 export class TitlesComponent implements OnInit {
-  data: Title[] = [];
-  selectedItem?: Title;
+  titles: Title[] = [];
+  selectedTitle?: Title;
   toolBarMode: ToolBarMode = ToolBarMode.List;
   isLoading = true;
 
@@ -31,16 +31,16 @@ export class TitlesComponent implements OnInit {
   getTitles(offset: number = 0): void {
     this.isLoading = true;
     this.titleApi.getTitles(this.userPreferences.companyId!, offset).subscribe({
-      next: (data) => {
-        this.data = data;
+      next: (titles) => {
+        this.titles = titles;
         this.isLoading = false;
       },
     });
   }
 
-  selectItem(item: Title) {
-    if (this.selectedItem != item) {
-      this.selectedItem = item;
+  selectTitle(title: Title) {
+    if (this.selectedTitle != title) {
+      this.selectedTitle = title;
     } else {
       this.onEditRequest();
     }
@@ -51,6 +51,6 @@ export class TitlesComponent implements OnInit {
   }
 
   onEditRequest() {
-    this.router.navigate(['/titles', this.selectedItem?.id]);
+    this.router.navigate(['/titles', this.selectedTitle?.id]);
   }
 }

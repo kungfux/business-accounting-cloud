@@ -21,7 +21,7 @@ import { Options, ImageResult } from 'ngx-image2dataurl';
   styleUrls: ['../../detailsPage.css', './contact.component.css'],
 })
 export class ContactComponent implements OnInit {
-  item: Contact = new Contact();
+  contact: Contact = new Contact();
   titles: Title[] = [];
   toolBarMode: ToolBarMode = ToolBarMode.Details;
   isLoading = true;
@@ -43,7 +43,7 @@ export class ContactComponent implements OnInit {
       maxHeight: 500,
       maxWidth: 750,
     },
-    allowedExtensions: ['JPG', 'PnG'],
+    allowedExtensions: ['JPG', 'PNG'],
   };
 
   @ViewChild('imageUpload') imageUpload: any;
@@ -76,7 +76,7 @@ export class ContactComponent implements OnInit {
               this.getTitles(contact.titleId);
             }
           }
-          this.item = contact;
+          this.contact = contact;
           this.isLoading = false;
         },
       });
@@ -110,20 +110,20 @@ export class ContactComponent implements OnInit {
   onSaveRequest() {
     this.isLoading = true;
     const contact = new Contact({
-      id: this.item.id,
-      name: this.item.name,
-      phone: this.item.phone,
-      cellphone: this.item.cellphone,
-      email: this.item.email,
-      address: this.item.address,
-      passport: this.item.passport,
-      dob: this.item.dob,
-      note: this.item.note,
-      hired: this.item.hired,
-      fired: this.item.fired,
-      firedNote: this.item.firedNote,
-      photo: this.item.photo,
-      titleId: this.item.titleId,
+      id: this.contact.id,
+      name: this.contact.name,
+      phone: this.contact.phone,
+      cellphone: this.contact.cellphone,
+      email: this.contact.email,
+      address: this.contact.address,
+      passport: this.contact.passport,
+      dob: this.contact.dob,
+      note: this.contact.note,
+      hired: this.contact.hired,
+      fired: this.contact.fired,
+      firedNote: this.contact.firedNote,
+      photo: this.contact.photo,
+      titleId: this.contact.titleId,
       companyId: this.userPreferences.companyId,
     });
 
@@ -150,7 +150,7 @@ export class ContactComponent implements OnInit {
 
   onDeleteRequest() {
     this.isLoading = true;
-    this.contactApi.deleteContact(this.item.id!).subscribe({
+    this.contactApi.deleteContact(this.contact.id!).subscribe({
       next: () => {
         this.navigateToAllContacts();
       },
@@ -160,9 +160,9 @@ export class ContactComponent implements OnInit {
     });
   }
 
-  selected(imageResult: ImageResult) {
+  onImageSelected(imageResult: ImageResult) {
     if (imageResult.error) alert(imageResult.error);
-    this.item.photo =
+    this.contact.photo =
       (imageResult.resized && imageResult.resized.dataURL) ||
       imageResult.dataURL!;
   }
