@@ -28,7 +28,7 @@
           <mat-form-field appearance="fill">
             <mat-label>Должность</mat-label>
             <mat-select [(ngModel)]="contact.titleId">
-              <mat-option value="null"></mat-option>
+              <mat-option value="0"></mat-option>
               <mat-option *ngFor="let title of titles" [value]="title.id">
                 {{ title.name }}
               </mat-option>

@@ -30,7 +30,7 @@ module.exports = async function (fastify, opts) {
 
             return await this.db.query(
                 'select * from contacts where companyId = ? ' +
-                (active ? 'and fired = ""' : '') +
+                (active ? 'and fired is null' : '') +
                 ' limit ? offset ?',
                 {
                     replacements: [companyId, limit, offset],
@@ -69,17 +69,17 @@ module.exports = async function (fastify, opts) {
                 {
                     replacements: [
                         request.body.name,
-                        request.body.phone,
-                        request.body.cellphone,
-                        request.body.email,
-                        request.body.address,
-                        request.body.passport,
-                        request.body.dob,
-                        request.body.note,
-                        request.body.hired,
-                        request.body.fired,
-                        request.body.firedNote,
-                        request.body.photo,
+                        request.body.phone || null,
+                        request.body.cellphone || null,
+                        request.body.email || null,
+                        request.body.address || null,
+                        request.body.passport || null,
+                        request.body.dob || null,
+                        request.body.note || null,
+                        request.body.hired || null,
+                        request.body.fired || null,
+                        request.body.firedNote || null,
+                        request.body.photo || null,
                         request.body.titleId || null,
                         request.body.companyId],
                     type: QueryTypes.INSERT
@@ -102,17 +102,17 @@ module.exports = async function (fastify, opts) {
                 {
                     replacements: [
                         request.body.name,
-                        request.body.phone,
-                        request.body.cellphone,
-                        request.body.email,
-                        request.body.address,
-                        request.body.passport,
-                        request.body.dob,
-                        request.body.note,
-                        request.body.hired,
-                        request.body.fired,
-                        request.body.firedNote,
-                        request.body.photo,
+                        request.body.phone || null,
+                        request.body.cellphone || null,
+                        request.body.email || null,
+                        request.body.address || null,
+                        request.body.passport || null,
+                        request.body.dob || null,
+                        request.body.note || null,
+                        request.body.hired || null,
+                        request.body.fired || null,
+                        request.body.firedNote || null,
+                        request.body.photo || null,
                         request.body.titleId || null,
                         request.params.id],
                     type: QueryTypes.UPDATE

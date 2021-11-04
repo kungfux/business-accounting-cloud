@@ -61,7 +61,7 @@ module.exports = async function (fastify, opts) {
     async function (request, reply) {
       const [result] = await this.db.query('insert into companies (name,logo,enabled) values(?,?,?)',
         {
-          replacements: [request.body.name, request.body.logo, request.body.enabled],
+          replacements: [request.body.name, request.body.logo || null, request.body.enabled],
           type: QueryTypes.INSERT
         }
       )
@@ -78,7 +78,7 @@ module.exports = async function (fastify, opts) {
     async function (request, reply) {
       const [, metadata] = await this.db.query('update companies set name=?,logo=?,enabled=? where id=?',
         {
-          replacements: [request.body.name, request.body.logo, request.body.enabled, request.params.id],
+          replacements: [request.body.name, request.body.logo || null, request.body.enabled, request.params.id],
           type: QueryTypes.UPDATE
         }
       )

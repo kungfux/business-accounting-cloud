@@ -47,7 +47,7 @@ export class TitleComponent implements OnInit {
     const title = new Title({
       id: this.title.id,
       name: this.title.name,
-      rate: this.title.rate,
+      rate: this.title.rate || null,
       enabled: this.title.enabled,
       companyId: this.userPreferences.companyId,
     });

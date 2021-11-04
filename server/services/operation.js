@@ -73,7 +73,7 @@ module.exports = async function (fastify, opts) {
                 'insert into operations (operationDate,amount,comment,contactId,propertyId,expenditureId,companyId) ' +
                 'values(?,?,?,?,?,?,?)',
                 {
-                    replacements: [request.body.operationDate, request.body.amount, request.body.comment, request.body.contactId || null,
+                    replacements: [request.body.operationDate, request.body.amount, request.body.comment || null, request.body.contactId || null,
                     request.body.propertyId || null, request.body.expenditureId || null, request.body.companyId],
                     type: QueryTypes.INSERT
                 }

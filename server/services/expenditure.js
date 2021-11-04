@@ -62,7 +62,7 @@ module.exports = async function (fastify, opts) {
         async function (request, reply) {
             const [result] = await this.db.query('insert into expenditures (title,rate,comment,enabled,companyId) values(?,?,?,?,?)',
                 {
-                    replacements: [request.body.title, request.body.rate, request.body.comment, request.body.enabled, request.body.companyId],
+                    replacements: [request.body.title, request.body.rate || null, request.body.comment || null, request.body.enabled, request.body.companyId],
                     type: QueryTypes.INSERT
                 }
             )
@@ -79,7 +79,7 @@ module.exports = async function (fastify, opts) {
         async function (request, reply) {
             const [, metadata] = await this.db.query('update expenditures set title=?,rate=?,comment=?,enabled=? where id=?',
                 {
-                    replacements: [request.body.title, request.body.rate, request.body.comment, request.body.enabled, request.params.id],
+                    replacements: [request.body.title, request.body.rate || null, request.body.comment || null, request.body.enabled, request.params.id],
                     type: QueryTypes.UPDATE
                 }
             )
