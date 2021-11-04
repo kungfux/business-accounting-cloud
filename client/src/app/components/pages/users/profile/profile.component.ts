@@ -15,7 +15,7 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
   styleUrls: ['./profile.component.css', '../../detailsPage.css'],
 })
 export class ProfileComponent implements OnInit {
-  item: User = new User();
+  user: User = new User();
   appUser: AppUser = new AppUser();
   toolBarMode: ToolBarMode = ToolBarMode.Details;
   isLoading = true;
@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit {
     } else {
       this.userApi.getUser(id).subscribe({
         next: (user) => {
-          this.item = user;
+          this.user = user;
           this.isLoading = false;
         },
       });
@@ -52,12 +52,12 @@ export class ProfileComponent implements OnInit {
       this.appUser.locale,
       this.appUser.limit
     );
-    this.userApi.updateUser(this.userPreferences.id!, this.item).subscribe({
+    this.userApi.updateUser(this.userPreferences.id!, this.user).subscribe({
       next: () => {
         this.userPreferences.setUserDetails(
-          this.item.name!,
-          this.item.avatar!,
-          this.item.admin
+          this.user.name!,
+          this.user.avatar!,
+          this.user.admin
         );
         this.navigateToDashboard();
       },

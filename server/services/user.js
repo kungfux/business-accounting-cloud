@@ -64,7 +64,7 @@ module.exports = async function (fastify, opts) {
 
       const [result] = await this.db.query('insert into users (login,password,salt,name,avatar,admin,enabled) values(?,?,?,?,?,?,?)',
         {
-          replacements: [request.body.login, hash, salt, request.body.name, request.body.avatar, request.body.admin, request.body.enabled],
+          replacements: [request.body.login, hash, salt, request.body.name, request.body.avatar || null, request.body.admin, request.body.enabled],
           type: QueryTypes.INSERT
         }
       )
@@ -81,7 +81,7 @@ module.exports = async function (fastify, opts) {
     async function (request, reply) {
       const [, metadata] = await this.db.query('update users set login=?,name=?,avatar=?,admin=?,enabled=? where id=?',
         {
-          replacements: [request.body.login, request.body.name, request.body.avatar, request.body.admin, request.body.enabled, request.params.id],
+          replacements: [request.body.login, request.body.name, request.body.avatar || null, request.body.admin, request.body.enabled, request.params.id],
           type: QueryTypes.UPDATE
         }
       )

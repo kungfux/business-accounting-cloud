@@ -2,17 +2,17 @@
   [title]="'Мой профиль'"
   [mode]="toolBarMode"
   [isLoading]="isLoading"
-  [selectedItem]="item"
+  [selectedItem]="user"
   [deleteVisible]="false"
   [saveEnabled]="
-    !!item.login &&
-    item.login.length > 0 &&
-    !!item.name &&
-    item.name.length > 0 &&
+    !!user.login &&
+    user.login.length > 0 &&
+    !!user.name &&
+    user.name.length > 0 &&
     appUser.limit > 0 &&
     !isLoading
   "
-  [customButtonEnabled]="!!item?.id && !isLoading"
+  [customButtonEnabled]="!!user?.id && !isLoading"
   [customButton]="changePasswordButton"
   (customRequest)="onChangePasswordRequest()"
   (saveRequest)="onSaveRequest()"></app-toolbar>
@@ -21,10 +21,10 @@
   <mat-card class="card">
     <mat-card-header>
       <div mat-card-avatar>
-        <mat-icon>{{ item.avatar }}</mat-icon>
+        <mat-icon>{{ user.avatar }}</mat-icon>
       </div>
-      <mat-card-title>{{ item.name }}</mat-card-title>
-      <mat-card-subtitle>{{ item.login }}</mat-card-subtitle>
+      <mat-card-title>{{ user.name }}</mat-card-title>
+      <mat-card-subtitle>{{ user.login }}</mat-card-subtitle>
     </mat-card-header>
     <hr />
     <mat-card-content>
@@ -33,15 +33,15 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Логин</mat-label>
-          <input matInput [(ngModel)]="item.login" required />
+          <input matInput [(ngModel)]="user.login" required />
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Имя</mat-label>
-          <input matInput [(ngModel)]="item.name" required />
+          <input matInput [(ngModel)]="user.name" required />
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Аватар</mat-label>
-          <input matInput [(ngModel)]="item.avatar" />
+          <input matInput [(ngModel)]="user.avatar" />
           <button
             mat-icon-button
             matSuffix
