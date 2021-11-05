@@ -1,10 +1,10 @@
 <app-toolbar
-  [title]="expenditure?.title || 'Новый расход'"
+  [title]="income?.title || 'Новый доход'"
   [mode]="toolBarMode"
   [isLoading]="isLoading"
-  [selectedItem]="expenditure"
-  [deleteVisible]="!!expenditure?.id"
-  [saveEnabled]="!!expenditure.title && expenditure.rate! >= 0 && !isLoading"
+  [selectedItem]="income"
+  [deleteVisible]="!!income?.id"
+  [saveEnabled]="!!income.title && income.rate! >= 0 && !isLoading"
   [deleteEnabled]="!isLoading"
   (saveRequest)="onSaveRequest()"
   (deleteRequest)="onDeleteRequest()"></app-toolbar>
@@ -14,22 +14,22 @@
     <mat-card-content>
       <div class="column-container">
         <mat-form-field appearance="fill">
-          <mat-label>Название расхода</mat-label>
-          <input matInput [(ngModel)]="expenditure.title" required />
+          <mat-label>Название источника дохода</mat-label>
+          <input matInput [(ngModel)]="income.title" required />
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label
-            >Типовая сумма оплаты ({{ this.currency.getSymbol() }})</mat-label
+            >Типовая сумма дохода ({{ this.currency.getSymbol() }})</mat-label
           >
-          <input matInput type="number" [(ngModel)]="expenditure.rate" />
+          <input matInput type="number" [(ngModel)]="income.rate" />
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Комментарий</mat-label>
-          <textarea matInput [(ngModel)]="expenditure.comment"></textarea>
+          <textarea matInput [(ngModel)]="income.comment"></textarea>
         </mat-form-field>
       </div>
       <section>
-        <mat-checkbox [(ngModel)]="expenditure.enabled"
+        <mat-checkbox [(ngModel)]="income.enabled"
           >Показывать в кассе для выбора</mat-checkbox
         >
       </section>

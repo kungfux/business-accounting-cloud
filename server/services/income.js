@@ -1,6 +1,6 @@
 'use strict'
 
-const schemas = require('../schemas/operation')
+const schemas = require('../schemas/income')
 const { QueryTypes } = require('sequelize')
 
 module.exports = async function (fastify, opts) {
@@ -16,7 +16,7 @@ module.exports = async function (fastify, opts) {
         reply
             .code(404)
             .type('application/json')
-            .send({ message: 'Requested operation does not exist' })
+            .send({ message: 'Requested income does not exist' })
     })
 
     fastify.get(
@@ -24,27 +24,29 @@ module.exports = async function (fastify, opts) {
         { schema: schemas.findAll },
         async function (request, reply) {
             const companyId = parseInt(request.query.companyId)
-            const from = request.query.from || undefined;
-            const to = request.query.to || undefined;
+            const list = request.query.list || undefined
             const limit = parseInt(request.query.limit) || 10
             const offset = parseInt(request.query.offset) || 0
-            if (from === undefined && to === undefined) {
-                return await this.db.query('select * from operations where companyId = ? ' +
-                    'order by operationDate desc,created desc limit ? offset ?',
+
+            if (list) {
+                const ids = list.split(',');
+                for (var i = 0; i < ids.length; i++) {
+                    ids[i] = +ids[i];
+                }
+                return await this.db.query('select * from incomes where id in (?)',
                     {
-                        replacements: [companyId, limit, offset],
-                        type: QueryTypes.SELECT
-                    }
-                )
-            } else {
-                return await this.db.query('select * from operations where companyId = ? and operationDate >= ? and operationDate <= ? ' +
-                    'order by operationDate desc,created desc limit ? offset ?',
-                    {
-                        replacements: [companyId, from, to, limit, offset],
+                        replacements: [ids],
                         type: QueryTypes.SELECT
                     }
                 )
             }
+
+            return await this.db.query('select * from incomes where companyId = ? limit ? offset ?',
+                {
+                    replacements: [companyId, limit, offset],
+                    type: QueryTypes.SELECT
+                }
+            )
         }
     )
 
@@ -52,7 +54,7 @@ module.exports = async function (fastify, opts) {
         '/:id',
         { schema: schemas.findOne },
         async function (request, reply) {
-            const item = await this.db.query('select * from operations where id = ? limit 1',
+            const item = await this.db.query('select * from incomes where id = ? limit 1',
                 {
                     replacements: [request.params.id],
                     type: QueryTypes.SELECT
@@ -71,17 +73,14 @@ module.exports = async function (fastify, opts) {
         '/',
         { schema: schemas.insertOne },
         async function (request, reply) {
-            const [result] = await this.db.query(
-                'insert into operations (operationDate,amount,comment,contactId,propertyId,expenditureId,companyId) ' +
-                'values(?,?,?,?,?,?,?)',
+            const [result] = await this.db.query('insert into incomes (title,rate,comment,enabled,companyId) ' +
+                'values(?,?,?,?,?)',
                 {
                     replacements: [
-                        request.body.operationDate || null,
-                        request.body.amount || null,
+                        request.body.title || null,
+                        request.body.rate || null,
                         request.body.comment || null,
-                        request.body.contactId || null,
-                        request.body.propertyId || null,
-                        request.body.expenditureId || null,
+                        request.body.enabled || false,
                         request.body.companyId || null,
                     ],
                     type: QueryTypes.INSERT
@@ -98,17 +97,13 @@ module.exports = async function (fastify, opts) {
         '/:id',
         { schema: schemas.updateOne },
         async function (request, reply) {
-            const [, metadata] = await this.db.query(
-                'update operations set operationDate=?,amount=?,comment=?,contactId=?,propertyId=?,' +
-                'expenditureId=? where id=?',
+            const [, metadata] = await this.db.query('update incomes set title=?,rate=?,comment=?,enabled=? where id=?',
                 {
                     replacements: [
-                        request.body.operationDate || null,
-                        request.body.amount || null,
+                        request.body.title || null,
+                        request.body.rate || null,
                         request.body.comment || null,
-                        request.body.contactId || null,
-                        request.body.propertyId || null,
-                        request.body.expenditureId || null,
+                        request.body.enabled || false,
                         request.params.id || null,
                     ],
                     type: QueryTypes.UPDATE
@@ -129,7 +124,7 @@ module.exports = async function (fastify, opts) {
         '/:id',
         { schema: schemas.deleteOne },
         async function (request, reply) {
-            await this.db.query('delete from operations where id=?',
+            await this.db.query('delete from incomes where id=?',
                 {
                     replacements: [request.params.id],
                     type: QueryTypes.DELETE
@@ -143,4 +138,4 @@ module.exports = async function (fastify, opts) {
     )
 }
 
-module.exports.autoPrefix = '/operations'
+module.exports.autoPrefix = '/incomes'

@@ -63,6 +63,8 @@ import { ContactPipe } from './pipes/contact';
 import { PropertyPipe } from './pipes/property';
 import { ExpenditurePipe } from './pipes/expenditure';
 import { CompanyAgeComponent } from './components/widgets/company-age/company-age.component';
+import { IncomesComponent } from './components/pages/incomes/incomes/incomes.component';
+import { IncomeComponent } from './components/pages/incomes/income/income.component';
 
 const routes: Routes = [
   {
@@ -131,6 +133,16 @@ const routes: Routes = [
     canActivate: [AuthorizedUserGuard],
   },
   {
+    path: 'incomes',
+    component: IncomesComponent,
+    canActivate: [AuthorizedUserGuard],
+  },
+  {
+    path: 'incomes/:id',
+    component: IncomeComponent,
+    canActivate: [AuthorizedUserGuard],
+  },
+  {
     path: 'expenditures',
     component: ExpendituresComponent,
     canActivate: [AuthorizedUserGuard],
@@ -190,6 +202,8 @@ const routes: Routes = [
     PropertyPipe,
     ExpenditurePipe,
     CompanyAgeComponent,
+    IncomesComponent,
+    IncomeComponent,
   ],
   imports: [
     BrowserAnimationsModule,
