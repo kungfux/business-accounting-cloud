@@ -6,7 +6,7 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
 @Component({
   selector: 'app-company-age',
   templateUrl: './company-age.component.html',
-  styleUrls: ['./company-age.component.css'],
+  styleUrls: ['./company-age.component.css', '../widget-spinner.css'],
 })
 export class CompanyAgeComponent implements AfterViewInit {
   isLoading: boolean = true;
@@ -21,7 +21,7 @@ export class CompanyAgeComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.getCompanyAge();
-    }, 100);
+    }, 1000);
   }
 
   getCompanyAge(): void {

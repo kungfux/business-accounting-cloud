@@ -21,8 +21,8 @@ mat-icon {
   margin: 8px auto;
 }
 
-mat-spinner {
-  margin: 8px auto;
+div.la-line-scale {
+  margin: auto;
 }
 
 div.vertical-line {
