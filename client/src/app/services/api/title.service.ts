@@ -48,18 +48,18 @@ export class TitleApiService {
 
   addTitle(title: Title): Observable<ItemCreatedResponse> {
     return this.api.post<ItemCreatedResponse>(this.titleApiUrl, {
-      name: title.name,
-      rate: title.rate,
-      enabled: title.enabled,
-      companyId: title.companyId,
+      name: title.name || null,
+      rate: title.rate || null,
+      enabled: title.enabled || null,
+      companyId: title.companyId || null,
     });
   }
 
   updateTitle(id: number, title: Title): Observable<void> {
     return this.api.put(this.titleApiUrl, id, {
-      name: title.name,
-      rate: title.rate,
-      enabled: title.enabled,
+      name: title.name || null,
+      rate: title.rate || null,
+      enabled: title.enabled || null,
     });
   }
 

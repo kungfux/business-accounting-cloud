@@ -52,7 +52,7 @@ export class UserComponent implements OnInit {
       id: this.user.id,
       login: this.user.login,
       name: this.user.name,
-      avatar: this.user.avatar || null,
+      avatar: this.user.avatar,
       password: this.user.password,
       admin: this.user.admin,
       enabled: this.user.enabled,

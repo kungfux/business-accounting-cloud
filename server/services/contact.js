@@ -25,8 +25,23 @@ module.exports = async function (fastify, opts) {
         async function (request, reply) {
             const companyId = parseInt(request.query.companyId)
             const active = request.query.active || false;
+            const list = request.query.list || undefined
             const limit = parseInt(request.query.limit) || 10
             const offset = parseInt(request.query.offset) || 0
+
+            if (list) {
+                const ids = list.split(',');
+                for (var i = 0; i < ids.length; i++) {
+                    ids[i] = +ids[i];
+                }
+                return await this.db.query(
+                    'select * from contacts where id in (?)',
+                    {
+                        replacements: [ids],
+                        type: QueryTypes.SELECT
+                    }
+                )
+            }
 
             return await this.db.query(
                 'select * from contacts where companyId = ? ' +
@@ -68,20 +83,21 @@ module.exports = async function (fastify, opts) {
                 'values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
                 {
                     replacements: [
-                        request.body.name,
+                        request.body.name || null,
                         request.body.phone || null,
                         request.body.cellphone || null,
                         request.body.email || null,
                         request.body.address || null,
                         request.body.passport || null,
-                        request.body.dob || null,
+                        request.body.dob ? Date(request.body.dob).toISOString() : null,
                         request.body.note || null,
-                        request.body.hired || null,
-                        request.body.fired || null,
+                        request.body.hired ? Date(request.body.hired).toISOString() : null,
+                        request.body.fired ? Date(request.body.fired).toISOString() : null,
                         request.body.firedNote || null,
                         request.body.photo || null,
                         request.body.titleId || null,
-                        request.body.companyId],
+                        request.body.companyId || null,
+                    ],
                     type: QueryTypes.INSERT
                 }
             )
@@ -101,7 +117,7 @@ module.exports = async function (fastify, opts) {
                 'firedNote=?,photo=?,titleId=? where id=?',
                 {
                     replacements: [
-                        request.body.name,
+                        request.body.name || null,
                         request.body.phone || null,
                         request.body.cellphone || null,
                         request.body.email || null,
@@ -114,7 +130,8 @@ module.exports = async function (fastify, opts) {
                         request.body.firedNote || null,
                         request.body.photo || null,
                         request.body.titleId || null,
-                        request.params.id],
+                        request.params.id || null,
+                    ],
                     type: QueryTypes.UPDATE
                 }
             )

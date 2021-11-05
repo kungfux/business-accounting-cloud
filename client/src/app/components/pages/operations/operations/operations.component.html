@@ -1,0 +1,110 @@
+<app-toolbar
+  title="Касса"
+  [mode]="toolBarMode"
+  [isLoading]="isLoading"
+  [selectedItem]="selectedOperation"
+  (createRequest)="onCreateRequest()"
+  (editRequest)="onEditRequest()"
+  [customButtonEnabled]="true"
+  [customButton]="filtersButton"
+  (customRequest)="onFiltersRequest()"></app-toolbar>
+
+<mat-card class="filters" *ngIf="filterShow">
+  <mat-card-content>
+    <mat-form-field appearance="fill">
+      <mat-label>Дата операции</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate [(ngModel)]="filterRangeStart" />
+        <input
+          matEndDate
+          [(ngModel)]="filterRangeEnd"
+          (dateChange)="getOperations()" />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+  </mat-card-content>
+</mat-card>
+
+<div class="page-content">
+  <div class="table-responsive" *ngIf="!isLoading">
+    <table mat-table [dataSource]="operations">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>Запись</th>
+        <td mat-cell *matCellDef="let operation">{{ operation.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="operationDate">
+        <th mat-header-cell *matHeaderCellDef>Дата операции</th>
+        <td mat-cell *matCellDef="let operation">
+          {{
+            operation.operationDate
+              | date: 'fullDate':undefined:this.userPreferences.locale
+          }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef>Сумма</th>
+        <td mat-cell *matCellDef="let operation">{{ operation.amount }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="entity">
+        <th mat-header-cell *matHeaderCellDef>Субъект операции</th>
+        <td mat-cell *matCellDef="let operation">
+          {{
+            operation.contactId
+              ? (contacts | contact: operation.contactId)
+              : operation.propertyId
+              ? (properties | property: operation.propertyId)
+              : operation.expenditureId
+              ? (expenditures | expenditure: operation.expenditureId)
+              : null
+          }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="comment">
+        <th mat-header-cell *matHeaderCellDef>Комментарий</th>
+        <td mat-cell *matCellDef="let operation">{{ operation.comment }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="created">
+        <th mat-header-cell *matHeaderCellDef>Дата создания</th>
+        <td mat-cell *matCellDef="let operation">
+          {{
+            operation.created
+              | date: 'medium':undefined:this.userPreferences.locale
+          }}
+        </td>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="
+          ['id', 'operationDate', 'amount', 'entity', 'comment', 'created'];
+          sticky: true
+        "></tr>
+      <tr
+        mat-row
+        (click)="selectOperation(row)"
+        [class.selectedRow]="selectedOperation == row"
+        *matRowDef="
+          let row;
+          columns: [
+            'id',
+            'operationDate',
+            'amount',
+            'entity',
+            'comment',
+            'created'
+          ]
+        "></tr>
+    </table>
+  </div>
+
+  <app-navigator
+    [isLoading]="isLoading"
+    [itemsCount]="operations.length"
+    (pageChanged)="getOperations($event)"></app-navigator>
+</div>

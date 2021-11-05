@@ -24,16 +24,29 @@ module.exports = async function (fastify, opts) {
         { schema: schemas.findAll },
         async function (request, reply) {
             const companyId = parseInt(request.query.companyId)
+            const list = request.query.list || undefined
             const limit = parseInt(request.query.limit) || 10
             const offset = parseInt(request.query.offset) || 0
-            const items = await this.db.query('select * from expenditures where companyId = ? limit ? offset ?',
+
+            if (list) {
+                const ids = list.split(',');
+                for (var i = 0; i < ids.length; i++) {
+                    ids[i] = +ids[i];
+                }
+                return await this.db.query('select * from expenditures where id in (?)',
+                    {
+                        replacements: [ids],
+                        type: QueryTypes.SELECT
+                    }
+                )
+            }
+
+            return await this.db.query('select * from expenditures where companyId = ? limit ? offset ?',
                 {
                     replacements: [companyId, limit, offset],
                     type: QueryTypes.SELECT
                 }
             )
-
-            return items
         }
     )
 
@@ -60,9 +73,16 @@ module.exports = async function (fastify, opts) {
         '/',
         { schema: schemas.insertOne },
         async function (request, reply) {
-            const [result] = await this.db.query('insert into expenditures (title,rate,comment,enabled,companyId) values(?,?,?,?,?)',
+            const [result] = await this.db.query('insert into expenditures (title,rate,comment,enabled,companyId) ' +
+                'values(?,?,?,?,?)',
                 {
-                    replacements: [request.body.title, request.body.rate || null, request.body.comment || null, request.body.enabled, request.body.companyId],
+                    replacements: [
+                        request.body.title || null,
+                        request.body.rate || null,
+                        request.body.comment || null,
+                        request.body.enabled || false,
+                        request.body.companyId || null,
+                    ],
                     type: QueryTypes.INSERT
                 }
             )
@@ -79,7 +99,13 @@ module.exports = async function (fastify, opts) {
         async function (request, reply) {
             const [, metadata] = await this.db.query('update expenditures set title=?,rate=?,comment=?,enabled=? where id=?',
                 {
-                    replacements: [request.body.title, request.body.rate || null, request.body.comment || null, request.body.enabled, request.params.id],
+                    replacements: [
+                        request.body.title || null,
+                        request.body.rate || null,
+                        request.body.comment || null,
+                        request.body.enabled || false,
+                        request.params.id || null,
+                    ],
                     type: QueryTypes.UPDATE
                 }
             )

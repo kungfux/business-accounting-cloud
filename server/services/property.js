@@ -24,16 +24,29 @@ module.exports = async function (fastify, opts) {
         { schema: schemas.findAll },
         async function (request, reply) {
             const companyId = parseInt(request.query.companyId)
+            const list = request.query.list || undefined
             const limit = parseInt(request.query.limit) || 10
             const offset = parseInt(request.query.offset) || 0
-            const items = await this.db.query('select * from properties where companyId = ? limit ? offset ?',
+
+            if (list) {
+                const ids = list.split(',');
+                for (var i = 0; i < ids.length; i++) {
+                    ids[i] = +ids[i];
+                }
+                return await this.db.query('select * from properties where id in (?)',
+                    {
+                        replacements: [ids],
+                        type: QueryTypes.SELECT
+                    }
+                )
+            }
+
+            return await this.db.query('select * from properties where companyId = ? limit ? offset ?',
                 {
                     replacements: [companyId, limit, offset],
                     type: QueryTypes.SELECT
                 }
             )
-
-            return items
         }
     )
 
@@ -60,9 +73,17 @@ module.exports = async function (fastify, opts) {
         '/',
         { schema: schemas.insertOne },
         async function (request, reply) {
-            const [result] = await this.db.query('insert into properties (title,inventoryNumber,cost,comment,enabled,companyId) values(?,?,?,?,?,?)',
+            const [result] = await this.db.query('insert into properties (title,inventoryNumber,cost,comment,created,companyId) ' +
+                'values(?,?,?,?,?,?)',
                 {
-                    replacements: [request.body.title, request.body.inventoryNumber || null, request.body.cost || null, request.body.comment || null, request.body.enabled, request.body.companyId],
+                    replacements: [
+                        request.body.title || null,
+                        request.body.inventoryNumber || null,
+                        request.body.cost || null,
+                        request.body.comment || null,
+                        request.body.enabled || false,
+                        request.body.companyId || null,
+                    ],
                     type: QueryTypes.INSERT
                 }
             )
@@ -79,7 +100,14 @@ module.exports = async function (fastify, opts) {
         async function (request, reply) {
             const [, metadata] = await this.db.query('update properties set title=?,inventoryNumber=?,cost=?,comment=?,enabled=? where id=?',
                 {
-                    replacements: [request.body.title, request.body.inventoryNumber || null, request.body.cost || null, request.body.comment || null, request.body.enabled, request.params.id],
+                    replacements: [
+                        request.body.title || null,
+                        request.body.inventoryNumber || null,
+                        request.body.cost || null,
+                        request.body.comment || null,
+                        request.body.enabled || false,
+                        request.params.id || null,
+                    ],
                     type: QueryTypes.UPDATE
                 }
             )

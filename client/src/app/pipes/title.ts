@@ -3,7 +3,7 @@ import { Title } from '../services/api/models/title';
 
 @Pipe({ name: 'title' })
 export class TitlePipe implements PipeTransform {
-  transform(value: Title[], title: number): string | null | undefined {
-    return value.find((x) => x.id == title)?.name;
+  transform(titles: Title[], id: number): string | null | undefined {
+    return titles.find((x) => x.id == id)?.name;
   }
 }

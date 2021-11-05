@@ -2,7 +2,7 @@
   title="Сотрудники"
   [mode]="toolBarMode"
   [isLoading]="isLoading"
-  [selectedItem]="selectedItem"
+  [selectedItem]="selectedContact"
   (createRequest)="onCreateRequest()"
   (editRequest)="onEditRequest()"
   [customButtonEnabled]="true"
@@ -27,9 +27,9 @@
 <div class="page-content">
   <div class="page-content" *ngIf="!isLoading">
     <mat-card
-      *ngFor="let contact of data"
-      (click)="selectItem(contact)"
-      [class.selected]="selectedItem == contact"
+      *ngFor="let contact of contacts"
+      (click)="selectContact(contact)"
+      [class.selected]="selectedContact == contact"
       class="contact">
       <img
         mat-card-image
@@ -49,6 +49,6 @@
   <app-navigator
     class="line-break"
     [isLoading]="isLoading"
-    [itemsCount]="data.length"
+    [itemsCount]="contacts.length"
     (pageChanged)="getContacts($event)"></app-navigator>
 </div>
