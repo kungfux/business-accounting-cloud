@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
@@ -62,6 +63,7 @@ import { OperationsComponent } from './components/pages/operations/operations/op
 import { ContactPipe } from './pipes/contact';
 import { PropertyPipe } from './pipes/property';
 import { ExpenditurePipe } from './pipes/expenditure';
+import { CompanyAgeComponent } from './components/widgets/company-age/company-age.component';
 
 const routes: Routes = [
   {
@@ -188,6 +190,7 @@ const routes: Routes = [
     ContactPipe,
     PropertyPipe,
     ExpenditurePipe,
+    CompanyAgeComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -209,6 +212,7 @@ const routes: Routes = [
     MatInputModule,
     MatListModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule,
     MatSidenavModule,
     MatSelectModule,
     MatTableModule,
