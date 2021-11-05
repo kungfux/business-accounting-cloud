@@ -26,22 +26,22 @@ export class UserApiService {
 
   addUser(user: User): Observable<ItemCreatedResponse> {
     return this.api.post<ItemCreatedResponse>(this.userApiUrl, {
-      login: user.login,
-      password: user.password,
-      name: user.name,
-      avatar: user.avatar,
-      admin: user.admin,
-      enabled: user.enabled,
+      login: user.login || null,
+      password: user.password || null,
+      name: user.name || null,
+      avatar: user.avatar || null,
+      admin: user.admin || null,
+      enabled: user.enabled || null,
     });
   }
 
   updateUser(id: number, user: User): Observable<void> {
     return this.api.put(this.userApiUrl, id, {
-      login: user.login,
-      name: user.name,
-      avatar: user.avatar,
-      admin: user.admin,
-      enabled: user.enabled,
+      login: user.login || null,
+      name: user.name || null,
+      avatar: user.avatar || null,
+      admin: user.admin || null,
+      enabled: user.enabled || null,
     });
   }
 
@@ -51,8 +51,8 @@ export class UserApiService {
     newPassword: string
   ): Observable<void> {
     return this.api.patch(this.userApiUrl, id, {
-      password: currentPassword,
-      newPassword: newPassword,
+      password: currentPassword || null,
+      newPassword: newPassword || null,
     });
   }
 

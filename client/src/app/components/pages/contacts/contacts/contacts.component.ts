@@ -19,17 +19,16 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
   styleUrls: ['./contacts.component.css', '../../listPage.css'],
 })
 export class ContactsComponent implements OnInit {
-  data: Contact[] = [];
+  contacts: Contact[] = [];
   titles: Title[] = [];
-  selectedItem?: Contact;
+  selectedContact?: Contact;
   toolBarMode: ToolBarMode = ToolBarMode.List;
   isLoading = true;
 
+  filtersButton: CustomButton = new CustomButton('Фильтр', 'filter_alt');
   filterShow: boolean = false;
   filterActiveOnly: boolean = true;
   filterContactName: string | null = null;
-
-  filtersButton: CustomButton = new CustomButton('Фильтр', 'filter_alt');
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -59,8 +58,8 @@ export class ContactsComponent implements OnInit {
         offset
       )
       .subscribe({
-        next: (data) => {
-          this.data = data;
+        next: (contacts) => {
+          this.contacts = contacts;
           this.getTitles();
         },
       });
@@ -70,7 +69,7 @@ export class ContactsComponent implements OnInit {
     this.isLoading = true;
 
     const titleIds: number[] = [];
-    this.data.forEach((contact) => {
+    this.contacts.forEach((contact) => {
       if (contact.titleId) {
         if (titleIds.find((id) => id == contact.titleId) === undefined) {
           titleIds.push(contact.titleId);
@@ -92,9 +91,9 @@ export class ContactsComponent implements OnInit {
     });
   }
 
-  selectItem(item: Contact) {
-    if (this.selectedItem != item) {
-      this.selectedItem = item;
+  selectContact(contact: Contact) {
+    if (this.selectedContact != contact) {
+      this.selectedContact = contact;
     } else {
       this.onEditRequest();
     }
@@ -105,7 +104,7 @@ export class ContactsComponent implements OnInit {
   }
 
   onEditRequest() {
-    this.router.navigate(['/contacts', this.selectedItem?.id]);
+    this.router.navigate(['/contacts', this.selectedContact?.id]);
   }
 
   onFiltersRequest() {

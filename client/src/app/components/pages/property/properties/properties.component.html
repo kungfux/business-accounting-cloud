@@ -39,7 +39,7 @@
         <th mat-header-cell *matHeaderCellDef>Дата создания</th>
         <td mat-cell *matCellDef="let property">
           {{
-            property.created + 'Z'
+            property.created
               | date: 'medium':undefined:this.userPreferences.locale
           }}
         </td>

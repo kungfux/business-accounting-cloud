@@ -382,7 +382,7 @@
 											"    pm.expect(item.id).to.be.not.null;\r",
 											"});\r",
 											"\r",
-											"pm.collectionVariables.set(\"CompanyId\", pm.response.json().id);"
+											"pm.collectionVariables.set(\"TempCompanyId\", pm.response.json().id);"
 										],
 										"type": "text/javascript"
 									}
@@ -459,13 +459,13 @@
 									}
 								],
 								"url": {
-									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{CompanyId}}",
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{TempCompanyId}}",
 									"host": [
 										"{{API_URL}}"
 									],
 									"path": [
 										"{{COLLECTION_API_URL}}",
-										"{{CompanyId}}"
+										"{{TempCompanyId}}"
 									]
 								}
 							},
@@ -521,13 +521,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{CompanyId}}",
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{TempCompanyId}}",
 									"host": [
 										"{{API_URL}}"
 									],
 									"path": [
 										"{{COLLECTION_API_URL}}",
-										"{{CompanyId}}"
+										"{{TempCompanyId}}"
 									]
 								}
 							},
@@ -617,13 +617,13 @@
 									}
 								],
 								"url": {
-									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{CompanyId}}",
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}/{{TempCompanyId}}",
 									"host": [
 										"{{API_URL}}"
 									],
 									"path": [
 										"{{COLLECTION_API_URL}}",
-										"{{CompanyId}}"
+										"{{TempCompanyId}}"
 									]
 								}
 							},
@@ -698,7 +698,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"{{TitleName}}\",\r\n    \"rate\": 1.1,\r\n    \"enabled\": true,\r\n    \"companyId\": 1\r\n}",
+									"raw": "{\r\n    \"name\": \"{{TitleName}}\",\r\n    \"rate\": 1.1,\r\n    \"enabled\": true,\r\n    \"companyId\": {{CompanyId}}\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -751,7 +751,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"companyId\": 1\r\n}",
+									"raw": "{\r\n    \"companyId\": {{CompanyId}}\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -870,7 +870,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}?companyId=1&offset=0",
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}?companyId={{CompanyId}}&offset=0",
 									"host": [
 										"{{API_URL}}"
 									],
@@ -880,11 +880,69 @@
 									"query": [
 										{
 											"key": "companyId",
-											"value": "1"
+											"value": "{{CompanyId}}"
 										},
 										{
 											"key": "offset",
 											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List specific titles",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"List of items returned is greater than zero\", function() {\r",
+											"    const items = pm.response.json();\r",
+											"    pm.expect(items.length).to.be.greaterThan(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"All items contain a name\", function() {\r",
+											"    const items = pm.response.json();\r",
+											"    pm.expect(items.every(item => {\r",
+											"        return item.name !== undefined;\r",
+											"    })).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}?companyId={{CompanyId}}&in={{TitleId}}",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"{{COLLECTION_API_URL}}"
+									],
+									"query": [
+										{
+											"key": "companyId",
+											"value": "{{CompanyId}}"
+										},
+										{
+											"key": "in",
+											"value": "{{TitleId}}"
 										}
 									]
 								}
@@ -1003,7 +1061,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"{{ContactName}}\",\r\n    \"phone\": \"{{ContactPhoneNumber}}\",\r\n    \"cellphone\": \"{{ContactPhoneNumber}}\",\r\n    \"email\": \"{{ContactEmail}}\",\r\n    \"address\": \"{{ContactAddress}}\",\r\n    \"passport\": \"{{ContactAddress}}\",\r\n    \"dob\": null,\r\n    \"note\": null,\r\n    \"hired\": null,\r\n    \"fired\": null,\r\n    \"firedNote\": null,\r\n    \"photo\": null,\r\n    \"title\": null,\r\n    \"companyId\": 1\r\n}",
+									"raw": "{\r\n    \"name\": \"{{ContactName}}\",\r\n    \"phone\": \"{{ContactPhoneNumber}}\",\r\n    \"cellphone\": \"{{ContactPhoneNumber}}\",\r\n    \"email\": \"{{ContactEmail}}\",\r\n    \"address\": \"{{ContactAddress}}\",\r\n    \"passport\": \"{{ContactAddress}}\",\r\n    \"dob\": null,\r\n    \"note\": null,\r\n    \"hired\": null,\r\n    \"fired\": null,\r\n    \"firedNote\": null,\r\n    \"photo\": null,\r\n    \"titleId\": null,\r\n    \"companyId\": {{CompanyId}}\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1119,7 +1177,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"{{ContactName}}\",\r\n    \"phone\": \"{{ContactPhoneNumber}}\",\r\n    \"cellphone\": \"{{ContactPhoneNumber}}\",\r\n    \"email\": \"{{ContactEmail}}\",\r\n    \"address\": \"{{ContactAddress}}\",\r\n    \"passport\": \"{{ContactAddress}}\",\r\n    \"dob\": null,\r\n    \"note\": null,\r\n    \"hired\": null,\r\n    \"fired\": null,\r\n    \"firedNote\": null,\r\n    \"photo\": null,\r\n    \"title\": null,\r\n    \"companyId\": 1\r\n}",
+									"raw": "{\r\n    \"name\": \"{{ContactName}}\",\r\n    \"phone\": \"{{ContactPhoneNumber}}\",\r\n    \"cellphone\": \"{{ContactPhoneNumber}}\",\r\n    \"email\": \"{{ContactEmail}}\",\r\n    \"address\": \"{{ContactAddress}}\",\r\n    \"passport\": \"{{ContactAddress}}\",\r\n    \"dob\": null,\r\n    \"note\": null,\r\n    \"hired\": null,\r\n    \"fired\": null,\r\n    \"firedNote\": null,\r\n    \"photo\": null,\r\n    \"titleId\": null,\r\n    \"companyId\": {{CompanyId}}\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1176,7 +1234,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}?companyId=1&offset=0",
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}?companyId={{CompanyId}}&offset=0",
 									"host": [
 										"{{API_URL}}"
 									],
@@ -1186,7 +1244,7 @@
 									"query": [
 										{
 											"key": "companyId",
-											"value": "1"
+											"value": "{{CompanyId}}"
 										},
 										{
 											"key": "offset",
@@ -1308,7 +1366,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"{{PropertyName}}\",\r\n    \"inventoryNumber\": \"INV-12345678\",\r\n    \"cost\": 1.1,\r\n    \"comment\": \"comments\",\r\n    \"enabled\": true,\r\n    \"companyId\": 1\r\n}",
+									"raw": "{\r\n    \"title\": \"{{PropertyName}}\",\r\n    \"inventoryNumber\": \"INV-12345678\",\r\n    \"cost\": 1.1,\r\n    \"comment\": \"comments\",\r\n    \"enabled\": true,\r\n    \"companyId\": {{CompanyId}}\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1361,7 +1419,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"companyId\": 1\r\n}",
+									"raw": "{\r\n    \"companyId\": {{CompanyId}}\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1480,7 +1538,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}?companyId=1&offset=0",
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}?companyId={{CompanyId}}&offset=0",
 									"host": [
 										"{{API_URL}}"
 									],
@@ -1490,7 +1548,7 @@
 									"query": [
 										{
 											"key": "companyId",
-											"value": "1"
+											"value": "{{CompanyId}}"
 										},
 										{
 											"key": "offset",
@@ -1612,7 +1670,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"{{PropertyName}}\",\r\n    \"rate\": 1.1,\r\n    \"comment\": \"comments\",\r\n    \"enabled\": true,\r\n    \"companyId\": 1\r\n}",
+									"raw": "{\r\n    \"title\": \"{{ExpenditureName}}\",\r\n    \"rate\": 1.1,\r\n    \"comment\": \"comments\",\r\n    \"enabled\": true,\r\n    \"companyId\": {{CompanyId}}\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1665,7 +1723,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"companyId\": 1\r\n}",
+									"raw": "{\r\n    \"companyId\": {{CompanyId}}\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1727,7 +1785,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"{{PropertyName}}\",\r\n    \"rate\": 1.1,\r\n    \"comment\": \"comments\",\r\n    \"enabled\": true\r\n}",
+									"raw": "{\r\n    \"title\": \"{{ExpenditureName}}\",\r\n    \"rate\": 1.1,\r\n    \"comment\": \"comments\",\r\n    \"enabled\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1784,7 +1842,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}?companyId=1&offset=0",
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}?companyId={{CompanyId}}&offset=0",
 									"host": [
 										"{{API_URL}}"
 									],
@@ -1794,7 +1852,7 @@
 									"query": [
 										{
 											"key": "companyId",
-											"value": "1"
+											"value": "{{CompanyId}}"
 										},
 										{
 											"key": "offset",
@@ -1916,7 +1974,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"operationDate\": \"{{OperationDate}}\",\r\n    \"amount\": -1.1,\r\n    \"comment\": \"comments\",\r\n    \"contactId\": null,\r\n    \"propertyId\": null,\r\n    \"expenditureId\": null,\r\n    \"companyId\": 1\r\n}",
+									"raw": "{\r\n    \"operationDate\": \"{{OperationDate}}\",\r\n    \"amount\": -1.1,\r\n    \"comment\": \"comments\",\r\n    \"contactId\": null,\r\n    \"propertyId\": null,\r\n    \"expenditureId\": null,\r\n    \"companyId\": {{CompanyId}}\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1969,7 +2027,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"companyId\": 1\r\n}",
+									"raw": "{\r\n    \"companyId\": {{CompanyId}}\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2031,7 +2089,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"operationDate\": \"{{OperationDate}}\",\r\n    \"amount\": 1.1,\r\n    \"comment\": \"comments\",\r\n    \"contactId\": null,\r\n    \"propertyId\": null,\r\n    \"expenditureId\": null,\r\n    \"companyId\": 1\r\n}",
+									"raw": "{\r\n    \"operationDate\": \"{{OperationDate}}\",\r\n    \"amount\": 1.1,\r\n    \"comment\": \"comments\",\r\n    \"contactId\": null,\r\n    \"propertyId\": null,\r\n    \"expenditureId\": null,\r\n    \"companyId\": {{CompanyId}}\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2088,7 +2146,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}?companyId=1&offset=0",
+									"raw": "{{API_URL}}/{{COLLECTION_API_URL}}?companyId={{CompanyId}}&offset=0",
 									"host": [
 										"{{API_URL}}"
 									],
@@ -2098,7 +2156,7 @@
 									"query": [
 										{
 											"key": "companyId",
-											"value": "1"
+											"value": "{{CompanyId}}"
 										},
 										{
 											"key": "offset",
@@ -2576,7 +2634,7 @@
 		},
 		{
 			"key": "CompanyId",
-			"value": ""
+			"value": "1"
 		},
 		{
 			"key": "UserId",
@@ -2644,6 +2702,10 @@
 		},
 		{
 			"key": "OperationDate",
+			"value": ""
+		},
+		{
+			"key": "TempCompanyId",
 			"value": ""
 		}
 	]

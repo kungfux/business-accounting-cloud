@@ -21,7 +21,9 @@ var schema = new BaseSchema({
         comment: { type: 'string' },
         enabled: { type: 'boolean' },
     },
-    undefined)
+    {
+        list: { type: 'string' }
+    })
 
 const findAll = schema.findAll
 const findOne = schema.findOne

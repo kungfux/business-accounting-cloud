@@ -24,26 +24,36 @@ export class ExpenditureApiService {
     });
   }
 
+  getExactExpenditures(ids: number[]): Observable<Expenditure[]> {
+    const range = ids.join(',');
+    return this.api.get<Expenditure[]>({
+      api: this.expenditureApiUrl,
+      params: {
+        list: range,
+      },
+    });
+  }
+
   getExpenditure(id: number): Observable<Expenditure> {
     return this.api.get<Expenditure>({ api: this.expenditureApiUrl, id: id });
   }
 
   addExpenditure(expenditure: Expenditure): Observable<ItemCreatedResponse> {
     return this.api.post<ItemCreatedResponse>(this.expenditureApiUrl, {
-      title: expenditure.title,
-      rate: expenditure.rate,
-      comment: expenditure.comment,
-      enabled: expenditure.enabled,
-      companyId: expenditure.companyId,
+      title: expenditure.title || null,
+      rate: expenditure.rate || null,
+      comment: expenditure.comment || null,
+      enabled: expenditure.enabled || null,
+      companyId: expenditure.companyId || null,
     });
   }
 
   updateExpenditure(id: number, expenditure: Expenditure): Observable<void> {
     return this.api.put(this.expenditureApiUrl, id, {
-      title: expenditure.title,
-      rate: expenditure.rate,
-      comment: expenditure.comment,
-      enabled: expenditure.enabled,
+      title: expenditure.title || null,
+      rate: expenditure.rate || null,
+      comment: expenditure.comment || null,
+      enabled: expenditure.enabled || null,
     });
   }
 

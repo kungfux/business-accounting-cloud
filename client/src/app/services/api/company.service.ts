@@ -29,17 +29,17 @@ export class CompanyApiService {
 
   addCompany(company: Company): Observable<ItemCreatedResponse> {
     return this.api.post<ItemCreatedResponse>(this.companyApiUrl, {
-      name: company.name,
-      logo: company.logo,
-      enabled: company.enabled,
+      name: company.name || null,
+      logo: company.logo || null,
+      enabled: company.enabled || null,
     });
   }
 
   updateCompany(id: number, company: Company): Observable<void> {
     return this.api.put(this.companyApiUrl, id, {
-      name: company.name,
-      logo: company.logo,
-      enabled: company.enabled,
+      name: company.name || null,
+      logo: company.logo || null,
+      enabled: company.enabled || null,
     });
   }
 

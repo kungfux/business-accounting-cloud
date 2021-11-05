@@ -47,9 +47,9 @@ export class PropertyComponent implements OnInit {
     const property = new Property({
       id: this.property.id,
       title: this.property.title,
-      inventoryNumber: this.property.inventoryNumber || null,
-      cost: this.property.cost || null,
-      comment: this.property.comment || null,
+      inventoryNumber: this.property.inventoryNumber,
+      cost: this.property.cost,
+      comment: this.property.comment,
       enabled: this.property.enabled,
       companyId: this.userPreferences.companyId,
     });

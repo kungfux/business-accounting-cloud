@@ -42,7 +42,7 @@ module.exports = async function (fastify, opts) {
 
       const expiration = new Date();
       expiration.setHours(new Date().getHours() + tokenHoursToLive);
-      reply.send({ id, token, expiration: expiration.toUTCString() })
+      reply.send({ id, token, expiration: expiration.toISOString() })
     }
 
     function rejectAuthorization() {

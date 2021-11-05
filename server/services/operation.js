@@ -29,14 +29,14 @@ module.exports = async function (fastify, opts) {
             const limit = parseInt(request.query.limit) || 10
             const offset = parseInt(request.query.offset) || 0
             if (from === undefined && to === undefined) {
-                return await this.db.query('select * from operations where companyId = ? limit ? offset ?',
+                return await this.db.query('select * from operations where companyId = ? order by operationDate desc limit ? offset ?',
                     {
                         replacements: [companyId, limit, offset],
                         type: QueryTypes.SELECT
                     }
                 )
             } else {
-                return await this.db.query('select * from operations where companyId = ? operationDate >= ? and operationDate <= ? limit ? offset ?',
+                return await this.db.query('select * from operations where companyId = ? and operationDate >= ? and operationDate <= ? order by operationDate desc limit ? offset ?',
                     {
                         replacements: [companyId, from, to, limit, offset],
                         type: QueryTypes.SELECT
@@ -73,8 +73,15 @@ module.exports = async function (fastify, opts) {
                 'insert into operations (operationDate,amount,comment,contactId,propertyId,expenditureId,companyId) ' +
                 'values(?,?,?,?,?,?,?)',
                 {
-                    replacements: [request.body.operationDate, request.body.amount, request.body.comment || null, request.body.contactId || null,
-                    request.body.propertyId || null, request.body.expenditureId || null, request.body.companyId],
+                    replacements: [
+                        request.body.operationDate || null,
+                        request.body.amount || null,
+                        request.body.comment || null,
+                        request.body.contactId || null,
+                        request.body.propertyId || null,
+                        request.body.expenditureId || null,
+                        request.body.companyId || null,
+                    ],
                     type: QueryTypes.INSERT
                 }
             )
@@ -90,10 +97,18 @@ module.exports = async function (fastify, opts) {
         { schema: schemas.updateOne },
         async function (request, reply) {
             const [, metadata] = await this.db.query(
-                'update operations set operationDate=?,amount=?,comment=?,contactId=?,propertyId=?,expenditureId=? where id=?',
+                'update operations set operationDate=?,amount=?,comment=?,contactId=?,propertyId=?,' +
+                'expenditureId=? where id=?',
                 {
-                    replacements: [request.body.operationDate, request.body.amount, request.body.comment, request.body.contactId || null,
-                    request.body.propertyId || null, request.body.expenditureId || null, request.params.id],
+                    replacements: [
+                        request.body.operationDate || null,
+                        request.body.amount || null,
+                        request.body.comment || null,
+                        request.body.contactId || null,
+                        request.body.propertyId || null,
+                        request.body.expenditureId || null,
+                        request.params.id || null,
+                    ],
                     type: QueryTypes.UPDATE
                 }
             )

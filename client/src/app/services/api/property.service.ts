@@ -21,28 +21,38 @@ export class PropertyApiService {
     });
   }
 
+  getExactProperties(ids: number[]): Observable<Property[]> {
+    const range = ids.join(',');
+    return this.api.get<Property[]>({
+      api: this.propertyApiUrl,
+      params: {
+        list: range,
+      },
+    });
+  }
+
   getProperty(id: number): Observable<Property> {
     return this.api.get<Property>({ api: this.propertyApiUrl, id: id });
   }
 
   addProperty(property: Property): Observable<ItemCreatedResponse> {
     return this.api.post<ItemCreatedResponse>(this.propertyApiUrl, {
-      title: property.title,
-      inventoryNumber: property.inventoryNumber,
-      cost: property.cost,
-      comment: property.comment,
-      enabled: property.enabled,
-      companyId: property.companyId,
+      title: property.title || null,
+      inventoryNumber: property.inventoryNumber || null,
+      cost: property.cost || null,
+      comment: property.comment || null,
+      enabled: property.enabled || null,
+      companyId: property.companyId || null,
     });
   }
 
   updateProperty(id: number, property: Property): Observable<void> {
     return this.api.put(this.propertyApiUrl, id, {
-      title: property.title,
-      inventoryNumber: property.inventoryNumber,
-      cost: property.cost,
-      comment: property.comment,
-      enabled: property.enabled,
+      title: property.title || null,
+      inventoryNumber: property.inventoryNumber || null,
+      cost: property.cost || null,
+      comment: property.comment || null,
+      enabled: property.enabled || null,
     });
   }
 

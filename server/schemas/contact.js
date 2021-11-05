@@ -39,6 +39,7 @@ var schema = new BaseSchema({
     },
     {
         active: { type: 'boolean' },
+        list: { type: 'string' }
     })
 
 const findAll = schema.findAll

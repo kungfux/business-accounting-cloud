@@ -47,8 +47,8 @@ export class ExpenditureComponent implements OnInit {
     const expenditure = new Expenditure({
       id: this.expenditure.id,
       title: this.expenditure.title,
-      rate: this.expenditure.rate || null,
-      comment: this.expenditure.comment || null,
+      rate: this.expenditure.rate,
+      comment: this.expenditure.comment,
       enabled: this.expenditure.enabled,
       companyId: this.userPreferences.companyId,
     });

@@ -62,9 +62,18 @@ module.exports = async function (fastify, opts) {
       const password = request.body.password
       const { hash, salt } = this.createNewHashSalt(password)
 
-      const [result] = await this.db.query('insert into users (login,password,salt,name,avatar,admin,enabled) values(?,?,?,?,?,?,?)',
+      const [result] = await this.db.query('insert into users (login,password,salt,name,avatar,admin,enabled) ' +
+        'values(?,?,?,?,?,?,?)',
         {
-          replacements: [request.body.login, hash, salt, request.body.name, request.body.avatar || null, request.body.admin, request.body.enabled],
+          replacements: [
+            request.body.login || null,
+            hash || null,
+            salt || null,
+            request.body.name || null,
+            request.body.avatar || null,
+            request.body.admin || false,
+            request.body.enabled || false
+          ],
           type: QueryTypes.INSERT
         }
       )
@@ -81,7 +90,14 @@ module.exports = async function (fastify, opts) {
     async function (request, reply) {
       const [, metadata] = await this.db.query('update users set login=?,name=?,avatar=?,admin=?,enabled=? where id=?',
         {
-          replacements: [request.body.login, request.body.name, request.body.avatar || null, request.body.admin, request.body.enabled, request.params.id],
+          replacements: [
+            request.body.login || null,
+            request.body.name || null,
+            request.body.avatar || null,
+            request.body.admin || false,
+            request.body.enabled || false,
+            request.params.id || null,
+          ],
           type: QueryTypes.UPDATE
         }
       )
@@ -132,7 +148,11 @@ module.exports = async function (fastify, opts) {
       const newSalt = newHashSalt.salt
       const [, metadata] = await this.db.query('update users set password=?,salt=? where id=?',
         {
-          replacements: [newHash, newSalt, id],
+          replacements: [
+            newHash || null,
+            newSalt || null,
+            id || null,
+          ],
           type: QueryTypes.UPDATE
         }
       )

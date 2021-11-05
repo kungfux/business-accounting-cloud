@@ -43,7 +43,7 @@ export class CompanyComponent implements OnInit {
     let company = new Company({
       id: this.company.id,
       name: this.company.name,
-      logo: this.company.logo || null,
+      logo: this.company.logo,
       enabled: this.company.enabled,
     });
 

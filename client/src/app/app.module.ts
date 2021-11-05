@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -21,6 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeRU from '@angular/common/locales/ru';
@@ -58,6 +58,10 @@ import { AdminUserGuard } from './guards/admin-user-guard.guard';
 import { ContactComponent } from './components/pages/contacts/contact/contact.component';
 import { NavigatorComponent } from './components/common/navigator/navigator.component';
 import { TitlePipe } from './pipes/title';
+import { OperationsComponent } from './components/pages/operations/operations/operations.component';
+import { ContactPipe } from './pipes/contact';
+import { PropertyPipe } from './pipes/property';
+import { ExpenditurePipe } from './pipes/expenditure';
 
 const routes: Routes = [
   {
@@ -145,6 +149,11 @@ const routes: Routes = [
     component: ContactComponent,
     canActivate: [AuthorizedUserGuard],
   },
+  {
+    path: 'operations',
+    component: OperationsComponent,
+    canActivate: [AuthorizedUserGuard],
+  },
   { path: '**', redirectTo: 'dashboard' },
 ];
 
@@ -174,7 +183,11 @@ const routes: Routes = [
     ContactsComponent,
     ContactComponent,
     NavigatorComponent,
+    OperationsComponent,
     TitlePipe,
+    ContactPipe,
+    PropertyPipe,
+    ExpenditurePipe,
   ],
   imports: [
     BrowserAnimationsModule,
