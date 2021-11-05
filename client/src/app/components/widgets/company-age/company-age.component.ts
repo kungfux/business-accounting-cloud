@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { AfterViewInit, Component } from '@angular/core';
 import { CompanyApiService } from 'src/app/services/api/company.service';
 import { Company } from 'src/app/services/api/models/company';
@@ -6,16 +7,17 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
 @Component({
   selector: 'app-company-age',
   templateUrl: './company-age.component.html',
-  styleUrls: ['./company-age.component.css', '../widget-spinner.css'],
 })
 export class CompanyAgeComponent implements AfterViewInit {
   isLoading: boolean = true;
   company?: Company = undefined;
   companyAge: string | undefined = undefined;
+  companyFound: string | undefined = undefined;
 
   constructor(
     private companyApi: CompanyApiService,
-    public userPreferences: UserPreferencesService
+    public userPreferences: UserPreferencesService,
+    private datePipe: DatePipe
   ) {}
 
   ngAfterViewInit(): void {
@@ -29,6 +31,12 @@ export class CompanyAgeComponent implements AfterViewInit {
       this.companyApi.getCompany(this.userPreferences.companyId).subscribe({
         next: (company) => {
           this.company = company;
+          this.companyFound = `Основана ${this.datePipe.transform(
+            company.created,
+            'longDate',
+            undefined,
+            this.userPreferences.locale
+          )}`;
           this.companyAge = this.getAge(company.created!);
           this.isLoading = false;
         },
