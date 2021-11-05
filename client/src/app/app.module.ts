@@ -22,7 +22,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { LOCALE_ID, NgModule } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import localeRU from '@angular/common/locales/ru';
 import localeUA from '@angular/common/locales/ru-UA';
 import { ImageToDataUrlModule } from 'ngx-image2dataurl';
@@ -65,6 +65,7 @@ import { ExpenditurePipe } from './pipes/expenditure';
 import { CompanyAgeComponent } from './components/widgets/company-age/company-age.component';
 import { IncomesComponent } from './components/pages/incomes/incomes/incomes.component';
 import { IncomeComponent } from './components/pages/incomes/income/income.component';
+import { WidgetComponent } from './components/widgets/widget/widget.component';
 
 const routes: Routes = [
   {
@@ -204,6 +205,7 @@ const routes: Routes = [
     CompanyAgeComponent,
     IncomesComponent,
     IncomeComponent,
+    WidgetComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -248,6 +250,7 @@ const routes: Routes = [
       useFactory: (userPreferences: any) => userPreferences.locale,
     },
     MatDatepickerModule,
+    DatePipe,
   ],
   bootstrap: [AppComponent],
 })
