@@ -6,7 +6,13 @@
   <div>
     <p class="title">Возраст компании</p>
     <div>
-      <mat-spinner [diameter]="32" *ngIf="isLoading"></mat-spinner>
+      <div style="color: #3f51b5" class="la-line-scale" *ngIf="isLoading">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
       <p class="content" *ngIf="!isLoading">{{ companyAge }}</p>
       <p class="note" *ngIf="!isLoading">
         Основана:
