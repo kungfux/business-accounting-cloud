@@ -29,11 +29,11 @@ export class ExpenditureComponent implements OnInit {
     if (id === null) {
       return;
     }
-    const propertyId = parseInt(id);
-    if (!propertyId) {
+    const expenditureId = parseInt(id);
+    if (!expenditureId) {
       this.isLoading = false;
     } else {
-      this.expenditureApi.getExpenditure(propertyId).subscribe({
+      this.expenditureApi.getExpenditure(expenditureId).subscribe({
         next: (expenditure) => {
           this.expenditure = expenditure;
           this.isLoading = false;
@@ -56,7 +56,7 @@ export class ExpenditureComponent implements OnInit {
     if (!expenditure.id) {
       this.expenditureApi.addExpenditure(expenditure).subscribe({
         next: () => {
-          this.navigateToAllExpenditure();
+          this.navigateToAllExpenditures();
         },
         error: () => {
           this.isLoading = false;
@@ -67,7 +67,7 @@ export class ExpenditureComponent implements OnInit {
         .updateExpenditure(expenditure.id!, expenditure)
         .subscribe({
           next: () => {
-            this.navigateToAllExpenditure();
+            this.navigateToAllExpenditures();
           },
           error: () => {
             this.isLoading = false;
@@ -80,7 +80,7 @@ export class ExpenditureComponent implements OnInit {
     this.isLoading = true;
     this.expenditureApi.deleteExpenditure(this.expenditure.id!).subscribe({
       next: () => {
-        this.navigateToAllExpenditure();
+        this.navigateToAllExpenditures();
       },
       error: () => {
         this.isLoading = false;
@@ -88,7 +88,7 @@ export class ExpenditureComponent implements OnInit {
     });
   }
 
-  private navigateToAllExpenditure(): void {
+  private navigateToAllExpenditures(): void {
     this.router.navigate(['/expenditures']);
   }
 }

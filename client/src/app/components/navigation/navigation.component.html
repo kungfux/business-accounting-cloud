@@ -72,6 +72,14 @@
       <a
         mat-list-item
         (click)="drawer.toggle()"
+        routerLink="incomes"
+        [class.active]="activeRoute.startsWith('/incomes')">
+        <mat-icon>account_balance_wallet</mat-icon>
+        Доходы
+      </a>
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
         routerLink="expenditures"
         [class.active]="activeRoute.startsWith('/expenditures')">
         <mat-icon>payment</mat-icon>
