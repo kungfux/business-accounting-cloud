@@ -1,0 +1,20 @@
+<div class="widget">
+  <div class="icon">
+    <mat-icon>schedule</mat-icon>
+  </div>
+  <div class="vertical-line"></div>
+  <div>
+    <p class="title">Возраст компании</p>
+    <div>
+      <mat-spinner [diameter]="32" *ngIf="isLoading"></mat-spinner>
+      <p class="content" *ngIf="!isLoading">{{ companyAge }}</p>
+      <p class="note" *ngIf="!isLoading">
+        Основана:
+        {{
+          company!.created!
+            | date: 'longDate':undefined:this.userPreferences.locale
+        }}
+      </p>
+    </div>
+  </div>
+</div>
