@@ -66,6 +66,7 @@ import { CompanyAgeComponent } from './components/widgets/company-age/company-ag
 import { IncomesComponent } from './components/pages/incomes/incomes/incomes.component';
 import { IncomeComponent } from './components/pages/incomes/income/income.component';
 import { WidgetComponent } from './components/widgets/widget/widget.component';
+import { CompanySaldoComponent } from './components/widgets/company-saldo/company-saldo.component';
 
 const routes: Routes = [
   {
@@ -202,10 +203,11 @@ const routes: Routes = [
     ContactPipe,
     PropertyPipe,
     ExpenditurePipe,
-    CompanyAgeComponent,
     IncomesComponent,
     IncomeComponent,
     WidgetComponent,
+    CompanyAgeComponent,
+    CompanySaldoComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -16,7 +16,7 @@ export class CompanyAgeComponent implements AfterViewInit {
 
   constructor(
     private companyApi: CompanyApiService,
-    public userPreferences: UserPreferencesService,
+    private userPreferences: UserPreferencesService,
     private datePipe: DatePipe
   ) {}
 
