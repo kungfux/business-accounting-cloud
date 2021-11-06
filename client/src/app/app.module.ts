@@ -21,11 +21,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ImageToDataUrlModule } from 'ngx-image2dataurl';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { DatePipe, registerLocaleData } from '@angular/common';
 import localeRU from '@angular/common/locales/ru';
 import localeUA from '@angular/common/locales/ru-UA';
-import { ImageToDataUrlModule } from 'ngx-image2dataurl';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
@@ -255,6 +256,7 @@ const routes: Routes = [
       deps: [UserPreferencesService],
       useFactory: (userPreferences: any) => userPreferences.locale,
     },
+    { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
     MatDatepickerModule,
     DatePipe,
   ],

@@ -9,6 +9,6 @@ export class AppUser {
   companyId: number | null = null;
   companyLogo: string | null = null;
   companyName: string | null = null;
-  locale: string = 'en-US';
+  locale: string = 'ru';
   limit: number = 10;
 }
