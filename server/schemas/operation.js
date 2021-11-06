@@ -12,6 +12,7 @@ var schema = new BaseSchema({
         comment: { type: 'string' },
         contactId: { type: 'integer' },
         propertyId: { type: 'integer' },
+        incomeId: { type: 'integer' },
         expenditureId: { type: 'integer' },
         companyId: { type: 'integer', minLength: 1 }
     },
@@ -21,6 +22,7 @@ var schema = new BaseSchema({
         comment: { type: 'string' },
         contactId: { type: 'integer' },
         propertyId: { type: 'integer' },
+        incomeId: { type: 'integer' },
         expenditureId: { type: 'integer' }
     },
     {

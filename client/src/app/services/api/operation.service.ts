@@ -47,6 +47,7 @@ export class OperationApiService {
       comment: operation.comment || null,
       contactId: operation.contactId || null,
       propertyId: operation.propertyId || null,
+      incomeId: operation.incomeId || null,
       expenditureId: operation.expenditureId || null,
       companyId: operation.companyId || null,
     });
@@ -61,6 +62,7 @@ export class OperationApiService {
       comment: operation.comment || null,
       contactId: operation.contactId || null,
       propertyId: operation.propertyId || null,
+      incomeId: operation.incomeId || null,
       expenditureId: operation.expenditureId || null,
     });
   }
