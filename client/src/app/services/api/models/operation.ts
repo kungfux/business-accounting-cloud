@@ -6,6 +6,7 @@ export class Operation {
   created: Date | null = null;
   contactId: number | null = null;
   propertyId: number | null = null;
+  incomeId: number | null = null;
   expenditureId: number | null = null;
   companyId: number | null = null;
 

@@ -21,9 +21,7 @@ export class CompanyAgeComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.getCompanyAge();
-    }, 1000);
+    this.getCompanyAge();
   }
 
   getCompanyAge(): void {

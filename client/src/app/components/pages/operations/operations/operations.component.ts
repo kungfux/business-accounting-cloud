@@ -6,8 +6,10 @@ import {
 } from 'src/app/components/common/toolbar/toolbar.component';
 import { ContactApiService } from 'src/app/services/api/contact.service';
 import { ExpenditureApiService } from 'src/app/services/api/expenditure.service';
+import { IncomeApiService } from 'src/app/services/api/income.service';
 import { Contact } from 'src/app/services/api/models/contact';
 import { Expenditure } from 'src/app/services/api/models/expenditure';
+import { Income } from 'src/app/services/api/models/income';
 import { Operation } from 'src/app/services/api/models/operation';
 import { Property } from 'src/app/services/api/models/property';
 import { OperationApiService } from 'src/app/services/api/operation.service';
@@ -23,6 +25,7 @@ export class OperationsComponent implements OnInit {
   operations: Operation[] = [];
   contacts: Contact[] = [];
   properties: Property[] = [];
+  incomes: Income[] = [];
   expenditures: Expenditure[] = [];
   selectedOperation?: Operation;
   toolBarMode: ToolBarMode = ToolBarMode.List;
@@ -39,6 +42,7 @@ export class OperationsComponent implements OnInit {
     private operationApi: OperationApiService,
     private contactApi: ContactApiService,
     private propertyApi: PropertyApiService,
+    private incomeApi: IncomeApiService,
     private expenditureApi: ExpenditureApiService
   ) {}
 
@@ -103,6 +107,29 @@ export class OperationsComponent implements OnInit {
       this.propertyApi.getExactProperties(propertyIds).subscribe({
         next: (properties) => {
           this.properties = properties;
+          this.getIncomes();
+        },
+      });
+    } else {
+      this.getIncomes();
+    }
+  }
+
+  getIncomes(): void {
+    const incomeIds: number[] = [];
+    this.operations.forEach((operation) => {
+      if (operation.incomeId) {
+        if (incomeIds.find((id) => id === operation.incomeId) === undefined) {
+          incomeIds.push(operation.incomeId);
+        }
+      }
+    });
+
+    this.incomes = [];
+    if (incomeIds.length > 0) {
+      this.incomeApi.getExactIncomes(incomeIds).subscribe({
+        next: (incomes) => {
+          this.incomes = incomes;
           this.getExpenditures();
         },
       });
@@ -124,11 +151,11 @@ export class OperationsComponent implements OnInit {
       }
     });
 
-    this.expenditures = [];
+    this.incomes = [];
     if (expenditureIds.length > 0) {
       this.expenditureApi.getExactExpenditures(expenditureIds).subscribe({
         next: (expenditures) => {
-          this.expenditures = expenditures;
+          this.incomes = expenditures;
           this.isLoading = false;
         },
       });
