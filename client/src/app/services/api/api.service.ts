@@ -32,9 +32,13 @@ export class ApiService {
     return this.limit;
   }
 
+  get maxLimit() {
+    return 99;
+  }
+
   get<T>({
     api,
-    id: id,
+    id,
     companyId,
     offset,
     limit,
