@@ -20,6 +20,18 @@ export class CompanyApiService {
     });
   }
 
+  getEnabledCompanies(
+    offset: number = 0,
+    limit: number = this.api.maxLimit
+  ): Observable<Company[]> {
+    return this.api.get<Company[]>({
+      api: this.companyApiUrl,
+      offset: offset,
+      limit: limit,
+      params: { enabled: true },
+    });
+  }
+
   getCompany(id: number): Observable<Company> {
     return this.api.get<Company>({
       api: this.companyApiUrl,

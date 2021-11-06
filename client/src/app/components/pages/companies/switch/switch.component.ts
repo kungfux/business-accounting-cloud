@@ -24,9 +24,9 @@ export class SwitchComponent implements OnInit {
   }
 
   loadData(): void {
-    this.companyApi.getCompanies().subscribe({
-      next: (data) => {
-        this.companies = data.filter((company) => company.enabled);
+    this.companyApi.getEnabledCompanies().subscribe({
+      next: (companies) => {
+        this.companies = companies.filter((company) => company.enabled);
         this.isLoading = false;
       },
     });
