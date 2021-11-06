@@ -5,11 +5,26 @@ div.widget {
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   border-radius: 4px;
+  max-width: 250px;
 }
 
 div.icon {
   color: white;
   border-radius: 4px 0px 0px 4px;
+}
+
+div.help {
+  display: none;
+  margin: 8px;
+  max-width: 250px;
+}
+
+div.widget:hover .content {
+  display: none;
+}
+
+div.widget:hover .help {
+  display: unset;
 }
 
 mat-icon {
@@ -45,4 +60,9 @@ p.note {
   font-size: x-small;
   /* overflow-wrap: break-word;
   max-width: fit-content; */
+}
+
+p.help {
+  font-size: small;
+  padding: 0px;
 }

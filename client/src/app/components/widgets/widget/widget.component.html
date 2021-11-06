@@ -3,7 +3,7 @@
     <mat-icon>{{ icon }}</mat-icon>
   </div>
   <div class="vertical-line"></div>
-  <div>
+  <div class="content">
     <p class="title">{{ title }}</p>
     <div>
       <div [style.color]="color" class="la-line-scale" *ngIf="isLoading">
@@ -16,5 +16,8 @@
       <p class="content" *ngIf="!isLoading">{{ content }}</p>
       <p class="note" *ngIf="!isLoading">{{ note }}</p>
     </div>
+  </div>
+  <div class="help">
+    <p class="help">{{ help }}</p>
   </div>
 </div>
