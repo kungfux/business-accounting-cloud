@@ -11,7 +11,7 @@ export class ReportApiService {
 
   constructor(private api: ApiService, private dateService: DateService) {}
 
-  getSaldo(companyId: number, from?: Date, to?: Date): Observable<any> {
+  getTotal(companyId: number, from?: Date, to?: Date): Observable<any> {
     return this.api.get<any>({
       api: this.reportApiUrl,
       companyId: companyId,

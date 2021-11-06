@@ -1,11 +1,11 @@
 'use strict'
 
-const saldo = {
+const total = {
     response: {
         200: {
             type: 'object',
             properties: {
-                saldo: { type: 'number' },
+                total: { type: 'number' },
             }
         }
     },
@@ -20,4 +20,4 @@ const saldo = {
     },
 }
 
-module.exports = { saldo }
+module.exports = { total }

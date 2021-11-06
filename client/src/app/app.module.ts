@@ -66,7 +66,9 @@ import { CompanyAgeComponent } from './components/widgets/company-age/company-ag
 import { IncomesComponent } from './components/pages/incomes/incomes/incomes.component';
 import { IncomeComponent } from './components/pages/incomes/income/income.component';
 import { WidgetComponent } from './components/widgets/widget/widget.component';
-import { CompanySaldoComponent } from './components/widgets/company-saldo/company-saldo.component';
+import { CompanyTotalOverallComponent } from './components/widgets/company-total-overall/company-total-overall.component';
+import { CompanyTotalYearComponent } from './components/widgets/company-total-year/company-total-year.component';
+import { CompanyTotalMonthComponent } from './components/widgets/company-total-month/company-total-month.component';
 
 const routes: Routes = [
   {
@@ -207,7 +209,9 @@ const routes: Routes = [
     IncomeComponent,
     WidgetComponent,
     CompanyAgeComponent,
-    CompanySaldoComponent,
+    CompanyTotalOverallComponent,
+    CompanyTotalYearComponent,
+    CompanyTotalMonthComponent,
   ],
   imports: [
     BrowserAnimationsModule,

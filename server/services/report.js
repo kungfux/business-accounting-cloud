@@ -21,21 +21,21 @@ module.exports = async function (fastify, opts) {
 
     fastify.get(
         '/',
-        { schema: schemas.saldo },
+        { schema: schemas.total },
         async function (request, reply) {
             const companyId = parseInt(request.query.companyId)
             const from = request.query.from || undefined;
             const to = request.query.to || undefined;
             var result = 0;
             if (from === undefined && to === undefined) {
-                result = await this.db.query('select sum(amount) as saldo from operations where companyId = ?',
+                result = await this.db.query('select sum(amount) as total from operations where companyId = ?',
                     {
                         replacements: [companyId],
                         type: QueryTypes.SELECT
                     }
                 )
             } else {
-                result = await this.db.query('select sum(amount) as saldo from operations where companyId = ? and ' +
+                result = await this.db.query('select sum(amount) as total from operations where companyId = ? and ' +
                     'operationDate >= ? and operationDate <= ?',
                     {
                         replacements: [companyId, from, to],
@@ -46,7 +46,7 @@ module.exports = async function (fastify, opts) {
 
             if (result.length > 0) {
                 reply.code(200).send({
-                    saldo: result[0].saldo
+                    total: result[0].total
                 })
             }
 
