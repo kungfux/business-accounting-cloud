@@ -34,6 +34,20 @@ export class ExpenditureApiService {
     });
   }
 
+  getEnabledExpenditures(
+    companyId: number,
+    offset: number = 0,
+    limit: number = this.api.maxLimit
+  ): Observable<Expenditure[]> {
+    return this.api.get<Expenditure[]>({
+      api: this.expenditureApiUrl,
+      companyId: companyId,
+      offset: offset,
+      limit: limit,
+      params: { enabled: true },
+    });
+  }
+
   getExpenditure(id: number): Observable<Expenditure> {
     return this.api.get<Expenditure>({ api: this.expenditureApiUrl, id: id });
   }

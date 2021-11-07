@@ -24,19 +24,10 @@ mat-card-content,
   padding: 0 16px;
 }
 
-div.img {
-  padding: 16px 16px;
+mat-button-toggle-group {
+  margin-bottom: 16px;
 }
 
-img {
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
-  background: transparent;
-}
-
-div.calendars mat-form-field {
-  width: 49%;
-}
-
-div.calendars mat-form-field:nth-child(1) {
-  padding-right: 2%;
+.align-center {
+  text-align: center;
 }

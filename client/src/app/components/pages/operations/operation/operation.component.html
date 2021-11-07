@@ -1,0 +1,119 @@
+<app-toolbar
+  [title]="operationDescription"
+  [mode]="toolBarMode"
+  [isLoading]="isLoading"
+  [selectedItem]="operation"
+  [deleteVisible]="!!operation?.id"
+  [saveEnabled]="
+    !!operation.operationDate &&
+    !!operation.amount &&
+    operation.amount !== 0 &&
+    !isLoading &&
+    (operation.contactId! > 0 ||
+      operation.propertyId! > 0 ||
+      operation.incomeId! > 0 ||
+      operation.expenditureId! > 0) &&
+    ((operationType === 'income' && operation.amount > 0) ||
+      (operationType === 'expenditure' && operation.amount < 0))
+  "
+  [deleteEnabled]="!isLoading"
+  (saveRequest)="onSaveRequest()"
+  (deleteRequest)="onDeleteRequest()"></app-toolbar>
+
+<div class="page-content" *ngIf="!isLoading">
+  <mat-card class="card">
+    <mat-card-content>
+      <div class="section-small">
+        <div class="column-container">
+          <div class="align-center">
+            <mat-button-toggle-group
+              [(ngModel)]="operationType"
+              (change)="onOperationTypeChange($event.value)">
+              <mat-button-toggle value="income">Доход</mat-button-toggle>
+              <mat-button-toggle value="expenditure">Расход</mat-button-toggle>
+              <mat-button-toggle value="contact">Сотрудник</mat-button-toggle>
+              <mat-button-toggle value="property">Имущество</mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+          <mat-form-field appearance="fill" *ngIf="operationType === 'contact'">
+            <mat-label>Сотрудник</mat-label>
+            <mat-select
+              [(ngModel)]="operation.contactId"
+              (selectionChange)="onAssociatedEntryChange($event.value)">
+              <mat-option *ngFor="let contact of contacts" [value]="contact.id">
+                {{ contact.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="fill"
+            *ngIf="operationType === 'property'">
+            <mat-label>Имущество</mat-label>
+            <mat-select
+              [(ngModel)]="operation.propertyId"
+              (selectionChange)="onAssociatedEntryChange($event.value)">
+              <mat-option
+                *ngFor="let property of properties"
+                [value]="property.id">
+                {{ property.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" *ngIf="operationType === 'income'">
+            <mat-label>Источник дохода</mat-label>
+            <mat-select
+              [(ngModel)]="operation.incomeId"
+              (selectionChange)="onAssociatedEntryChange($event.value)">
+              <mat-option *ngFor="let income of incomes" [value]="income.id">
+                {{ income.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="fill"
+            *ngIf="operationType === 'expenditure'">
+            <mat-label>Статья расхода</mat-label>
+            <mat-select
+              [(ngModel)]="operation.expenditureId"
+              (selectionChange)="onAssociatedEntryChange($event.value)">
+              <mat-option
+                *ngFor="let expenditure of expenditures"
+                [value]="expenditure.id">
+                {{ expenditure.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="section-big">
+        <div class="column-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Отчетная дата операции</mat-label>
+            <input
+              matInput
+              [(ngModel)]="operation.operationDate"
+              [matDatepicker]="operationDate" />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="operationDate"></mat-datepicker-toggle>
+            <mat-datepicker #operationDate></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Сумма ({{ this.currency.getSymbol() }})</mat-label>
+            <input matInput type="number" [(ngModel)]="operation.amount" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Комментарий</mat-label>
+            <textarea matInput [(ngModel)]="operation.comment"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -72,8 +72,8 @@ module.exports = async function (fastify, opts) {
         { schema: schemas.insertOne },
         async function (request, reply) {
             const [result] = await this.db.query(
-                'insert into operations (operationDate,amount,comment,contactId,propertyId,expenditureId,companyId) ' +
-                'values(?,?,?,?,?,?,?)',
+                'insert into operations (operationDate,amount,comment,contactId,propertyId,incomeId,expenditureId,companyId) ' +
+                'values(?,?,?,?,?,?,?,?)',
                 {
                     replacements: [
                         request.body.operationDate || null,
@@ -81,6 +81,7 @@ module.exports = async function (fastify, opts) {
                         request.body.comment || null,
                         request.body.contactId || null,
                         request.body.propertyId || null,
+                        request.body.incomeId || null,
                         request.body.expenditureId || null,
                         request.body.companyId || null,
                     ],
@@ -100,7 +101,7 @@ module.exports = async function (fastify, opts) {
         async function (request, reply) {
             const [, metadata] = await this.db.query(
                 'update operations set operationDate=?,amount=?,comment=?,contactId=?,propertyId=?,' +
-                'expenditureId=? where id=?',
+                'incomeId=?,expenditureId=? where id=?',
                 {
                     replacements: [
                         request.body.operationDate || null,
@@ -108,6 +109,7 @@ module.exports = async function (fastify, opts) {
                         request.body.comment || null,
                         request.body.contactId || null,
                         request.body.propertyId || null,
+                        request.body.incomeId || null,
                         request.body.expenditureId || null,
                         request.params.id || null,
                     ],

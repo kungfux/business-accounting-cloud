@@ -15,7 +15,7 @@ export class ContactApiService {
 
   getContacts(
     companyId: number,
-    active: boolean,
+    enabled: boolean,
     offset: number = 0
   ): Observable<Contact[]> {
     return this.api.get<Contact[]>({
@@ -24,7 +24,7 @@ export class ContactApiService {
       offset: offset,
       limit: this.api.defaultLimit,
       params: {
-        active: active,
+        enabled: enabled,
       },
     });
   }
@@ -36,6 +36,20 @@ export class ContactApiService {
       params: {
         list: range,
       },
+    });
+  }
+
+  getEnabledContacts(
+    companyId: number,
+    offset: number = 0,
+    limit: number = this.api.maxLimit
+  ): Observable<Contact[]> {
+    return this.api.get<Contact[]>({
+      api: this.contactApiUrl,
+      companyId: companyId,
+      offset: offset,
+      limit: limit,
+      params: { enabled: true },
     });
   }
 

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
@@ -70,6 +71,8 @@ import { WidgetComponent } from './components/widgets/widget/widget.component';
 import { CompanyTotalOverallComponent } from './components/widgets/company-total-overall/company-total-overall.component';
 import { CompanyTotalYearComponent } from './components/widgets/company-total-year/company-total-year.component';
 import { CompanyTotalMonthComponent } from './components/widgets/company-total-month/company-total-month.component';
+import { OperationComponent } from './components/pages/operations/operation/operation.component';
+import { IncomePipe } from './pipes/income';
 
 const routes: Routes = [
   {
@@ -172,6 +175,11 @@ const routes: Routes = [
     component: OperationsComponent,
     canActivate: [AuthorizedUserGuard],
   },
+  {
+    path: 'operations/:id',
+    component: OperationComponent,
+    canActivate: [AuthorizedUserGuard],
+  },
   { path: '**', redirectTo: 'dashboard' },
 ];
 
@@ -206,6 +214,7 @@ const routes: Routes = [
     ContactPipe,
     PropertyPipe,
     ExpenditurePipe,
+    IncomePipe,
     IncomesComponent,
     IncomeComponent,
     WidgetComponent,
@@ -213,6 +222,7 @@ const routes: Routes = [
     CompanyTotalOverallComponent,
     CompanyTotalYearComponent,
     CompanyTotalMonthComponent,
+    OperationComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -221,6 +231,7 @@ const routes: Routes = [
     HttpClientModule,
     LayoutModule,
     MatButtonModule,
+    MatButtonToggleModule,
     MatCardModule,
     MatCheckboxModule,
     MatDatepickerModule,

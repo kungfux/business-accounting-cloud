@@ -38,7 +38,7 @@ var schema = new BaseSchema({
         titleId: { type: 'integer' },
     },
     {
-        active: { type: 'boolean' },
+        enabled: { type: 'boolean' },
         list: { type: 'string' }
     })
 

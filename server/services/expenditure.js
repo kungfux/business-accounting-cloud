@@ -24,6 +24,7 @@ module.exports = async function (fastify, opts) {
         { schema: schemas.findAll },
         async function (request, reply) {
             const companyId = parseInt(request.query.companyId)
+            const enabled = request.query.enabled || false;
             const list = request.query.list || undefined
             const limit = parseInt(request.query.limit) || 10
             const offset = parseInt(request.query.offset) || 0
@@ -36,6 +37,15 @@ module.exports = async function (fastify, opts) {
                 return await this.db.query('select * from expenditures where id in (?)',
                     {
                         replacements: [ids],
+                        type: QueryTypes.SELECT
+                    }
+                )
+            }
+
+            if (request.query.enabled) {
+                return await this.db.query('select * from expenditures where enabled=? limit ? offset ?',
+                    {
+                        replacements: [enabled, limit, offset],
                         type: QueryTypes.SELECT
                     }
                 )
