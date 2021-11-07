@@ -14,6 +14,7 @@ import { Operation } from 'src/app/services/api/models/operation';
 import { Property } from 'src/app/services/api/models/property';
 import { OperationApiService } from 'src/app/services/api/operation.service';
 import { PropertyApiService } from 'src/app/services/api/property.service';
+import { CurrencyService } from 'src/app/services/converters/currency.service';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Component({
@@ -37,8 +38,9 @@ export class OperationsComponent implements OnInit {
   filterRangeEnd?: Date = undefined;
 
   constructor(
-    private router: Router,
     public userPreferences: UserPreferencesService,
+    public currency: CurrencyService,
+    private router: Router,
     private operationApi: OperationApiService,
     private contactApi: ContactApiService,
     private propertyApi: PropertyApiService,
