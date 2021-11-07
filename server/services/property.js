@@ -73,7 +73,7 @@ module.exports = async function (fastify, opts) {
         '/',
         { schema: schemas.insertOne },
         async function (request, reply) {
-            const [result] = await this.db.query('insert into properties (title,inventoryNumber,cost,comment,created,companyId) ' +
+            const [result] = await this.db.query('insert into properties (title,inventoryNumber,cost,comment,enabled,companyId) ' +
                 'values(?,?,?,?,?,?)',
                 {
                     replacements: [
