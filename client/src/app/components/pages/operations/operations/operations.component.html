@@ -61,6 +61,8 @@
               ? (properties | property: operation.propertyId)
               : operation.expenditureId
               ? (expenditures | expenditure: operation.expenditureId)
+              : operation.incomeId
+              ? (incomes | income: operation.incomeId)
               : null
           }}
         </td>

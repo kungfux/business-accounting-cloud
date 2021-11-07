@@ -31,6 +31,20 @@ export class PropertyApiService {
     });
   }
 
+  getEnabledProperties(
+    companyId: number,
+    offset: number = 0,
+    limit: number = this.api.maxLimit
+  ): Observable<Property[]> {
+    return this.api.get<Property[]>({
+      api: this.propertyApiUrl,
+      companyId: companyId,
+      offset: offset,
+      limit: limit,
+      params: { enabled: true },
+    });
+  }
+
   getProperty(id: number): Observable<Property> {
     return this.api.get<Property>({ api: this.propertyApiUrl, id: id });
   }

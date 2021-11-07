@@ -31,6 +31,20 @@ export class IncomeApiService {
     });
   }
 
+  getEnabledIncomes(
+    companyId: number,
+    offset: number = 0,
+    limit: number = this.api.maxLimit
+  ): Observable<Income[]> {
+    return this.api.get<Income[]>({
+      api: this.incomeApiUrl,
+      companyId: companyId,
+      offset: offset,
+      limit: limit,
+      params: { enabled: true },
+    });
+  }
+
   getIncome(id: number): Observable<Income> {
     return this.api.get<Income>({ api: this.incomeApiUrl, id: id });
   }

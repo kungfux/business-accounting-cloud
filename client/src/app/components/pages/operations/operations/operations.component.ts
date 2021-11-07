@@ -153,11 +153,11 @@ export class OperationsComponent implements OnInit {
       }
     });
 
-    this.incomes = [];
+    this.expenditures = [];
     if (expenditureIds.length > 0) {
       this.expenditureApi.getExactExpenditures(expenditureIds).subscribe({
         next: (expenditures) => {
-          this.incomes = expenditures;
+          this.expenditures = expenditures;
           this.isLoading = false;
         },
       });

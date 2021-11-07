@@ -20,7 +20,8 @@ var schema = new BaseSchema({
         enabled: { type: 'boolean' },
     },
     {
-        list: { type: 'string' }
+        enabled: { type: 'boolean' },
+        list: { type: 'string' },
     })
 
 const findAll = schema.findAll

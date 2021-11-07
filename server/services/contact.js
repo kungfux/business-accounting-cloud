@@ -24,7 +24,7 @@ module.exports = async function (fastify, opts) {
         { schema: schemas.findAll },
         async function (request, reply) {
             const companyId = parseInt(request.query.companyId)
-            const active = request.query.active || false;
+            const enabled = request.query.enabled || false;
             const list = request.query.list || undefined
             const limit = parseInt(request.query.limit) || 10
             const offset = parseInt(request.query.offset) || 0
@@ -45,7 +45,7 @@ module.exports = async function (fastify, opts) {
 
             return await this.db.query(
                 'select * from contacts where companyId = ? ' +
-                (active ? 'and fired is null' : '') +
+                (enabled ? 'and fired is null' : '') +
                 ' limit ? offset ?',
                 {
                     replacements: [companyId, limit, offset],
