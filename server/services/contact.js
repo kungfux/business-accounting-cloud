@@ -44,7 +44,7 @@ module.exports = async function (fastify, opts) {
             }
 
             return await this.db.query(
-                'select * from contacts where companyId = ? ' +
+                'select * from contacts where companyId=? ' +
                 (enabled ? 'and fired is null' : '') +
                 ' limit ? offset ?',
                 {
