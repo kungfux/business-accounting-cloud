@@ -43,15 +43,15 @@ module.exports = async function (fastify, opts) {
             }
 
             if (request.query.enabled) {
-                return await this.db.query('select * from expenditures where enabled=? limit ? offset ?',
+                return await this.db.query('select * from expenditures where companyId=? and enabled=? limit ? offset ?',
                     {
-                        replacements: [enabled, limit, offset],
+                        replacements: [companyId, enabled, limit, offset],
                         type: QueryTypes.SELECT
                     }
                 )
             }
 
-            return await this.db.query('select * from expenditures where companyId = ? limit ? offset ?',
+            return await this.db.query('select * from expenditures where companyId=? limit ? offset ?',
                 {
                     replacements: [companyId, limit, offset],
                     type: QueryTypes.SELECT

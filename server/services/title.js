@@ -30,7 +30,7 @@ module.exports = async function (fastify, opts) {
             const offset = parseInt(request.query.offset) || 0
 
             if (companyId && !enabled) {
-                return await this.db.query('select * from titles where companyId = ? limit ? offset ?',
+                return await this.db.query('select * from titles where companyId=? limit ? offset ?',
                     {
                         replacements: [companyId, limit, offset],
                         type: QueryTypes.SELECT
@@ -39,7 +39,7 @@ module.exports = async function (fastify, opts) {
             }
 
             if (companyId && enabled) {
-                return await this.db.query('select * from titles where companyId = ? and enabled = true ' +
+                return await this.db.query('select * from titles where companyId=? and enabled=true ' +
                     'limit ? offset ?',
                     {
                         replacements: [companyId, limit, offset],

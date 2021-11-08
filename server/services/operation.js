@@ -29,7 +29,7 @@ module.exports = async function (fastify, opts) {
             const limit = parseInt(request.query.limit) || 10
             const offset = parseInt(request.query.offset) || 0
             if (from === undefined && to === undefined) {
-                return await this.db.query('select * from operations where companyId = ? ' +
+                return await this.db.query('select * from operations where companyId=? ' +
                     'order by operationDate desc,created desc limit ? offset ?',
                     {
                         replacements: [companyId, limit, offset],
@@ -37,7 +37,7 @@ module.exports = async function (fastify, opts) {
                     }
                 )
             } else {
-                return await this.db.query('select * from operations where companyId = ? and operationDate >= ? and operationDate <= ? ' +
+                return await this.db.query('select * from operations where companyId=? and operationDate >= ? and operationDate <= ? ' +
                     'order by operationDate desc,created desc limit ? offset ?',
                     {
                         replacements: [companyId, from, to, limit, offset],

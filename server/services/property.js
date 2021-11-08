@@ -43,9 +43,9 @@ module.exports = async function (fastify, opts) {
             }
 
             if (request.query.enabled) {
-                return await this.db.query('select * from properties where enabled=? limit ? offset ?',
+                return await this.db.query('select * from properties where companyId=? and enabled=? limit ? offset ?',
                     {
-                        replacements: [enabled, limit, offset],
+                        replacements: [companyId, enabled, limit, offset],
                         type: QueryTypes.SELECT
                     }
                 )
