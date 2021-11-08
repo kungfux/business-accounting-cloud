@@ -47,7 +47,7 @@ export class CompanyAgeComponent implements AfterViewInit {
     var birthDate = new Date(created);
     var years = today.getFullYear() - birthDate.getFullYear();
     var months = today.getMonth() - birthDate.getMonth();
-    var days = today.getDay() - birthDate.getDay();
+    var days = today.getDate() - birthDate.getDate();
     if (years > 0) {
       if (years == 1) return `${years} год`;
       if (years < 5) return `${years} года`;
