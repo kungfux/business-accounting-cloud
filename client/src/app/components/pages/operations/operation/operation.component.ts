@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DateAdapter } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component';
 import { ContactApiService } from 'src/app/services/api/contact.service';
@@ -43,10 +44,12 @@ export class OperationComponent implements OnInit {
     private titleApi: TitleApiService,
     private propertyApi: PropertyApiService,
     private incomeApi: IncomeApiService,
-    private expenditureApi: ExpenditureApiService
+    private expenditureApi: ExpenditureApiService,
+    private dateAdapter: DateAdapter<any>
   ) {}
 
   ngOnInit(): void {
+    this.dateAdapter.setLocale(this.userPreferences.locale);
     this.getOperationDetails();
   }
 

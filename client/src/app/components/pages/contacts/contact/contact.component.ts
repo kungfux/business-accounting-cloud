@@ -50,13 +50,13 @@ export class ContactComponent implements OnInit {
   @ViewChild('imageUpload') imageUpload: any;
 
   constructor(
+    public currency: CurrencyService,
     private breakpointObserver: BreakpointObserver,
     private route: ActivatedRoute,
     private router: Router,
     private contactApi: ContactApiService,
     private titleApi: TitleApiService,
     private userPreferences: UserPreferencesService,
-    public currency: CurrencyService,
     private dateAdapter: DateAdapter<any>
   ) {}
 
