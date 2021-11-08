@@ -18,10 +18,10 @@ export class PropertiesComponent implements OnInit {
   isLoading = true;
 
   constructor(
-    private propertyApi: PropertyApiService,
-    private router: Router,
     public userPreferences: UserPreferencesService,
-    public currency: CurrencyService
+    public currency: CurrencyService,
+    private propertyApi: PropertyApiService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {

@@ -1,6 +1,8 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { DateAdapter } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ImageResult, Options } from 'ngx-image2dataurl';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import {
@@ -13,8 +15,6 @@ import { Title } from 'src/app/services/api/models/title';
 import { TitleApiService } from 'src/app/services/api/title.service';
 import { CurrencyService } from 'src/app/services/converters/currency.service';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
-import { Options, ImageResult } from 'ngx-image2dataurl';
-import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-contact',

@@ -17,9 +17,9 @@ export class CompaniesComponent implements OnInit {
   isLoading = true;
 
   constructor(
+    public userPreferences: UserPreferencesService,
     private companyApi: CompanyApiService,
-    private router: Router,
-    public userPreferences: UserPreferencesService
+    private router: Router
   ) {}
 
   ngOnInit(): void {

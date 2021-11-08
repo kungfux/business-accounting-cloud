@@ -1,14 +1,12 @@
-import { Input, OnInit } from '@angular/core';
-import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { Router } from '@angular/router';
-
-import { AppUser } from 'src/app/services/appUser';
-import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 import { LoginApiService } from 'src/app/services/api/login.service';
 import { Company } from 'src/app/services/api/models/company';
+import { AppUser } from 'src/app/services/appUser';
+import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Component({
   selector: 'app-navigation',

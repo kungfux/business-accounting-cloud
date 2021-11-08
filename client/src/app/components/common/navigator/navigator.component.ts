@@ -14,7 +14,7 @@ export class NavigatorComponent implements OnInit {
   @Input() itemsCount: number = 0;
   @Output() pageChanged = new EventEmitter<number>();
 
-  constructor(private userPreferences: UserPreferencesService) {
+  constructor(userPreferences: UserPreferencesService) {
     this.limit = userPreferences.limit;
   }
 

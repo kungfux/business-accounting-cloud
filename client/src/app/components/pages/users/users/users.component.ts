@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/services/api/models/user';
 import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component';
+import { User } from 'src/app/services/api/models/user';
 import { UserApiService } from 'src/app/services/api/user.service';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
@@ -17,9 +17,9 @@ export class UsersComponent implements OnInit {
   isLoading = true;
 
   constructor(
+    public userPreferences: UserPreferencesService,
     private userApi: UserApiService,
-    private router: Router,
-    public userPreferences: UserPreferencesService
+    private router: Router
   ) {}
 
   ngOnInit(): void {

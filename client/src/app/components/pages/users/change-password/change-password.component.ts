@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UserApiService } from 'src/app/services/api/user.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component';
+import { UserApiService } from 'src/app/services/api/user.service';
 
 @Component({
   selector: 'app-change-password',
@@ -22,7 +22,6 @@ export class ChangePasswordComponent implements OnInit {
   constructor(
     private location: Location,
     private route: ActivatedRoute,
-    private router: Router,
     private userApi: UserApiService
   ) {}
 

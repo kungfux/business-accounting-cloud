@@ -18,10 +18,10 @@ export class IncomesComponent implements OnInit {
   isLoading = true;
 
   constructor(
-    private incomeApi: IncomeApiService,
-    private router: Router,
     public userPreferences: UserPreferencesService,
-    public currency: CurrencyService
+    public currency: CurrencyService,
+    private incomeApi: IncomeApiService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {

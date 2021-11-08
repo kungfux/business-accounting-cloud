@@ -38,11 +38,11 @@ export class ContactsComponent implements OnInit {
     );
 
   constructor(
+    public userPreferences: UserPreferencesService,
     private breakpointObserver: BreakpointObserver,
     private contactApi: ContactApiService,
     private titleApi: TitleApiService,
-    private router: Router,
-    public userPreferences: UserPreferencesService
+    private router: Router
   ) {}
 
   ngOnInit(): void {
