@@ -279,9 +279,7 @@ export class OperationComponent implements OnInit {
         }
         break;
       case 'property':
-        amount = this.properties.find(
-          (property) => property.id === value
-        )?.cost;
+        amount = null;
         break;
       case 'income':
         amount = this.incomes.find((income) => income.id === value)?.rate;
