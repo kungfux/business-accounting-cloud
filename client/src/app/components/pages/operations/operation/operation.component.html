@@ -14,7 +14,9 @@
       operation.incomeId! > 0 ||
       operation.expenditureId! > 0) &&
     ((operationType === 'income' && operation.amount > 0) ||
-      (operationType === 'expenditure' && operation.amount < 0))
+      (operationType === 'expenditure' && operation.amount < 0) ||
+      operationType === 'contact' ||
+      operationType == 'property')
   "
   [deleteEnabled]="!isLoading"
   (saveRequest)="onSaveRequest()"
