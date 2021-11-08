@@ -15,5 +15,5 @@ textarea {
 mat-card {
   box-shadow: none;
   transition: none;
-  /* background: transparent; */
+  background: transparent;
 }
