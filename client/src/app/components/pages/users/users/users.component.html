@@ -23,7 +23,7 @@
 
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Имя</th>
-        <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+        <td mat-cell class="wrap" *matCellDef="let user">{{ user.name }}</td>
       </ng-container>
 
       <ng-container matColumnDef="admin">

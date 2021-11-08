@@ -34,6 +34,6 @@
   vertical-align: middle;
 }
 
-.mat-cell {
+td.wrap {
   white-space: pre-wrap;
 }

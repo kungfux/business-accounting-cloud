@@ -11,7 +11,9 @@
     <table mat-table [dataSource]="properties">
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef>Название</th>
-        <td mat-cell *matCellDef="let property">{{ property.title }}</td>
+        <td mat-cell class="wrap" *matCellDef="let property">
+          {{ property.title }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="inventory_number">

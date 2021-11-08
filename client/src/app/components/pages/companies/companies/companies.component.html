@@ -23,7 +23,9 @@
 
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Название</th>
-        <td mat-cell *matCellDef="let company">{{ company.name }}</td>
+        <td mat-cell class="wrap" *matCellDef="let company">
+          {{ company.name }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="enabled">
