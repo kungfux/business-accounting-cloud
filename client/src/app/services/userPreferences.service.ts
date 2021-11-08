@@ -119,8 +119,6 @@ export class UserPreferencesService {
   }
 
   private saveUserToStorage(): void {
-    // TODO: Remove next time
-    this.localStorage.remove('app-user');
     this.localStorage.set(this.storageUserKey, this.getUserJSON());
   }
 
