@@ -21,11 +21,7 @@ export class CompanyComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id === null) {
-      return;
-    }
-    const companyId = parseInt(id);
+    const companyId: number = parseInt(this.route.snapshot.paramMap.get('id')!);
     if (!companyId) {
       this.isLoading = false;
     } else {

@@ -25,11 +25,9 @@ export class ExpenditureComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id === null) {
-      return;
-    }
-    const expenditureId = parseInt(id);
+    const expenditureId: number = parseInt(
+      this.route.snapshot.paramMap.get('id')!
+    );
     if (!expenditureId) {
       this.isLoading = false;
     } else {

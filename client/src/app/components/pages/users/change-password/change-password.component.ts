@@ -27,11 +27,7 @@ export class ChangePasswordComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id === null) {
-      return;
-    }
-    const userId = parseInt(id);
+    const userId: number = parseInt(this.route.snapshot.paramMap.get('id')!);
     if (!userId) {
       // TODO: Handle this case
       return;
