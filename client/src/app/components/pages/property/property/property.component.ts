@@ -25,11 +25,9 @@ export class PropertyComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id === null) {
-      return;
-    }
-    const propertyId = parseInt(id);
+    const propertyId: number = parseInt(
+      this.route.snapshot.paramMap.get('id')!
+    );
     if (!propertyId) {
       this.isLoading = false;
     } else {

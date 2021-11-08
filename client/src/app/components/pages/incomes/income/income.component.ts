@@ -25,11 +25,7 @@ export class IncomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id === null) {
-      return;
-    }
-    const incomeId = parseInt(id);
+    const incomeId: number = parseInt(this.route.snapshot.paramMap.get('id')!);
     if (!incomeId) {
       this.isLoading = false;
     } else {

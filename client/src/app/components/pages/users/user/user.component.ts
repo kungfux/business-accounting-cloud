@@ -29,11 +29,7 @@ export class UserComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id === null) {
-      return;
-    }
-    const userId = parseInt(id);
+    const userId: number = parseInt(this.route.snapshot.paramMap.get('id')!);
     if (!userId) {
       this.isLoading = false;
     } else {

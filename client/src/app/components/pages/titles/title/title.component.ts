@@ -25,11 +25,7 @@ export class TitleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id === null) {
-      return;
-    }
-    const titleId = parseInt(id);
+    const titleId: number = parseInt(this.route.snapshot.paramMap.get('id')!);
     if (!titleId) {
       this.isLoading = false;
     } else {
