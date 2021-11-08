@@ -17,11 +17,11 @@ export class TitleComponent implements OnInit {
   isLoading = true;
 
   constructor(
+    public userPreferences: UserPreferencesService,
+    public currency: CurrencyService,
     private route: ActivatedRoute,
     private router: Router,
-    private titleApi: TitleApiService,
-    public userPreferences: UserPreferencesService,
-    public currency: CurrencyService
+    private titleApi: TitleApiService
   ) {}
 
   ngOnInit(): void {

@@ -18,10 +18,10 @@ export class ExpendituresComponent implements OnInit {
   isLoading = true;
 
   constructor(
+    public currency: CurrencyService,
     private expenditureApi: ExpenditureApiService,
     private router: Router,
-    public userPreferences: UserPreferencesService,
-    public currency: CurrencyService
+    public userPreferences: UserPreferencesService
   ) {}
 
   ngOnInit(): void {

@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
+import { CanActivate, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserPreferencesService } from '../services/userPreferences.service';
 
@@ -14,10 +9,7 @@ import { UserPreferencesService } from '../services/userPreferences.service';
 export class NotAuthorizedUserGuard implements CanActivate {
   constructor(private userPreferences: UserPreferencesService) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
+  canActivate():
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
     | boolean
