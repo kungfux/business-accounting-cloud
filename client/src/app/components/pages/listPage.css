@@ -27,13 +27,13 @@
   padding: 0px 5px;
   line-break: unset;
   width: auto;
-  white-space: nowrap;
+  white-space: pre-wrap;
   overflow: hidden;
   vertical-align: middle;
   text-align: center;
   vertical-align: middle;
 }
 
-td.wrap {
-  white-space: pre-wrap;
+.nowrap {
+  white-space: nowrap;
 }
