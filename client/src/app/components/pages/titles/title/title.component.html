@@ -23,7 +23,11 @@
               this.currency.getSymbol()
             }})</mat-label
           >
-          <input matInput type="number" [(ngModel)]="title.rate" />
+          <input
+            matInput
+            type="number"
+            [ngModel]="title.rate || undefined"
+            (ngModelChange)="title.rate = $event" />
         </mat-form-field>
       </div>
       <section>

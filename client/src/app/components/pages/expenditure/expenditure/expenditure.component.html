@@ -21,7 +21,11 @@
           <mat-label
             >Шаблон суммы расхода ({{ this.currency.getSymbol() }})</mat-label
           >
-          <input matInput type="number" [(ngModel)]="expenditure.rate" />
+          <input
+            matInput
+            type="number"
+            [ngModel]="expenditure.rate || undefined"
+            (ngModelChange)="expenditure.rate = $event" />
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Комментарий</mat-label>
