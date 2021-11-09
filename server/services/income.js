@@ -34,7 +34,7 @@ module.exports = async function (fastify, opts) {
                 for (var i = 0; i < ids.length; i++) {
                     ids[i] = +ids[i];
                 }
-                return await this.db.query('select * from incomes where id in (?)',
+                return await this.db.query('select * from incomes where id in (?) order by title asc',
                     {
                         replacements: [ids],
                         type: QueryTypes.SELECT
@@ -43,7 +43,7 @@ module.exports = async function (fastify, opts) {
             }
 
             if (request.query.enabled) {
-                return await this.db.query('select * from incomes where companyId=? and enabled=? limit ? offset ?',
+                return await this.db.query('select * from incomes where companyId=? and enabled=? order by title asc limit ? offset ?',
                     {
                         replacements: [companyId, enabled, limit, offset],
                         type: QueryTypes.SELECT
@@ -51,7 +51,7 @@ module.exports = async function (fastify, opts) {
                 )
             }
 
-            return await this.db.query('select * from incomes where companyId=? limit ? offset ?',
+            return await this.db.query('select * from incomes where companyId=? order by title asc limit ? offset ?',
                 {
                     replacements: [companyId, limit, offset],
                     type: QueryTypes.SELECT
