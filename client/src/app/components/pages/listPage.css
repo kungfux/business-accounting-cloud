@@ -27,7 +27,7 @@
   padding: 0px 5px;
   line-break: unset;
   width: auto;
-  white-space: pre-wrap;
+  white-space: normal;
   overflow: hidden;
   vertical-align: middle;
   text-align: center;
