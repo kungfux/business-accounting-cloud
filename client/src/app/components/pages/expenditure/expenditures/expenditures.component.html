@@ -17,14 +17,14 @@
       </ng-container>
 
       <ng-container matColumnDef="rate">
-        <th mat-header-cell *matHeaderCellDef>Типовая сумма оплаты</th>
+        <th mat-header-cell *matHeaderCellDef>Шаблон суммы расхода</th>
         <td mat-cell *matCellDef="let expenditure">
           {{ expenditure.rate ? this.currency.convert(expenditure.rate) : '' }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="enabled">
-        <th mat-header-cell *matHeaderCellDef>Показывать</th>
+        <th mat-header-cell *matHeaderCellDef>Показывать в кассе</th>
         <td mat-cell *matCellDef="let expenditure">
           <mat-checkbox [checked]="expenditure.enabled" disabled>
           </mat-checkbox>

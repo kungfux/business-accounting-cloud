@@ -18,7 +18,11 @@
           <input matInput [(ngModel)]="title.name" required />
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Зарплата ({{ this.currency.getSymbol() }})</mat-label>
+          <mat-label
+            >Шаблон размера зарплаты ({{
+              this.currency.getSymbol()
+            }})</mat-label
+          >
           <input matInput type="number" [(ngModel)]="title.rate" />
         </mat-form-field>
       </div>
