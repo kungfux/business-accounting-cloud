@@ -44,7 +44,11 @@
 
       <ng-container matColumnDef="amount">
         <th mat-header-cell *matHeaderCellDef>Сумма</th>
-        <td mat-cell class="nowrap" *matCellDef="let operation">
+        <td
+          mat-cell
+          class="nowrap"
+          [ngClass]="operation.amount > 0 ? 'income' : 'expense'"
+          *matCellDef="let operation">
           {{ this.currency.convert(operation.amount) }}
         </td>
       </ng-container>
