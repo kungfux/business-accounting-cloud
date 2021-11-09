@@ -8,9 +8,16 @@
 
 <div class="page-content">
   <div class="table-responsive" *ngIf="!isLoading">
-    <table mat-table [dataSource]="expenditures">
+    <table
+      mat-table
+      [dataSource]="expenditures"
+      matSort
+      matSortActive="title"
+      matSortDirection="asc">
       <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef>Название</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disabled>
+          Название
+        </th>
         <td mat-cell *matCellDef="let expenditure">
           {{ expenditure.title }}
         </td>

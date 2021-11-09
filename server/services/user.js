@@ -25,7 +25,7 @@ module.exports = async function (fastify, opts) {
     async function (request, reply) {
       const limit = parseInt(request.query.limit) || 10
       const offset = parseInt(request.query.offset) || 0
-      const items = await this.db.query('select * from users limit ? offset ?',
+      const items = await this.db.query('select * from users order by created asc limit ? offset ?',
         {
           replacements: [limit, offset],
           type: QueryTypes.SELECT

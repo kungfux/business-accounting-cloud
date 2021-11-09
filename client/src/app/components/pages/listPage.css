@@ -31,9 +31,11 @@
   overflow: hidden;
   vertical-align: middle;
   text-align: center;
-  vertical-align: middle;
 }
-
+::ng-deep .mat-sort-header-container {
+  display: flex;
+  justify-content: center;
+}
 .nowrap {
   white-space: nowrap;
 }

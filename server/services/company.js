@@ -28,7 +28,7 @@ module.exports = async function (fastify, opts) {
       const offset = parseInt(request.query.offset) || 0
 
       if (request.query.enabled) {
-        return await this.db.query('select * from companies where enabled=? limit ? offset ?',
+        return await this.db.query('select * from companies where enabled=? order by name asc limit ? offset ?',
           {
             replacements: [enabled, limit, offset],
             type: QueryTypes.SELECT
@@ -36,7 +36,7 @@ module.exports = async function (fastify, opts) {
         )
       }
 
-      return await this.db.query('select * from companies limit ? offset ?',
+      return await this.db.query('select * from companies order by name asc limit ? offset ?',
         {
           replacements: [limit, offset],
           type: QueryTypes.SELECT

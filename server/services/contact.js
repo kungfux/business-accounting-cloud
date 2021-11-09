@@ -35,7 +35,7 @@ module.exports = async function (fastify, opts) {
                     ids[i] = +ids[i];
                 }
                 return await this.db.query(
-                    'select * from contacts where id in (?)',
+                    'select * from contacts where id in (?) order by name asc',
                     {
                         replacements: [ids],
                         type: QueryTypes.SELECT
@@ -45,8 +45,8 @@ module.exports = async function (fastify, opts) {
 
             return await this.db.query(
                 'select * from contacts where companyId=? ' +
-                (enabled ? 'and fired is null' : '') +
-                ' limit ? offset ?',
+                (enabled ? 'and fired is null ' : ' ') +
+                'order by name asc limit ? offset ?',
                 {
                     replacements: [companyId, limit, offset],
                     type: QueryTypes.SELECT
