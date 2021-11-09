@@ -11,7 +11,7 @@
     <table mat-table [dataSource]="expenditures">
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef>Название</th>
-        <td mat-cell class="wrap" *matCellDef="let expenditure">
+        <td mat-cell *matCellDef="let expenditure">
           {{ expenditure.title }}
         </td>
       </ng-container>

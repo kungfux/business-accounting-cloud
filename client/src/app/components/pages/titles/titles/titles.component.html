@@ -11,7 +11,7 @@
     <table mat-table [dataSource]="titles">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Название</th>
-        <td mat-cell class="wrap" *matCellDef="let title">{{ title.name }}</td>
+        <td mat-cell *matCellDef="let title">{{ title.name }}</td>
       </ng-container>
 
       <ng-container matColumnDef="rate">

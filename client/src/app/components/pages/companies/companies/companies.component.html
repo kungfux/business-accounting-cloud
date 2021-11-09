@@ -23,7 +23,7 @@
 
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Название</th>
-        <td mat-cell class="wrap" *matCellDef="let company">
+        <td mat-cell *matCellDef="let company">
           {{ company.name }}
         </td>
       </ng-container>
@@ -37,7 +37,7 @@
 
       <ng-container matColumnDef="created">
         <th mat-header-cell *matHeaderCellDef>Дата создания</th>
-        <td mat-cell *matCellDef="let company">
+        <td mat-cell class="nowrap" *matCellDef="let company">
           {{
             company.created
               | date: 'medium':undefined:this.userPreferences.locale
