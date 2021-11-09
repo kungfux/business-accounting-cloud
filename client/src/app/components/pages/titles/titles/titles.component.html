@@ -28,29 +28,14 @@
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="created">
-        <th mat-header-cell *matHeaderCellDef>Дата создания</th>
-        <td mat-cell *matCellDef="let title">
-          {{
-            title.created | date: 'medium':undefined:this.userPreferences.locale
-          }}
-        </td>
-      </ng-container>
-
       <tr
         mat-header-row
-        *matHeaderRowDef="
-          ['name', 'rate', 'enabled', 'created'];
-          sticky: true
-        "></tr>
+        *matHeaderRowDef="['name', 'rate', 'enabled']; sticky: true"></tr>
       <tr
         mat-row
         (click)="selectTitle(row)"
         [class.selectedRow]="selectedTitle == row"
-        *matRowDef="
-          let row;
-          columns: ['name', 'rate', 'enabled', 'created']
-        "></tr>
+        *matRowDef="let row; columns: ['name', 'rate', 'enabled']"></tr>
     </table>
   </div>
 
