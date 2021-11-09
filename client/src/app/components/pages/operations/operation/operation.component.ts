@@ -275,7 +275,7 @@ export class OperationComponent implements OnInit {
           (contact) => contact.id === value
         )?.titleId;
         if (titleId) {
-          amount = this.titles.find((title) => title.id === titleId)?.rate;
+          amount = 0 - this.titles.find((title) => title.id === titleId)?.rate!;
         }
         break;
       case 'property':
@@ -285,9 +285,10 @@ export class OperationComponent implements OnInit {
         amount = this.incomes.find((income) => income.id === value)?.rate;
         break;
       case 'expenditure':
-        amount = this.expenditures.find(
-          (expenditure) => expenditure.id === value
-        )?.rate;
+        amount =
+          0 -
+          this.expenditures.find((expenditure) => expenditure.id === value)
+            ?.rate!;
         break;
     }
     this.operation.amount = amount || null;

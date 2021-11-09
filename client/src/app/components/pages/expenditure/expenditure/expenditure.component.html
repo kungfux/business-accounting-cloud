@@ -4,7 +4,7 @@
   [isLoading]="isLoading"
   [selectedItem]="expenditure"
   [deleteVisible]="!!expenditure?.id"
-  [saveEnabled]="!!expenditure.title && expenditure.rate! <= 0 && !isLoading"
+  [saveEnabled]="!!expenditure.title && expenditure.rate! >= 0 && !isLoading"
   [deleteEnabled]="!isLoading"
   (saveRequest)="onSaveRequest()"
   (deleteRequest)="onDeleteRequest()"></app-toolbar>
