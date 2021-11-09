@@ -17,14 +17,14 @@
       </ng-container>
 
       <ng-container matColumnDef="rate">
-        <th mat-header-cell *matHeaderCellDef>Типовая сумма дохода</th>
+        <th mat-header-cell *matHeaderCellDef>Шаблон суммы дохода</th>
         <td mat-cell *matCellDef="let income">
           {{ income.rate ? this.currency.convert(income.rate) : '' }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="enabled">
-        <th mat-header-cell *matHeaderCellDef>Показывать</th>
+        <th mat-header-cell *matHeaderCellDef>Показывать в кассе</th>
         <td mat-cell *matCellDef="let income">
           <mat-checkbox [checked]="income.enabled" disabled> </mat-checkbox>
         </td>
