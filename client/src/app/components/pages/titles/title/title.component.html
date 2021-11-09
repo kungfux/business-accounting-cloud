@@ -4,7 +4,7 @@
   [isLoading]="isLoading"
   [selectedItem]="title"
   [deleteVisible]="!!title?.id"
-  [saveEnabled]="!!title.name && title.rate! <= 0 && !isLoading"
+  [saveEnabled]="!!title.name && title.rate! >= 0 && !isLoading"
   [deleteEnabled]="!isLoading"
   (saveRequest)="onSaveRequest()"
   (deleteRequest)="onDeleteRequest()"></app-toolbar>

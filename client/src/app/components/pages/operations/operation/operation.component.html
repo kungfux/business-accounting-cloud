@@ -15,7 +15,7 @@
       operation.expenditureId! > 0) &&
     ((operationType === 'income' && operation.amount > 0) ||
       (operationType === 'expenditure' && operation.amount < 0) ||
-      operationType === 'contact' ||
+      (operationType === 'contact' && operation.amount < 0) ||
       operationType == 'property')
   "
   [deleteEnabled]="!isLoading"
@@ -33,7 +33,7 @@
               (change)="onOperationTypeChange($event.value)">
               <mat-button-toggle value="income">Доход</mat-button-toggle>
               <mat-button-toggle value="expenditure">Расход</mat-button-toggle>
-              <mat-button-toggle value="contact">Сотрудник</mat-button-toggle>
+              <mat-button-toggle value="contact">Зарплата</mat-button-toggle>
               <mat-button-toggle value="property">Имущество</mat-button-toggle>
             </mat-button-toggle-group>
           </div>
@@ -94,7 +94,7 @@
       <div class="section-big">
         <div class="column-container">
           <mat-form-field appearance="fill">
-            <mat-label>Отчетная дата операции</mat-label>
+            <mat-label>Дата операции</mat-label>
             <input
               matInput
               [(ngModel)]="operation.operationDate"
