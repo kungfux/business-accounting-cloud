@@ -11,6 +11,7 @@ import { ContactApiService } from 'src/app/services/api/contact.service';
 import { Contact } from 'src/app/services/api/models/contact';
 import { Title } from 'src/app/services/api/models/title';
 import { TitleApiService } from 'src/app/services/api/title.service';
+import { HandsetService } from 'src/app/services/handset.service';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Component({
@@ -24,25 +25,19 @@ export class ContactsComponent implements OnInit {
   selectedContact?: Contact;
   toolBarMode: ToolBarMode = ToolBarMode.List;
   isLoading = true;
+  isHandset = this.handset.isHandset;
 
   filtersButton: CustomButton = new CustomButton('Фильтр', 'filter_alt');
   filterShow: boolean = false;
   filterActiveOnly: boolean = true;
   filterContactName: string | null = null;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map((result) => result.matches),
-      shareReplay()
-    );
-
   constructor(
     public userPreferences: UserPreferencesService,
-    private breakpointObserver: BreakpointObserver,
     private contactApi: ContactApiService,
     private titleApi: TitleApiService,
-    private router: Router
+    private router: Router,
+    private handset: HandsetService
   ) {}
 
   ngOnInit(): void {

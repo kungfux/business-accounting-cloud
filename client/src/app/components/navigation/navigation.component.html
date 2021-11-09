@@ -3,8 +3,8 @@
     #drawer
     class="sidenav"
     fixedInViewport
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'push'"
+    [attr.role]="(isHandset | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset | async) ? 'over' : 'push'"
     [autoFocus]="false"
     (openedStart)="onOpenedStart()">
     <mat-toolbar>Меню</mat-toolbar>
@@ -115,7 +115,7 @@
       <button mat-icon-button onclick="this.blur()" (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <span *ngIf="!(isHandset$ | async) || !loggedInUser.id">{{ title }}</span>
+      <span *ngIf="!(isHandset | async) || !loggedInUser.id">{{ title }}</span>
       <span class="spacer"></span>
       <button
         mat-button
@@ -138,7 +138,7 @@
           loggedInUser.name || 'Авторизуйтесь'
         }}</span>
       </button>
-      <div *ngIf="isHandset$ | async; then iconLogout; else buttonLogout"></div>
+      <div *ngIf="isHandset | async; then iconLogout; else buttonLogout"></div>
       <ng-template #iconLogout
         ><button mat-icon-button (click)="logout()" *ngIf="loggedInUser.id">
           <mat-icon>logout</mat-icon>

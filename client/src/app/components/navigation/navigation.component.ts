@@ -1,11 +1,9 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
 import { LoginApiService } from 'src/app/services/api/login.service';
 import { Company } from 'src/app/services/api/models/company';
 import { AppUser } from 'src/app/services/appUser';
+import { HandsetService } from 'src/app/services/handset.service';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Component({
@@ -14,13 +12,6 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
   styleUrls: ['./navigation.component.css'],
 })
 export class NavigationComponent implements OnInit {
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map((result) => result.matches),
-      shareReplay()
-    );
-
   @Input() title: string = '';
   activeRoute: string = '';
   loggedInUser: AppUser = new AppUser();
@@ -29,11 +20,13 @@ export class NavigationComponent implements OnInit {
     logo: 'notifications_active',
   });
 
+  isHandset = this.handset.isHandset;
+
   constructor(
-    private breakpointObserver: BreakpointObserver,
     private login: LoginApiService,
     private router: Router,
-    private userPreferences: UserPreferencesService
+    private userPreferences: UserPreferencesService,
+    private handset: HandsetService
   ) {}
 
   ngOnInit(): void {
