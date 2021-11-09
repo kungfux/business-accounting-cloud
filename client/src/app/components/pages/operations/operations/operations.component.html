@@ -34,7 +34,10 @@
         <td mat-cell *matCellDef="let operation">
           {{
             operation.operationDate
-              | date: 'fullDate':undefined:this.userPreferences.locale
+              | date
+                : ((isHandset | async) ? 'shortDate' : 'fullDate')
+                : undefined
+                : this.userPreferences.locale
           }}
         </td>
       </ng-container>
