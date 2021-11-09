@@ -1,8 +1,6 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Location } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { HandsetService } from 'src/app/services/handset.service';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 
 @Component({
@@ -26,17 +24,12 @@ export class ToolbarComponent {
   @Output() deleteRequest = new EventEmitter();
   @Output() customRequest = new EventEmitter();
 
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map((result) => result.matches),
-      shareReplay()
-    );
+  isHandset = this.handset.isHandset;
 
   constructor(
-    private breakpointObserver: BreakpointObserver,
     private location: Location,
-    private dialog: DialogComponent
+    private dialog: DialogComponent,
+    private handset: HandsetService
   ) {}
 
   goBack(): void {

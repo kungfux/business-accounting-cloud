@@ -5,7 +5,7 @@
   </button>
   <span>{{ title }}</span>
   <span class="toolbar-spacer"></span>
-  <section *ngIf="(isHandset$ | async) === false">
+  <section *ngIf="(isHandset | async) === false">
     <button
       mat-stroked-button
       color="primary"
@@ -51,7 +51,7 @@
       <span class="mat-button-wrapper">Сохранить</span>
     </button>
   </section>
-  <section *ngIf="(isHandset$ | async) === true">
+  <section *ngIf="(isHandset | async) === true">
     <button
       mat-icon-button
       color="primary"

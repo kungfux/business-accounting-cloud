@@ -1,10 +1,7 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ImageResult, Options } from 'ngx-image2dataurl';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
 import {
   CustomButton,
   ToolBarMode,
@@ -32,13 +29,6 @@ export class ContactComponent implements OnInit {
     'photo_camera'
   );
 
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map((result) => result.matches),
-      shareReplay()
-    );
-
   options: Options = {
     resize: {
       maxHeight: 500,
@@ -51,7 +41,6 @@ export class ContactComponent implements OnInit {
 
   constructor(
     public currency: CurrencyService,
-    private breakpointObserver: BreakpointObserver,
     private route: ActivatedRoute,
     private router: Router,
     private contactApi: ContactApiService,

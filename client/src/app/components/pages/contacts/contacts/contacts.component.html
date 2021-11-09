@@ -34,12 +34,12 @@
       <img
         mat-card-image
         src="{{ contact.photo || '/assets/photo-placeholder.jpg' }}"
-        [ngClass]="(isHandset$ | async) ? 'small' : 'big'" />
+        [ngClass]="(isHandset | async) ? 'small' : 'big'" />
       <mat-card-header>
-        <mat-card-title [ngClass]="(isHandset$ | async) ? 'small' : 'big'">{{
+        <mat-card-title [ngClass]="(isHandset | async) ? 'small' : 'big'">{{
           contact.name
         }}</mat-card-title>
-        <mat-card-subtitle [ngClass]="(isHandset$ | async) ? 'small' : 'big'">
+        <mat-card-subtitle [ngClass]="(isHandset | async) ? 'small' : 'big'">
           {{ (titles | title: contact.titleId!) || '&zwnj;' }}
         </mat-card-subtitle>
       </mat-card-header>
