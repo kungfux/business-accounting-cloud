@@ -15,6 +15,7 @@ import { Property } from 'src/app/services/api/models/property';
 import { OperationApiService } from 'src/app/services/api/operation.service';
 import { PropertyApiService } from 'src/app/services/api/property.service';
 import { CurrencyService } from 'src/app/services/converters/currency.service';
+import { HandsetService } from 'src/app/services/handset.service';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Component({
@@ -31,6 +32,7 @@ export class OperationsComponent implements OnInit {
   selectedOperation?: Operation;
   toolBarMode: ToolBarMode = ToolBarMode.List;
   isLoading = true;
+  isHandset = this.handset.isHandset;
 
   filtersButton: CustomButton = new CustomButton('Фильтр', 'filter_alt');
   filterShow: boolean = false;
@@ -45,7 +47,8 @@ export class OperationsComponent implements OnInit {
     private contactApi: ContactApiService,
     private propertyApi: PropertyApiService,
     private incomeApi: IncomeApiService,
-    private expenditureApi: ExpenditureApiService
+    private expenditureApi: ExpenditureApiService,
+    private handset: HandsetService
   ) {}
 
   ngOnInit(): void {
