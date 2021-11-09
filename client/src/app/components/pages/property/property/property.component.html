@@ -23,7 +23,11 @@
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Стоимость ({{ this.currency.getSymbol() }})</mat-label>
-          <input matInput type="number" [(ngModel)]="property.cost" />
+          <input
+            matInput
+            type="number"
+            [ngModel]="property.cost || undefined"
+            (ngModelChange)="property.cost = $event" />
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Комментарий</mat-label>

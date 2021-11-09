@@ -21,7 +21,11 @@
           <mat-label
             >Шаблон суммы дохода ({{ this.currency.getSymbol() }})</mat-label
           >
-          <input matInput type="number" [(ngModel)]="income.rate" />
+          <input
+            matInput
+            type="number"
+            [ngModel]="income.rate || undefined"
+            (ngModelChange)="income.rate = $event" />
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Комментарий</mat-label>
