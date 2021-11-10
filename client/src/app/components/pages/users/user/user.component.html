@@ -20,7 +20,7 @@
         !isLoading
   "
   [deleteEnabled]="!isLoading"
-  [customButtonEnabled]="!!user?.id && !isLoading"
+  [customEnabled]="!!user?.id && !isLoading"
   [customButton]="changePasswordButton"
   (customRequest)="onChangePasswordRequest()"
   (saveRequest)="onSaveRequest()"

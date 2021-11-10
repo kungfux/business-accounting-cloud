@@ -12,7 +12,7 @@
     appUser.limit > 0 &&
     !isLoading
   "
-  [customButtonEnabled]="!!user?.id && !isLoading"
+  [customEnabled]="!!user?.id && !isLoading"
   [customButton]="changePasswordButton"
   (customRequest)="onChangePasswordRequest()"
   (saveRequest)="onSaveRequest()"></app-toolbar>

@@ -4,6 +4,7 @@ import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component
 import { IncomeApiService } from 'src/app/services/api/income.service';
 import { Income } from 'src/app/services/api/models/income';
 import { CurrencyService } from 'src/app/services/converters/currency.service';
+import { OperationDefaults } from 'src/app/services/operationDefaults';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Component({
@@ -13,6 +14,7 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
 })
 export class IncomeComponent implements OnInit {
   income: Income = new Income();
+  favoriteIncomeId?: number;
   toolBarMode: ToolBarMode = ToolBarMode.Details;
   isLoading = true;
 
@@ -36,6 +38,7 @@ export class IncomeComponent implements OnInit {
         },
       });
     }
+    this.getFavorite();
   }
 
   onSaveRequest() {
@@ -80,6 +83,18 @@ export class IncomeComponent implements OnInit {
         this.isLoading = false;
       },
     });
+  }
+
+  onFavoriteRequest() {
+    this.userPreferences.setOperationDefaults({
+      incomeId: this.income.id,
+    } as OperationDefaults);
+    this.getFavorite();
+  }
+
+  private getFavorite() {
+    this.favoriteIncomeId =
+      this.userPreferences.getOperationDefaults()?.incomeId;
   }
 
   private navigateToAllIncomes(): void {

@@ -4,6 +4,7 @@ import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component
 import { Property } from 'src/app/services/api/models/property';
 import { PropertyApiService } from 'src/app/services/api/property.service';
 import { CurrencyService } from 'src/app/services/converters/currency.service';
+import { OperationDefaults } from 'src/app/services/operationDefaults';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Component({
@@ -13,6 +14,7 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
 })
 export class PropertyComponent implements OnInit {
   property: Property = new Property();
+  favoritePropertyId?: number;
   toolBarMode: ToolBarMode = ToolBarMode.Details;
   isLoading = true;
 
@@ -38,6 +40,7 @@ export class PropertyComponent implements OnInit {
         },
       });
     }
+    this.getFavorite();
   }
 
   onSaveRequest() {
@@ -83,6 +86,18 @@ export class PropertyComponent implements OnInit {
         this.isLoading = false;
       },
     });
+  }
+
+  onFavoriteRequest() {
+    this.userPreferences.setOperationDefaults({
+      propertyId: this.property.id,
+    } as OperationDefaults);
+    this.getFavorite();
+  }
+
+  private getFavorite() {
+    this.favoritePropertyId =
+      this.userPreferences.getOperationDefaults()?.propertyId;
   }
 
   private navigateToAllProperties(): void {

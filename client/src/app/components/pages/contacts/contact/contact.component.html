@@ -9,7 +9,10 @@
   (saveRequest)="onSaveRequest()"
   (deleteRequest)="onDeleteRequest()"
   [customButton]="choosePhotoButton"
-  (customRequest)="onChoosePhotoRequest()"></app-toolbar>
+  (customRequest)="onChoosePhotoRequest()"
+  [favoriteVisible]="!!contact?.id"
+  [favoriteEnabled]="contact?.id !== favoriteContactId"
+  (favoriteRequest)="onFavoriteRequest()"></app-toolbar>
 
 <div class="page-content" *ngIf="!isLoading">
   <mat-card class="card">

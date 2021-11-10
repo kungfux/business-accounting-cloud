@@ -11,6 +11,7 @@ import { Contact } from 'src/app/services/api/models/contact';
 import { Title } from 'src/app/services/api/models/title';
 import { TitleApiService } from 'src/app/services/api/title.service';
 import { CurrencyService } from 'src/app/services/converters/currency.service';
+import { OperationDefaults } from 'src/app/services/operationDefaults';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Component({
@@ -20,6 +21,7 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
 })
 export class ContactComponent implements OnInit {
   contact: Contact = new Contact();
+  favoriteContactId?: number;
   titles: Title[] = [];
   toolBarMode: ToolBarMode = ToolBarMode.Details;
   isLoading = true;
@@ -51,6 +53,7 @@ export class ContactComponent implements OnInit {
 
   ngOnInit(): void {
     this.dateAdapter.setLocale(this.userPreferences.locale);
+    this.getFavorite();
     this.getTitles();
   }
 
@@ -93,6 +96,7 @@ export class ContactComponent implements OnInit {
             this.titles = titles;
             this.titles?.sort((x, y) => x.name!.localeCompare(y.name!));
             this.isLoading = false;
+            this.ChooseFavoriteTitle();
             this.getContact();
           },
         });
@@ -161,6 +165,23 @@ export class ContactComponent implements OnInit {
 
   onChoosePhotoRequest() {
     this.imageUpload.nativeElement.click();
+  }
+
+  private ChooseFavoriteTitle() {
+    this.contact.titleId =
+      this.userPreferences.getOperationDefaults()?.titleId!;
+  }
+
+  onFavoriteRequest() {
+    this.userPreferences.setOperationDefaults({
+      contactId: this.contact.id,
+    } as OperationDefaults);
+    this.getFavorite();
+  }
+
+  private getFavorite() {
+    this.favoriteContactId =
+      this.userPreferences.getOperationDefaults()?.contactId;
   }
 
   private navigateToAllContacts(): void {

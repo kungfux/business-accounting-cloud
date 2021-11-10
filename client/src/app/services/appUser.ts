@@ -1,3 +1,5 @@
+import { OperationDefaults } from './operationDefaults';
+
 export class AppUser {
   id: number | null = null;
   login: string | null = null;
@@ -11,4 +13,5 @@ export class AppUser {
   companyName: string | null = null;
   locale: string = 'ru';
   limit: number = 10;
+  operationDefaults?: OperationDefaults[] = [];
 }
