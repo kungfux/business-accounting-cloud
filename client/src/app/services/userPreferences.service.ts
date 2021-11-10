@@ -140,6 +140,7 @@ export class UserPreferencesService {
       newOperationDefaults.incomeId = operationDefaults.incomeId || undefined;
       newOperationDefaults.expenditureId =
         operationDefaults.expenditureId || undefined;
+      this.appUser.operationDefaults = [];
       this.appUser.operationDefaults?.push(newOperationDefaults);
     }
     this.saveUserToStorage();
