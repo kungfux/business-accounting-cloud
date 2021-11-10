@@ -26,7 +26,7 @@ export class CompanyTotalMonthComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.getCurrentMonthTotal();
-    }, 3000);
+    }, 500);
   }
 
   getCurrentMonthTotal(): void {

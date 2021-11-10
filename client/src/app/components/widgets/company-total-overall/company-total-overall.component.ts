@@ -20,7 +20,7 @@ export class CompanyTotalOverallComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.getCompanyTotal();
-    }, 5000);
+    }, 2000);
   }
 
   getCompanyTotal(): void {

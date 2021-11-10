@@ -26,7 +26,7 @@ export class CompanyTotalYearComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.getCurrentYearTotal();
-    }, 4000);
+    }, 1000);
   }
 
   getCurrentYearTotal(): void {
