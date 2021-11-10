@@ -148,6 +148,7 @@ export class OperationComponent implements OnInit {
           } else {
             this.isLoading = false;
           }
+          this.SetFavoriteIncome();
         },
       });
   }
@@ -178,6 +179,7 @@ export class OperationComponent implements OnInit {
           } else {
             this.isLoading = false;
           }
+          this.SetFavoriteProperty();
         },
       });
   }
@@ -208,6 +210,7 @@ export class OperationComponent implements OnInit {
           } else {
             this.isLoading = false;
           }
+          this.SetFavoriteExpenditure();
         },
       });
   }
@@ -233,6 +236,7 @@ export class OperationComponent implements OnInit {
       next: (titles) => {
         this.titles = titles;
         this.isLoading = false;
+        this.SetFavoriteContact();
       },
     });
   }
@@ -245,21 +249,25 @@ export class OperationComponent implements OnInit {
 
     switch (value.toString()) {
       case 'contact':
+        this.SetFavoriteContact();
         if (this.contacts.length == 0) {
           this.getContacts();
         }
         break;
       case 'property':
+        this.SetFavoriteProperty();
         if (this.properties.length == 0) {
           this.getProperties();
         }
         break;
       case 'income':
+        this.SetFavoriteIncome();
         if (this.incomes.length == 0) {
           this.getIncomes();
         }
         break;
       case 'expenditure':
+        this.SetFavoriteExpenditure();
         if (this.expenditures.length == 0) {
           this.getExpenditures();
         }
@@ -338,6 +346,38 @@ export class OperationComponent implements OnInit {
         this.isLoading = false;
       },
     });
+  }
+
+  private SetFavoriteIncome() {
+    if (!this.operation.id) {
+      this.operation.incomeId =
+        this.userPreferences.getOperationDefaults()?.incomeId!;
+      this.onAssociatedEntryChange(this.operation.incomeId);
+    }
+  }
+
+  private SetFavoriteExpenditure() {
+    if (!this.operation.id) {
+      this.operation.expenditureId =
+        this.userPreferences.getOperationDefaults()?.expenditureId!;
+      this.onAssociatedEntryChange(this.operation.expenditureId);
+    }
+  }
+
+  private SetFavoriteContact() {
+    if (!this.operation.id) {
+      this.operation.contactId =
+        this.userPreferences.getOperationDefaults()?.contactId!;
+      this.onAssociatedEntryChange(this.operation.contactId);
+    }
+  }
+
+  private SetFavoriteProperty() {
+    if (!this.operation.id) {
+      this.operation.propertyId =
+        this.userPreferences.getOperationDefaults()?.propertyId!;
+      this.onAssociatedEntryChange(this.operation.propertyId);
+    }
   }
 
   private navigateToAllOperations(): void {

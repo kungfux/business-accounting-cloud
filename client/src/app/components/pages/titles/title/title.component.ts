@@ -4,6 +4,7 @@ import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component
 import { Title } from 'src/app/services/api/models/title';
 import { TitleApiService } from 'src/app/services/api/title.service';
 import { CurrencyService } from 'src/app/services/converters/currency.service';
+import { OperationDefaults } from 'src/app/services/operationDefaults';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Component({
@@ -13,6 +14,7 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
 })
 export class TitleComponent implements OnInit {
   title: Title = new Title();
+  favoriteTitleId?: number;
   toolBarMode: ToolBarMode = ToolBarMode.Details;
   isLoading = true;
 
@@ -36,6 +38,7 @@ export class TitleComponent implements OnInit {
         },
       });
     }
+    this.getFavorite();
   }
 
   onSaveRequest() {
@@ -79,6 +82,17 @@ export class TitleComponent implements OnInit {
         this.isLoading = false;
       },
     });
+  }
+
+  onFavoriteRequest() {
+    this.userPreferences.setOperationDefaults({
+      titleId: this.title.id,
+    } as OperationDefaults);
+    this.getFavorite();
+  }
+
+  private getFavorite() {
+    this.favoriteTitleId = this.userPreferences.getOperationDefaults()?.titleId;
   }
 
   private navigateToAllTitles(): void {

@@ -4,6 +4,7 @@ import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component
 import { ExpenditureApiService } from 'src/app/services/api/expenditure.service';
 import { Expenditure } from 'src/app/services/api/models/expenditure';
 import { CurrencyService } from 'src/app/services/converters/currency.service';
+import { OperationDefaults } from 'src/app/services/operationDefaults';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
 @Component({
@@ -13,6 +14,7 @@ import { UserPreferencesService } from 'src/app/services/userPreferences.service
 })
 export class ExpenditureComponent implements OnInit {
   expenditure: Expenditure = new Expenditure();
+  favoriteExpenditureId?: number;
   toolBarMode: ToolBarMode = ToolBarMode.Details;
   isLoading = true;
 
@@ -38,6 +40,7 @@ export class ExpenditureComponent implements OnInit {
         },
       });
     }
+    this.getFavorite();
   }
 
   onSaveRequest() {
@@ -84,6 +87,18 @@ export class ExpenditureComponent implements OnInit {
         this.isLoading = false;
       },
     });
+  }
+
+  onFavoriteRequest() {
+    this.userPreferences.setOperationDefaults({
+      expenditureId: this.expenditure.id,
+    } as OperationDefaults);
+    this.getFavorite();
+  }
+
+  private getFavorite() {
+    this.favoriteExpenditureId =
+      this.userPreferences.getOperationDefaults()?.expenditureId;
   }
 
   private navigateToAllExpenditures(): void {

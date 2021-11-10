@@ -7,7 +7,10 @@
   [saveEnabled]="!!property.title && property.cost! >= 0 && !isLoading"
   [deleteEnabled]="!isLoading"
   (saveRequest)="onSaveRequest()"
-  (deleteRequest)="onDeleteRequest()"></app-toolbar>
+  (deleteRequest)="onDeleteRequest()"
+  [favoriteVisible]="!!property?.id"
+  [favoriteEnabled]="property?.id !== favoritePropertyId"
+  (favoriteRequest)="onFavoriteRequest()"></app-toolbar>
 
 <div class="page-content" *ngIf="!isLoading">
   <mat-card class="card">

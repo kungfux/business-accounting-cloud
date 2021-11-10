@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { AppUser } from './appUser';
 import { LocalStorageService } from './localStorage.service';
+import { OperationDefaults } from './operationDefaults';
 
 @Injectable({
   providedIn: 'root',
@@ -60,6 +61,12 @@ export class UserPreferencesService {
     return this.appUser.limit;
   }
 
+  getOperationDefaults(): OperationDefaults | undefined {
+    return this.appUser.operationDefaults?.find(
+      (x) => x.companyId === this.companyId!
+    );
+  }
+
   constructor(private localStorage: LocalStorageService) {}
 
   restoreUser() {
@@ -74,6 +81,7 @@ export class UserPreferencesService {
       this.appUser.companyId = user.companyId;
       this.appUser.locale = user.locale;
       this.appUser.limit = user.limit;
+      this.appUser.operationDefaults = user.operationDefaults;
       this.userPreferencesSubject.next(this.appUser);
     }
   }
@@ -108,12 +116,43 @@ export class UserPreferencesService {
     this.saveUserToStorage();
   }
 
+  setOperationDefaults(operationDefaults: OperationDefaults): void {
+    const existingOperationDefaults = this.getOperationDefaults();
+    if (existingOperationDefaults !== undefined) {
+      existingOperationDefaults.titleId =
+        operationDefaults.titleId || existingOperationDefaults.titleId;
+      existingOperationDefaults.contactId =
+        operationDefaults.contactId || existingOperationDefaults.contactId;
+      existingOperationDefaults.propertyId =
+        operationDefaults.propertyId || existingOperationDefaults.propertyId;
+      existingOperationDefaults.incomeId =
+        operationDefaults.incomeId || existingOperationDefaults.incomeId;
+      existingOperationDefaults.expenditureId =
+        operationDefaults.expenditureId ||
+        existingOperationDefaults.expenditureId;
+    } else {
+      const newOperationDefaults = new OperationDefaults();
+      newOperationDefaults.companyId = this.companyId!;
+      newOperationDefaults.titleId = operationDefaults.titleId || undefined;
+      newOperationDefaults.contactId = operationDefaults.contactId || undefined;
+      newOperationDefaults.propertyId =
+        operationDefaults.propertyId || undefined;
+      newOperationDefaults.incomeId = operationDefaults.incomeId || undefined;
+      newOperationDefaults.expenditureId =
+        operationDefaults.expenditureId || undefined;
+      this.appUser.operationDefaults?.push(newOperationDefaults);
+    }
+    this.saveUserToStorage();
+  }
+
   resetUser(): void {
     const companyId = this.appUser.companyId;
     const locale = this.appUser.locale;
+    const operationDefaults = this.appUser.operationDefaults;
     this.appUser = new AppUser();
     this.appUser.companyId = companyId;
     this.appUser.locale = locale;
+    this.appUser.operationDefaults = operationDefaults;
     this.saveUserToStorage();
     this.userPreferencesSubject.next(this.appUser);
   }
@@ -122,7 +161,7 @@ export class UserPreferencesService {
     this.localStorage.set(this.storageUserKey, this.getUserJSON());
   }
 
-  getUserJSON() {
+  private getUserJSON() {
     return JSON.stringify({
       id: this.appUser.id,
       token: this.appUser.token,
@@ -130,6 +169,7 @@ export class UserPreferencesService {
       companyId: this.appUser.companyId,
       locale: this.appUser.locale,
       limit: this.appUser.limit,
+      operationDefaults: this.appUser.operationDefaults,
     });
   }
 }

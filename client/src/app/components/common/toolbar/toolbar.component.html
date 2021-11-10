@@ -9,8 +9,18 @@
     <button
       mat-stroked-button
       color="primary"
+      (click)="onSetFavoriteClick()"
+      [disabled]="!favoriteEnabled"
+      *ngIf="favoriteVisible"
+      matTooltip="Запомнить эту запись как избранную и выбирать её из списка автоматически, когда она доступна (в кассе или сотрудниках), при создании новой записи">
+      <mat-icon>favorite</mat-icon>
+      <span class="mat-button-wrapper">Отметить</span>
+    </button>
+    <button
+      mat-stroked-button
+      color="primary"
       (click)="onCustomClick()"
-      [disabled]="!customButtonEnabled"
+      [disabled]="!customEnabled"
       *ngIf="customButton">
       <mat-icon>{{ customButton?.icon }}</mat-icon>
       <span class="mat-button-wrapper">{{ customButton?.text }}</span>
@@ -55,8 +65,17 @@
     <button
       mat-icon-button
       color="primary"
+      (click)="onSetFavoriteClick()"
+      [disabled]="!favoriteEnabled"
+      *ngIf="favoriteVisible"
+      matTooltip="Выбирать эту запись в кассе (или сотрудниках) по-умолчанию">
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      color="primary"
       (click)="onCustomClick()"
-      [disabled]="!customButtonEnabled"
+      [disabled]="!customEnabled"
       *ngIf="customButton">
       <mat-icon>{{ customButton?.icon }}</mat-icon>
     </button>

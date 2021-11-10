@@ -16,13 +16,16 @@ export class ToolbarComponent {
   @Input() customButton?: CustomButton;
   @Input() saveEnabled: boolean = true;
   @Input() deleteEnabled: boolean = true;
-  @Input() customButtonEnabled: boolean = true;
+  @Input() favoriteEnabled: boolean = false;
+  @Input() customEnabled: boolean = true;
   @Input() deleteVisible: boolean = true;
+  @Input() favoriteVisible: boolean = false;
   @Output() createRequest = new EventEmitter();
   @Output() editRequest = new EventEmitter();
   @Output() saveRequest = new EventEmitter();
   @Output() deleteRequest = new EventEmitter();
   @Output() customRequest = new EventEmitter();
+  @Output() favoriteRequest = new EventEmitter();
 
   isHandset = this.handset.isHandset;
 
@@ -54,6 +57,10 @@ export class ToolbarComponent {
 
   onSaveClick() {
     this.saveRequest.emit();
+  }
+
+  onSetFavoriteClick() {
+    this.favoriteRequest.emit();
   }
 
   onCustomClick() {
