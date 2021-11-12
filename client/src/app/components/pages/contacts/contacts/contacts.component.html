@@ -5,9 +5,8 @@
   [selectedItem]="selectedContact"
   (createRequest)="onCreateRequest()"
   (editRequest)="onEditRequest()"
-  [customEnabled]="true"
-  [customButton]="filtersButton"
-  (customRequest)="onFiltersRequest()"></app-toolbar>
+  [filterVisible]="true"
+  (filterRequest)="onFiltersRequest()"></app-toolbar>
 
 <mat-card class="filters" *ngIf="filterShow">
   <mat-card-content>

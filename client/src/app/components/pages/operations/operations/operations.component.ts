@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  CustomButton,
-  ToolBarMode,
-} from 'src/app/components/common/toolbar/toolbar.component';
+import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component';
 import { ContactApiService } from 'src/app/services/api/contact.service';
 import { ExpenditureApiService } from 'src/app/services/api/expenditure.service';
 import { IncomeApiService } from 'src/app/services/api/income.service';
@@ -34,7 +31,6 @@ export class OperationsComponent implements OnInit {
   isLoading = true;
   isHandset = this.handset.isHandset;
 
-  filtersButton: CustomButton = new CustomButton('Фильтр', 'filter_alt');
   filterShow: boolean = false;
   filterRangeStart?: Date = undefined;
   filterRangeEnd?: Date = undefined;

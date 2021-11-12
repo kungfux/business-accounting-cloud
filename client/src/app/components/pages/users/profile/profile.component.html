@@ -12,9 +12,9 @@
     appUser.limit > 0 &&
     !isLoading
   "
-  [customEnabled]="!!user?.id && !isLoading"
-  [customButton]="changePasswordButton"
-  (customRequest)="onChangePasswordRequest()"
+  [changePasswordEnabled]="!!user?.id && !isLoading"
+  [changePasswordVisible]="true"
+  (changePasswordRequest)="onChangePasswordRequest()"
   (saveRequest)="onSaveRequest()"></app-toolbar>
 
 <div class="page-content" *ngIf="!isLoading">

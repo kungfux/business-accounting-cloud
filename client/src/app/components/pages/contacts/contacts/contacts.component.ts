@@ -1,12 +1,6 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
-import {
-  CustomButton,
-  ToolBarMode,
-} from 'src/app/components/common/toolbar/toolbar.component';
+import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component';
 import { ContactApiService } from 'src/app/services/api/contact.service';
 import { Contact } from 'src/app/services/api/models/contact';
 import { Title } from 'src/app/services/api/models/title';
@@ -27,7 +21,6 @@ export class ContactsComponent implements OnInit {
   isLoading = true;
   isHandset = this.handset.isHandset;
 
-  filtersButton: CustomButton = new CustomButton('Фильтр', 'filter_alt');
   filterShow: boolean = false;
   filterActiveOnly: boolean = true;
   filterContactName: string | null = null;

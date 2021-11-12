@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  CustomButton,
-  ToolBarMode,
-} from 'src/app/components/common/toolbar/toolbar.component';
+import { ToolBarMode } from 'src/app/components/common/toolbar/toolbar.component';
 import { User } from 'src/app/services/api/models/user';
 import { UserApiService } from 'src/app/services/api/user.service';
 
@@ -17,10 +14,6 @@ export class UserComponent implements OnInit {
   user: User = new User();
   toolBarMode: ToolBarMode = ToolBarMode.Details;
   isLoading = true;
-  changePasswordButton: CustomButton = new CustomButton(
-    'Изменить пароль',
-    'pin'
-  );
 
   constructor(
     private route: ActivatedRoute,

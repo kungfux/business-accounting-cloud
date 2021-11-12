@@ -14,18 +14,24 @@ export class ToolbarComponent {
   @Input() title: string = '';
   @Input() mode: ToolBarMode = ToolBarMode.None;
   @Input() customButton?: CustomButton;
-  @Input() saveEnabled: boolean = true;
-  @Input() deleteEnabled: boolean = true;
-  @Input() favoriteEnabled: boolean = false;
   @Input() customEnabled: boolean = true;
+  @Input() customTooltip?: string;
+  @Input() saveEnabled: boolean = true;
   @Input() deleteVisible: boolean = true;
+  @Input() deleteEnabled: boolean = true;
   @Input() favoriteVisible: boolean = false;
+  @Input() favoriteEnabled: boolean = false;
+  @Input() changePasswordVisible: boolean = false;
+  @Input() changePasswordEnabled: boolean = true;
+  @Input() filterVisible: boolean = false;
   @Output() createRequest = new EventEmitter();
   @Output() editRequest = new EventEmitter();
   @Output() saveRequest = new EventEmitter();
   @Output() deleteRequest = new EventEmitter();
   @Output() customRequest = new EventEmitter();
   @Output() favoriteRequest = new EventEmitter();
+  @Output() filterRequest = new EventEmitter();
+  @Output() changePasswordRequest = new EventEmitter();
 
   isHandset = this.handset.isHandset;
 
@@ -61,6 +67,14 @@ export class ToolbarComponent {
 
   onSetFavoriteClick() {
     this.favoriteRequest.emit();
+  }
+
+  onFilterClick() {
+    this.filterRequest.emit();
+  }
+
+  onChangePasswordClick() {
+    this.changePasswordRequest.emit();
   }
 
   onCustomClick() {
