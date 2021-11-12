@@ -5,110 +5,108 @@
   </button>
   <span>{{ title }}</span>
   <span class="toolbar-spacer"></span>
-  <section *ngIf="(isHandset | async) === false">
+  <section>
     <button
-      mat-stroked-button
+      mat-button
+      [ngClass]="(isHandset | async) ? 'mat-icon-button' : 'mat-stroked-button'"
       color="primary"
       (click)="onSetFavoriteClick()"
       [disabled]="!favoriteEnabled"
       *ngIf="favoriteVisible"
       matTooltip="Запомнить эту запись как избранную и выбирать её из списка автоматически, когда она доступна (в кассе или сотрудниках), при создании новой записи">
       <mat-icon>favorite</mat-icon>
-      <span class="mat-button-wrapper">Отметить</span>
+      <span *ngIf="!(isHandset | async)" class="mat-button-wrapper"
+        >Отметить</span
+      >
     </button>
     <button
-      mat-stroked-button
+      mat-button
+      [ngClass]="(isHandset | async) ? 'mat-icon-button' : 'mat-stroked-button'"
       color="primary"
       (click)="onCustomClick()"
       [disabled]="!customEnabled"
-      *ngIf="customButton">
+      *ngIf="customButton"
+      [matTooltip]="customTooltip!">
       <mat-icon>{{ customButton?.icon }}</mat-icon>
-      <span class="mat-button-wrapper">{{ customButton?.text }}</span>
+      <span *ngIf="!(isHandset | async)" class="mat-button-wrapper">{{
+        customButton?.text
+      }}</span>
     </button>
     <button
-      mat-stroked-button
+      mat-button
+      [ngClass]="(isHandset | async) ? 'mat-icon-button' : 'mat-stroked-button'"
+      color="primary"
+      (click)="onChangePasswordClick()"
+      [disabled]="!changePasswordEnabled"
+      *ngIf="changePasswordVisible"
+      matTooltip="Изменить пароль для входа в систему">
+      <mat-icon>pin</mat-icon>
+      <span *ngIf="!(isHandset | async)" class="mat-button-wrapper"
+        >Сменить пароль</span
+      >
+    </button>
+    <button
+      mat-button
+      [ngClass]="(isHandset | async) ? 'mat-icon-button' : 'mat-stroked-button'"
+      color="primary"
+      (click)="onFilterClick()"
+      *ngIf="mode === 1 && filterVisible"
+      matTooltip="Показать / скрыть фильтры">
+      <mat-icon>filter_alt</mat-icon>
+      <span *ngIf="!(isHandset | async)" class="mat-button-wrapper"
+        >Фильтр</span
+      >
+    </button>
+    <button
+      mat-button
+      [ngClass]="(isHandset | async) ? 'mat-icon-button' : 'mat-stroked-button'"
       color="primary"
       (click)="onEditClick()"
       [disabled]="selectedItem === undefined"
-      *ngIf="mode === 1">
+      *ngIf="mode === 1"
+      matTooltip="Открыть выбранную запись для внесения изменений (также можно дважды кликнуть на запись в списке)">
       <mat-icon>edit</mat-icon>
-      <span class="mat-button-wrapper">Изменить</span>
+      <span *ngIf="!(isHandset | async)" class="mat-button-wrapper"
+        >Изменить</span
+      >
     </button>
     <button
+      mat-button
+      [ngClass]="(isHandset | async) ? 'mat-mini-fab' : 'mat-flat-button'"
       color="primary"
-      mat-flat-button
       (click)="onCreateClick()"
-      *ngIf="mode === 1">
+      *ngIf="mode === 1"
+      matTooltip="Добавить новую запись">
       <mat-icon>add</mat-icon>
-      <span class="mat-button-wrapper">Добавить</span>
+      <span *ngIf="!(isHandset | async)" class="mat-button-wrapper"
+        >Добавить</span
+      >
     </button>
     <button
-      mat-stroked-button
+      mat-button
+      [ngClass]="(isHandset | async) ? 'mat-icon-button' : 'mat-stroked-button'"
       color="warn"
       (click)="onDeleteClick()"
       [disabled]="!deleteEnabled"
-      *ngIf="mode === 2 && deleteVisible">
+      *ngIf="mode === 2 && deleteVisible"
+      matTooltip="Удалить текущую запись (если она ещё не используется в кассе)">
       <mat-icon>delete</mat-icon>
-      <span class="mat-button-wrapper">Удалить</span>
+      <span *ngIf="!(isHandset | async)" class="mat-button-wrapper"
+        >Удалить</span
+      >
     </button>
     <button
-      mat-flat-button
+      mat-button
+      [ngClass]="(isHandset | async) ? 'mat-mini-fab' : 'mat-flat-button'"
       color="primary"
       (click)="onSaveClick()"
       *ngIf="mode === 2"
-      [disabled]="!saveEnabled">
+      [disabled]="!saveEnabled"
+      matTooltip="Сохранить внесённые измения в текущую запись">
       <mat-icon>save</mat-icon>
-      <span class="mat-button-wrapper">Сохранить</span>
-    </button>
-  </section>
-  <section *ngIf="(isHandset | async) === true">
-    <button
-      mat-icon-button
-      color="primary"
-      (click)="onSetFavoriteClick()"
-      [disabled]="!favoriteEnabled"
-      *ngIf="favoriteVisible"
-      matTooltip="Запомнить эту запись как избранную и выбирать её из списка автоматически, когда она доступна (в кассе или сотрудниках), при создании новой записи">
-      <mat-icon>favorite</mat-icon>
-    </button>
-    <button
-      mat-icon-button
-      color="primary"
-      (click)="onCustomClick()"
-      [disabled]="!customEnabled"
-      *ngIf="customButton">
-      <mat-icon>{{ customButton?.icon }}</mat-icon>
-    </button>
-    <button
-      color="primary"
-      mat-icon-button
-      (click)="onEditClick()"
-      [disabled]="selectedItem === undefined"
-      *ngIf="mode === 1">
-      <mat-icon>edit</mat-icon>
-    </button>
-    <button
-      color="primary"
-      mat-mini-fab
-      (click)="onCreateClick()"
-      *ngIf="mode === 1">
-      <mat-icon>add</mat-icon>
-    </button>
-    <button
-      color="warn"
-      mat-icon-button
-      (click)="onDeleteClick()"
-      [disabled]="!deleteEnabled"
-      *ngIf="mode === 2 && deleteVisible">
-      <mat-icon>delete</mat-icon>
-    </button>
-    <button
-      color="primary"
-      mat-mini-fab
-      (click)="onSaveClick()"
-      *ngIf="mode === 2"
-      [disabled]="!saveEnabled">
-      <mat-icon>save</mat-icon>
+      <span *ngIf="!(isHandset | async)" class="mat-button-wrapper"
+        >Сохранить</span
+      >
     </button>
   </section>
 </mat-toolbar>

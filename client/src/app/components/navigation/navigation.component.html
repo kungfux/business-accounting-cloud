@@ -121,7 +121,8 @@
         mat-button
         *ngIf="loggedInUser.id && loggedInUser.companyId"
         [color]="company.name ? 'inherit' : 'warn'"
-        (click)="onSwitchCompany()">
+        (click)="onSwitchCompany()"
+        matTooltip="Выбрать компанию для управления её финансами или просмотра информации">
         <mat-icon>{{ company.logo || 'warning' }}</mat-icon>
         <span class="mat-button-wrapper">{{
           company.name || 'Выбрать компанию'
@@ -132,24 +133,26 @@
         *ngIf="loggedInUser.id"
         mat-button
         [color]="loggedInUser.name ? 'inherit' : 'warn'"
-        (click)="onProfileClick()">
+        (click)="onProfileClick()"
+        [matTooltip]="
+          loggedInUser.name
+            ? 'Настройте программу под себя, измените данные своего профиля или пароль'
+            : 'Пожалуйста, выйдите из системы и авторизуйтесь повторно'
+        ">
         <mat-icon>{{ loggedInUser.avatar || 'warning' }}</mat-icon>
         <span class="mat-button-wrapper">{{
           loggedInUser.name || 'Авторизуйтесь'
         }}</span>
       </button>
-      <div *ngIf="isHandset | async; then iconLogout; else buttonLogout"></div>
-      <ng-template #iconLogout
-        ><button mat-icon-button (click)="logout()" *ngIf="loggedInUser.id">
-          <mat-icon>logout</mat-icon>
-        </button></ng-template
-      >
-      <ng-template #buttonLogout
-        ><button mat-button (click)="logout()" *ngIf="loggedInUser.id">
-          <mat-icon>logout</mat-icon>
-          <span>Выйти</span>
-        </button></ng-template
-      >
+      <button
+        mat-button
+        [ngClass]="(isHandset | async) ? 'mat-icon-button' : 'mat-button'"
+        (click)="logout()"
+        *ngIf="loggedInUser.id"
+        matTooltip="Выйти из системы">
+        <mat-icon>logout</mat-icon>
+        <span *ngIf="!(isHandset | async)">Выйти</span>
+      </button>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

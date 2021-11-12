@@ -9,6 +9,7 @@
   (saveRequest)="onSaveRequest()"
   (deleteRequest)="onDeleteRequest()"
   [customButton]="choosePhotoButton"
+  [customTooltip]="'Открыть диалог для выбора фотографии сотрудника'"
   (customRequest)="onChoosePhotoRequest()"
   [favoriteVisible]="!!contact?.id"
   [favoriteEnabled]="contact?.id !== favoriteContactId"

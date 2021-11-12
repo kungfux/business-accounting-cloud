@@ -3,7 +3,6 @@
   [mode]="toolBarMode"
   [isLoading]="isLoading"
   [selectedItem]="user"
-  [deleteVisible]="!!user?.id"
   [saveEnabled]="
     !user.id
       ? !!user.login &&
@@ -19,12 +18,13 @@
         user.name.length > 0 &&
         !isLoading
   "
-  [deleteEnabled]="!isLoading"
-  [customEnabled]="!!user?.id && !isLoading"
-  [customButton]="changePasswordButton"
-  (customRequest)="onChangePasswordRequest()"
   (saveRequest)="onSaveRequest()"
-  (deleteRequest)="onDeleteRequest()"></app-toolbar>
+  [deleteVisible]="!!user?.id"
+  [deleteEnabled]="!isLoading"
+  (deleteRequest)="onDeleteRequest()"
+  [changePasswordEnabled]="!!user?.id && !isLoading"
+  [changePasswordVisible]="!!user?.id"
+  (changePasswordRequest)="onChangePasswordRequest()"></app-toolbar>
 
 <div class="page-content" *ngIf="!isLoading">
   <mat-card class="card">
