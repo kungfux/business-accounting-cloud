@@ -72,6 +72,7 @@ import { IncomePipe } from './pipes/income';
 import { PropertyPipe } from './pipes/property';
 import { TitlePipe } from './pipes/title';
 import { UserPreferencesService } from './services/userPreferences.service';
+import { UserAccessComponent } from './components/pages/users/user-access/user-access.component';
 
 const routes: Routes = [
   {
@@ -98,6 +99,11 @@ const routes: Routes = [
     path: 'users/:id/password',
     component: ChangePasswordComponent,
     canActivate: [AuthorizedUserGuard],
+  },
+  {
+    path: 'users/:id/access',
+    component: UserAccessComponent,
+    canActivate: [AdminUserGuard],
   },
   {
     path: 'profile',
@@ -222,6 +228,7 @@ const routes: Routes = [
     CompanyTotalYearComponent,
     CompanyTotalMonthComponent,
     OperationComponent,
+    UserAccessComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -80,25 +80,28 @@ export class LoginApiService {
   }
 
   private getCompanyInfo(): void {
-    let companyId = this.userPreferences.companyId;
+    let prefferedCompanyId = this.userPreferences.companyId;
 
-    if (!companyId) {
-      // Get any company if no primary
-      this.companyApi.getCompanies().subscribe({
-        next: (companies) => {
-          const enabledCompanies = companies.filter(
-            (company) => company.enabled
-          );
-          if (enabledCompanies.length > 0) {
-            companyId = enabledCompanies[0].id!;
-            this.getCompanyDetails(companyId);
-            return;
-          }
-        },
-      });
-    } else {
-      this.getCompanyDetails(companyId!);
-    }
+    this.companyApi.getEnabledCompanies().subscribe({
+      next: (companies) => {
+        if (
+          prefferedCompanyId &&
+          companies.length > 0 &&
+          companies.find((x) => x.id == prefferedCompanyId)
+        ) {
+          this.getCompanyDetails(prefferedCompanyId);
+          return;
+        }
+
+        if (companies.length > 0) {
+          prefferedCompanyId = companies[0].id!;
+          this.getCompanyDetails(prefferedCompanyId);
+          return;
+        }
+
+        this.userPreferences.resetCompany();
+      },
+    });
   }
 
   logout(): void {

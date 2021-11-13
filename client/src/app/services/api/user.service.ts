@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
+import { Access } from './models/access';
 import { ItemCreatedResponse } from './models/itemCreatedResponse';
 import { User } from './models/user';
 
@@ -9,6 +10,7 @@ import { User } from './models/user';
 })
 export class UserApiService {
   private userApiUrl: string = '/users';
+  private userAccessApi: string = '/access';
 
   constructor(private api: ApiService) {}
 
@@ -45,7 +47,7 @@ export class UserApiService {
     });
   }
 
-  changesPassword(
+  changePassword(
     id: number,
     currentPassword: string,
     newPassword: string
@@ -53,6 +55,20 @@ export class UserApiService {
     return this.api.patch(this.userApiUrl, id, {
       password: currentPassword || null,
       newPassword: newPassword || null,
+    });
+  }
+
+  getAccess(id: number): Observable<Access[]> {
+    return this.api.get<Access[]>({
+      api: this.userAccessApi,
+      id: id,
+    });
+  }
+
+  setAccess(id: number, companyIds: number[]) {
+    return this.api.post<ItemCreatedResponse>(this.userAccessApi, {
+      id: id,
+      companyId: companyIds,
     });
   }
 

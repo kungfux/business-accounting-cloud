@@ -37,7 +37,7 @@ export class ChangePasswordComponent implements OnInit {
   changePassword(): void {
     this.isLoading = true;
     this.userApi
-      .changesPassword(this.id, this.currentPassword, this.newPassword)
+      .changePassword(this.id, this.currentPassword, this.newPassword)
       .subscribe({
         next: () => {
           this.goBack();

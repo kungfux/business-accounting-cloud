@@ -14,6 +14,7 @@ export class ToolbarComponent {
   @Input() title: string = '';
   @Input() mode: ToolBarMode = ToolBarMode.None;
   @Input() customButton?: CustomButton;
+  @Input() customVisible: boolean = false;
   @Input() customEnabled: boolean = true;
   @Input() customTooltip?: string;
   @Input() saveEnabled: boolean = true;

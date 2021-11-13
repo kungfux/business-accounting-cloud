@@ -24,7 +24,13 @@
   (deleteRequest)="onDeleteRequest()"
   [changePasswordEnabled]="!!user?.id && !isLoading"
   [changePasswordVisible]="!!user?.id"
-  (changePasswordRequest)="onChangePasswordRequest()"></app-toolbar>
+  (changePasswordRequest)="onChangePasswordRequest()"
+  [customButton]="customButton"
+  [customTooltip]="
+    'Выбрать компании, которыми данный пользователь может управлять'
+  "
+  [customVisible]="!!user.id"
+  (customRequest)="onAccessRequest()"></app-toolbar>
 
 <div class="page-content" *ngIf="!isLoading">
   <mat-card class="card">
