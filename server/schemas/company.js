@@ -12,11 +12,12 @@ var schema = new BaseSchema({
     enabled: { type: 'boolean' }
   },
   {
-    name: { type: 'string' },
+    name: { type: 'string', minLength: 1 },
     logo: { type: 'string' },
     enabled: { type: 'boolean' }
   },
   {
+    userId: { type: 'number' },
     enabled: { type: 'boolean' },
   }
 )

@@ -3,7 +3,8 @@ CREATE TABLE IF NOT EXISTS COMPANIES (
  [name]       VARCHAR NOT NULL UNIQUE,
  [logo]       VARCHAR,
  [enabled]    BIT NOT NULL DEFAULT 0,
- [created]    DATETEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
+ [created]    DATETEXT NOT NULL
+              DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
 );
 
 CREATE TABLE IF NOT EXISTS TITLES (
@@ -11,7 +12,8 @@ CREATE TABLE IF NOT EXISTS TITLES (
  [name]       VARCHAR NOT NULL,
  [rate]       FLOAT,
  [enabled]    BIT NOT NULL DEFAULT 0,
- [created]    DATETEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+ [created]    DATETEXT NOT NULL
+            DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
  [companyId]  INTEGER NOT NULL
               REFERENCES COMPANIES(id)
               ON DELETE RESTRICT,
@@ -32,7 +34,8 @@ CREATE TABLE IF NOT EXISTS CONTACTS (
  [fired]      DATETEXT,
  [firedNote]  VARCHAR,
  [photo]      VARCHAR,
- [created]    DATETEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+ [created]    DATETEXT NOT NULL
+              DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
  [titleId]    INTEGER
               REFERENCES TITLES(id)
               ON DELETE RESTRICT,
@@ -49,7 +52,8 @@ CREATE TABLE IF NOT EXISTS PROPERTIES (
  [cost]             FLOAT,
  [comment]          VARCHAR,
  [enabled]          BIT NOT NULL DEFAULT 0,
- [created]          DATETEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+ [created]          DATETEXT NOT NULL
+                    DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
  [companyId]        INTEGER NOT NULL
                     REFERENCES COMPANIES(id)
                     ON DELETE RESTRICT,
@@ -62,7 +66,8 @@ CREATE TABLE IF NOT EXISTS EXPENDITURES (
  [rate]         FLOAT,
  [comment]      VARCHAR,
  [enabled]      BIT NOT NULL DEFAULT 0,
- [created]      DATETEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+ [created]      DATETEXT NOT NULL
+                DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
  [companyId]    INTEGER NOT NULL
                 REFERENCES COMPANIES(id)
                 ON DELETE RESTRICT,
@@ -75,7 +80,8 @@ CREATE TABLE IF NOT EXISTS INCOMES (
  [rate]         FLOAT,
  [comment]      VARCHAR,
  [enabled]      BIT NOT NULL DEFAULT 0,
- [created]      DATETEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+ [created]      DATETEXT NOT NULL
+                DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
  [companyId]    INTEGER NOT NULL
                 REFERENCES COMPANIES(id)
                 ON DELETE RESTRICT,
@@ -84,10 +90,12 @@ CREATE TABLE IF NOT EXISTS INCOMES (
 
 CREATE TABLE IF NOT EXISTS OPERATIONS (
  [id]             INTEGER PRIMARY KEY AUTOINCREMENT,
- [operationDate]  DATETEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+ [operationDate]  DATETEXT NOT NULL
+                  DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
  [amount]         FLOAT NOT NULL,
  [comment]        VARCHAR,
- [created]        DATETEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+ [created]        DATETEXT NOT NULL
+                  DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
  [contactId]      INTEGER
                   REFERENCES CONTACTS(id)
                   ON DELETE RESTRICT,
@@ -114,5 +122,18 @@ CREATE TABLE IF NOT EXISTS USERS (
  [salt]     VARCHAR NOT NULL,
  [admin]    BIT NOT NULL DEFAULT 0,
  [enabled]  BIT NOT NULL DEFAULT 0,
- [created]  DATETEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
-)
+ [created]  DATETEXT NOT NULL
+            DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
+);
+
+CREATE TABLE IF NOT EXISTS USERS_COMPANIES (
+ [id] INTEGER PRIMARY KEY AUTOINCREMENT,
+ [userId]    INTEGER NOT NULL
+             REFERENCES USERS(id)
+             ON DELETE CASCADE,
+ [companyId] INTEGER NOT NULL
+             REFERENCES COMPANIES(id)
+             ON DELETE CASCADE,
+ [created]   DATETEXT NOT NULL
+             DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
+);

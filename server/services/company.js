@@ -23,14 +23,17 @@ module.exports = async function (fastify, opts) {
     '/',
     { schema: schemas.findAll },
     async function (request, reply) {
-      const enabled = request.query.enabled || false;
+      const enabled = request.query.enabled || false
+      const userId = parseInt(request.query.userId) || 0
       const limit = parseInt(request.query.limit) || 10
       const offset = parseInt(request.query.offset) || 0
 
       if (request.query.enabled) {
-        return await this.db.query('select * from companies where enabled=? order by name asc limit ? offset ?',
+        return await this.db.query('select c.* from companies as c ' +
+          'join users_companies as uc on uc.companyId = c.id ' +
+          'where uc.userId = ? and c.enabled = ? order by c.name asc limit ? offset ?',
           {
-            replacements: [enabled, limit, offset],
+            replacements: [userId, enabled, limit, offset],
             type: QueryTypes.SELECT
           }
         )

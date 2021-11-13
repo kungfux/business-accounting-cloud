@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UserPreferencesService } from '../userPreferences.service';
 import { ApiService } from './api.service';
 import { Company } from './models/company';
 import { ItemCreatedResponse } from './models/itemCreatedResponse';
@@ -10,13 +11,16 @@ import { ItemCreatedResponse } from './models/itemCreatedResponse';
 export class CompanyApiService {
   private companyApiUrl: string = '/companies';
 
-  constructor(private api: ApiService) {}
+  constructor(
+    private api: ApiService,
+    private userPreferences: UserPreferencesService
+  ) {}
 
-  getCompanies(offset: number = 0): Observable<Company[]> {
+  getCompanies(offset: number = 0, limit?: number): Observable<Company[]> {
     return this.api.get<Company[]>({
       api: this.companyApiUrl,
       offset: offset,
-      limit: this.api.defaultLimit,
+      limit: limit || this.api.defaultLimit,
     });
   }
 
@@ -28,7 +32,10 @@ export class CompanyApiService {
       api: this.companyApiUrl,
       offset: offset,
       limit: limit,
-      params: { enabled: true },
+      params: {
+        userId: this.userPreferences.id,
+        enabled: true,
+      },
     });
   }
 

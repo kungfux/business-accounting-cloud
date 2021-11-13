@@ -25,7 +25,7 @@
       color="primary"
       (click)="onCustomClick()"
       [disabled]="!customEnabled"
-      *ngIf="customButton"
+      *ngIf="customVisible"
       [matTooltip]="customTooltip!">
       <mat-icon>{{ customButton?.icon }}</mat-icon>
       <span *ngIf="!(isHandset | async)" class="mat-button-wrapper">{{

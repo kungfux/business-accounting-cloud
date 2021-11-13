@@ -110,6 +110,14 @@ export class UserPreferencesService {
     this.saveUserToStorage();
   }
 
+  resetCompany(): void {
+    this.appUser.companyId = null;
+    this.appUser.companyLogo = null;
+    this.appUser.companyName = null;
+    this.userPreferencesSubject.next(this.appUser);
+    this.saveUserToStorage();
+  }
+
   setUserSettings(locale: string, limit: number): void {
     this.appUser.locale = locale;
     this.appUser.limit = limit;

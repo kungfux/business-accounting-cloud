@@ -1,0 +1,24 @@
+<app-toolbar
+  [title]="user?.login ? 'Компании для ' + user?.login : 'Настройка доступа'"
+  [mode]="toolBarMode"
+  [isLoading]="isLoading"
+  [selectedItem]=""
+  [deleteVisible]="false"
+  [saveEnabled]="!isLoading"
+  (saveRequest)="onSaveRequest()"></app-toolbar>
+
+<div class="page-content" *ngIf="!isLoading">
+  <p>
+    Только отмеченные компании в списке будут доступны для управления выбранному
+    пользователю.
+  </p>
+  <mat-selection-list #list>
+    <mat-list-option
+      *ngFor="let company of companies"
+      [selected]="isAccessGranted(company.id!) !== undefined"
+      [value]="company.id!">
+      <mat-icon matListIcon>{{ company.logo }}</mat-icon>
+      {{ company.name }}
+    </mat-list-option>
+  </mat-selection-list>
+</div>
