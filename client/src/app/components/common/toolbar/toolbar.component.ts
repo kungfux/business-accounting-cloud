@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AppTitleService } from 'src/app/services/app-title.service';
 import { HandsetService } from 'src/app/services/handset.service';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 
@@ -9,9 +10,17 @@ import { DialogComponent } from '../../dialogs/dialog/dialog.component';
   styleUrls: ['./toolbar.component.css'],
 })
 export class ToolbarComponent {
+  @Input()
+  get title(): string {
+    return this._title;
+  }
+  set title(title: string) {
+    this._title = (title && title.trim()) || '<no title set>';
+    this.appTitle.setTitle(this._title);
+  }
+
   @Input() isLoading: boolean = true;
   @Input() selectedItem: any | null = null;
-  @Input() title: string = '';
   @Input() mode: ToolBarMode = ToolBarMode.None;
   @Input() customButton?: CustomButton;
   @Input() customVisible: boolean = false;
@@ -36,10 +45,13 @@ export class ToolbarComponent {
 
   isHandset = this.handset.isHandset;
 
+  private _title = '';
+
   constructor(
     private location: Location,
     private dialog: DialogComponent,
-    private handset: HandsetService
+    private handset: HandsetService,
+    private appTitle: AppTitleService
   ) {}
 
   goBack(): void {
