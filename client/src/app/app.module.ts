@@ -56,6 +56,7 @@ import { TitleComponent } from './components/pages/titles/title/title.component'
 import { TitlesComponent } from './components/pages/titles/titles/titles.component';
 import { ChangePasswordComponent } from './components/pages/users/change-password/change-password.component';
 import { ProfileComponent } from './components/pages/users/profile/profile.component';
+import { UserAccessComponent } from './components/pages/users/user-access/user-access.component';
 import { UserComponent } from './components/pages/users/user/user.component';
 import { UsersComponent } from './components/pages/users/users/users.component';
 import { CompanyAgeComponent } from './components/widgets/company-age/company-age.component';
@@ -66,13 +67,13 @@ import { WidgetComponent } from './components/widgets/widget/widget.component';
 import { AdminUserGuard } from './guards/admin-user-guard.guard';
 import { AuthorizedUserGuard } from './guards/authorized-user-guard.guard';
 import { NotAuthorizedUserGuard } from './guards/not-authorized-user-guard';
+import { httpInterceptorProviders } from './interceptors';
 import { ContactPipe } from './pipes/contact';
 import { ExpenditurePipe } from './pipes/expenditure';
 import { IncomePipe } from './pipes/income';
 import { PropertyPipe } from './pipes/property';
 import { TitlePipe } from './pipes/title';
 import { UserPreferencesService } from './services/userPreferences.service';
-import { UserAccessComponent } from './components/pages/users/user-access/user-access.component';
 
 const routes: Routes = [
   {
@@ -264,19 +265,20 @@ const routes: Routes = [
     MatSortModule,
   ],
   providers: [
+    DialogComponent,
+    MatDatepickerModule,
+    DatePipe,
     {
       provide: MatDialogRef,
       useValue: {},
     },
-    DialogComponent,
     {
       provide: LOCALE_ID,
       deps: [UserPreferencesService],
       useFactory: (userPreferences: any) => userPreferences.locale,
     },
     { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
-    MatDatepickerModule,
-    DatePipe,
+    httpInterceptorProviders,
   ],
   bootstrap: [AppComponent],
 })

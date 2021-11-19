@@ -21,11 +21,9 @@ export class DialogComponent implements OnInit {
   }
 
   showAlert(title: string, message: string): Observable<boolean> {
-    const alertDialog = new AlertDialogComponent();
-    alertDialog.title = title;
-    alertDialog.message = message;
+    const data = { title: title, message: message };
     const dialogRef = this.dialog.open(AlertDialogComponent, {
-      autoFocus: false,
+      data: data,
     });
     return dialogRef.afterClosed();
   }

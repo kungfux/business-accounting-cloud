@@ -104,33 +104,8 @@ export class ApiService {
     if (error.error instanceof ErrorEvent) {
       errorMessage = error.error.message;
     } else {
-      switch (error.status) {
-        case 0:
-          errorMessage = 'Сервер недоступен. Попробуйте повторить операцию';
-          break;
-        case 400:
-          errorMessage = 'Неверная операция. Обратитесь к администратору';
-          break;
-        case 401:
-          errorMessage =
-            'Вы указали неверный логин/пароль или время сессии истекло и необходимо выполнить вход повторно';
-          break;
-        case 404:
-          errorMessage = 'Запрашиваемые данные не найдены';
-          break;
-        case 413:
-          errorMessage =
-            'Сервер отклонил запрос из-за превышения лимита на обработку данных';
-          break;
-        case 422:
-          errorMessage = 'Операция невозможна из-за неверно указанных данных';
-          break;
-        default:
-          errorMessage = 'Что-то пошло не так. Обратитесь к администратору';
-          break;
-      }
+      errorMessage = error.message;
     }
-    window.alert(errorMessage);
     return throwError(errorMessage);
   }
 }
