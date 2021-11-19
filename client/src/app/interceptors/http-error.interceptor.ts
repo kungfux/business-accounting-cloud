@@ -65,12 +65,16 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         if (!this.isDialogOpen) {
           this.isDialogOpen = true;
           const dialogClosed = this.dialog.showAlert('Внимание', errorMessage);
+          dialogClosed.subscribe({
+            next: () => {
+              this.isDialogOpen = false;
+            },
+          });
           if (error.status === 401) {
             dialogClosed.subscribe({
               next: () => {
                 this.login.logout();
                 this.router.navigate(['/login']);
-                this.isDialogOpen = false;
               },
             });
           }
