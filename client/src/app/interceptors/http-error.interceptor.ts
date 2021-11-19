@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DialogComponent } from '../components/dialogs/dialog/dialog.component';
-import { UserPreferencesService } from '../services/userPreferences.service';
+import { LoginApiService } from '../services/api/login.service';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
@@ -19,7 +19,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   constructor(
     public dialog: DialogComponent,
     private router: Router,
-    private userPreferences: UserPreferencesService
+    private login: LoginApiService
   ) {}
 
   intercept(
@@ -68,7 +68,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           if (error.status === 401) {
             dialogClosed.subscribe({
               next: () => {
-                this.userPreferences.resetUser();
+                this.login.logout();
                 this.router.navigate(['/login']);
                 this.isDialogOpen = false;
               },
