@@ -1,0 +1,22 @@
+{
+  "name": "business-accounting-cloud",
+  "version": "1.0.0",
+  "description": "Desktop client for Business Accounting Cloud",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kungfux/business-accounting-cloud.git"
+  },
+  "author": "kungfux <k*****x@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/kungfux/business-accounting-cloud/issues"
+  },
+  "homepage": "https://github.com/kungfux/business-accounting-cloud#readme",
+  "devDependencies": {
+    "electron": "^16.0.1"
+  }
+}
