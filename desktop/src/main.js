@@ -4,8 +4,8 @@ const path = require('path')
 const createWindow = () => {
     const mainWindow = new BrowserWindow({
         title: 'Business Accounting Cloud',
-        width: 1000,
-        height: 800,
+        width: 1400,
+        height: 1000,
         webPreferences: {
             sandbox: true,
         }
