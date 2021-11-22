@@ -7,7 +7,8 @@
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "npm run clean && electron-builder",
+    "clean": "rimraf dist"
   },
   "build": {
     "appId": "com.electron.bac",
@@ -29,6 +30,7 @@
   "homepage": "https://github.com/kungfux/business-accounting-cloud#readme",
   "devDependencies": {
     "electron": "^16.0.1",
-    "electron-builder": "^22.14.5"
+    "electron-builder": "^22.14.5",
+    "rimraf": "^3.0.2"
   }
 }
