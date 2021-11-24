@@ -2,9 +2,6 @@ const { app, dialog, BrowserWindow } = require('electron')
 const { autoUpdater } = require("electron-updater");
 
 class Update {
-
-    constructor() { }
-
     initAutoUpdate() {
         app.whenReady().then(() => {
             autoUpdater.on('update-available', (ev, info) => {
