@@ -1,5 +1,5 @@
 const { app, BrowserWindow } = require('electron')
-const path = require('path')
+const { Update } = require('./update')
 
 const createWindow = () => {
     const mainWindow = new BrowserWindow({
@@ -20,6 +20,8 @@ app.whenReady().then(() => {
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow()
     })
+
+    new Update().initAutoUpdate()
 })
 
 app.on('window-all-closed', () => {
