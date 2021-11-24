@@ -1,5 +1,6 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Menu } = require('electron')
 const { Update } = require('./update')
+const { MainMenu } = require('./main-menu')
 
 const createWindow = () => {
     const mainWindow = new BrowserWindow({
@@ -21,6 +22,8 @@ app.whenReady().then(() => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow()
     })
 
+    const menu = new MainMenu().getMenu()
+    Menu.setApplicationMenu(menu)
     new Update().initAutoUpdate()
 })
 
