@@ -86,29 +86,36 @@
         Расходы
       </a>
     </mat-nav-list>
-    <div *ngIf="loggedInUser.id && loggedInUser.admin">
-      <mat-nav-list>
-        <div mat-subheader>Администрирование</div>
-        <a
-          mat-list-item
-          (click)="drawer.toggle()"
-          routerLink="users"
-          [class.active]="activeRoute.startsWith('/users')">
-          <mat-icon>manage_accounts</mat-icon>
-          Пользователи
-        </a>
-      </mat-nav-list>
-      <mat-nav-list>
-        <a
-          mat-list-item
-          (click)="drawer.toggle()"
-          routerLink="companies"
-          [class.active]="activeRoute.startsWith('/companies')">
-          <mat-icon>business</mat-icon>
-          Компании
-        </a>
-      </mat-nav-list>
-    </div>
+    <mat-nav-list *ngIf="loggedInUser.id && loggedInUser.admin">
+      <div mat-subheader>Администрирование</div>
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="users"
+        [class.active]="activeRoute.startsWith('/users')">
+        <mat-icon>manage_accounts</mat-icon>
+        Пользователи
+      </a>
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="companies"
+        [class.active]="activeRoute.startsWith('/companies')">
+        <mat-icon>business</mat-icon>
+        Компании
+      </a>
+    </mat-nav-list>
+    <mat-nav-list *ngIf="!(isHandset | async) && loggedInUser.id">
+      <div mat-subheader>Дополнительно</div>
+      <a
+        mat-list-item
+        href="https://bac-setup.kungfux.keenetic.pro/Business%20Accounting%20Cloud%20Setup%201.0.0.exe"
+        target="_blank"
+        matTooltip="Загрузить настольное приложение для Windows, чтобы сделать работу с Business Accounting Cloud ещё удобнее">
+        <mat-icon>laptop</mat-icon>
+        Windows клиент
+      </a>
+    </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
