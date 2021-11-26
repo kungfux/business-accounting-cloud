@@ -6,6 +6,8 @@ import { AppUser } from 'src/app/services/appUser';
 import { HandsetService } from 'src/app/services/handset.service';
 import { UserPreferencesService } from 'src/app/services/userPreferences.service';
 
+declare function isRunningInsideBacApp(): boolean | undefined;
+
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -21,6 +23,7 @@ export class NavigationComponent implements OnInit {
   });
 
   isHandset = this.handset.isHandset;
+  isRunningInsideDesktopApp: boolean | undefined;
 
   constructor(
     private login: LoginApiService,
@@ -48,6 +51,8 @@ export class NavigationComponent implements OnInit {
     });
 
     this.authenticate();
+
+    this.isRunningInsideDesktopApp = isRunningInsideBacApp();
   }
 
   onOpenedStart(): void {

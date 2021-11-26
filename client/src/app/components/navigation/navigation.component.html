@@ -105,7 +105,10 @@
         Компании
       </a>
     </mat-nav-list>
-    <mat-nav-list *ngIf="!(isHandset | async) && loggedInUser.id">
+    <mat-nav-list
+      *ngIf="
+        !(isHandset | async) && loggedInUser.id && !isRunningInsideDesktopApp
+      ">
       <div mat-subheader>Дополнительно</div>
       <a
         mat-list-item
