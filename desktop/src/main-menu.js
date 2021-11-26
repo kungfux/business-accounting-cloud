@@ -29,6 +29,12 @@ class MainMenu {
                     {
                         label: 'Уменьшить',
                         role: 'zoomOut'
+                    },
+                    {
+                        label: 'Консоль',
+                        role: 'toggleDevTools',
+                        visible: false,
+                        acceleratorWorksWhenHidden: true
                     }
                 ]
             },
