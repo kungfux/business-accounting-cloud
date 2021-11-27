@@ -10,7 +10,8 @@ const createWindow = () => {
         height: 1000,
         webPreferences: {
             sandbox: true,
-            preload: path.join(__dirname, 'preload.js')
+            preload: path.join(__dirname, 'preload.js'),
+            spellcheck: true
         }
     })
 
