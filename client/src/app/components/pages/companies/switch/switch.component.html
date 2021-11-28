@@ -1,0 +1,19 @@
+<app-toolbar title="Выбор компании" [isLoading]="isLoading"></app-toolbar>
+
+<div class="page-content" *ngIf="!isLoading">
+  <p>Выберите компанию для управления.</p>
+  <p>
+    После выбора вы будете перенаправлены на главную страницу выбранной
+    компании.
+  </p>
+  <button
+    mat-raised-button
+    *ngFor="let company of companies"
+    (click)="onSwitchCompany(company.id!, company.name!, company.logo!)">
+    <mat-icon>{{ company.logo }}</mat-icon>
+    {{ company.name }}
+  </button>
+  <b *ngIf="!!companies && companies.length === 0 && !isLoading"
+    >Нет компаний доступных для управления.</b
+  >
+</div>

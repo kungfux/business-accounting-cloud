@@ -1,0 +1,45 @@
+<app-toolbar
+  [title]="income?.title || 'Новый доход'"
+  [mode]="toolBarMode"
+  [isLoading]="isLoading"
+  [selectedItem]="income"
+  [deleteVisible]="!!income?.id"
+  [saveEnabled]="!!income.title && income.rate! >= 0 && !isLoading"
+  [deleteEnabled]="!isLoading"
+  (saveRequest)="onSaveRequest()"
+  (deleteRequest)="onDeleteRequest()"
+  [favoriteVisible]="!!income?.id"
+  [favoriteEnabled]="income?.id !== favoriteIncomeId"
+  (favoriteRequest)="onFavoriteRequest()"></app-toolbar>
+
+<div class="page-content" *ngIf="!isLoading">
+  <mat-card class="card">
+    <mat-card-content>
+      <div class="column-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Название источника дохода</mat-label>
+          <input matInput [(ngModel)]="income.title" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label
+            >Шаблон суммы дохода ({{ this.currency.getSymbol() }})</mat-label
+          >
+          <input
+            matInput
+            type="number"
+            [ngModel]="income.rate || undefined"
+            (ngModelChange)="income.rate = $event" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Комментарий</mat-label>
+          <textarea matInput [(ngModel)]="income.comment"></textarea>
+        </mat-form-field>
+      </div>
+      <section>
+        <mat-checkbox [(ngModel)]="income.enabled"
+          >Показывать в кассе для выбора</mat-checkbox
+        >
+      </section>
+    </mat-card-content>
+  </mat-card>
+</div>

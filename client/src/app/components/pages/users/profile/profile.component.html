@@ -1,0 +1,75 @@
+<app-toolbar
+  [title]="'Мой профиль'"
+  [mode]="toolBarMode"
+  [isLoading]="isLoading"
+  [selectedItem]="user"
+  [deleteVisible]="false"
+  [saveEnabled]="
+    !!user.login &&
+    user.login.length > 0 &&
+    !!user.name &&
+    user.name.length > 0 &&
+    appUser.limit > 0 &&
+    !isLoading
+  "
+  [changePasswordEnabled]="!!user?.id && !isLoading"
+  [changePasswordVisible]="true"
+  (changePasswordRequest)="onChangePasswordRequest()"
+  (saveRequest)="onSaveRequest()"></app-toolbar>
+
+<div class="page-content" *ngIf="!isLoading">
+  <mat-card class="card">
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>{{ user.avatar }}</mat-icon>
+      </div>
+      <mat-card-title>{{ user.name }}</mat-card-title>
+      <mat-card-subtitle>{{ user.login }}</mat-card-subtitle>
+    </mat-card-header>
+    <hr />
+    <mat-card-content>
+      <div class="column-container">
+        <mat-card-subtitle>Аккаунт</mat-card-subtitle>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Логин</mat-label>
+          <input matInput [(ngModel)]="user.login" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Имя</mat-label>
+          <input matInput [(ngModel)]="user.name" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Аватар</mat-label>
+          <input matInput [(ngModel)]="user.avatar" />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="
+              goToLink('https://fonts.google.com/icons?selected=Material+Icons')
+            ">
+            <mat-icon>travel_explore</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-card-subtitle>Параметры</mat-card-subtitle>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Формат даты, времени и денежной единицы</mat-label>
+          <mat-select [(value)]="appUser.locale">
+            <mat-option [value]="'ru'"> Российская Федерация </mat-option>
+            <mat-option [value]="'en-US'"> США </mat-option>
+            <mat-option [value]="'ru-UA'"> Украина </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label
+            >Количество записей на странице (таблицы, списки)</mat-label
+          >
+          <input matInput type="number" [(ngModel)]="appUser.limit" />
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

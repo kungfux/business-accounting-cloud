@@ -1,0 +1,47 @@
+<app-toolbar
+  [title]="property?.title || 'Новое имущество'"
+  [mode]="toolBarMode"
+  [isLoading]="isLoading"
+  [selectedItem]="property"
+  [deleteVisible]="!!property?.id"
+  [saveEnabled]="!!property.title && property.cost! >= 0 && !isLoading"
+  [deleteEnabled]="!isLoading"
+  (saveRequest)="onSaveRequest()"
+  (deleteRequest)="onDeleteRequest()"
+  [favoriteVisible]="!!property?.id"
+  [favoriteEnabled]="property?.id !== favoritePropertyId"
+  (favoriteRequest)="onFavoriteRequest()"></app-toolbar>
+
+<div class="page-content" *ngIf="!isLoading">
+  <mat-card class="card">
+    <mat-card-content>
+      <div class="column-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Название имущества</mat-label>
+          <input matInput [(ngModel)]="property.title" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Инвентарный номер</mat-label>
+          <input matInput [(ngModel)]="property.inventoryNumber" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Стоимость ({{ this.currency.getSymbol() }})</mat-label>
+          <input
+            matInput
+            type="number"
+            [ngModel]="property.cost || undefined"
+            (ngModelChange)="property.cost = $event" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Комментарий</mat-label>
+          <textarea matInput [(ngModel)]="property.comment"></textarea>
+        </mat-form-field>
+      </div>
+      <section>
+        <mat-checkbox [(ngModel)]="property.enabled"
+          >Показывать в кассе для выбора</mat-checkbox
+        >
+      </section>
+    </mat-card-content>
+  </mat-card>
+</div>

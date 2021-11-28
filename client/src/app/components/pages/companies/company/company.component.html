@@ -1,0 +1,40 @@
+<app-toolbar
+  [title]="company?.name || 'Новая компания'"
+  [mode]="toolBarMode"
+  [isLoading]="isLoading"
+  [selectedItem]="company"
+  [deleteVisible]="!!company?.id"
+  [saveEnabled]="!!company.name && !isLoading"
+  [deleteEnabled]="!isLoading"
+  (saveRequest)="onSaveRequest()"
+  (deleteRequest)="onDeleteRequest()"></app-toolbar>
+
+<div class="page-content" *ngIf="!isLoading">
+  <mat-card class="card">
+    <mat-card-content>
+      <div class="column-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Название компании</mat-label>
+          <input matInput [(ngModel)]="company.name" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Логотип</mat-label>
+          <input matInput [(ngModel)]="company.logo" />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="
+              goToLink('https://fonts.google.com/icons?selected=Material+Icons')
+            ">
+            <mat-icon>{{ 'travel_explore' }}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <section>
+        <mat-checkbox [(ngModel)]="company.enabled"
+          >Разрешить управление этой компанией</mat-checkbox
+        >
+      </section>
+    </mat-card-content>
+  </mat-card>
+</div>

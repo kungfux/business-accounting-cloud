@@ -1,0 +1,85 @@
+<app-toolbar
+  [title]="user?.login || 'Новый пользователь'"
+  [mode]="toolBarMode"
+  [isLoading]="isLoading"
+  [selectedItem]="user"
+  [saveEnabled]="
+    !user.id
+      ? !!user.login &&
+        user.login.length > 0 &&
+        !!user.password &&
+        user.password.length >= 8 &&
+        !!user.name &&
+        user.name.length > 0 &&
+        !isLoading
+      : !!user.login &&
+        user.login.length > 0 &&
+        !!user.name &&
+        user.name.length > 0 &&
+        !isLoading
+  "
+  (saveRequest)="onSaveRequest()"
+  [deleteVisible]="!!user?.id"
+  [deleteEnabled]="!isLoading"
+  (deleteRequest)="onDeleteRequest()"
+  [changePasswordEnabled]="!!user?.id && !isLoading"
+  [changePasswordVisible]="!!user?.id"
+  (changePasswordRequest)="onChangePasswordRequest()"
+  [customButton]="customButton"
+  [customTooltip]="
+    'Выбрать компании, которыми данный пользователь может управлять'
+  "
+  [customVisible]="!!user.id"
+  (customRequest)="onAccessRequest()"></app-toolbar>
+
+<div class="page-content" *ngIf="!isLoading">
+  <mat-card class="card">
+    <mat-card-content>
+      <div class="column-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Логин</mat-label>
+          <input matInput [(ngModel)]="user.login" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="user && !user.id">
+          <mat-label>Пароль</mat-label>
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            [(ngModel)]="user.password"
+            required />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hidePassword = !hidePassword"
+            [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{
+              hidePassword ? 'visibility_off' : 'visibility'
+            }}</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Имя</mat-label>
+          <input matInput [(ngModel)]="user.name" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Аватар</mat-label>
+          <input matInput [(ngModel)]="user.avatar" />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="
+              goToLink('https://fonts.google.com/icons?selected=Material+Icons')
+            ">
+            <mat-icon>{{ 'travel_explore' }}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <section>
+        <mat-checkbox [(ngModel)]="user.admin">Администратор</mat-checkbox>
+        <mat-checkbox [(ngModel)]="user.enabled"
+          >Разрешить вход в систему</mat-checkbox
+        >
+      </section>
+    </mat-card-content>
+  </mat-card>
+</div>

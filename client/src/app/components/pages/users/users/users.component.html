@@ -1,0 +1,80 @@
+<app-toolbar
+  title="Пользователи"
+  [mode]="toolBarMode"
+  [isLoading]="isLoading"
+  [selectedItem]="selectedUser"
+  (createRequest)="onCreateRequest()"
+  (editRequest)="onEditRequest()"></app-toolbar>
+
+<div class="page-content">
+  <div class="table-responsive" *ngIf="!isLoading">
+    <table
+      mat-table
+      [dataSource]="users"
+      matSort
+      matSortActive="created"
+      matSortDirection="asc">
+      <ng-container matColumnDef="avatar">
+        <th mat-header-cell *matHeaderCellDef>Аватар</th>
+        <td mat-cell *matCellDef="let user">
+          <mat-icon>{{ user.avatar }}</mat-icon>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="login">
+        <th mat-header-cell *matHeaderCellDef>Логин</th>
+        <td mat-cell *matCellDef="let user">{{ user.login }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Имя</th>
+        <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="admin">
+        <th mat-header-cell *matHeaderCellDef>Администратор</th>
+        <td mat-cell *matCellDef="let user">
+          <mat-checkbox [checked]="user.admin" disabled> </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="enabled">
+        <th mat-header-cell *matHeaderCellDef>Вход разрешен</th>
+        <td mat-cell *matCellDef="let user">
+          <mat-checkbox [checked]="user.enabled" disabled> </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="created">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disabled>
+          Дата создания
+        </th>
+        <td mat-cell class="nowrap" *matCellDef="let user">
+          {{
+            user.created | date: 'medium':undefined:this.userPreferences.locale
+          }}
+        </td>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="
+          ['avatar', 'login', 'name', 'admin', 'enabled', 'created'];
+          sticky: true
+        "></tr>
+      <tr
+        mat-row
+        (click)="selectUser(row)"
+        [class.selectedRow]="selectedUser == row"
+        *matRowDef="
+          let row;
+          columns: ['avatar', 'login', 'name', 'admin', 'enabled', 'created']
+        "></tr>
+    </table>
+  </div>
+
+  <app-navigator
+    [isLoading]="isLoading"
+    [itemsCount]="users.length"
+    (pageChanged)="getUsers($event)"></app-navigator>
+</div>

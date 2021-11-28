@@ -1,0 +1,13 @@
+.page-content {
+  margin: 16px;
+  display: inline-block;
+}
+
+button {
+  margin: 4px;
+}
+
+button:hover {
+  box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+  transform: translateY(-3px);
+}

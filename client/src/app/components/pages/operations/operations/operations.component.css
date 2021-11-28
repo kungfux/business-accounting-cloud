@@ -1,0 +1,14 @@
+mat-card.filters {
+  text-align: center;
+  vertical-align: middle;
+  background: transparent;
+  box-shadow: unset;
+}
+
+.expense {
+  color: #f44336;
+}
+
+.income {
+  color: #4caf50;
+}

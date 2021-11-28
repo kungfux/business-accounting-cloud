@@ -1,0 +1,43 @@
+<app-toolbar
+  [title]="title?.name || 'Новая должность'"
+  [mode]="toolBarMode"
+  [isLoading]="isLoading"
+  [selectedItem]="title"
+  [deleteVisible]="!!title?.id"
+  [saveEnabled]="!!title.name && title.rate! >= 0 && !isLoading"
+  [deleteEnabled]="!isLoading"
+  (saveRequest)="onSaveRequest()"
+  (deleteRequest)="onDeleteRequest()"
+  [favoriteVisible]="!!title?.id"
+  [favoriteEnabled]="title?.id !== favoriteTitleId"
+  (favoriteRequest)="onFavoriteRequest()"></app-toolbar>
+
+<div class="page-content" *ngIf="!isLoading">
+  <mat-card class="card">
+    <mat-card-content>
+      <div class="column-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Название должности</mat-label>
+          <input matInput [(ngModel)]="title.name" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label
+            >Шаблон размера зарплаты ({{
+              this.currency.getSymbol()
+            }})</mat-label
+          >
+          <input
+            matInput
+            type="number"
+            [ngModel]="title.rate || undefined"
+            (ngModelChange)="title.rate = $event" />
+        </mat-form-field>
+      </div>
+      <section>
+        <mat-checkbox [(ngModel)]="title.enabled"
+          >Показывать для выбора в сотрудниках</mat-checkbox
+        >
+      </section>
+    </mat-card-content>
+  </mat-card>
+</div>

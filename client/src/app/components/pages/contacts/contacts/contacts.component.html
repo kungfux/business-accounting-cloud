@@ -1,0 +1,53 @@
+<app-toolbar
+  title="Сотрудники"
+  [mode]="toolBarMode"
+  [isLoading]="isLoading"
+  [selectedItem]="selectedContact"
+  (createRequest)="onCreateRequest()"
+  (editRequest)="onEditRequest()"
+  [filterVisible]="true"
+  (filterRequest)="onFiltersRequest()"></app-toolbar>
+
+<mat-card class="filters" *ngIf="filterShow">
+  <mat-card-content>
+    <!-- <mat-form-field appearance="fill">
+      <mat-label>Фильтр по ФИО</mat-label>
+      <input matInput [(ngModel)]="filterContactName" />
+      <button mat-icon-button matSuffix>
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field> -->
+    <mat-checkbox [(ngModel)]="filterActiveOnly" (change)="getContacts()"
+      >Только активные сотрудники</mat-checkbox
+    >
+  </mat-card-content>
+</mat-card>
+
+<div>
+  <div class="page-content" *ngIf="!isLoading">
+    <mat-card
+      *ngFor="let contact of contacts"
+      (click)="selectContact(contact)"
+      [class.selected]="selectedContact == contact"
+      class="contact">
+      <img
+        mat-card-image
+        src="{{ contact.photo || '/assets/photo-placeholder.jpg' }}"
+        [ngClass]="(isHandset | async) ? 'small' : 'big'" />
+      <mat-card-header>
+        <mat-card-title [ngClass]="(isHandset | async) ? 'small' : 'big'">{{
+          contact.name
+        }}</mat-card-title>
+        <mat-card-subtitle [ngClass]="(isHandset | async) ? 'small' : 'big'">
+          {{ (titles | title: contact.titleId!) || '&zwnj;' }}
+        </mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+  <app-navigator
+    class="line-break"
+    [isLoading]="isLoading"
+    [itemsCount]="contacts.length"
+    (pageChanged)="getContacts($event)"></app-navigator>
+</div>

@@ -1,0 +1,117 @@
+<app-toolbar
+  [title]="contact?.name || 'Новый сотрудник'"
+  [mode]="toolBarMode"
+  [isLoading]="isLoading"
+  [selectedItem]="contact"
+  [deleteVisible]="!!contact?.id"
+  [saveEnabled]="!!contact.name && !isLoading"
+  [deleteEnabled]="!isLoading"
+  (saveRequest)="onSaveRequest()"
+  (deleteRequest)="onDeleteRequest()"
+  [customButton]="choosePhotoButton"
+  [customVisible]="true"
+  [customTooltip]="'Открыть диалог для выбора фотографии сотрудника'"
+  (customRequest)="onChoosePhotoRequest()"
+  [favoriteVisible]="!!contact?.id"
+  [favoriteEnabled]="contact?.id !== favoriteContactId"
+  (favoriteRequest)="onFavoriteRequest()"></app-toolbar>
+
+<div class="page-content" *ngIf="!isLoading">
+  <mat-card class="card">
+    <mat-card-content>
+      <div class="section-small img">
+        <img
+          mat-card-image
+          src="{{ contact.photo || '/assets/photo-placeholder.jpg' }}" />
+      </div>
+      <div class="section-big">
+        <div class="column-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Фамилия, имя и отчество</mat-label>
+            <input matInput [(ngModel)]="contact.name" required />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Должность</mat-label>
+            <mat-select [(ngModel)]="contact.titleId">
+              <mat-option value="0"></mat-option>
+              <mat-option *ngFor="let title of titles" [value]="title.id">
+                {{ title.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Мобильный телефон</mat-label>
+            <input matInput [(ngModel)]="contact.cellphone" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Домашний телефон</mat-label>
+            <input matInput [(ngModel)]="contact.phone" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Электронная почта</mat-label>
+            <input matInput [(ngModel)]="contact.email" />
+          </mat-form-field>
+          <div class="calendars">
+            <mat-form-field appearance="fill">
+              <mat-label>Дата принятия</mat-label>
+              <input
+                matInput
+                [(ngModel)]="contact.hired"
+                [matDatepicker]="hired" />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="hired"></mat-datepicker-toggle>
+              <mat-datepicker #hired></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Дата увольнения</mat-label>
+              <input
+                matInput
+                [(ngModel)]="contact.fired"
+                [matDatepicker]="fired" />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="fired"></mat-datepicker-toggle>
+              <mat-datepicker #fired></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <mat-form-field appearance="fill">
+            <mat-label>Причина увольнения</mat-label>
+            <input matInput [(ngModel)]="contact.firedNote" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="section-big">
+        <div class="column-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Дата рождения</mat-label>
+            <input matInput [(ngModel)]="contact.dob" [matDatepicker]="dob" />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="dob"></mat-datepicker-toggle>
+            <mat-datepicker #dob></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Паспортные данные</mat-label>
+            <textarea matInput [(ngModel)]="contact.passport"></textarea>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Адрес регистрации</mat-label>
+            <textarea matInput [(ngModel)]="contact.address"></textarea>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Заметки</mat-label>
+            <textarea matInput [(ngModel)]="contact.note"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<input
+  hidden
+  #imageUpload
+  type="file"
+  [imageToDataUrl]="options"
+  (imageSelected)="onImageSelected($event)" />

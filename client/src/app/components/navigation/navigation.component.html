@@ -1,0 +1,173 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset | async) ? 'over' : 'push'"
+    [autoFocus]="false"
+    (openedStart)="onOpenedStart()">
+    <mat-toolbar>Меню</mat-toolbar>
+    <mat-divider></mat-divider>
+    <mat-nav-list *ngIf="!loggedInUser.id">
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="login"
+        [class.active]="activeRoute === '/login'">
+        <mat-icon>account_circle</mat-icon>
+        Авторизация
+      </a>
+    </mat-nav-list>
+    <mat-nav-list *ngIf="loggedInUser.id">
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="dashboard"
+        [class.active]="activeRoute === '/dashboard'">
+        <mat-icon>dashboard</mat-icon>
+        Главная
+      </a>
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="operations"
+        [class.active]="activeRoute === '/operations'">
+        <mat-icon>payments</mat-icon>
+        Касса
+      </a>
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="contacts"
+        [class.active]="activeRoute.startsWith('/contacts')">
+        <mat-icon>badge</mat-icon>
+        Сотрудники
+      </a>
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="reports"
+        [class.active]="activeRoute.startsWith('/reports')">
+        <mat-icon>pie_chart</mat-icon>
+        Отчеты
+      </a>
+      <div mat-subheader>Каталоги</div>
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="titles"
+        [class.active]="activeRoute.startsWith('/titles')">
+        <mat-icon>personal_injury</mat-icon>
+        Должности
+      </a>
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="properties"
+        [class.active]="activeRoute.startsWith('/properties')">
+        <mat-icon>savings</mat-icon>
+        Имущество
+      </a>
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="incomes"
+        [class.active]="activeRoute.startsWith('/incomes')">
+        <mat-icon>account_balance_wallet</mat-icon>
+        Доходы
+      </a>
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="expenditures"
+        [class.active]="activeRoute.startsWith('/expenditures')">
+        <mat-icon>payment</mat-icon>
+        Расходы
+      </a>
+    </mat-nav-list>
+    <mat-nav-list *ngIf="loggedInUser.id && loggedInUser.admin">
+      <div mat-subheader>Администрирование</div>
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="users"
+        [class.active]="activeRoute.startsWith('/users')">
+        <mat-icon>manage_accounts</mat-icon>
+        Пользователи
+      </a>
+      <a
+        mat-list-item
+        (click)="drawer.toggle()"
+        routerLink="companies"
+        [class.active]="activeRoute.startsWith('/companies')">
+        <mat-icon>business</mat-icon>
+        Компании
+      </a>
+    </mat-nav-list>
+    <mat-nav-list
+      *ngIf="
+        !(isHandset | async) && loggedInUser.id && !isRunningInsideDesktopApp
+      ">
+      <div mat-subheader>Дополнительно</div>
+      <a
+        mat-list-item
+        href="https://bac-setup.kungfux-stub.com/Business%20Accounting%20Cloud%20Setup%201.0.0.exe"
+        target="_blank"
+        matTooltip="Загрузить настольное приложение для Windows, чтобы сделать работу с Business Accounting Cloud ещё удобнее">
+        <mat-icon>laptop</mat-icon>
+        Windows клиент
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button mat-icon-button onclick="this.blur()" (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span *ngIf="!(isHandset | async) || !loggedInUser.id">{{ title }}</span>
+      <span class="spacer"></span>
+      <button
+        mat-button
+        *ngIf="loggedInUser.id && loggedInUser.companyId"
+        [color]="company.name ? 'inherit' : 'warn'"
+        (click)="onSwitchCompany()"
+        matTooltip="Выбрать компанию для управления её финансами или просмотра информации">
+        <mat-icon>{{ company.logo || 'warning' }}</mat-icon>
+        <span class="mat-button-wrapper">{{
+          company.name || 'Выбрать компанию'
+        }}</span>
+      </button>
+      <div class="vertical-line" *ngIf="loggedInUser.id"></div>
+      <button
+        *ngIf="loggedInUser.id"
+        mat-button
+        [color]="loggedInUser.name ? 'inherit' : 'warn'"
+        (click)="onProfileClick()"
+        [matTooltip]="
+          loggedInUser.name
+            ? 'Настройте программу под себя, измените данные своего профиля или пароль'
+            : 'Пожалуйста, выйдите из системы и авторизуйтесь повторно'
+        ">
+        <mat-icon>{{ loggedInUser.avatar || 'warning' }}</mat-icon>
+        <span class="mat-button-wrapper">{{
+          loggedInUser.name || 'Авторизуйтесь'
+        }}</span>
+      </button>
+      <button
+        mat-button
+        [ngClass]="(isHandset | async) ? 'mat-icon-button' : 'mat-button'"
+        (click)="logout()"
+        *ngIf="loggedInUser.id"
+        matTooltip="Выйти из системы">
+        <mat-icon>logout</mat-icon>
+        <span *ngIf="!(isHandset | async)">Выйти</span>
+      </button>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<footer class="footer" *ngIf="!loggedInUser.id">
+  <p>Business Accounting © 2010-2021 | Designed by <u>kungfux</u></p>
+</footer>
