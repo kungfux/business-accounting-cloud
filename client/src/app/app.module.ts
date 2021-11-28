@@ -29,6 +29,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
+import { NgxEchartsModule } from 'ngx-echarts';
 import { ImageToDataUrlModule } from 'ngx-image2dataurl';
 import { AppComponent } from './app.component';
 import { NavigatorComponent } from './components/common/navigator/navigator.component';
@@ -52,6 +53,8 @@ import { OperationComponent } from './components/pages/operations/operation/oper
 import { OperationsComponent } from './components/pages/operations/operations/operations.component';
 import { PropertiesComponent } from './components/pages/property/properties/properties.component';
 import { PropertyComponent } from './components/pages/property/property/property.component';
+import { IncomeReportComponent } from './components/pages/reports/comparison/income.component';
+import { IncomeExpenseComponent } from './components/pages/reports/income-expense/income-expense.component';
 import { TitleComponent } from './components/pages/titles/title/title.component';
 import { TitlesComponent } from './components/pages/titles/titles/titles.component';
 import { ChangePasswordComponent } from './components/pages/users/change-password/change-password.component';
@@ -186,6 +189,16 @@ const routes: Routes = [
     component: OperationComponent,
     canActivate: [AuthorizedUserGuard],
   },
+  {
+    path: 'reports/income-expense',
+    component: IncomeExpenseComponent,
+    canActivate: [AuthorizedUserGuard],
+  },
+  {
+    path: 'reports/income',
+    component: IncomeReportComponent,
+    canActivate: [AuthorizedUserGuard],
+  },
   { path: '**', redirectTo: 'dashboard' },
 ];
 
@@ -230,6 +243,8 @@ const routes: Routes = [
     CompanyTotalMonthComponent,
     OperationComponent,
     UserAccessComponent,
+    IncomeExpenseComponent,
+    IncomeReportComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -263,6 +278,9 @@ const routes: Routes = [
     }),
     ImageToDataUrlModule,
     MatSortModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    }),
   ],
   providers: [
     DialogComponent,

@@ -1,0 +1,10 @@
+mat-card.filters {
+  text-align: center;
+  vertical-align: middle;
+  background: transparent;
+  box-shadow: unset;
+}
+
+mat-form-field {
+  margin-right: 16px;
+}

@@ -50,7 +50,7 @@
       [ngClass]="(isHandset | async) ? 'mat-icon-button' : 'mat-stroked-button'"
       color="primary"
       (click)="onFilterClick()"
-      *ngIf="mode === 1 && filterVisible"
+      *ngIf="filterVisible"
       matTooltip="Показать / скрыть фильтры">
       <mat-icon>filter_alt</mat-icon>
       <span *ngIf="!(isHandset | async)" class="mat-button-wrapper"

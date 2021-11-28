@@ -35,11 +35,13 @@ export class CompanyTotalYearComponent implements OnInit, AfterViewInit {
       const from = new Date(today.getFullYear(), 1, 1, 0, 0, 0, 0);
       const to = new Date(today.getFullYear(), 12, 31, 23, 59, 59, 999);
       this.reportApi
-        .getTotal(this.userPreferences.companyId, from, to)
+        .getPureIncome(this.userPreferences.companyId, from, to)
         .subscribe({
           next: (total) => {
-            if (total.total) {
-              this.currentYearTotal = this.currencyService.convert(total.total);
+            if (total.length > 0 && total[0].total !== null) {
+              this.currentYearTotal = this.currencyService.convert(
+                total[0].total
+              );
             } else {
               this.currentYearTotal = this.currencyService.convert(0)!;
             }
@@ -55,11 +57,11 @@ export class CompanyTotalYearComponent implements OnInit, AfterViewInit {
       const from = new Date(today.getFullYear() - 1, 1, 1, 0, 0, 0, 0);
       const to = new Date(today.getFullYear() - 1, 12, 31, 23, 59, 59, 999);
       this.reportApi
-        .getTotal(this.userPreferences.companyId, from, to)
+        .getPureIncome(this.userPreferences.companyId, from, to)
         .subscribe({
           next: (total) => {
-            if (total.total) {
-              this.lastYearTotal = this.currencyService.convert(total.total);
+            if (total.length > 0 && total[0].total !== null) {
+              this.lastYearTotal = this.currencyService.convert(total[0].total);
             } else {
               this.lastYearTotal = this.currencyService.convert(0)!;
             }

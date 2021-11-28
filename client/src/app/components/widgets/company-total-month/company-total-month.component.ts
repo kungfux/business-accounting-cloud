@@ -51,11 +51,13 @@ export class CompanyTotalMonthComponent implements OnInit, AfterViewInit {
         999
       );
       this.reportApi
-        .getTotal(this.userPreferences.companyId, from, to)
+        .getPureIncome(this.userPreferences.companyId, from, to)
         .subscribe({
           next: (total) => {
-            if (total.total) {
-              this.currentYearTotal = this.currencyService.convert(total.total);
+            if (total.length > 0 && total[0].total !== null) {
+              this.currentYearTotal = this.currencyService.convert(
+                total[0].total
+              );
             } else {
               this.currentYearTotal = this.currencyService.convert(0)!;
             }
@@ -87,11 +89,11 @@ export class CompanyTotalMonthComponent implements OnInit, AfterViewInit {
         999
       );
       this.reportApi
-        .getTotal(this.userPreferences.companyId, from, to)
+        .getPureIncome(this.userPreferences.companyId, from, to)
         .subscribe({
           next: (total) => {
-            if (total.total) {
-              this.lastYearTotal = this.currencyService.convert(total.total);
+            if (total.length > 0 && total[0].total !== null) {
+              this.lastYearTotal = this.currencyService.convert(total[0].total);
             } else {
               this.lastYearTotal = this.currencyService.convert(0)!;
             }

@@ -11,9 +11,9 @@ export class ReportApiService {
 
   constructor(private api: ApiService, private dateService: DateService) {}
 
-  getTotal(companyId: number, from?: Date, to?: Date): Observable<any> {
+  getPureIncome(companyId: number, from?: Date, to?: Date): Observable<any> {
     return this.api.get<any>({
-      api: this.reportApiUrl,
+      api: `${this.reportApiUrl}/pureIncome`,
       companyId: companyId,
       params:
         from !== undefined && to !== undefined
@@ -24,4 +24,27 @@ export class ReportApiService {
           : {},
     });
   }
+
+  getPureIncomeDetalized(
+    companyId: number,
+    from: Date,
+    to: Date,
+    detalization: Detalization
+  ): Observable<any> {
+    return this.api.get<any>({
+      api: `${this.reportApiUrl}/pureIncome`,
+      companyId: companyId,
+      params: {
+        from: this.dateService.convertToUtcDateOnly(from).toISOString(),
+        to: this.dateService.convertToUtcDateOnly(to).toISOString(),
+        detalization: detalization,
+      },
+    });
+  }
+}
+
+export enum Detalization {
+  month = 'month',
+  week = 'week',
+  day = 'day',
 }

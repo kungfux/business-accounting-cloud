@@ -3,9 +3,13 @@
 const total = {
     response: {
         200: {
-            type: 'object',
+            type: 'array',
             properties: {
                 total: { type: 'number' },
+                year: { type: 'number' },
+                month: { type: 'number' },
+                week: { type: 'number' },
+                day: { type: 'number' },
             }
         }
     },
@@ -14,7 +18,8 @@ const total = {
         properties: {
             companyId: { type: 'integer' },
             from: { type: 'string' },
-            to: { type: 'string' }
+            to: { type: 'string' },
+            detalization: { type: 'string' }
         },
         required: ['companyId']
     },

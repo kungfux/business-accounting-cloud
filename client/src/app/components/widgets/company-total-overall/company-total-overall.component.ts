@@ -25,10 +25,10 @@ export class CompanyTotalOverallComponent implements AfterViewInit {
 
   getCompanyTotal(): void {
     if (this.userPreferences.companyId) {
-      this.reportApi.getTotal(this.userPreferences.companyId).subscribe({
+      this.reportApi.getPureIncome(this.userPreferences.companyId).subscribe({
         next: (total) => {
-          if (total.total) {
-            this.total = this.currencyService.convert(total.total);
+          if (total.length > 0 && total[0].total !== null) {
+            this.total = this.currencyService.convert(total[0].total);
           } else {
             this.total = this.currencyService.convert(0)!;
           }
