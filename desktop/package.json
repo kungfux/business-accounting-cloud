@@ -1,0 +1,45 @@
+{
+  "name": "business-accounting-cloud",
+  "version": "1.0.0",
+  "description": "Desktop client for Business Accounting Cloud",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "electron-builder --dir",
+    "dist": "npm run clean && electron-builder",
+    "clean": "rimraf dist",
+    "server": "http-server -p 81 ./dist -a 0.0.0.0 -d 0 -g 1 --no-dotfiles --cors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kungfux/business-accounting-cloud.git"
+  },
+  "author": "kungfux <k*****x@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/kungfux/business-accounting-cloud/issues"
+  },
+  "homepage": "https://github.com/kungfux/business-accounting-cloud#readme",
+  "build": {
+    "appId": "com.electron.bac",
+    "productName": "Business Accounting Cloud",
+    "copyright": "Copyright © 2010-2021 kungfux",
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.png"
+    },
+    "publish": {
+      "provider": "generic",
+      "url": "https://bac-setup.kungfux-stub.com/"
+    }
+  },
+  "devDependencies": {
+    "electron": "^16.0.1",
+    "electron-builder": "^22.14.5",
+    "http-server": "^14.0.0",
+    "rimraf": "^3.0.2"
+  },
+  "dependencies": {
+    "electron-updater": "^4.6.1"
+  }
+}
